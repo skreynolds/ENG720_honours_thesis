@@ -1,3 +1,6 @@
+%------------------------------------
+% Document Preamble
+%------------------------------------
 \documentclass[12pt, a4paper]{article}
 \setlength{\oddsidemargin}{0.5cm}
 \setlength{\evensidemargin}{0.5cm}
@@ -10,6 +13,19 @@
 \parskip 5pt
 \pagestyle{plain}
 
+%------------------------------------
+% Imported packages
+%------------------------------------
+\usepackage{graphicx}
+
+%------------------------------------
+% Graphics path specification
+%------------------------------------
+\graphicspath{{./fig/}}
+
+%------------------------------------
+% Title block
+%------------------------------------
 \title{ENG720: Research Proposal}
 \author{}
 \date{}
@@ -43,16 +59,15 @@
 % Introduction
 %------------------------------------
 \section{Introduction}
-
 \subsection{Background}
-You will need to introduce the research topic to your reader and explain why it is significant.
+Interconnected power systems are comprised of power generating units and energy storage systems, which are connected to transmission and distribution networks such that generated power can service load demand. A typical single line diagram of a power network can be seen in Figure 1. The left hand side of the diagram shows thermal generation units such as coal and nuclear, in addition to renewable sources of generation like wind and solar. The right hand side of the figure shows the distribution network and the consumers of generated energy: industry and households.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.75]{power_system}
+	\caption{A single line diagram of a typical power system taken from \cite{Glavic2019}. The image shows points of generation from thermal and renewable sources, and the subsequent supply of generated energy to meet load demand through the transmission and distribution network.}
+\end{figure}
 
-It is best to pitch your explanation to an academic audience that lacks expertise in the specific field. For this reason, you may need to provide some background information about the emergence and evolution of the topic. Focus here on the dominant trends, landmark studies and, if appropriate, more recent developments in scholarship.
-
-In this section you should give some background to your
-research area. What is the problem you are tackling, and why is it
-worthwhile solving? Who has already done some work in this area,
-and what have they achieved?
+Successful operation of interconnected power systems requires total load demand to be matched with total generation, taking into account power losses involved with generation, transmission, and distribution \cite{Wood2013}. At any point in time the total load demand will fluctuate stochastically resulting in small imbalances between generation and load demand.
 
 \subsection{Significance}
 Why is this topic significant to you? Why should others be interested in it? You might find it helpful to think about what led you to undertake research in this area. You might also consider how scholars in the field discuss its importance. In what ways is your understanding of its significance similar or different?
@@ -62,7 +77,7 @@ Why is this topic significant to you? Why should others be interested in it? You
 % Research Aims and Questions
 %------------------------------------
 \section{Research Aims and Questions}
-Now state explicitly the hypothesis you aim to test. Make references to the items listed in the Reference section that back up your arguments for why this is a reasonable hypothesis to test, for example the work of Knuth~\cite{knuth}.
+Now state explicitly the hypothesis you aim to test. Make references to the items listed in the Reference section that back up your arguments for why this is a reasonable hypothesis to test, for example the work of Knuth.
 
 Explain what you expect will be accomplished by undertaking this particular project.  Moreover, is it likely to have any other applications?
 
@@ -213,6 +228,7 @@ To avoid repetition with the description of your research aims and significance 
 %------------------------------------
 %Bibliography
 %------------------------------------
-\bibliography{./bib/my_bib.bib}
+\bibliographystyle{plain}
+\bibliography{./bib/my_bib}
 
 \end{document}
