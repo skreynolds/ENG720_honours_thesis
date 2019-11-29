@@ -17,6 +17,7 @@
 % Imported packages
 %------------------------------------
 \usepackage{graphicx}
+\usepackage{siunitx}
 
 %------------------------------------
 % Graphics path specification
@@ -67,7 +68,35 @@ Interconnected power systems are comprised of power generating units and energy 
 	\caption{A single line diagram of a typical power system taken from \cite{Glavic2019}. The image shows points of generation from thermal and renewable sources, and the subsequent supply of generated energy to meet load demand through the transmission and distribution network.}
 \end{figure}
 
-Successful operation of interconnected power systems requires total load demand to be matched with total generation, taking into account power losses involved with generation, transmission, and distribution \cite{Wood2013}. At any point in time the total load demand will fluctuate stochastically resulting in small imbalances between generation and load demand.
+Successful operation of interconnected power systems requires total load demand to be matched with total generation, taking into account power losses involved with generation, transmission, and distribution \cite{Wood2013}. A single thermal generator system can be thought of, in its simplest form, as a prime mover (turbine) and a synchronous machine, as depicted in Figure 2.
+\begin{figure}[h]
+\centering
+\includegraphics[height=1.5cm]{generation}
+\caption{Perhaps the simplest way to think of a thermal generation unit is as a prime mover (turbine), and a synchronous machine. This image was taken from \cite{Wood2013}.}
+\end{figure}
+
+The prime mover provides mechanical torque, $T_{mech}$, which drives the synchronous machine producing the electrical energy that supplies electrical loads connected to the system. The synchronous machine creates a torque which opposes $T_{mech}$. It is called electrical torque and is denoted as $T_{elec}$. Letting $\alpha$ represent angular velocity of the generator rotating mass, and $I$ be the rotating mass moment of inertia, Newton's second law states:
+\begin{equation}
+\sum T_i = I \alpha 
+\end{equation}
+
+Equation (1) shows that when $T_{mech}$ equals $T_{elec}$ the system is said to be in a steady state, with zero angular acceleration, and constant rotation at some angular velocity $\omega$. Now, if $T_{mech} > T_{elec}$, then the angular velocity $\omega$ of the system will speed up. Conversely, if $T_{mech} < T_{elec}$ then the angular velocity $\omega$ will slow down. What makes this situation interesting is that at any point in time the total electrical load demand will fluctuate stochastically. System controllers, such as the Australian Energy Market Operator (AEMO) and Power and Water Corporation (PWC), can forecast daily demand profiles with some reliability using historical data. An example of historical daily demand profiles are shown in Figure 3.  
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=7cm]{load_profile}
+	\caption{Weekday energy demand profile in South Australia during summer \cite{AEMO2018}.}
+\end{figure}
+
+Forecasts provide a starting point that AEMO and PWC can use for estimating generation needed to meet demand for a given time. Unfortunately forecasts are not perfect and unpredicted load can appear on the system, or worse, generation assets could be disconnected from the network. Mismatches in generation and demand lead to small imbalances between $T_{mech}$ and $T_{elec}$, and thus a resulting in a change to angular velocity $\omega$ and the network frequency \cite{Glover2012}.\\
+
+Australia's electricity network is designed to operate at a frequency of 50$\si{\hertz}$. In the majority of network scenarios AEMO's desired operating range for frequency is 49.85$\si{\hertz}$ and 50.15$\si{\hertz}$ \cite{AEMO2012}. The PWC Network Technical Code for the Northern Territory states that under normal operating conditions frequency should be maintained in the range 49.80$\si{\hertz}$ to 50.20$\si{\hertz}$ \cite{PWC2018}. Operation outside of specified ranges can cause damage to electrical equipment. Sustained over or under frequency will generally cause protection systems to remove equipment from the network, as will sudden large frequency deviations. If the disconnections are uncontrolled then this can create further imbalance to the electrical network. In order to correct these deviations, system controllers use generators which are referred to as regulating units. A regulating generator is a generator that has the capacity to increase or decrease mechanical torque $T_{mech}$ allowing the system controller to arrest changing frequency and restore the system to stable operating conditions. An example of regulation arresting a frequency disturbance, and the subsequent restoration of the system can be seen in Figure 4.
+\begin{figure}[h]
+\centering
+\includegraphics[height=8cm]{frequency_arrest}
+\caption{text}
+\end{figure}
+
+
 
 \subsection{Significance}
 Why is this topic significant to you? Why should others be interested in it? You might find it helpful to think about what led you to undertake research in this area. You might also consider how scholars in the field discuss its importance. In what ways is your understanding of its significance similar or different?
@@ -228,7 +257,7 @@ To avoid repetition with the description of your research aims and significance 
 %------------------------------------
 %Bibliography
 %------------------------------------
-\bibliographystyle{plain}
+\bibliographystyle{unsrt}
 \bibliography{./bib/my_bib}
 
 \end{document}
