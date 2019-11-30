@@ -56,49 +56,122 @@
 	Bachelor of Engineering (Honours)
 \end{namelist}
 
+
+%------------------------------------
+% Contents
+%------------------------------------
+\tableofcontents
+\newpage
+
 %------------------------------------
 % Introduction
 %------------------------------------
 \section{Introduction}
 \subsection{Background}
-Interconnected power systems are comprised of power generating units and energy storage systems, which are connected to transmission and distribution networks such that generated power can service load demand. A typical single line diagram of a power network can be seen in Figure 1. The left hand side of the diagram shows thermal generation units such as coal and nuclear, in addition to renewable sources of generation like wind and solar. The right hand side of the figure shows the distribution network and the consumers of generated energy: industry and households.
+
+\subsubsection{Power Systems and Frequency}
+Interconnected power systems are comprised of power generating units and energy storage systems connected to transmission and distribution networks, where generated power is used to service load demand. A single line diagram of a power network can be seen in Figure 1. The left hand side of the diagram shows thermal generation units, such as coal and nuclear, in addition to renewable sources of generation, like wind and solar. The right hand side of the figure shows the distribution network and the consumers of generated energy: industry and households.
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.75]{power_system}
+	\includegraphics[scale=0.85]{power_system}
 	\caption{A single line diagram of a typical power system taken from \cite{Glavic2019}. The image shows points of generation from thermal and renewable sources, and the subsequent supply of generated energy to meet load demand through the transmission and distribution network.}
 \end{figure}
 
-Successful operation of interconnected power systems requires total load demand to be matched with total generation, taking into account power losses involved with generation, transmission, and distribution \cite{Wood2013}. A single thermal generator system can be thought of, in its simplest form, as a prime mover (turbine) and a synchronous machine, as depicted in Figure 2.
+Successful operation of interconnected power systems requires total load demand to be matched with total generation, taking into account power losses involved with generation, transmission, and distribution \cite{Wood2013}. To understand why it is important to match generation with load demand it is useful to first consider the basic operation of a single thermal generator. A simple way to think about a thermal generator is consisting of a prime mover (turbine) and a synchronous machine, as depicted in Figure 2.
 \begin{figure}[h]
 \centering
-\includegraphics[height=1.5cm]{generation}
-\caption{Perhaps the simplest way to think of a thermal generation unit is as a prime mover (turbine), and a synchronous machine. This image was taken from \cite{Wood2013}.}
+\includegraphics[height=1.4cm]{generation}
+\caption{A thermal generation unit consists of a prime mover (turbine), and a synchronous machine. This image was taken from \cite{Wood2013}.}
 \end{figure}
 
-The prime mover provides mechanical torque, $T_{mech}$, which drives the synchronous machine producing the electrical energy that supplies electrical loads connected to the system. The synchronous machine creates a torque which opposes $T_{mech}$. It is called electrical torque and is denoted as $T_{elec}$. Letting $\alpha$ represent angular velocity of the generator rotating mass, and $I$ be the rotating mass moment of inertia, Newton's second law states:
+The prime mover provides mechanical torque, $T_{mech}$, which drives the synchronous machine producing electrical energy. In response, the synchronous machine creates a torque which opposes $T_{mech}$, dependent on the size of the load demand from households and industry. This is referred to as electrical torque and is denoted as $T_{elec}$. If $\alpha$ represents angular velocity of the generator rotating mass, and $I$ is the moment of inertia then by Newton's second law:
 \begin{equation}
 \sum T_i = I \alpha 
 \end{equation}
 
-Equation (1) shows that when $T_{mech}$ equals $T_{elec}$ the system is said to be in a steady state, with zero angular acceleration, and constant rotation at some angular velocity $\omega$. Now, if $T_{mech} > T_{elec}$, then the angular velocity $\omega$ of the system will speed up. Conversely, if $T_{mech} < T_{elec}$ then the angular velocity $\omega$ will slow down. What makes this situation interesting is that at any point in time the total electrical load demand will fluctuate stochastically. System controllers, such as the Australian Energy Market Operator (AEMO) and Power and Water Corporation (PWC), can forecast daily demand profiles with some reliability using historical data. An example of historical daily demand profiles are shown in Figure 3.  
+Equation (1) shows that when $T_{mech}$ equals $T_{elec}$ the system will be in a steady state with zero angular acceleration, and a constant rotation at some angular velocity $\omega$. Now, if $T_{mech} > T_{elec}$, then the angular velocity $\omega$ of the system will increase as the system speeds up. Conversely, if $T_{mech} < T_{elec}$ then the angular velocity $\omega$ decrease as the system slows down. What makes this situation interesting is that at any point in time the total electrical load demand will fluctuate stochastically, meaning that an uncontrolled system will have a continually changing frequency. System controllers, such as the Australian Energy Market Operator (AEMO) and Power and Water Corporation (PWC), can forecast daily demand profiles with some reliability using historical data. An example of historical daily demand profiles are shown in Figure 3.  
 \begin{figure}[h]
 	\centering
 	\includegraphics[height=7cm]{load_profile}
 	\caption{Weekday energy demand profile in South Australia during summer \cite{AEMO2018}.}
 \end{figure}
 
-Forecasts provide a starting point that AEMO and PWC can use for estimating generation needed to meet demand for a given time. Unfortunately forecasts are not perfect and unpredicted load can appear on the system, or worse, generation assets could be disconnected from the network. Mismatches in generation and demand lead to small imbalances between $T_{mech}$ and $T_{elec}$, and thus a resulting in a change to angular velocity $\omega$ and the network frequency \cite{Glover2012}.\\
+Forecasts provide a starting point that AEMO and PWC can use for estimating generation needed to meet demand for a given time. Unfortunately forecasts are not perfect and mismatches in generation and demand lead to small imbalances between $T_{mech}$ and $T_{elec}$, and thus a resulting in a change to angular velocity $\omega$ and the network frequency \cite{Glover2012}.\\ and unpredicted load appearing on the system appear on the system, or worse, generation assets could be disconnected from the network. 
 
-Australia's electricity network is designed to operate at a frequency of 50$\si{\hertz}$. In the majority of network scenarios AEMO's desired operating range for frequency is 49.85$\si{\hertz}$ and 50.15$\si{\hertz}$ \cite{AEMO2012}. The PWC Network Technical Code for the Northern Territory states that under normal operating conditions frequency should be maintained in the range 49.80$\si{\hertz}$ to 50.20$\si{\hertz}$ \cite{PWC2018}. Operation outside of specified ranges can cause damage to electrical equipment. Sustained over or under frequency will generally cause protection systems to remove equipment from the network, as will sudden large frequency deviations. If the disconnections are uncontrolled then this can create further imbalance to the electrical network. In order to correct these deviations, system controllers use generators which are referred to as regulating units. A regulating generator is a generator that has the capacity to increase or decrease mechanical torque $T_{mech}$ allowing the system controller to arrest changing frequency and restore the system to stable operating conditions. An example of regulation arresting a frequency disturbance, and the subsequent restoration of the system can be seen in Figure 4.
+Australia's electricity network is designed to operate at a frequency of 50$\si{\hertz}$. In the majority of network scenarios AEMO's desired operating range for frequency is between 49.85$\si{\hertz}$ and 50.15$\si{\hertz}$ \cite{AEMO2012}. The PWC Network Technical Code for the Northern Territory states that under normal operating conditions frequency should be maintained in the range 49.80$\si{\hertz}$ to 50.20$\si{\hertz}$ \cite{PWC2018}. Operation outside of specified ranges can cause damage to electrical equipment. Sustained over or under frequency will generally cause protection systems to remove equipment from the network, as will sudden large frequency deviations. If the disconnections are uncontrolled then this can create further imbalance to the electrical network. In order to correct these deviations, system controllers use generators which are referred to as regulating units. A regulating generator is a generator that has the capacity to increase or decrease mechanical torque $T_{mech}$ allowing the system controller to arrest changing frequency and restore the system to stable operating conditions. AEMO and PWC only require a subset of the generators on the network to act as regulating generators. TALK ABOUT SPINNING RESERVES. An example of regulation arresting a frequency disturbance, and the subsequent restoration of the system can be seen in Figure 4.
 \begin{figure}[h]
 \centering
 \includegraphics[height=8cm]{frequency_arrest}
 \caption{text}
 \end{figure}
 
+Regulation needs to be performed quickly in response to a frequency disturbance. HOW QUICKLY DO UTILITIES NEED TO RESPOND. Typically regulation is performed automatically, except under highly abnormal operating conditions.
+
+\subsubsection{Load frequency control for a single area}
+The power system model shown in Figure 1 depicts total generation coming from many generation assets. Researchers often find it useful to divide generation assets into sub-groups referred to as control areas. Kothari defines a control area as a subset of generators belonging to a close knit area which constitute a coherent group such that all the generators speed up and slow down together maintaining their relative power angles \cite{Kothari2011}. The total network is therefore comprised of many interconnected control areas. An example of a series of interconnected control areas can be seen in Figure XXXX.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{placeholder}
+	\caption{A number of control areas interconnected. Each control area is consists of many generators and loads.}
+\end{figure}
+
+To simplify analysis of interconnected systems, researchers tend to make a further simplifying assumption by representing all of the distinct generators in a control area as a single generator. This assumption also is made for loads in the control area. Figure XXXX depicts this assumption being applied to a control area with multiple generators and loads.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{placeholder}
+\caption{The left hand image shows a control area comprised of generators and loads. The right hand image shows the simplified control area which consists of a single generator and a single load.}
+\end{figure}
+
+The simplest power system to control frequency 
+NEED TO TALK ABOUT CONSIDERING A SINGLE CONTROL AREA THAT HAS NO CONNECTION TO THE REST OF THE NETWORK
+
+To control frequency of a single The regulation workhorse for a single control area, which performs the bulk of regulation activity, is the speed governor. These devices are connected to every generator and their operation in provision of frequency regulation is well understood.
+
+\subsubsection{Two-area load frequency control}
+
+DEFINE WHAT A TWO AREA CONTROL LOOKS LIKE
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.7]{two_area_system}
+	\caption{Two area power system is comprised of generators and load connected via a tie line. Power flows from one area to the other depending on economic contracts.}
+\end{figure}
+
+TALK ABOUT WHAT HAPPENS IF WE JUST LET THE SPEED GOVENORS DO THE JOB
+
+TALK ABOUT HOW THIS MAY END UP VIOLATING ECONOMIC CONTRACTS THAT ARE IN PLACE
+
+INTRODUCE AUTOMATIC GENERATION CONTROL AND THE ITS PRIMARY MOTIVATION
+
+TALK ABOUT THIS LARGELY BEING A SOLVED PROBLEM
+
+\subsubsection{Reinforcement learning}
+
+TALK ABOUT THE HISTORY OF REINFORCEMENT LEARNING
+
+TALK ABOUT THE BASIC COMPONENTS OF HOW IT IS PUT TOGETHER
+
+TALK ABOUT APPLICATIONS IN THIS FIELD
+
+\subsubsection{Deep reinforcement learning}
+
+TALK ABOUT HOW DRL DIFFERS TO STANDARD RL
+
+TALK ABOUT THE BENEFITS OF USING THIS TYPE OF APPROACH
 
 
 \subsection{Significance}
+
+TALK ABOUT THE INCREASE OF RENEWABLES ENTERING THE SYSTEM
+
+TALK ABOUT THE INCREASE OF HVDC TRANSMISSION TO NETWORK
+
+TALK ABOUT THE INTRODUCTION OF EV IN THE COMING DECADES AND THE IMPLCATIONS FOR THE ELECTRICAL NETWORK
+
+TALK ABOUT A DECENTRALISED GENERATION MODEL THROUGH THE USE OF VIRTUAL POWER NETWORKS WHICH ARE COMPRISED OF MULTIPLE ROOFTOP SOLAR ASSETS
+
+TALK ABOUT THE DRAWBACKS TO ASSUMING LINEAR MODELS WITH TRADITIONAL CONTROL METHODS - THIS IS PROBLEMATIC SINCE ANY SIMULATION OF THE SYSTEM WOULD BE USING LINEAR MODELS TO SIMULATE THE SYSTEM DYNAMICS - DRL CONTROL WOULD BE BASED ON A LINEARISED SYSTEM
+
 Why is this topic significant to you? Why should others be interested in it? You might find it helpful to think about what led you to undertake research in this area. You might also consider how scholars in the field discuss its importance. In what ways is your understanding of its significance similar or different?
 
 
