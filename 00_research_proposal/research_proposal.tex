@@ -67,9 +67,13 @@
 % Introduction
 %------------------------------------
 \section{Introduction}
-\subsection{Background}
 
-\subsubsection{Power Systems and Frequency}
+%------------------------------------
+% Introduction
+%------------------------------------
+\section{Background}
+
+\subsection{Power Systems and Frequency}
 Interconnected power systems are comprised of power generating units and energy storage systems connected to transmission and distribution networks, where generated power is used to service load demand. A single line diagram of a power network can be seen in Figure 1. The left hand side of the diagram shows thermal generation units, such as coal and nuclear, in addition to renewable sources of generation, like wind and solar. The right hand side of the figure shows the distribution network and the consumers of generated energy: industry and households.
 \begin{figure}[h]
 	\centering
@@ -77,7 +81,7 @@ Interconnected power systems are comprised of power generating units and energy 
 	\caption{A single line diagram of a typical power system taken from \cite{Glavic2019}. The image shows points of generation from thermal and renewable sources, and the subsequent supply of generated energy to meet load demand through the transmission and distribution network.}
 \end{figure}
 
-Successful operation of interconnected power systems requires total load demand to be matched with total generation, taking into account power losses involved with generation, transmission, and distribution \cite{Wood2013}. To understand why it is important to match generation with load demand it is useful to first consider the basic operation of a single thermal generator. A simple way to think about a thermal generator is consisting of a prime mover (turbine) and a synchronous machine, as depicted in Figure 2.
+Successful operation of interconnected power systems requires total load demand to be matched with total generation, taking into account power losses involved with generation, transmission, and distribution \cite{Wood2013}. To understand why it is important to match generation with load demand it is useful to first consider the basic operation of a single thermal generator. The essential elements of a thermal generator are a prime mover (turbine) and a synchronous machine, as depicted in Figure 2.
 \begin{figure}[h]
 \centering
 \includegraphics[height=1.4cm]{generation}
@@ -89,53 +93,53 @@ The prime mover provides mechanical torque, $T_{mech}$, which drives the synchro
 \sum T_i = I \alpha 
 \end{equation}
 
-Equation (1) shows that when $T_{mech}$ equals $T_{elec}$ the system will be in a steady state with zero angular acceleration, and a constant rotation at some angular velocity $\omega$. Now, if $T_{mech} > T_{elec}$, then the angular velocity $\omega$ of the system will increase as the system speeds up. Conversely, if $T_{mech} < T_{elec}$ then the angular velocity $\omega$ decrease as the system slows down. What makes this situation interesting is that at any point in time the total electrical load demand will fluctuate stochastically, meaning that an uncontrolled system will have a continually changing frequency. System controllers, such as the Australian Energy Market Operator (AEMO) and Power and Water Corporation (PWC), can forecast daily demand profiles with some reliability using historical data. An example of historical daily demand profiles are shown in Figure 3.  
+Equation (1) shows that when $T_{mech}$ equals $T_{elec}$ the system will be in a steady state with zero angular acceleration, and a constant rotation at some angular velocity $\omega$. Now, if $T_{mech} > T_{elec}$, then the angular velocity $\omega$ of the system will increase as the system speeds up, resulting in a frequency increase in the system. Conversely, if $T_{mech} < T_{elec}$ then the angular velocity $\omega$ will decrease as the system slows down, resulting in a frequency decrease. What makes this situation interesting is that at any point in time the total electrical load demand will fluctuate stochastically, meaning that an uncontrolled system will have a continually changing frequency. System controllers, such as the Australian Energy Market Operator (AEMO) and Power and Water Corporation (PWC), can forecast daily demand profiles with some reliability using historical data. A plot of average historical data, for the daily demand profile in South Australia during Summer, can be seen in Figure 3.  
 \begin{figure}[h]
 	\centering
 	\includegraphics[height=7cm]{load_profile}
 	\caption{Weekday energy demand profile in South Australia during summer \cite{AEMO2018}.}
 \end{figure}
 
-Forecasts provide a starting point that AEMO and PWC can use for estimating generation needed to meet demand for a given time. Unfortunately forecasts are not perfect and mismatches in generation and demand lead to small imbalances between $T_{mech}$ and $T_{elec}$, and thus a resulting in a change to angular velocity $\omega$ and the network frequency \cite{Glover2012}.\\ and unpredicted load appearing on the system appear on the system, or worse, generation assets could be disconnected from the network. 
+Forecasts provide a starting point that AEMO and PWC can use for estimating generation required to meet demand for some given time. Unfortunately, these forecasts are not perfect inevitably leading to mismatches in generation and load demand which cause small imbalances between $T_{mech}$ and $T_{elec}$, resulting in a change to angular velocity $\omega$ and the network frequency \cite{Glover2012}.\\ 
 
-Australia's electricity network is designed to operate at a frequency of 50$\si{\hertz}$. In the majority of network scenarios AEMO's desired operating range for frequency is between 49.85$\si{\hertz}$ and 50.15$\si{\hertz}$ \cite{AEMO2012}. The PWC Network Technical Code for the Northern Territory states that under normal operating conditions frequency should be maintained in the range 49.80$\si{\hertz}$ to 50.20$\si{\hertz}$ \cite{PWC2018}. Operation outside of specified ranges can cause damage to electrical equipment. Sustained over or under frequency will generally cause protection systems to remove equipment from the network, as will sudden large frequency deviations. If the disconnections are uncontrolled then this can create further imbalance to the electrical network. In order to correct these deviations, system controllers use generators which are referred to as regulating units. A regulating generator is a generator that has the capacity to increase or decrease mechanical torque $T_{mech}$ allowing the system controller to arrest changing frequency and restore the system to stable operating conditions. AEMO and PWC only require a subset of the generators on the network to act as regulating generators. TALK ABOUT SPINNING RESERVES. An example of regulation arresting a frequency disturbance, and the subsequent restoration of the system can be seen in Figure 4.
+Australia's electricity network is designed to operate at a frequency of 50$\si{\hertz}$. In the majority of network scenarios AEMO has a desired operating range for frequency which lies between 49.85$\si{\hertz}$ and 50.15$\si{\hertz}$ \cite{AEMO2012}. Similarly, the PWC Network Technical Code for the Northern Territory states that under normal operating conditions frequency should be maintained in the range 49.80$\si{\hertz}$ to 50.20$\si{\hertz}$ \cite{PWC2018}. Operation outside of specified ranges can cause damage to electrical equipment (REFERENCE). Of course network designers engineer protection schemes so that sustained over or under frequency will generally cause equipment to trip from the network (REFERENCE). The same is true for large unexpected frequency deviations. Protection schemes tripping equipment from the network is undesirable since this can leave households and industry without power, resulting in economic loss. Further, if disconnections are uncontrolled then this can lead to a further loss of system stability (REFERENCE).\\
+
+System controllers are therefore interested in being able to correct frequency deviations as quickly as possible. This is typically achieved using generators referred to as regulating units (REFERENCE). A regulating unit is a generator that has capacity to increase or decrease mechanical torque $T_{mech}$ allowing the system controller to arrest changing frequency and restore the system to stable operating conditions (REFERENCE). Often this capacity is referred to as a spinning reserve (REFERENCE). AEMO and PWC do not require all generators on the network to act as regulating units since adequate frequency control can be achieved using only a subset of the available generators (REFERENCE). A time series example of regulation action arresting a frequency disturbance, and the subsequent restoration of system frequency to normal levels, can be seen in Figure 4.
 \begin{figure}[h]
 \centering
 \includegraphics[height=8cm]{frequency_arrest}
-\caption{text}
+\caption{A frequency disturbance occurs just before the 10 second mark, and regulating units ramp up their generation to first arrest the disturbance, and provide the subsequent correction, returning system frequency to 50$\si{\hertz}$.}
 \end{figure}
 
 Regulation needs to be performed quickly in response to a frequency disturbance. HOW QUICKLY DO UTILITIES NEED TO RESPOND. Typically regulation is performed automatically, except under highly abnormal operating conditions.
 
-\subsubsection{Load frequency control for a single area}
-The power system model shown in Figure 1 depicts total generation coming from many generation assets. Researchers often find it useful to divide generation assets into sub-groups referred to as control areas. Kothari defines a control area as a subset of generators belonging to a close knit area which constitute a coherent group such that all the generators speed up and slow down together maintaining their relative power angles \cite{Kothari2011}. The total network is therefore comprised of many interconnected control areas. An example of a series of interconnected control areas can be seen in Figure XXXX.
+\subsection{Load frequency control for a single area}
+The power system model shown in Figure 1 depicts total generation coming from many generation assets. Researchers often find it useful to divide generation assets into sub-groups referred to as control areas. Kothari defines a control area as a subset of generators belonging to a close knit area which constitute a coherent group such that all the generators speed up and slow down together maintaining their relative power angles \cite{Kothari2011}. The total network is therefore comprised of many interconnected control areas. An example of a series of interconnected control areas can be seen in Figure 5. Although there may be many generators and many loads present in a single control area, often researchers express these as a single generator, and single load, respectively \cite{Grainger1994}.
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.6]{placeholder}
-	\caption{A number of control areas interconnected. Each control area is consists of many generators and loads.}
+	\includegraphics[height=8cm]{multiple_area_system}
+	\caption{An example of three interconnected control areas in a 60$\si{\hertz}$ power system. The interconnections allow power to flow from one area to another, allowing generators to service loads from different areas. Each control area is consists of many generators and loads, but are modelled with a single generator and single load, respectively \cite{Grainger1994}.}
 \end{figure}
 
-To simplify analysis of interconnected systems, researchers tend to make a further simplifying assumption by representing all of the distinct generators in a control area as a single generator. This assumption also is made for loads in the control area. Figure XXXX depicts this assumption being applied to a control area with multiple generators and loads.
+The simplest power system to control is one that consists of a single control area, say Area A in Figure 5. This power system has no interconnections to any other network. It is comprised of consumer load demand, and a set of generators, some of which are acting as regulating units. For modelling simplicity, the loads are aggregated to a single load, and generators are aggregated to a single generator as with the multi-area system depicted in Figure 5. This classic, simple system is well understood and it is generally acknowledged that a governor feedback control regime can successfully perform frequency control of the system \cite{Wood2013, Grainger1994, Kothari2011}. Most introductory textbooks on power systems cover governor control of this system. Kothari provides a particularly well laid out approach to developing linear models for the turbine, generator load, and governor for the system. The full model can be seen in Figure 6 \cite{Kothari2011}. The first block is a first-order linear model of the speed governor, the second block is a first-order model of the turbine, which the controller directly acts on. The final block is the generator load, which is also a first order system. The over all system model is a second order linear model, with a first order controller.
+
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.6]{placeholder}
-\caption{The left hand image shows a control area comprised of generators and loads. The right hand image shows the simplified control area which consists of a single generator and a single load.}
+\includegraphics[height=5cm]{single_area_control}
+\caption{A classical feed back control approach to a second order linear system. The second order system is comprised of a first order model for both the turbine, and generator load. The controller is modelled as a first order system \cite{Kothari2011}.}
 \end{figure}
 
-The simplest power system to control frequency 
-NEED TO TALK ABOUT CONSIDERING A SINGLE CONTROL AREA THAT HAS NO CONNECTION TO THE REST OF THE NETWORK
 
-To control frequency of a single The regulation workhorse for a single control area, which performs the bulk of regulation activity, is the speed governor. These devices are connected to every generator and their operation in provision of frequency regulation is well understood.
-
-\subsubsection{Two-area load frequency control}
-
-DEFINE WHAT A TWO AREA CONTROL LOOKS LIKE
+\subsection{Two-area load frequency control}
+The system presented in Section 2.2 is useful to help understand the role of governors in controlling power system frequency, however, a single area model over simplifies things. In reality, power systems are comprised of many control areas connected through tie lines, which are typically transmission lines, though not always (REFERENCE). These distinct control areas are often thought of as different participants in the generation market, or simply as different regions in which generation assets are based (REFERENCE). To model the effects of tie lines, many researchers use a simple two area power system (REFERENCE). 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.7]{two_area_system}
+	\includegraphics[height=3cm]{two_area_system}
 	\caption{Two area power system is comprised of generators and load connected via a tie line. Power flows from one area to the other depending on economic contracts.}
 \end{figure}
+
+Two area power systems are well understood. Linear models have been developed, and classical control approaches analysed using governors on both
 
 TALK ABOUT WHAT HAPPENS IF WE JUST LET THE SPEED GOVENORS DO THE JOB
 
@@ -145,34 +149,57 @@ INTRODUCE AUTOMATIC GENERATION CONTROL AND THE ITS PRIMARY MOTIVATION
 
 TALK ABOUT THIS LARGELY BEING A SOLVED PROBLEM
 
-\subsubsection{Reinforcement learning}
+\subsection{Reinforcement learning}
 
 TALK ABOUT THE HISTORY OF REINFORCEMENT LEARNING
 
-TALK ABOUT THE BASIC COMPONENTS OF HOW IT IS PUT TOGETHER
-
 TALK ABOUT APPLICATIONS IN THIS FIELD
 
-\subsubsection{Deep reinforcement learning}
+\subsubsection{Markov Decision Process}
+Reinforcement Learning (RL) is a branch of machine learning that is concerned with how agents make sequential decisions to maximise some notion of a cumulative reward. Suppose that a robotic agent exists in some environment which is comprised of many discrete states, $s \in S$, such that $S$ denotes the state space. At any discrete point in time the agent can take an action $a \in A$, where $A$ denotes the action space. When the agent takes an action in a given state, the agent receives some reward, denoted with $r \in R$, where $R$ is the reward set. If an agent is in a given state, $s$, and takes and action, $a$, this will transition the agent to a new state, $s'$, and yield reward, $r$, with some given probability - these are referred to as state transition probabilities. Transition probabilities are denoted as follows:
+\begin{equation}
+P(S_{t+1}=s', R_{t+1}=r \ | \ S_t = s, A_t = a)
+\end{equation}
+
+The set of parameters, outlined above, make up a framework referred to as a Markov Decision Process (MDP).
+
+\subsubsection{Policy}
+In order for the robot to act within the environment, it needs to have a policy. A policy, $\pi$, is defined as a mapping from states to actions, that is, a rule which determines what action the robot will take for a given state. A deterministic policy, $\pi (s)$, maps a single action to a single state. A stochastic policy, $\pi (a | s)$, defines a probability distribution over the actions for a given state.
+
+\subsubsection{Return}
+As the robotic agent takes actions at each discrete time step, it receives a reward. The cumulative sum of this reward is referred to as the return. The return is denoted, for $N$ discrete time steps, as:
+\begin{equation}
+G_t = r_t + r_{1+1} + r_{t+2} + \ldots + r_{N-1}
+\end{equation}
+
+Often it is convenient to make future rewards less important that more immediate rewards. This is by multiplying each reward in the sequence by a discount factor, $\gamma \in [0,1]$. Equation (XXXX) then becomes:
+\begin{equation}
+G_t = r_t + \gamma r_{1+1} + \gamma^2 r_{t+2} + \ldots + \gamma^{N-1} r_{N-1} = \sum_{k = 0}^{N-1} \gamma^k r_{t+k}
+\end{equation}
+
+
+
+TALK ABOUT THE BASIC COMPONENTS OF HOW IT IS PUT TOGETHER
+
+
+
+\subsection{Deep reinforcement learning}
 
 TALK ABOUT HOW DRL DIFFERS TO STANDARD RL
+
+For low dimensional problems MC methods or TD methods see reasonable performance, however, as problem dimensionality of grows these approaches experience difficulty. The main reason for this is simply that it becomes difficult for the discrete RL algorithm to visit every state action resulting in unchanged \textit{state-action} values for an increasing number of \textit{state-action} pairs. Essentially this means that the agent does not have complete knowledge of optimal actions for every given state, leading to the derivation of sub-optimal policies. To get around this problem, for RL problems with high dimensional state spaces, the discrete Q-table is replaced with a function approximator known as a neural network. A high level overview of the architecture can be seen in Figure XXXX:
+\begin{figure}][h]
+\centering
+%\includegraphics[keyvals]{imagefile}
+\caption{text}
+\end{figure}
+
+
 
 TALK ABOUT THE BENEFITS OF USING THIS TYPE OF APPROACH
 
 
-\subsection{Significance}
 
-TALK ABOUT THE INCREASE OF RENEWABLES ENTERING THE SYSTEM
-
-TALK ABOUT THE INCREASE OF HVDC TRANSMISSION TO NETWORK
-
-TALK ABOUT THE INTRODUCTION OF EV IN THE COMING DECADES AND THE IMPLCATIONS FOR THE ELECTRICAL NETWORK
-
-TALK ABOUT A DECENTRALISED GENERATION MODEL THROUGH THE USE OF VIRTUAL POWER NETWORKS WHICH ARE COMPRISED OF MULTIPLE ROOFTOP SOLAR ASSETS
-
-TALK ABOUT THE DRAWBACKS TO ASSUMING LINEAR MODELS WITH TRADITIONAL CONTROL METHODS - THIS IS PROBLEMATIC SINCE ANY SIMULATION OF THE SYSTEM WOULD BE USING LINEAR MODELS TO SIMULATE THE SYSTEM DYNAMICS - DRL CONTROL WOULD BE BASED ON A LINEARISED SYSTEM
-
-Why is this topic significant to you? Why should others be interested in it? You might find it helpful to think about what led you to undertake research in this area. You might also consider how scholars in the field discuss its importance. In what ways is your understanding of its significance similar or different?
 
 
 %------------------------------------
@@ -224,43 +251,19 @@ Is the question researchable?
 \item What about the ethics of the question? Does it entail risks for the researcher or (if relevant) the participants? 
 \end{itemize}
 
+\subsection{Significance}
 
-%------------------------------------
-% Literature Review
-%------------------------------------
-\section{Literature Review}
-The literature review surveys key academic works in your field of research, such as books, refereed journal articles, and postgraduate theses. The review should summarise, analyse, categorise and compare the most significant works - it does not need to cover everything that has been written on the topic. Most importantly, it should clearly demonstrate the gap or problem that your research project will address by outlining both the strengths and the limitations of previous research.
+TALK ABOUT THE INCREASE OF RENEWABLES ENTERING THE SYSTEM
 
-\subsection{Planning and Writing a Literature Review}
+TALK ABOUT THE INCREASE OF HVDC TRANSMISSION TO NETWORK
 
-There are three main considerations when writing a literature review for a research proposal:
+TALK ABOUT THE INTRODUCTION OF EV IN THE COMING DECADES AND THE IMPLCATIONS FOR THE ELECTRICAL NETWORK
 
-\begin{itemize}
-\item Focus: A literature review for a research project should give an accurate picture of the general field, but rather than discuss every text in detail it should focus on works that are directly related to your specific topic. It is usually best to focus on the most prominent and recent contributions to the topic.
-\item Structure: Rather than discuss each selected text separately, a literature review should be organised around key similarities, differences, and other points that you want to make about the development of academic writing on the topic. Search for a review article on the topic (a kind of literature review found in refereed journals) and study the literature reviews contained in recently published books and journal articles on the topic. Consider how these authors categorise and evaluate the literature.
-\item Faculty/School specifics: The above points apply for most research proposals, but some faculties and schools will have their own requirements regarding the content and word count of the literature review component. This will have an influence on how you select and critique the literature. It is therefore important that you check the specific requirements of your Faculty or School.
-\end{itemize}
+TALK ABOUT A DECENTRALISED GENERATION MODEL THROUGH THE USE OF VIRTUAL POWER NETWORKS WHICH ARE COMPRISED OF MULTIPLE ROOFTOP SOLAR ASSETS
 
-\subsection{Brainstorming for a Literature Review}
-A useful way to generate ideas for your literature review is to brainstorm the key scholars, texts, arguments, sources and methods that are related to your research topic. Write down responses to the following questions. Your answers might take the form of brief dot points or you might prefer to write more extensive responses. Extensive responses are often a useful way of thinking through a question or issue that you find challenging:
-\begin{itemize}
-\item Have scholars attempted to address the research gap or problem that I intend to explore?
-	\begin{itemize}
-		\item If so, how have they attempted to address it? Can I place them into different categories?
-		\item If not, why not?
-	\end{itemize}
-\item How and why are the approaches of key scholars similar? How and why are their approaches different?
-\end{itemize}
+TALK ABOUT THE DRAWBACKS TO ASSUMING LINEAR MODELS WITH TRADITIONAL CONTROL METHODS - THIS IS PROBLEMATIC SINCE ANY SIMULATION OF THE SYSTEM WOULD BE USING LINEAR MODELS TO SIMULATE THE SYSTEM DYNAMICS - DRL CONTROL WOULD BE BASED ON A LINEARISED SYSTEM
 
-Consider similarities and differences in:
-\begin{itemize}
-\item Theoretical frameworks
-\item The sources and data used
-\item Research methods (e.g. quantitative, qualitative, experimental, mixed-method)
-\item What are the strengths of research on this topic?
-\item What are the limitations, gaps and weaknesses in the field?
-\end{itemize}
-
+Why is this topic significant to you? Why should others be interested in it? You might find it helpful to think about what led you to undertake research in this area. You might also consider how scholars in the field discuss its importance. In what ways is your understanding of its significance similar or different?
 
 %------------------------------------
 % Project Design
