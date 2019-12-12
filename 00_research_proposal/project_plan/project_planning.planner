@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<project name="" company="" manager="" phase="" project-start="20191212T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Working" description="A default working day"/>
+      <day-type id="1" name="Nonworking" description="A default non working day"/>
+      <day-type id="2" name="Use base" description="Use day from base calendar"/>
+    </day-types>
+    <calendar id="1" name="Default">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Chapter 1 (Introduction) DRAFT" note="" work="144000" start="20191221T000000Z" end="20191227T170000Z" work-start="20191223T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20191221T000000Z"/>
+    </task>
+    <task id="2" name="Chapter 2 (Literature Review - 2.1 &amp; 2.2) DRAFT" note="" work="144000" start="20191230T000000Z" end="20200103T170000Z" work-start="20191230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20191230T000000Z"/>
+    </task>
+    <task id="3" name="Chapter 2 (Literature Review - 2.3 &amp; 2.4) DRAFT" note="" work="144000" start="20200106T000000Z" end="20200110T170000Z" work-start="20200106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200106T000000Z"/>
+    </task>
+    <task id="4" name="Chapter 2 (Literature Review - 2.5 &amp; 2.6) DRAFT" note="" work="144000" start="20200113T000000Z" end="20200117T170000Z" work-start="20200113T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200113T000000Z"/>
+    </task>
+    <task id="5" name="Chapter 3 (Simulation) Researching environment, Setup, and Testing" note="" work="748800" start="20200120T000000Z" end="20200224T170000Z" work-start="20200120T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200120T000000Z"/>
+    </task>
+    <task id="6" name="Chapter 1 (Introduction) FINAL" note="" work="144000" start="20200127T000000Z" end="20200131T170000Z" work-start="20200127T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200127T000000Z"/>
+    </task>
+    <task id="7" name="Chapter 3 (Simulation) DRAFT" note="" work="144000" start="20200203T000000Z" end="20200207T170000Z" work-start="20200203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200203T000000Z"/>
+    </task>
+    <task id="8" name="Chapter 2 (Literature Review) FINAL" note="" work="144000" start="20200210T000000Z" end="20200214T170000Z" work-start="20200210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200210T000000Z"/>
+    </task>
+    <task id="9" name="Chapter 3 (Simulation) FINAL" note="" work="144000" start="20200217T000000Z" end="20200221T170000Z" work-start="20200217T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200217T000000Z"/>
+    </task>
+    <task id="10" name="Chapter 4 (Method and Setup) Classical Control Agent Setup" note="" work="345600" start="20200224T000000Z" end="20200310T170000Z" work-start="20200224T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200224T000000Z"/>
+    </task>
+    <task id="11" name="Chapter 4 (Method and Setup) DRL agent setup" note="" work="345600" start="20200310T000000Z" end="20200325T170000Z" work-start="20200310T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200310T000000Z"/>
+    </task>
+    <task id="12" name="Chapter 4 (Method and Setup) DRAFT " note="" work="345600" start="20200325T000000Z" end="20200409T170000Z" work-start="20200325T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200325T000000Z"/>
+    </task>
+    <task id="13" name="Chapter 4 (Method and Setup) FINAL" note="" work="144000" start="20200409T000000Z" end="20200415T170000Z" work-start="20200409T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200409T000000Z"/>
+    </task>
+    <task id="14" name="Chapter 5 (Evaluation) Reviewing results, analysis, re-run experiments" note="" work="345600" start="20200415T000000Z" end="20200430T170000Z" work-start="20200415T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200415T000000Z"/>
+    </task>
+    <task id="15" name="Chapter 5 (Evaluation) DRAFT" note="" work="345600" start="20200430T000000Z" end="20200515T170000Z" work-start="20200430T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200430T000000Z"/>
+    </task>
+    <task id="16" name="Chapter 5 (Evaluation) FINAL" note="" work="144000" start="20200515T000000Z" end="20200521T170000Z" work-start="20200515T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200515T000000Z"/>
+    </task>
+    <task id="17" name="Poster &amp; Interim Report FINAL" note="" work="144000" start="20200521T000000Z" end="20200527T170000Z" work-start="20200521T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200521T000000Z"/>
+    </task>
+    <task id="18" name="Chapter 6 (Conclusion and Future Work) DRAFT" note="" work="345600" start="20200527T000000Z" end="20200611T170000Z" work-start="20200527T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200527T000000Z"/>
+    </task>
+    <task id="19" name="Chapter 6 (Conclusion and Future Work) FINAL" note="" work="144000" start="20200611T000000Z" end="20200617T170000Z" work-start="20200611T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200611T000000Z"/>
+    </task>
+    <task id="20" name="Oral Presentation Preparation" note="" work="345600" start="20200617T000000Z" end="20200702T170000Z" work-start="20200617T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200617T000000Z"/>
+    </task>
+    <task id="21" name="FINAL REPORT" note="" work="345600" start="20200702T000000Z" end="20200717T170000Z" work-start="20200702T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200702T000000Z"/>
+    </task>
+  </tasks>
+  <resource-groups/>
+  <resources/>
+  <allocations/>
+</project>

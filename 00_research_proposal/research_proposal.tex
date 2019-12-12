@@ -17,7 +17,10 @@
 % Imported packages
 %------------------------------------
 \usepackage{graphicx}
+\usepackage{lscape}
+\usepackage{rotating}
 \usepackage{siunitx}
+\usepackage{wrapfig}
 
 %------------------------------------
 % Graphics path specification
@@ -206,50 +209,15 @@ TALK ABOUT THE BENEFITS OF USING THIS TYPE OF APPROACH
 % Research Aims and Questions
 %------------------------------------
 \section{Research Aims and Questions}
-Now state explicitly the hypothesis you aim to test. Make references to the items listed in the Reference section that back up your arguments for why this is a reasonable hypothesis to test, for example the work of Knuth.
 
-Explain what you expect will be accomplished by undertaking this particular project.  Moreover, is it likely to have any other applications?
-
-Constructing a clear and focused research question (or questions) is crucial to producing a good research proposal and, more importantly, shaping the direction of your research. The question indicates exactly what you want to explore and allows the reader to assess whether or not your project is viable. It also gives the reader a sense of the arguments or findings that you might produce in response. This allows them to provide you with useful feedback on the direction of your research.
-
-The criteria for a good research question vary from one field of study to another. It is therefore advisable that you consult with your supervisor and closely examine examples from other theses and published studies to get a sense of the requirements in your field. In general terms, however, a good research question should be:
+The principal aim of this work is the training and application of a Deep Reinforcement Learning agent to perform the automatic generation control function for a simple two control area power system, as outlined in Section . The trained DRL controller performance will be measured against a classical linear feedback controller on it's ability to:
 \begin{itemize}
-\item Relevant: It must clearly relate to the problems or issues that the project seeks to address.
-\item Important: It should address a key problem in the field (see From identifying a gap to constructing a problem above).  
-\item Clear: It should be expressed using concise language and contain no ambiguity.
-\item Precise: What is being investigated should be clearly specified.
-\item Researchable: The information and sources required to answer the question must exist and you must be able to access them (with the exception of data that you will generate yourself through surveys, experiments, etc.).
+	\item maintain system frequency to the desired nominal 50$\si{\hertz}$ value;
+	\item maintain the tie line power flow between control areas at the scheduled value.
 \end{itemize}
 
-In cases where there is more than one research question, the questions must be clearly related to each other so that they add up to a coherent whole.
 
-\subsection{Constructing a Research Question}
-The wording of your research question (or questions) is important because it will direct your approach and writing and help to shape the feedback that you receive from readers of your proposal. It is important to understand that you can change your research question at a later date if you think that the wording needs to be changed or if you make discoveries that encourage a different approach to the topic. It is highly likely, in fact, that the question that you pose in your proposal will be different from the question or questions that your thesis actually answers.
 
-Wording of research questions can vary significantly from one field of study to another, so it is advisable that you consult with your supervisor and seek out examples from other research proposals, theses, or published papers. However, the following general points can be made:
-
-\begin{itemize}
-\item How and why questions are usually preferred as they generate analytical rather than descriptive findings.
-\item The question should be worded in such a way that a number of different responses would be possible.
-\item The wording should be neutral in tone. Avoid value judgements or untested assumptions.
-\item The wording should include the key concepts and relationships that you have identified.
-\end{itemize}
-
-\subsection{Interrogate Research Question}
-After the initial drafting of your research question you should interrogate it to highlight strengths and weaknesses in your thinking or wording. Write responses to the following questions: 
-
-\begin{itemize}
-\item Does this research question interest me? Will it sustain my interest?
-\item Does this question help to address a significant research problem?
-\item Has this question already been answered by others? If so, how will my response differ?
-\item Is the question too easy to answer? Is the answer too obvious? 
-\item Can the question be approached from different angles? 
-\item Will this question allow me to generate a strong and interesting position or findings? At this point in time what hypothesis would I make in response to the question?
-\item Does the question have an appropriate scope? Is the specified content too broad or too narrow? 
-Is the question researchable? 
-\item What kind of information and sources will I need to answer the question?  Am I able to access this information? Will I need to generate my own data?  
-\item What about the ethics of the question? Does it entail risks for the researcher or (if relevant) the participants? 
-\end{itemize}
 
 \subsection{Significance}
 
@@ -316,9 +284,20 @@ The following questions will help you to formulate your study/project design. Yo
 % Timeline
 %------------------------------------
 \section{Timeline}
-The timeline demonstrates to the reader that your project can be completed within the period of candidature. The timeline should consist of a series of goals that you will need to meet in order to complete all aspects of your thesis, from initial research to the final editing, with an expected date of completion for each step. It should also contain a statement of the progress that you have made to date. The timeline should also factor in other research related activities such as conferences and publications (if applicable).
+
+The final submission of this thesis will be comprised of six chapters: Introduction; Literature Review; 
+
+\clearpage
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.8]{./project_plan/project_plan}
+	\caption{text}
+\end{figure}
 
 The timeline is not a static document; you will need to update it regularly.
+
+\clearpage
 
 
 %------------------------------------
