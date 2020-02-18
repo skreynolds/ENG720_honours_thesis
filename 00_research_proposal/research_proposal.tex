@@ -50,11 +50,11 @@
 
 \begin{namelist}{xxxxxxxxxxxx}
 \item[{\bf Title:}]
-	To Be Confirmed
+	Automatic generation control of a two area power system using deep reinforcement learning
 \item[{\bf Author:}]
 	Shane Reynolds
 \item[{\bf Supervisor:}]
-	Charles Yeo
+	Charles Yeo \& TBC
 \item[{\bf Degree:}]
 	Bachelor of Engineering (Honours)
 \end{namelist}
@@ -67,14 +67,21 @@
 \newpage
 
 %------------------------------------
-% Introduction
+% Introduction and Background
 %------------------------------------
-\section{Introduction}
+\section{Introduction \& Background}
+In 2018 there was approximately 261$\si{\tera\watt\hour}$ of power generation in the Australian electricity sector. Renewables contributed to 19\% of the total generation, increasing from 15\% in 2017 \cite{Gov202002}. This is a pattern which has followed on from 2016. Indeed, a trend of greater renewable energy penetration in the electricity generation market has emerged starting in approximately 2008, as shown in Figure 1.
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=7cm]{australian_generation_profile}
+	\caption{text}
+\end{figure}
 
-%------------------------------------
-% Introduction
-%------------------------------------
-\section{Background}
+One of the benefits of transitioning from thermal sources of generation to renewable sources is reduced greenhouse gas emissions (REFERENCE), however, this transition is not without its drawbacks. Increased reliance on renewable generation sources has introduced some challenges regarding power system stability. A recent example is the system failure resulting from an event cascade, triggered by cloud cover shadowing a solar array in Alice Springs. The system failure resulted in a blackout occurring in Alice Springs for approximately 8 hours (REFERENCE). The Entura report highlighted that poor control policies were one of the many factors contributing to the blackout. In this instance, a generator provisioned to ramp up in the event of cloud cover limiting solar array output was unable to be controlled (REFERENCE). Moreover, generators that were still under the control regime were issued operating set points above their rated capacity, which eventually resulted in thermal overload and subsequent tripping from the protection system.\\
+
+One of the issues with currently employed control methods (using classical techniques) is that they can be brittle when faced with system changes, or scenarios which they were not designed for/ envisioned. A more robust controller would be one that can learn and adapt to a system, given some broad control objective. (NEED TO REPHRASE THIS ASPECT). This research proposes a Deep Reinforcement Learning agent for controlling the frequency of a power system with multiple generators, and multiple stochastic loads. Existing approaches currently employ classical engineering control methodologies.
+
+\clearpage
 
 \subsection{Power Systems and Frequency}
 Interconnected power systems are comprised of power generating units and energy storage systems connected to transmission and distribution networks. Generated power is used to service load demand. A single line diagram of a power network can be seen in Figure 1. The left hand side of the diagram shows thermal generation units, such as coal and nuclear, in addition to renewable sources of generation, like wind and solar. The right hand side of the figure shows the distribution network and the consumers of generated energy: industry and households.
@@ -84,23 +91,19 @@ Interconnected power systems are comprised of power generating units and energy 
 	\caption{A single line diagram of a typical power system taken from \cite{Glavic2019}. The image shows points of generation from thermal and renewable sources, and the subsequent supply of generated energy to meet load demand through the transmission and distribution network.}
 \end{figure}
 
-One of the key elements to successful operation of interconnected power systems is ensuring total load demand is matched with total generation, taking into account power losses involved with generation, transmission, and distribution \cite{Wood2013}. To understand why it is important to match generation with load demand it is useful to first consider the basic operation of a single thermal generator. The essential elements of a thermal generator are a prime mover (turbine) and a synchronous machine, as depicted in Figure 2.
+One of the key elements to successful operation of interconnected power systems is ensuring total load demand is matched with total generation, taking into account power losses involved with generation, transmission, and distribution \cite{Wood2013}. To understand why it is important to match generation with load demand it is useful to first consider the basic operation of a single thermal generator. 
 \begin{figure}[h]
 \centering
 \includegraphics[height=1.4cm]{generation}
 \caption{A thermal generation unit consists of a prime mover (turbine), and a synchronous machine. This image was taken from \cite{Wood2013}.}
 \end{figure}
 
-The prime mover provides mechanical torque, $T_{mech}$, which drives the synchronous machine producing electrical energy. In response, the synchronous machine creates a torque which opposes $T_{mech}$, dependent on the size of the load demand from households and industry. This is referred to as electrical torque and is denoted as $T_{elec}$. If $\alpha$ represents angular velocity of the generator rotating mass, and $I$ is its moment of inertia, then by Newton's second law:
+The essential elements of a thermal generator are a prime mover (turbine) and a synchronous machine, as depicted in Figure 2. The prime mover provides mechanical torque, $T_{mech}$, which drives the synchronous machine producing electrical energy. In response, the synchronous machine creates a torque which opposes $T_{mech}$, dependent on the size of the load demand from households and industry. This is referred to as electrical torque and is denoted as $T_{elec}$. If $\alpha$ represents angular velocity of the generator rotating mass, and $I$ is its moment of inertia, then by Newton's second law:
 \begin{equation}
 \sum T_i = I \alpha 
 \end{equation}
 
-Equation (1) shows that when $T_{mech}$ equals $T_{elec}$ the system will be in a steady state with zero angular acceleration, and a constant rotation at some angular velocity $\omega$. Now, if $T_{mech} > T_{elec}$, then the angular velocity $\omega$ of the system will increase as the system speeds up, resulting in a frequency increase in the system. Conversely, if $T_{mech} < T_{elec}$ then the angular velocity $\omega$ will decrease as the system slows down, resulting in a frequency decrease. What makes this situation interesting is that at any point in time the total electrical load demand will fluctuate stochastically, meaning that an uncontrolled system will have a continually changing frequency.\\ 
-
-Australia's electricity network is designed to operate at a frequency of 50$\si{\hertz}$. In the majority of network scenarios AEMO has a desired operating range for frequency which lies between 49.85$\si{\hertz}$ and 50.15$\si{\hertz}$ \cite{AEMO2012}. Similarly, the PWC Network Technical Code for the Northern Territory states that under normal operating conditions frequency should be maintained in the range 49.80$\si{\hertz}$ to 50.20$\si{\hertz}$ \cite{PWC2018}. Operation outside of specified ranges can cause damage to electrical equipment such as transformers or motors, which are designed to operate at specific frequencies \cite{Sen2014}. Network designers engineer protection schemes so that sustained frequency excursions outside of the allowed range will cause equipment to trip from the network \cite{AEMO201804}. Protection schemes tripping equipment from the network is undesirable since this can leave households and industry without power, resulting in economic loss. Further, if disconnections are uncontrolled then this can lead to a further loss of system stability \cite{AEMO201804}.\\
-
-System controllers are therefore interested in being able to control the system to follow changes in load demand reliably in order to maintain system frequency in the allowable range, and to restore frequency excursions as a result of unexpected disturbances. System controllers, such as the Australian Energy Market Operator (AEMO) and Power and Water Corporation (PWC), can use historical data to forecast daily demand profiles with some reliability. A plot of average historical data, for the daily demand profile in South Australia during Summer, can be seen in Figure 3.  
+Equation (1) shows that when $T_{mech}$ equals $T_{elec}$ the system will be in a steady state with zero angular acceleration, and a constant rotation at some angular velocity $\omega$. Now, if $T_{mech} > T_{elec}$, then the angular velocity $\omega$ of the system will increase as the system speeds up, resulting in a frequency increase in the system. Conversely, if $T_{mech} < T_{elec}$ then the angular velocity $\omega$ will decrease as the system slows down, resulting in a frequency decrease. What makes this situation interesting is that at any point in time the total electrical load demand will fluctuate stochastically, meaning that an uncontrolled system will have a continually changing frequency. Australia's electricity network is designed to operate at a frequency of 50$\si{\hertz}$. In the majority of network scenarios AEMO has a desired operating range for frequency which lies between 49.85$\si{\hertz}$ and 50.15$\si{\hertz}$ \cite{AEMO2012}. Similarly, the PWC Network Technical Code for the Northern Territory states that under normal operating conditions frequency should be maintained in the range 49.80$\si{\hertz}$ to 50.20$\si{\hertz}$ \cite{PWC2018}. Operation outside of specified ranges can cause damage to electrical equipment such as transformers or motors, which are designed to operate at specific frequencies \cite{Sen2014}. Network designers engineer protection schemes so that sustained frequency excursions outside of the allowed range will cause equipment to trip from the network \cite{AEMO201804}. Protection schemes tripping equipment from the network is undesirable since this can leave households and industry without power, resulting in economic loss. Further, if disconnections are uncontrolled then this can lead to a further loss of system stability \cite{AEMO201804}.
 
 \begin{figure}[h]
 	\centering
@@ -108,7 +111,7 @@ System controllers are therefore interested in being able to control the system 
 	\caption{Weekday energy demand profile in South Australia during summer \cite{AEMO2018}.}
 \end{figure}
 
-This type of forecasting does not help when trying to predict the occurrence of random disturbances, however, it does provide a starting point for estimating required generation needed to meet demand. It is important to note that forecasting is not perfect. Inevitably mismatches in supply and demand will occur causing small imbalances between $T_{mech}$ and $T_{elec}$, resulting in a change to angular velocity $\omega$ and the network frequency \cite{Glover2012}. To perfectly match supply and demand, system controllers use generators referred to as regulating units \cite{Kothari2011}. A regulating unit is a generator that has capacity to increase or decrease mechanical torque $T_{mech}$ allowing the system controller to provide two functions: load following; and restoring the system to stable operating conditions in the event of a disturbance \cite{Grainger1994}. Using a regulating unit to load follow is referred to as the provision load following ancillary services \cite{AEMO202002}. Load following control adjusts regulating units slightly to match supply perfectly with a demand load profile, like that shown in Figure 3. Using a regulator to restore the system after a disturbance is referred to as providing spinning reserves \cite{AEMO202002}. When used in this fashion the regulating unit is not responsible for arresting frequency excursions, rather, it is used to restore the system back to the allowable frequency operating range after the frequency excursion has been arrested. An example of a frequency excursion, arrest, and subsequent restoration can be seen in Figure XXXX.
+System controllers, such as the Australian Energy Market Operator (AEMO) and Power and Water Corporation (PWC), are therefore interested in being able to control the system to follow changes in load demand so that system frequency is maintained in the allowable range. Additionally, they are interested in control mechanisms to restore frequency excursions as a result of unexpected disturbances. System controllers can use historical data to forecast daily demand profiles with some reliability. A plot of average historical data, for the daily demand profile in South Australia during Summer, can be seen in Figure 3. This type of forecasting does not help when trying to predict the occurrence of random disturbances, however, it does provide a starting point for estimating required generation needed to meet demand. It is important to note that forecasting is not perfect. Inevitably mismatches in supply and demand will occur causing small imbalances between $T_{mech}$ and $T_{elec}$, resulting in a change to angular velocity $\omega$ and the network frequency \cite{Glover2012}. To perfectly match supply and demand, system controllers use generators referred to as regulating units \cite{Kothari2011}. A regulating unit is a generator that has capacity to increase or decrease mechanical torque $T_{mech}$ allowing the system controller to provide two functions: load following; and restoring the system to stable operating conditions in the event of a disturbance \cite{Grainger1994}. Using a regulating unit to load follow is referred to as the provision load following ancillary services \cite{AEMO202002}. Load following control adjusts regulating units slightly to match supply perfectly with a demand load profile, like that shown in Figure 3. Using a regulator to restore the system after a disturbance is referred to as providing spinning reserves \cite{AEMO202002}. When used in this fashion the regulating unit is not responsible for arresting frequency excursions, rather, it is used to restore the system back to the allowable frequency operating range after the frequency excursion has been arrested. An example of a frequency excursion, arrest, and subsequent restoration can be seen in Figure XXXX.
 
 \begin{figure}[h]
 \centering
@@ -204,13 +207,10 @@ For low dimensional problems MC methods or TD methods see reasonable performance
 TALK ABOUT THE BENEFITS OF USING THIS TYPE OF APPROACH
 
 
-
-
-
 %------------------------------------
-% Research Aims and Questions
+% Research Aims
 %------------------------------------
-\section{Research Aims and Questions}
+\section{Research Aims}
 
 The principal aim of this work is the training and application of a Deep Reinforcement Learning agent to perform the automatic generation control function for a simple two control area power system, as outlined in Section . The trained DRL controller performance will be measured against a classical linear feedback controller on it's ability to:
 \begin{itemize}
@@ -219,26 +219,23 @@ The principal aim of this work is the training and application of a Deep Reinfor
 \end{itemize}
 
 
+%------------------------------------
+% Scope
+%------------------------------------
+\section{Scope}
 
-
-\subsection{Significance}
-
-TALK ABOUT THE INCREASE OF RENEWABLES ENTERING THE SYSTEM
-
-TALK ABOUT THE INCREASE OF HVDC TRANSMISSION TO NETWORK
-
-TALK ABOUT THE INTRODUCTION OF EV IN THE COMING DECADES AND THE IMPLCATIONS FOR THE ELECTRICAL NETWORK
-
-TALK ABOUT A DECENTRALISED GENERATION MODEL THROUGH THE USE OF VIRTUAL POWER NETWORKS WHICH ARE COMPRISED OF MULTIPLE ROOFTOP SOLAR ASSETS
-
-TALK ABOUT THE DRAWBACKS TO ASSUMING LINEAR MODELS WITH TRADITIONAL CONTROL METHODS - THIS IS PROBLEMATIC SINCE ANY SIMULATION OF THE SYSTEM WOULD BE USING LINEAR MODELS TO SIMULATE THE SYSTEM DYNAMICS - DRL CONTROL WOULD BE BASED ON A LINEARISED SYSTEM
-
-Why is this topic significant to you? Why should others be interested in it? You might find it helpful to think about what led you to undertake research in this area. You might also consider how scholars in the field discuss its importance. In what ways is your understanding of its significance similar or different?
 
 %------------------------------------
-% Project Design
+% Approach
 %------------------------------------
-\section{Project Design}
+\section{Approach}
+
+\subsection{Required data sources and data management}
+
+\subsection{Theoretical and methodological approach}
+
+
+
 In this section of your proposal you will need to answer three questions:
 \begin{itemize}
 \item What kind of data or sources will you use?
@@ -248,7 +245,7 @@ In this section of your proposal you will need to answer three questions:
 
 It is important that you explain the design of your project in a clear and logical way. Your reader should be able to clearly see what you will do and how will you do it, and how this combination of data/sources and methods will allow you to address your research problem.
 
-\subsection{Tips for completing the study/project design component}
+
 The most important thing to keep in mind about the study/project design component is that it should not simply consist of a list of tasks that will be undertaken. Above all, it needs to establish that these tasks constitute the most effective way of exploring the research problem.
 
 The key to composing a clear and focused study/project design is to show how you are building upon and/or departing from the theoretical and methodological approaches of key scholars in the field. It is therefore necessary to:
@@ -268,8 +265,6 @@ Specify the particular activities that you will undertake and show how they will
 
 Finally, anticipate any potential barriers that you will face in carrying out your research design. No method is perfect, so you need to describe what the shortcomings will be and explain how you will address them.
 
-\subsection{Brainstorm your study design}
-
 The following questions will help you to formulate your study/project design. You might find it useful to organise your responses into a table, mind-map, or flow-chart (see example below). Many researchers prefer this approach as it allows them to visualise their project in its entirety, and draw connections between data and research goals that they may not have previously considered.
 \begin{itemize}
 \item What is your research problem?
@@ -283,32 +278,31 @@ The following questions will help you to formulate your study/project design. Yo
 
 
 %------------------------------------
-% Timeline
+% Deliverables Specification
 %------------------------------------
-\section{Timeline}
-
-The final submission of this thesis will be comprised of six chapters: Introduction; Literature Review; 
-
-\clearpage
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.8]{./project_plan/project_plan}
-	\caption{text}
-\end{figure}
-
-The timeline is not a static document; you will need to update it regularly.
-
-\clearpage
-
-
-%------------------------------------
-% Expected Outcomes and Impacts
-%------------------------------------
-\section{Expected Outcomes and Impacts}
+\section{Deliverables Specification}
 Conclude your research proposal by stating your expected outcomes. At this stage in the research process, what arguments and conclusions do you expect to reach? Your reader will understand that these are projected outcomes based on the extent of research at the time of writing, and that they will almost certainly change in the light of further research. It is essential, however, that you give your reader a sense of what conclusions may be drawn. This will allow your reader to further assess the significance and validity of your project. It will also indicate to your reader that you have thought ahead and considered the potential outcomes and implications of your research.
 
 To avoid repetition with the description of your research aims and significance earlier in the proposal, focus on how you envisage your research will contribute to debates and trends in your field. What impact might your findings have on how the problem is perceived? What impact might your methods have on how research is conducted in the future?
+
+\clearpage
+
+%------------------------------------
+% Timeline
+%------------------------------------
+\section{Timeline}
+\vspace{2cm}
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.62]{./project_plan/project_plan}
+\end{figure}
+
+\clearpage
+
+%------------------------------------
+% Resources
+%------------------------------------
+\section{Resources}
 
 
 %------------------------------------
