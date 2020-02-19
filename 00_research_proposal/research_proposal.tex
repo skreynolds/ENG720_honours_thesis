@@ -211,18 +211,13 @@ TALK ABOUT THE BENEFITS OF USING THIS TYPE OF APPROACH
 % Research Aims
 %------------------------------------
 \section{Research Aims}
-
-The principal aim of this work is the training and application of a Deep Reinforcement Learning agent to perform the automatic generation control function for a simple two control area power system, as outlined in Section . The trained DRL controller performance will be measured against a classical linear feedback controller on it's ability to:
-\begin{itemize}
-	\item maintain system frequency to the desired nominal 50$\si{\hertz}$ value;
-	\item maintain the tie line power flow between control areas at the scheduled value.
-\end{itemize}
-
+The principle aim of this research is to compare the performance of classical engineering control methodologies against a control system based on a DRL agent, when tasked with performing AGC for load following tasks on a two area power system. The ultimate research outcome will be to provide comment on the feasibility of using DRL agents for this purpose.
 
 %------------------------------------
 % Scope
 %------------------------------------
 \section{Scope}
+The proposed research focuses DRL agent performance against the task of load following by maintaining system frequency within PWC's allowable region of 49.80$\si{\hertz}$ to 50.20$\si{\hertz}$ for normal operating conditions. Time permitting, agent performance again the task of frequency restoration after a disturbance event may be considered. The research will not consider power systems larger than a two area power system, nor will it consider the control of system variables other than frequency. Note, however, other system variables may be used as input features under agent training and inference regimes. Comparison of DRL agent performance will be made against theoretical models of classical control architectures. Performance against control architectures implemented in practice will not be considered. Research will be conducted in an entirely simulated environment, and agent performance on real hardware will not be explored.
 
 
 %------------------------------------
@@ -231,17 +226,28 @@ The principal aim of this work is the training and application of a Deep Reinfor
 \section{Approach}
 
 \subsection{Required data sources and data management}
+Training a DRL agent to change regulating generator set points in order to maintain system frequency and tie line contractual obligations while load following will require realistic demand profiles. Similarly, performing system restoration after a disturbance will require realistic disturbance scenarios. Ideally this data would come from a major utility, such as PWC, in the form of a time series dataset with a high number of features, and short durations between each observation. Data acquisition will be one of the principle objectives in the early stages of research. Should the acquisition of data from PWC or TGEN be viable, a data management plan will need to be developed which addresses concerns around the sensitivity and security of the data, where it will be stored, and data treatment (or disposal) once the research is concluded.\\
+
+In the event that data cannot be acquired from a utility, a synthetic data set may need to be derived. This would be achieved 
 
 \subsection{Theoretical and methodological approach}
 
-
-
-In this section of your proposal you will need to answer three questions:
+Research scope is limited to the following items:
 \begin{itemize}
-\item What kind of data or sources will you use?
-\item How will you collect and manage this material?
-\item Which theoretical and methodological techniques will you use to interpret and analyse these data/sources?
+	\item securing load demand profile dataset from major utility, or developing synthetic load profile dataset based on local load profile characteristics;
+	\item 
+	\item investigating suitable software packages (open source or commercial) to develop simulation;
+	\item investigate  
+	\item creating a simulated model for the two area power system;
+	\item 
+	\item development, training and application of the DRL agent to perform the automatic generation control function for a simple two control area power system
 \end{itemize}
+, either from scratch or using an existing software package. Additionally, different DRL architectures will be explored in order to determine the most appropriate architecture to address the control task. The DRL agent will be tasked with basic load following, and time permitting, restoring the system after a disturbance. Trained DRL controller performance will be measured against a classical linear feedback controller. The key performance aspects that will be compared are the ability to:
+\begin{itemize}
+	\item maintain system frequency to the desired nominal 50$\si{\hertz}$ value;
+	\item maintain the tie line power flow between control areas at the scheduled value.
+\end{itemize}
+
 
 It is important that you explain the design of your project in a clear and logical way. Your reader should be able to clearly see what you will do and how will you do it, and how this combination of data/sources and methods will allow you to address your research problem.
 
