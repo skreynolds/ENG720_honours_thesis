@@ -238,12 +238,14 @@ Training a DRL agent to change regulating generator set points in order to maint
 In the event data cannot be acquired from a utility, a synthetic data set may need to be derived. This would be achieved by understanding key statistical parameters of a typical load demand profile, and using these to create a stochastic process which emulates the load demand signal. This could also be done for other system variables, however, care would need to be taken ensuring correlations are preserved between multiple variables in the synthetic time series dataset.
 
 \subsection{Theoretical approach}
-Achieving the desired research outcomes would see the following items addressed:
+In order to establish the most effective way to approach this research problem, a clear understanding of the benefits and limitations of existing AGC approaches is needed. Determining justifications for practical AGC design choices will help to uncover important performance aspects the research should focus on. Equally important is exploring alternative approaches to AGC that researchers have investigated historically. This should have a particular focus on the use of Neural Networks and DRL agents for AGC. A literature review will be the main avenue for achieving this.\\
+
+As discussed in Section 4.1, securing load demand profile datasets from a major utility, or developing synthetic load profile datasets based on local load profile characteristics is an important aspect of the research and will need to be conducted as early as possible. Similarly, investigating suitable software packages (open source or commercial) to develop the power system simulation model, and investigating suitable programming languages to implement DRL agent should be explored. This information will most likely be found when exploring the field literature. It will be important to understand how other researchers integrated the DRL agent implementation with the simulation environment.\\
+
+A simulated model of the two area power system will be developed. The decision to use a linear or non-linear model will be informed by the literature review. It may be interesting to explore DRL agent performance on both linear and non-linear models since one of their advantages is that they have a demonstrated capacity when controlling highly non-linear systems. Classical engineering system modelling techniques and methodologies will be employed for power system model development. A further area of interest is the DRL agent control regime sensitivity to changes in key plant parameters.\\
+
 \begin{itemize}
-	\item securing load demand profile dataset from major utility, or developing synthetic load profile dataset based on local load profile characteristics;
-	\item investigating suitable software packages (open source or commercial) to develop power system simulation model;
-	\item investigate suitable programming languages to implement DRL agent, and determine how this will be used in conjunction with the simulation environment;
-	\item create a simulated model for the two area power system;
+	
 	\item investigate and select an appropriate methodology for comparing the performance of competing controllers;
 	\item develop classical controller for control task;
 	\item test and capture performance data on classical controller;
@@ -256,7 +258,7 @@ Achieving the desired research outcomes would see the following items addressed:
 
 
 
-It is important that you explain the design of your project in a clear and logical way. Your reader should be able to clearly see what you will do and how will you do it, and how this combination of data/sources and methods will allow you to address your research problem.
+
 
 
 The most important thing to keep in mind about the study/project design component is that it should not simply consist of a list of tasks that will be undertaken. Above all, it needs to establish that these tasks constitute the most effective way of exploring the research problem.
@@ -294,6 +296,8 @@ The following questions will help you to formulate your study/project design. Yo
 % Deliverables Specification
 %------------------------------------
 \section{Deliverables Specification}
+The main deliverable from this research is a conclusion about the feasibility of DRL agents used to 
+
 Conclude your research proposal by stating your expected outcomes. At this stage in the research process, what arguments and conclusions do you expect to reach? Your reader will understand that these are projected outcomes based on the extent of research at the time of writing, and that they will almost certainly change in the light of further research. It is essential, however, that you give your reader a sense of what conclusions may be drawn. This will allow your reader to further assess the significance and validity of your project. It will also indicate to your reader that you have thought ahead and considered the potential outcomes and implications of your research.
 
 To avoid repetition with the description of your research aims and significance earlier in the proposal, focus on how you envisage your research will contribute to debates and trends in your field. What impact might your findings have on how the problem is perceived? What impact might your methods have on how research is conducted in the future?
@@ -316,6 +320,9 @@ To avoid repetition with the description of your research aims and significance 
 % Resources
 %------------------------------------
 \section{Resources}
+
+The main research objectives, at a minimum, will require a computer with a Linux operating system, RAM, and a Graphics Processing Unit (GPU). The exact specifications of these computational resources are not yet known, and will be dependent on the size of the datasets, and the amount of computation required to optimise the the DRL agent's cost function. Currently, access has been provided to an Intel Quad Core 3.2$\si{\giga\hertz}$ i5 CPU machine with 8GB of RAM, Nvidia GTX960 GPU, and Ubuntu operating system. Most likely these resources will suffice, however, in the event that greater computational power is needed, access to a high end virtualised Amazon Web Services (AWS) system set up to conduct DRL research will be required. Currently, such an instance has been provisioned on an existing AWS account and is currently deactivated to avoid cost. Using such a system can be expensive (1 hour of compute is approximately 20AUD), however, AWS will often supply student research with monetary credit.\\
+
 
 
 %------------------------------------
