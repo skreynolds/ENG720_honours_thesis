@@ -21,6 +21,7 @@
 \usepackage{rotating}
 \usepackage{siunitx}
 \usepackage{wrapfig}
+\usepackage[hyphens]{url}
 
 %------------------------------------
 % Graphics path specification
@@ -217,7 +218,13 @@ The principle aim of this research is to compare the performance of classical en
 % Scope
 %------------------------------------
 \section{Scope}
-The proposed research focuses DRL agent performance against the task of load following by maintaining system frequency within PWC's allowable region of 49.80$\si{\hertz}$ to 50.20$\si{\hertz}$ for normal operating conditions. Time permitting, agent performance again the task of frequency restoration after a disturbance event may be considered. The research will not consider power systems larger than a two area power system, nor will it consider the control of system variables other than frequency. Note, however, other system variables may be used as input features under agent training and inference regimes. Comparison of DRL agent performance will be made against theoretical models of classical control architectures. Performance against control architectures implemented in practice will not be considered. Research will be conducted in an entirely simulated environment, and agent performance on real hardware will not be explored.
+The proposed research focuses DRL agent performance against the task of load following by maintaining system frequency within PWC's allowable region of 49.80$\si{\hertz}$ to 50.20$\si{\hertz}$ for normal operating conditions. Time permitting, agent performance against the task of frequency restoration following a disturbance event may be considered. The key performance aspects that will assessed are the controller's ability to:
+\begin{itemize}
+	\item maintain system frequency to the desired nominal 50$\si{\hertz}$ value;
+	\item maintain the tie line power flow between control areas at the scheduled value.
+\end{itemize}
+
+The research will not consider power systems larger than a two area power system, nor will it consider the control of system variables other than frequency. Note, however, other system variables may be used as input features under agent training and inference regimes. Comparison of DRL agent performance will be made against theoretical models of classical control architectures. Performance against control architectures implemented in practice will not be considered. Research will be conducted in an entirely simulated environment, and agent performance on real hardware will not be explored.
 
 
 %------------------------------------
@@ -228,25 +235,25 @@ The proposed research focuses DRL agent performance against the task of load fol
 \subsection{Required data sources and data management}
 Training a DRL agent to change regulating generator set points in order to maintain system frequency and tie line contractual obligations while load following will require realistic demand profiles. Similarly, performing system restoration after a disturbance will require realistic disturbance scenarios. Ideally this data would come from a major utility, such as PWC, in the form of a time series dataset with a high number of features, and short durations between each observation. Data acquisition will be one of the principle objectives in the early stages of research. Should the acquisition of data from PWC or TGEN be viable, a data management plan will need to be developed which addresses concerns around the sensitivity and security of the data, where it will be stored, and data treatment (or disposal) once the research is concluded.\\
 
-In the event that data cannot be acquired from a utility, a synthetic data set may need to be derived. This would be achieved 
+In the event data cannot be acquired from a utility, a synthetic data set may need to be derived. This would be achieved by understanding key statistical parameters of a typical load demand profile, and using these to create a stochastic process which emulates the load demand signal. This could also be done for other system variables, however, care would need to be taken ensuring correlations are preserved between multiple variables in the synthetic time series dataset.
 
-\subsection{Theoretical and methodological approach}
-
-Research scope is limited to the following items:
+\subsection{Theoretical approach}
+Achieving the desired research outcomes would see the following items addressed:
 \begin{itemize}
 	\item securing load demand profile dataset from major utility, or developing synthetic load profile dataset based on local load profile characteristics;
-	\item 
-	\item investigating suitable software packages (open source or commercial) to develop simulation;
-	\item investigate  
-	\item creating a simulated model for the two area power system;
-	\item 
-	\item development, training and application of the DRL agent to perform the automatic generation control function for a simple two control area power system
+	\item investigating suitable software packages (open source or commercial) to develop power system simulation model;
+	\item investigate suitable programming languages to implement DRL agent, and determine how this will be used in conjunction with the simulation environment;
+	\item create a simulated model for the two area power system;
+	\item investigate and select an appropriate methodology for comparing the performance of competing controllers;
+	\item develop classical controller for control task;
+	\item test and capture performance data on classical controller;
+	\item explore different DRL architectures to determine the most appropriate for the control task;
+	\item development, and training of DRL agent to perform the automatic generation control task;
+	\item test and capture performance data on DRL controller;
+	\item
+	
 \end{itemize}
-, either from scratch or using an existing software package. Additionally, different DRL architectures will be explored in order to determine the most appropriate architecture to address the control task. The DRL agent will be tasked with basic load following, and time permitting, restoring the system after a disturbance. Trained DRL controller performance will be measured against a classical linear feedback controller. The key performance aspects that will be compared are the ability to:
-\begin{itemize}
-	\item maintain system frequency to the desired nominal 50$\si{\hertz}$ value;
-	\item maintain the tie line power flow between control areas at the scheduled value.
-\end{itemize}
+
 
 
 It is important that you explain the design of your project in a clear and logical way. Your reader should be able to clearly see what you will do and how will you do it, and how this combination of data/sources and methods will allow you to address your research problem.
