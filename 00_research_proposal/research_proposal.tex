@@ -182,9 +182,14 @@ Often it is convenient to make future rewards less important that more immediate
 G_t = r_t + \gamma r_{1+1} + \gamma^2 r_{t+2} + \ldots + \gamma^{N-1} r_{N-1} = \sum_{k = 0}^{N-1} \gamma^k r_{t+k}
 \end{equation}
 
+
 \subsubsection{How does an RL agent learn?}
-
-
+The main objective of the RL agent, given some set of states, some set of actions, and some system that governs state transition dynamics, is to maximise the cumulative reward over the duration of an episode by selecting actions for given states. The agent achieves this by developing a mapping of states to actions that will provide the highest cumulative reward for an episode. Mappings are built through the agent trialling actions for states, and recording the outcome of individual trails. The agent then does this many times to build a mapping where it has information for every state. To visualise the functional mapping, the literature often presents this as a table, referred to as a Q-table. In order to build a Q-table, it is necessary for the agent to understand the inputs that it can receive from each state, and likewise it is important that the agent understands what actions are available to it in each state, however, it is not necessary for the agent to know the state transition dynamics of the system. An example of a Q-table can be seen in Figure XXXX below.
+\begin{figure}
+	\centering
+	\includegraphics[height=5cm]{placeholder}
+	\caption{text}
+\end{figure}
 
 
 \subsection{Deep reinforcement learning}
