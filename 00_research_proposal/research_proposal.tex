@@ -140,7 +140,7 @@ The simplest power system to control is one that consists of a single control ar
 
 
 \subsection{Two-area load frequency control}
-The system presented in Section 2.2 is useful to help understand the role of governors in controlling power system frequency, however, a single area model is too simple. In reality, power systems are comprised of many control areas connected through tie lines, which are typically transmission lines \cite{NPTEL202002}. Distinct control areas are often thought of as different participants in the generation market, or simply as different regions in which generation assets are based \cite{NPTEL202002}. The simplest model which includes tie lines is the two area power system \cite{Kothari2011}. 
+The system presented in Section 2.2 is useful to help understand the role of governors in controlling power system frequency, however, a single area model is too simple. In reality, power systems are comprised of many control areas connected through tie lines, which are typically transmission lines \cite{NPTEL202002}. Often it is the case that there is some net power transfer over the tie lines, enforceable by contract. Distinct control areas are typically thought of as different participants in the generation market, or simply as different regions in which generation assets are based \cite{NPTEL202002}. The simplest model which includes tie lines is the two area power system \cite{Kothari2011}.
 
 \begin{figure}[h]
 	\centering
@@ -148,34 +148,30 @@ The system presented in Section 2.2 is useful to help understand the role of gov
 	\caption{Two area power system is comprised of generators and load connected via a tie line. Power flows from one area to the other depending on economic contracts.}
 \end{figure}
 
-Two area power systems are well understood. Linear models have been developed, and classical control approaches analysed using governors on both
+The control objective now is to maintain the inter-area power transfer, whilst regulating the frequency of each area. Simply relying on governor control in each area will not satisfy the control objective. Suppose control area 1 was supplying a 50MW load, and was contracted to supply control area 2 with 20MW. If control area 2 also has a 50MW load, then it is supplying only 30MW to satisfy the demand in this area. Now, consider a 30MW load increase in the demand for area 1. Relying on governor control will see generators from both area 1 and area 2 speed up in response to this step change. Ultimately, the increased power demands will be met, however, the power transfer over the tie line is likely to be less than the contracted 20MW value - this is problematic. Contract violations due to system instability and control issues do not allow for a stable market in which energy can be reliably traded. Fortunately, two area power systems are well understood. Linear models have been developed to simulate these systems, and classical control approaches have been successfully implemented to meet the new control objectives. In order to achieve this, a metric called Area Control Error (ACE) is used. This measures the distance from a target frequency as well as the deviation from tie-line contractual obligations. The implementation of this control system is shown in Figure XXXX.
 
-TALK ABOUT WHAT HAPPENS IF WE JUST LET THE SPEED GOVENORS DO THE JOB
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=4.8cm]{two_area_control_block}
+	\caption{text}
+\end{figure}
 
-TALK ABOUT HOW THIS MAY END UP VIOLATING ECONOMIC CONTRACTS THAT ARE IN PLACE
-
-INTRODUCE AUTOMATIC GENERATION CONTROL AND THE ITS PRIMARY MOTIVATION
-
-TALK ABOUT THIS LARGELY BEING A SOLVED PROBLEM
 
 \subsection{Reinforcement learning}
 
-TALK ABOUT THE HISTORY OF REINFORCEMENT LEARNING
-
-TALK ABOUT APPLICATIONS IN THIS FIELD
+Reinforcement Learning (RL) is a branch of machine learning that is concerned with how agents make sequential decisions to maximise some notion of a cumulative reward. It is a simple idea, but one which can be generalised to applications in many different fields, such as NOTE FIELDS HERE. Subsections 1.4.1 and 1.4.2 provide a brief overview of key architectural components of RL, and subsection 1.4.3 gives details on how these components are implemented to build an agent that can perform a control activity.
 
 \subsubsection{Markov Decision Process}
-Reinforcement Learning (RL) is a branch of machine learning that is concerned with how agents make sequential decisions to maximise some notion of a cumulative reward. Suppose that a robotic agent exists in some environment which is comprised of many discrete states, $s \in S$, such that $S$ denotes the state space. At any discrete point in time the agent can take an action $a \in A$, where $A$ denotes the action space. When the agent takes an action in a given state, the agent receives some reward, denoted with $r \in R$, where $R$ is the reward set. If an agent is in a given state, $s$, and takes and action, $a$, this will transition the agent to a new state, $s'$, and yield reward, $r$, with some given probability - these are referred to as state transition probabilities. Transition probabilities are denoted as follows:
+Suppose that a robotic agent exists in some environment which is comprised of many discrete states, $s \in S$, such that $S$ denotes the state space. At any discrete point in time the agent can take an action $a \in A$, where $A$ denotes the action space. When the agent takes an action in a given state, the agent receives some reward, denoted with $r \in R$, where $R$ is the reward set. If an agent is in a given state, $s$, and takes and action, $a$, this will transition the agent to a new state, $s'$, and yield reward, $r$, with some given probability - these are referred to as state transition probabilities. Transition probabilities are denoted as follows:
 \begin{equation}
 P(S_{t+1}=s', R_{t+1}=r \ | \ S_t = s, A_t = a)
 \end{equation}
 
 The set of parameters, outlined above, make up a framework referred to as a Markov Decision Process (MDP).
 
-\subsubsection{Policy}
-In order for the robot to act within the environment, it needs to have a policy. A policy, $\pi$, is defined as a mapping from states to actions, that is, a rule which determines what action the robot will take for a given state. A deterministic policy, $\pi (s)$, maps a single action to a single state. A stochastic policy, $\pi (a | s)$, defines a probability distribution over the actions for a given state.
+\subsubsection{Policy and return}
+In order for the robot to act within the environment, it needs to have a policy. A policy, $\pi$, is defined as a mapping from states to actions, that is, a rule which determines what action the robot will take for a given state. A deterministic policy, $\pi (s)$, maps a single action to a single state. A stochastic policy, $\pi (a | s)$, defines a probability distribution over the actions for a given state.\\
 
-\subsubsection{Return}
 As the robotic agent takes actions at each discrete time step, it receives a reward. The cumulative sum of this reward is referred to as the return. The return is denoted, for $N$ discrete time steps, as:
 \begin{equation}
 G_t = r_t + r_{1+1} + r_{t+2} + \ldots + r_{N-1}
@@ -186,9 +182,8 @@ Often it is convenient to make future rewards less important that more immediate
 G_t = r_t + \gamma r_{1+1} + \gamma^2 r_{t+2} + \ldots + \gamma^{N-1} r_{N-1} = \sum_{k = 0}^{N-1} \gamma^k r_{t+k}
 \end{equation}
 
+\subsubsection{How does an RL agent learn?}
 
-
-TALK ABOUT THE BASIC COMPONENTS OF HOW IT IS PUT TOGETHER
 
 
 
@@ -256,12 +251,6 @@ A simulated model of the two area power system will be developed. The decision t
 	
 \end{itemize}
 
-
-
-
-
-
-The most important thing to keep in mind about the study/project design component is that it should not simply consist of a list of tasks that will be undertaken. Above all, it needs to establish that these tasks constitute the most effective way of exploring the research problem.
 
 The key to composing a clear and focused study/project design is to show how you are building upon and/or departing from the theoretical and methodological approaches of key scholars in the field. It is therefore necessary to:
 \begin{itemize}
