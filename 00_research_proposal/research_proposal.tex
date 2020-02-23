@@ -122,7 +122,7 @@ System controllers, such as the Australian Energy Market Operator (AEMO) and Pow
 
 AEMO and PWC do not require all generators on the network to act as regulating units since adequate frequency control can be achieved using a subset of the available generators.
 
-\subsection{Load frequency control for a single area}
+\subsection{Frequency control for a single area system}
 The power system model shown in Figure 1, on page 2, depicts total generation coming from many generation assets - this is complex to model. Researchers often find it useful to divide generation assets into sub-groups referred to as control areas \cite{Kothari2011}. A control area is defined as a subset of generators which are in close proximity to each other and constitute a coherent group that speed up and slow down together, maintaining their relative power angles \cite{Kothari2011}. The total network is therefore comprised of many interconnected control areas. An example of a series of interconnected control areas can be seen in Figure 5. Notice that for each area there is only a single load and a single generator. Typically, for each control area, researchers will aggregate many loads into a single load, and many generators into a single generator. This simplifies the model further \cite{Grainger1994}.
 \begin{figure}[h]
 	\centering
@@ -139,7 +139,7 @@ The simplest power system to control is one that consists of a single control ar
 \end{figure}
 
 
-\subsection{Two-area load frequency control}
+\subsection{Frequency control for two area system}
 The system presented in Section 2.2 is useful to help understand the role of governors in controlling power system frequency, however, a single area model is too simple. In reality, power systems are comprised of many control areas connected through tie lines, which are typically transmission lines \cite{NPTEL202002}. Often it is the case that there is some net power transfer over the tie lines, enforceable by contract. Distinct control areas are typically thought of as different participants in the generation market, or simply as different regions in which generation assets are based \cite{NPTEL202002}. The simplest model which includes tie lines is the two area power system \cite{Kothari2011}.
 
 \begin{figure}[h]
