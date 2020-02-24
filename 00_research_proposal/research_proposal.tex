@@ -78,7 +78,7 @@ In 2018 there was approximately 261$\si{\tera\watt\hour}$ of power generation in
 	\caption{text}
 \end{figure}
 
-One of the benefits of transitioning from thermal sources of generation to renewable sources is reduced greenhouse gas emissions (REFERENCE), however, this transition is not without its drawbacks. Increased reliance on renewable generation sources has introduced some challenges regarding power system stability. A recent example is the system failure resulting from an event cascade, triggered by cloud cover shadowing a solar array in Alice Springs. The system failure resulted in a blackout occurring in Alice Springs for approximately 8 hours (REFERENCE). The Entura report highlighted that poor control policies were one of the many factors contributing to the blackout. In this instance, a generator provisioned to ramp up in the event of cloud cover limiting solar array output was unable to be controlled (REFERENCE). Moreover, generators that were still under the control regime were issued operating set points above their rated capacity, which eventually resulted in thermal overload and subsequent tripping from the protection system.\\
+One of the benefits of transitioning from thermal sources of generation to renewable sources is reduced greenhouse gas emissions (REFERENCE), however, this transition is not without its drawbacks. Increased reliance on renewable generation sources poses some challenges regarding power system stability. A recent example is the system failure resulting from an event cascade, triggered by cloud cover shadowing a solar array in Alice Springs. The system failure resulted in a blackout occurring in Alice Springs for approximately 8 hours (REFERENCE). The Entura report highlighted that poor control policies were one of the many factors contributing to the blackout. In this instance, a generator provisioned to ramp up in the event of cloud cover limiting solar array output was unable to be controlled (REFERENCE). Moreover, generators that were still under the control regime were issued operating set points above their rated capacity, which eventually resulted in thermal overload and subsequent tripping from the protection system.\\
 
 One of the issues with currently employed control methods (using classical techniques) is that they can be brittle when faced with system changes, or scenarios which they were not designed for/ envisioned. A more robust controller would be one that can learn and adapt to a system, given some broad control objective. (NEED TO REPHRASE THIS ASPECT). This research proposes a Deep Reinforcement Learning agent for controlling the frequency of a power system with multiple generators, and multiple stochastic loads. Existing approaches currently employ classical engineering control methodologies.
 
@@ -99,7 +99,7 @@ One of the key elements to successful operation of interconnected power systems 
 \caption{A thermal generation unit consists of a prime mover (turbine), and a synchronous machine. This image was taken from \cite{Wood2013}.}
 \end{figure}
 
-The essential elements of a thermal generator are a prime mover (turbine) and a synchronous machine, as depicted in Figure 2. The prime mover provides mechanical torque, $T_{mech}$, which drives the synchronous machine producing electrical energy. In response, the synchronous machine creates a torque which opposes $T_{mech}$, dependent on the size of the load demand from households and industry. This is referred to as electrical torque and is denoted as $T_{elec}$. If $\alpha$ represents angular velocity of the generator rotating mass, and $I$ is its moment of inertia, then by Newton's second law:
+The essential elements of a thermal generator are a prime mover (turbine) and a synchronous machine, as depicted in Figure 2. The prime mover provides mechanical torque, $T_{mech}$, which drives the synchronous machine producing electrical energy. In response, the synchronous machine creates a torque which opposes $T_{mech}$, dependent on the size of the load demand from households and industry. This is referred to as electrical torque and is denoted as $T_{elec}$. If $\alpha$ represents angular acceleration of the generator rotating mass, and $I$ is its moment of inertia, then by Newton's second law:
 \begin{equation}
 \sum T_i = I \alpha 
 \end{equation}
@@ -187,19 +187,19 @@ G_t = r_t + \gamma r_{1+1} + \gamma^2 r_{t+2} + \ldots + \gamma^{N-1} r_{N-1} = 
 The main objective of the RL agent, given some set of states, some set of actions, and some system that governs state transition dynamics, is to maximise the cumulative reward over the duration of an episode by selecting actions for given states. The agent achieves this by developing a mapping of states to actions that will provide the highest cumulative reward for an episode. Mappings are built through the agent trialling actions for states, and recording the outcome of individual trails. The agent then does this many times to build a mapping where it has information for every state. To visualise the functional mapping, the literature often presents this as a table, referred to as a Q-table. In order to build a Q-table, it is necessary for the agent to understand the inputs that it can receive from each state, and likewise it is important that the agent understands what actions are available to it in each state, however, it is not necessary for the agent to know the state transition dynamics of the system. An example of a Q-table can be seen in Figure XXXX below.
 \begin{figure}
 	\centering
-	\includegraphics[height=5cm]{placeholder}
+	\includegraphics[height=8cm]{q_table}
 	\caption{text}
 \end{figure}
 
+\newpage
 
 \subsection{Deep reinforcement learning}
-
-TALK ABOUT HOW DRL DIFFERS TO STANDARD RL
+At the heart of RL is the functional mapping which converges on the best action to take for a given state, that will ultimately end in the largest cumulative reward for a given episode.
 
 For low dimensional problems MC methods or TD methods see reasonable performance, however, as problem dimensionality of grows these approaches experience difficulty. The main reason for this is simply that it becomes difficult for the discrete RL algorithm to visit every state action resulting in unchanged \textit{state-action} values for an increasing number of \textit{state-action} pairs. Essentially this means that the agent does not have complete knowledge of optimal actions for every given state, leading to the derivation of sub-optimal policies. To get around this problem, for RL problems with high dimensional state spaces, the discrete Q-table is replaced with a function approximator known as a neural network. A high level overview of the architecture can be seen in Figure XXXX:
-\begin{figure}][h]
+\begin{figure}[h]
 \centering
-%\includegraphics[keyvals]{imagefile}
+\includegraphics[height=5cm]{placeholder}
 \caption{text}
 \end{figure}
 
@@ -242,12 +242,15 @@ In order to establish the most effective way to approach this research problem, 
 
 As discussed in Section 4.1, securing load demand profile datasets from a major utility, or developing synthetic load profile datasets based on local load profile characteristics is an important aspect of the research and will need to be conducted as early as possible. Similarly, investigating suitable software packages (open source or commercial) to develop the power system simulation model, and investigating suitable programming languages to implement DRL agent should be explored. This information will most likely be found when exploring the field literature. It will be important to understand how other researchers integrated the DRL agent implementation with the simulation environment.\\
 
-A simulated model of the two area power system will be developed. The decision to use a linear or non-linear model will be informed by the literature review. It may be interesting to explore DRL agent performance on both linear and non-linear models since one of their advantages is that they have a demonstrated capacity when controlling highly non-linear systems. Classical engineering system modelling techniques and methodologies will be employed for power system model development. A further area of interest is the DRL agent control regime sensitivity to changes in key plant parameters.\\
+A simulated model of the two area power system will be developed. The decision to use a linear or non-linear model will be informed by the literature review. It may be interesting to explore DRL agent performance on both linear and non-linear models since one of their advantages is that they have a demonstrated capacity for controlling highly non-linear systems. Classical engineering system modelling techniques, like those seen in Ogata, will be employed for power system model development (REFERENCE). An area of interest in this domain is how sensitive a DRL agent control regime is to changes in key plant parameters - for a given set of parameter changes both DRL agent and classical control architecture performance could be compared to see which controller is more brittle.\\
+
+A classical control model will need to be developed, using existing control solutions (REFERENCE).
+
+It is anticipated that there may be a number of issues that (face in carrying out your research design. No method is perfect, so you need to describe what the shortcomings will be and explain how you will address them.)
 
 \begin{itemize}
 	
-	\item investigate and select an appropriate methodology for comparing the performance of competing controllers;
-	\item develop classical controller for control task;
+	
 	\item test and capture performance data on classical controller;
 	\item explore different DRL architectures to determine the most appropriate for the control task;
 	\item development, and training of DRL agent to perform the automatic generation control task;
@@ -257,44 +260,20 @@ A simulated model of the two area power system will be developed. The decision t
 \end{itemize}
 
 
-The key to composing a clear and focused study/project design is to show how you are building upon and/or departing from the theoretical and methodological approaches of key scholars in the field. It is therefore necessary to:
-\begin{itemize}
-\item Consider the theories and methods that other researchers have used, and;
-\item Consider the theories and methods that have not been used (or that have been underutilised) but perhaps could be.
-\end{itemize}
-
-When writing up your study/project design, be specific about:
-\begin{itemize}
-\item The methods that you will use to gather your information;
-\item The theories and techniques you will use to analyse the information
-\item The relevance of these approaches to your research problem
-\end{itemize}
-
-Specify the particular activities that you will undertake and show how they will contribute to the investigation of your research problem (e.g. “I will engage in a close content analysis of political satire in order to show how it subverts the visual and rhetorical tropes of ‘serious’ political discourse”).
-
-Finally, anticipate any potential barriers that you will face in carrying out your research design. No method is perfect, so you need to describe what the shortcomings will be and explain how you will address them.
-
-The following questions will help you to formulate your study/project design. You might find it useful to organise your responses into a table, mind-map, or flow-chart (see example below). Many researchers prefer this approach as it allows them to visualise their project in its entirety, and draw connections between data and research goals that they may not have previously considered.
-\begin{itemize}
-\item What is your research problem?
-\item What are the specific research goals or questions that you will need to address in order to investigate this problem?
-\item What kind of data or sources will best allow you to reach these goals?
-\item How will you gather your data/sources/information? How will you gain access to them? Will you need to generate your own data by conducting surveys or experiments?
-\item What method or methods of interpretation and analysis is most suitable for your project? Will your study be qualitative, quantitative, or mixed-method?
-\item What theories underlie your research? How will these theories allow you to meet your research goals?
-\item Are there any ethical implications of your data collection or method of analysis?
-\end{itemize}
-
-
 %------------------------------------
 % Deliverables Specification
 %------------------------------------
 \section{Deliverables Specification}
-The main deliverable from this research is a conclusion about the feasibility of DRL agents used to 
+The main deliverable from this research is a conclusion about the feasibility of using DRL agents to provide AGC for a two area power system. The expectation is that the DRL agent will perform at least as well as a classical control approach. This expectation is based on the existing research in this field, which has shown that standard RL agents can perform AGC at least as well as classical control methods (REFERENCE). It is envisaged that should the research meet expectations, this could provide a pathway for investigating more exotic DRL models to find even stronger control models. The ultimate goal in this field would be to have a DRL agent that is always learning, so that it can adapt control strategies to unseen system conditions providing a more flexible controller. This would help to avoid problems like that seen in the Alice Springs system black event.\\
 
-Conclude your research proposal by stating your expected outcomes. At this stage in the research process, what arguments and conclusions do you expect to reach? Your reader will understand that these are projected outcomes based on the extent of research at the time of writing, and that they will almost certainly change in the light of further research. It is essential, however, that you give your reader a sense of what conclusions may be drawn. This will allow your reader to further assess the significance and validity of your project. It will also indicate to your reader that you have thought ahead and considered the potential outcomes and implications of your research.
+In order to provide comment on the feasibility of an AGC DRL agent, this research will also have the following sub-deliverables which make up the main body of research:
+\begin{itemize}
+	\item 
+	\item
+	\item
+	\item
+\end{itemize}
 
-To avoid repetition with the description of your research aims and significance earlier in the proposal, focus on how you envisage your research will contribute to debates and trends in your field. What impact might your findings have on how the problem is perceived? What impact might your methods have on how research is conducted in the future?
 
 \clearpage
 
