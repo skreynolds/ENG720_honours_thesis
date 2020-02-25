@@ -153,59 +153,54 @@ The control objective now is to maintain the inter-area power transfer, whilst r
 \begin{figure}[h]
 	\centering
 	\includegraphics[height=4.8cm]{two_area_control_block}
-	\caption{text}
+	\caption{A classical feed back control approach to a two power area system \cite{Kothari2011}.}
 \end{figure}
 
 
 \subsection{Reinforcement learning}
-
 Reinforcement Learning (RL) is a branch of machine learning that is concerned with how agents make sequential decisions to maximise some notion of a cumulative reward. It is a simple idea, but one which can be generalised to applications in many different fields, such as NOTE FIELDS HERE. Subsections 1.4.1 and 1.4.2 provide a brief overview of key architectural components of RL, and subsection 1.4.3 gives details on how these components are implemented to build an agent that can perform a control activity.
 
-\subsubsection{Markov Decision Process}
+\subsubsection{Markov decision process}
 Suppose that a robotic agent exists in some environment which is comprised of many discrete states, $s \in S$, such that $S$ denotes the state space. At any discrete point in time the agent can take an action $a \in A$, where $A$ denotes the action space. When the agent takes an action in a given state, the agent receives some reward, denoted with $r \in R$, where $R$ is the reward set. If an agent is in a given state, $s$, and takes and action, $a$, this will transition the agent to a new state, $s'$, and yield reward, $r$, with some given probability - these are referred to as state transition probabilities. Transition probabilities are denoted as follows:
 \begin{equation}
 P(S_{t+1}=s', R_{t+1}=r \ | \ S_t = s, A_t = a)
 \end{equation}
 
-The set of parameters, outlined above, make up a framework referred to as a Markov Decision Process (MDP).
+The set of parameters, outlined above, make up a framework referred to as a Markov Decision Process (MDP) \cite{sutton2018}.
 
-\subsubsection{Policy and return}
-In order for the robot to act within the environment, it needs to have a policy. A policy, $\pi$, is defined as a mapping from states to actions, that is, a rule which determines what action the robot will take for a given state. A deterministic policy, $\pi (s)$, maps a single action to a single state. A stochastic policy, $\pi (a | s)$, defines a probability distribution over the actions for a given state.\\
-
-As the robotic agent takes actions at each discrete time step, it receives a reward. The cumulative sum of this reward is referred to as the return. The return is denoted, for $N$ discrete time steps, as:
+\subsubsection{Return, episodes, and policy}
+As the robotic agent takes actions at each discrete time step, it receives a reward. The cumulative sum of this reward is referred to as the return \cite{sutton2018}. The return is denoted, for $N$ discrete time steps, as:
 \begin{equation}
 G_t = r_t + r_{1+1} + r_{t+2} + \ldots + r_{N-1}
 \end{equation}
 
-Often it is convenient to make future rewards less important that more immediate rewards. This is by multiplying each reward in the sequence by a discount factor, $\gamma \in [0,1]$. Equation (XXXX) then becomes:
+Often it is convenient to make future rewards less important than more immediate rewards. This is achieved by multiplying each reward in the sequence by a discount factor, $\gamma \in [0,1]$. Equation (XXXX) then becomes:
 \begin{equation}
 G_t = r_t + \gamma r_{1+1} + \gamma^2 r_{t+2} + \ldots + \gamma^{N-1} r_{N-1} = \sum_{k = 0}^{N-1} \gamma^k r_{t+k}
 \end{equation}
 
+Typically the duration of time that an agent will cumulate reward over is referred to as an episode. An episode is made up of a beginning, middle, and an end. Typically this consists of an RL agent beginning in some initial state, a period of time passes where the agent takes actions and undergoes state transitions, and then the episode concludes when the agent reaches a terminal state. At the episode conclusion, the agent receives it's cumulative reward.\\
+
+Finally, in order for the robot to act within the environment, it needs to have a policy. A policy, $\pi$, is defined as a mapping from states to actions, that is, a rule which determines what action the robot will take for a given state. A deterministic policy, $\pi (s)$, maps a single action to a single state. A stochastic policy, $\pi (a | s)$, defines a probability distribution over the actions for a given state. An optimal policy, denoted $\pi^*$, is a policy which will maximise the cumulative reward that the agent receives over an episode.\\
+
+
 
 \subsubsection{How does an RL agent learn?}
-The main objective of the RL agent, given some set of states, some set of actions, and some system that governs state transition dynamics, is to maximise the cumulative reward over the duration of an episode by selecting actions for given states. The agent achieves this by developing a mapping of states to actions that will provide the highest cumulative reward for an episode. Mappings are built through the agent trialling actions for states, and recording the outcome of individual trails. The agent then does this many times to build a mapping where it has information for every state. To visualise the functional mapping, the literature often presents this as a table, referred to as a Q-table. In order to build a Q-table, it is necessary for the agent to understand the inputs that it can receive from each state, and likewise it is important that the agent understands what actions are available to it in each state, however, it is not necessary for the agent to know the state transition dynamics of the system. An example of a Q-table can be seen in Figure XXXX below.
+The main objective of RL is to develop an optimal policy. There are many algorithmic approaches to building an optimal policy, but most focus updating the value for a state action pair as the agent takes actions in different states. The agent normally starts with a randomised policy meaning that it will take actions at random as it explores the state-action space. As values are assigned to state-action pairs during an episode, the agent modifies the policy. This process is repeated for many episodes and eventually the agent policy converges to an optimal policy. The literature often presents policy values in a table. An example of this can be seen in Figure XXXX. The rows represent the different states, and the columns represent different actions. The values in each cell provide an ordinance on how valuable each action is for a given state. These types of tables are referred to as a Q-tables. One of the benefits learning like this is that it is only necessary for the agent to understand inputs that uniquely define a state, and what actions are available to it in each state. It is not necessary for the agent to know the state transition dynamics of the system this means that an agent can learn to control a system for which is does not have a mathematical model.
 \begin{figure}
 	\centering
 	\includegraphics[height=8cm]{q_table}
-	\caption{text}
+	\caption{The Q-table on the left shows the initialised policy when the agent begins learning. The middle and rightmost Q-tables show the agent developing an understanding of which actions are valuable in which states.\cite{towards2020}}
 \end{figure}
 
-\newpage
 
 \subsection{Deep reinforcement learning}
-At the heart of RL is the functional mapping which converges on the best action to take for a given state, that will ultimately end in the largest cumulative reward for a given episode.
-
-For low dimensional problems MC methods or TD methods see reasonable performance, however, as problem dimensionality of grows these approaches experience difficulty. The main reason for this is simply that it becomes difficult for the discrete RL algorithm to visit every state action resulting in unchanged \textit{state-action} values for an increasing number of \textit{state-action} pairs. Essentially this means that the agent does not have complete knowledge of optimal actions for every given state, leading to the derivation of sub-optimal policies. To get around this problem, for RL problems with high dimensional state spaces, the discrete Q-table is replaced with a function approximator known as a neural network. A high level overview of the architecture can be seen in Figure XXXX:
+For low dimensional state-action spaces RL approaches result in reasonable control performance, however, as state space dimensionality increases models like Q-tables experience difficulty. The main reason for this is simply that it becomes difficult for the discrete RL algorithm to visit every state action pair resulting in unchanged values for an increasing number of state-action pairs. Essentially this means that the agent does not have complete knowledge of optimal actions for every given state, leading to the derivation of sub-optimal policies. To get around this problem, for RL problems with high dimensional state spaces, the discrete Q-table is replaced with a function approximator known as a neural network. A high level overview of the architecture can be seen in Figure 11. It is the neural network architecture in which the agent policy is implemented. As the agent learns, it adjusts weights in the neural network to change the policy. This is approach is powerful because neural networks are good at generalising, and hence the agent does not need to visit every state action pair to be able to make good decisions.
 \begin{figure}[h]
 \centering
-\includegraphics[height=5cm]{placeholder}
-\caption{text}
+\includegraphics[height=5cm]{deep_reinforcement_learning}
+\caption{The agent interacts with the environment by taking actions, which affect the state it is in and the reward it receives. The rewards allow agent to adjust the weights in the neural net to build better policies.}
 \end{figure}
-
-
-
-TALK ABOUT THE BENEFITS OF USING THIS TYPE OF APPROACH
 
 
 %------------------------------------
@@ -259,6 +254,7 @@ It is anticipated that there may be a number of issues that (face in carrying ou
 	
 \end{itemize}
 
+\newpage
 
 %------------------------------------
 % Deliverables Specification
@@ -273,7 +269,6 @@ In order to provide comment on the feasibility of an AGC DRL agent, this researc
 	\item
 	\item
 \end{itemize}
-
 
 \clearpage
 
