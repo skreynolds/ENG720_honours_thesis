@@ -16,6 +16,7 @@
 %------------------------------------
 % Imported packages
 %------------------------------------
+\usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{lscape}
 \usepackage{rotating}
@@ -239,22 +240,27 @@ As discussed in Section 4.1, securing load demand profile datasets from a major 
 
 A simulated model of the two area power system will be developed. The decision to use a linear or non-linear model will be informed by the literature review. It may be interesting to explore DRL agent performance on both linear and non-linear models since one of their advantages is that they have a demonstrated capacity for controlling highly non-linear systems. Classical engineering system modelling techniques, like those seen in Ogata, will be employed for power system model development (REFERENCE). An area of interest in this domain is how sensitive a DRL agent control regime is to changes in key plant parameters - for a given set of parameter changes both DRL agent and classical control architecture performance could be compared to see which controller is more brittle.\\
 
-A classical control model will need to be developed, using existing control solutions (REFERENCE).
+A feedback loop controller will be developed for the two area power system using models presented in literature such as Kothari \cite{Kothari2011}. This is an application of classical engineering control theory taught in most undergraduate engineering courses. A DRL agent will be developed using an architecture that provides for continuous input signals and continuous output signals. There are a number of well established DRL models presented in texts like Sutton and Barto that will be explored to determine the most appropriate approach. Time permitting, a DRL model that uses discretised input and output signals will be developed. Discrete models offer lower performance due to errors introduced in the discretisation process, but can be computationally less expensive than continuous models. DRL models will be trained using data previously acquired either from the a utility, or by synthesis. Metrics will be selected to measure the performance of both controllers. Choice of metrics will be informed by earlier research (mentioned above). Control models will be compared, and differences in their performance will be compared - this will be one of the major focuses of the research.\\
 
-It is anticipated that there may be a number of issues that (face in carrying out your research design. No method is perfect, so you need to describe what the shortcomings will be and explain how you will address them.)
+The full list of tasks for the research design are as follows:
+\begin{enumerate}
+	\item Enquire with power utility to secure data
+	\item Investigate ways to synthesise data
+	\item Develop data management plan
+	\item Literature review:
+	\begin{enumerate}
+		\item Benefits and limitations of existing AGC approach
+		\item Justification for design choices for practical AGC implementations
+		\item Performance measurement criteria for AGC
+		\item Alternate approaches to AGC (historical)
+	\end{enumerate}
+	\item Investigate suitable software package to conduct simulation
+	\item Investigate suitable programming language to implement DRL agent and integrate with simulation
+	\item 
+\end{enumerate}
 
-\begin{itemize}
-	
-	
-	\item test and capture performance data on classical controller;
-	\item explore different DRL architectures to determine the most appropriate for the control task;
-	\item development, and training of DRL agent to perform the automatic generation control task;
-	\item test and capture performance data on DRL controller;
-	\item
-	
-\end{itemize}
+It is anticipated that there may be some issues in carrying out the aforementioned research design. The biggest risk would the inability to successfully build the control models for both the classical engineering controller, and the DRL controller. For the classical engineering controller, the issue would be present as the inability to find the appropriate parameter settings to deliver stable control. With the DRL controller, the problem is selection of an appropriately sized neural network, and training hyper-parameters.
 
-\newpage
 
 %------------------------------------
 % Deliverables Specification
@@ -291,7 +297,7 @@ In order to provide comment on the feasibility of an AGC DRL agent, this researc
 
 The main research objectives, at a minimum, will require a computer with a Linux operating system, RAM, and a Graphics Processing Unit (GPU). The exact specifications of these computational resources are not yet known, and will be dependent on the size of the datasets, and the amount of computation required to optimise the the DRL agent's cost function. Currently, access has been provided to an Intel Quad Core 3.2$\si{\giga\hertz}$ i5 CPU machine with 8GB of RAM, Nvidia GTX960 GPU, and Ubuntu operating system. Most likely these resources will suffice, however, in the event that greater computational power is needed, access to a high end virtualised Amazon Web Services (AWS) system set up to conduct DRL research will be required. Currently, such an instance has been provisioned on an existing AWS account and is currently deactivated to avoid cost. Using such a system can be expensive (1 hour of compute is approximately 20AUD), however, AWS will often supply student research with monetary credit.\\
 
-
+\newpage
 
 %------------------------------------
 %Bibliography
