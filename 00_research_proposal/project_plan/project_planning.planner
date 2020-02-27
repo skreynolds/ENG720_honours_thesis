@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="" company="" manager="" phase="" project-start="20191212T000000Z" mrproject-version="2" calendar="1">
+<project name="" company="" manager="" phase="" project-start="20200227T000000Z" mrproject-version="2" calendar="1">
   <properties/>
   <phases/>
   <calendars>
@@ -20,68 +20,176 @@
     </calendar>
   </calendars>
   <tasks>
-    <task id="1" name="Chapter 1 (Introduction) DRAFT" note="" work="144000" start="20191221T000000Z" end="20191227T170000Z" work-start="20191223T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20191221T000000Z"/>
+    <task id="1" name="Research Plan" note="" work="345600" start="20200227T000000Z" end="20200313T170000Z" work-start="20200227T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="2" name="Literature Review" note="" work="489600" start="20200227T000000Z" end="20200320T170000Z" work-start="20200227T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="3" name="Draft Interim Report" note="" work="806400" start="20200320T170000Z" end="20200429T170000Z" work-start="20200323T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="2" type="FS"/>
+      </predecessors>
     </task>
-    <task id="2" name="Chapter 2 (Literature Review - 2.1 &amp; 2.2) DRAFT" note="" work="144000" start="20191230T000000Z" end="20200103T170000Z" work-start="20191230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20191230T000000Z"/>
+    <task id="4" name="Abstract" note="" work="172800" start="20200429T170000Z" end="20200507T170000Z" work-start="20200430T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
     </task>
-    <task id="3" name="Chapter 2 (Literature Review - 2.3 &amp; 2.4) DRAFT" note="" work="144000" start="20200106T000000Z" end="20200110T170000Z" work-start="20200106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200106T000000Z"/>
+    <task id="5" name="Poster" note="" work="460800" start="20200429T170000Z" end="20200521T170000Z" work-start="20200430T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
     </task>
-    <task id="4" name="Chapter 2 (Literature Review - 2.5 &amp; 2.6) DRAFT" note="" work="144000" start="20200113T000000Z" end="20200117T170000Z" work-start="20200113T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200113T000000Z"/>
+    <task id="6" name="Final Interim Report" note="" work="604800" start="20200429T170000Z" end="20200528T170000Z" work-start="20200430T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
     </task>
-    <task id="5" name="Chapter 3 (Simulation) Researching environment, Setup, and Testing" note="" work="748800" start="20200120T000000Z" end="20200224T170000Z" work-start="20200120T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200120T000000Z"/>
+    <task id="7" name="Enquire at power utility for data" note="" work="144000" start="20200227T000000Z" end="20200304T170000Z" work-start="20200227T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="8" name="Investigate ways to synthesise data" note="" work="144000" start="20200227T000000Z" end="20200304T170000Z" work-start="20200227T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="9" name="Develop data management plan" note="" work="144000" start="20200227T000000Z" end="20200304T170000Z" work-start="20200227T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="10" name="Investigate simulation packages" note="" work="144000" start="20200304T170000Z" end="20200311T170000Z" work-start="20200305T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="7" type="FS"/>
+      </predecessors>
     </task>
-    <task id="6" name="Chapter 1 (Introduction) FINAL" note="" work="144000" start="20200127T000000Z" end="20200131T170000Z" work-start="20200127T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200127T000000Z"/>
+    <task id="11" name="Investigate programming language for DRL" note="" work="144000" start="20200304T170000Z" end="20200311T170000Z" work-start="20200305T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="7" type="FS"/>
+      </predecessors>
     </task>
-    <task id="7" name="Chapter 3 (Simulation) DRAFT" note="" work="144000" start="20200203T000000Z" end="20200207T170000Z" work-start="20200203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200203T000000Z"/>
+    <task id="12" name="Develop two area power system simulation" note="" work="144000" start="20200311T170000Z" end="20200318T170000Z" work-start="20200312T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="10" type="FS"/>
+      </predecessors>
     </task>
-    <task id="8" name="Chapter 2 (Literature Review) FINAL" note="" work="144000" start="20200210T000000Z" end="20200214T170000Z" work-start="20200210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200210T000000Z"/>
+    <task id="13" name="Develop feedback loop controller" note="" work="288000" start="20200318T170000Z" end="20200401T170000Z" work-start="20200319T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="12" type="FS"/>
+      </predecessors>
     </task>
-    <task id="9" name="Chapter 3 (Simulation) FINAL" note="" work="144000" start="20200217T000000Z" end="20200221T170000Z" work-start="20200217T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200217T000000Z"/>
+    <task id="14" name="Develop DRL model" note="" work="288000" start="20200318T170000Z" end="20200401T170000Z" work-start="20200319T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="12" type="FS"/>
+      </predecessors>
     </task>
-    <task id="10" name="Chapter 4 (Method and Setup) Classical Control Agent Setup" note="" work="345600" start="20200224T000000Z" end="20200310T170000Z" work-start="20200224T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200224T000000Z"/>
+    <task id="15" name="Test and verify classical controller " note="" work="144000" start="20200401T170000Z" end="20200408T170000Z" work-start="20200402T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="13" type="FS"/>
+      </predecessors>
     </task>
-    <task id="11" name="Chapter 4 (Method and Setup) DRL agent setup" note="" work="345600" start="20200310T000000Z" end="20200325T170000Z" work-start="20200310T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200310T000000Z"/>
+    <task id="16" name="Train DRL model" note="" work="144000" start="20200401T170000Z" end="20200408T170000Z" work-start="20200402T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="14" type="FS"/>
+      </predecessors>
     </task>
-    <task id="12" name="Chapter 4 (Method and Setup) DRAFT " note="" work="345600" start="20200325T000000Z" end="20200409T170000Z" work-start="20200325T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200325T000000Z"/>
+    <task id="17" name="Test DRL model" note="" work="144000" start="20200408T170000Z" end="20200415T170000Z" work-start="20200409T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="16" type="FS"/>
+      </predecessors>
     </task>
-    <task id="13" name="Chapter 4 (Method and Setup) FINAL" note="" work="144000" start="20200409T000000Z" end="20200415T170000Z" work-start="20200409T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200409T000000Z"/>
+    <task id="18" name="Execute both models on unseen data" note="" work="288000" start="20200415T170000Z" end="20200429T170000Z" work-start="20200416T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="17" type="FS"/>
+      </predecessors>
     </task>
-    <task id="14" name="Chapter 5 (Evaluation) Reviewing results, analysis, re-run experiments" note="" work="345600" start="20200415T000000Z" end="20200430T170000Z" work-start="20200415T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200415T000000Z"/>
+    <task id="19" name="Compare performance of controllers on AGC" note="" work="288000" start="20200429T170000Z" end="20200513T170000Z" work-start="20200430T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="18" type="FS"/>
+      </predecessors>
     </task>
-    <task id="15" name="Chapter 5 (Evaluation) DRAFT" note="" work="345600" start="20200430T000000Z" end="20200515T170000Z" work-start="20200430T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200430T000000Z"/>
+    <task id="20" name="Week 1 Progress &amp; PW email" note="" work="144000" start="20200302T000000Z" end="20200306T170000Z" work-start="20200302T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200302T000000Z"/>
     </task>
-    <task id="16" name="Chapter 5 (Evaluation) FINAL" note="" work="144000" start="20200515T000000Z" end="20200521T170000Z" work-start="20200515T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200515T000000Z"/>
+    <task id="21" name="Online Topic and Supervisors Questionnaire" note="" work="115200" start="20200302T000000Z" end="20200305T170000Z" work-start="20200302T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200302T000000Z"/>
     </task>
-    <task id="17" name="Poster &amp; Interim Report FINAL" note="" work="144000" start="20200521T000000Z" end="20200527T170000Z" work-start="20200521T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200521T000000Z"/>
+    <task id="22" name="Week 2 Progress &amp; PW email" note="" work="144000" start="20200306T170000Z" end="20200313T170000Z" work-start="20200309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="20" type="FS"/>
+      </predecessors>
     </task>
-    <task id="18" name="Chapter 6 (Conclusion and Future Work) DRAFT" note="" work="345600" start="20200527T000000Z" end="20200611T170000Z" work-start="20200527T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200527T000000Z"/>
+    <task id="23" name="Supervision Agreement Form" note="" work="144000" start="20200306T170000Z" end="20200313T170000Z" work-start="20200309T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="20" type="FS"/>
+      </predecessors>
     </task>
-    <task id="19" name="Chapter 6 (Conclusion and Future Work) FINAL" note="" work="144000" start="20200611T000000Z" end="20200617T170000Z" work-start="20200611T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200611T000000Z"/>
+    <task id="24" name="Week 3 Progress &amp; PW email" note="" work="144000" start="20200313T170000Z" end="20200320T170000Z" work-start="20200316T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="22" type="FS"/>
+      </predecessors>
     </task>
-    <task id="20" name="Oral Presentation Preparation" note="" work="345600" start="20200617T000000Z" end="20200702T170000Z" work-start="20200617T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200617T000000Z"/>
+    <task id="25" name="On-line Library Skills Test" note="" work="144000" start="20200313T170000Z" end="20200320T170000Z" work-start="20200316T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="22" type="FS"/>
+      </predecessors>
     </task>
-    <task id="21" name="FINAL REPORT" note="" work="345600" start="20200702T000000Z" end="20200717T170000Z" work-start="20200702T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200702T000000Z"/>
+    <task id="26" name="Week 4 Progress &amp; PW email" note="" work="144000" start="20200320T170000Z" end="20200327T170000Z" work-start="20200323T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="24" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="27" name="On-line Plagiarism Test" note="" work="144000" start="20200320T170000Z" end="20200327T170000Z" work-start="20200323T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="24" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="28" name="Week 5 Progress &amp; PW email" note="" work="144000" start="20200327T170000Z" end="20200403T170000Z" work-start="20200330T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="26" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="29" name="On-line Ethics Test" note="" work="144000" start="20200327T170000Z" end="20200403T170000Z" work-start="20200330T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="26" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="30" name="Technical Support and Funding Request" note="" work="144000" start="20200327T170000Z" end="20200403T170000Z" work-start="20200330T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="26" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="31" name="Week 6 Progress &amp; PW email" note="" work="144000" start="20200403T170000Z" end="20200410T170000Z" work-start="20200406T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="28" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="32" name="Reflective Progress Review Checklist" note="" work="144000" start="20200403T170000Z" end="20200410T170000Z" work-start="20200406T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="28" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="33" name="Week 7 Progress &amp; PW email" note="" work="144000" start="20200417T170000Z" end="20200424T170000Z" work-start="20200420T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="31" type="FS" lag="604800"/>
+      </predecessors>
+    </task>
+    <task id="34" name="Week 8 Progress &amp; PW email" note="" work="144000" start="20200424T170000Z" end="20200501T170000Z" work-start="20200427T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="33" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="35" name="Week 9 Progress &amp; PW email" note="" work="144000" start="20200501T170000Z" end="20200508T170000Z" work-start="20200504T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="34" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="36" name="Submission of the Ethics Form" note="" work="144000" start="20200501T170000Z" end="20200508T170000Z" work-start="20200504T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="34" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="37" name="Week 10 Progress &amp; PW email" note="" work="144000" start="20200508T170000Z" end="20200515T170000Z" work-start="20200511T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="35" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="38" name="Week 11 Progress &amp; PW email" note="" work="144000" start="20200515T170000Z" end="20200522T170000Z" work-start="20200518T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="37" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="39" name="Week 12 Progress &amp; PW email" note="" work="144000" start="20200522T170000Z" end="20200529T170000Z" work-start="20200525T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="38" type="FS"/>
+      </predecessors>
     </task>
   </tasks>
   <resource-groups/>

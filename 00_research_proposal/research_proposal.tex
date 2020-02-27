@@ -24,10 +24,22 @@
 \usepackage{wrapfig}
 \usepackage[hyphens]{url}
 
+\usepackage[hidelinks]{hyperref}		% for watermark
+\usepackage[printwatermark]{xwatermark}	% for watermark
+\usepackage{tikz}						% for watermark
+\usetikzlibrary{shapes,arrows}			% for watermark
+
 %------------------------------------
 % Graphics path specification
 %------------------------------------
 \graphicspath{{./fig/}}
+
+%------------------------------------
+% Watermark
+%------------------------------------
+\newsavebox\mybox
+\savebox\mybox{\tikz[color=red,opacity=0.3]\node{DRAFT};}
+\newwatermark*[allpages,color=red!30,angle=45,scale=7,xpos=-20,ypos=20]{\usebox\mybox}
 
 %------------------------------------
 % Title block
@@ -256,7 +268,13 @@ The full list of tasks for the research design are as follows:
 	\end{enumerate}
 	\item Investigate suitable software package to conduct simulation
 	\item Investigate suitable programming language to implement DRL agent and integrate with simulation
-	\item 
+	\item Develop and test simulation of two area power system
+	\item Develop feedback loop controller for two area power system
+	\item Test classical controller
+	\item Develop DRL model
+	\item Train and test DRL model
+	\item Execute control trials on both models for an unseen sequences of load demand data
+	\item Compare controller performance on AGC task
 \end{enumerate}
 
 It is anticipated that there may be some issues in carrying out the aforementioned research design. The biggest risk would the inability to successfully build the control models for both the classical engineering controller, and the DRL controller. For the classical engineering controller, the issue would be present as the inability to find the appropriate parameter settings to deliver stable control. With the DRL controller, the problem is selection of an appropriately sized neural network, and training hyper-parameters.
@@ -266,15 +284,7 @@ It is anticipated that there may be some issues in carrying out the aforemention
 % Deliverables Specification
 %------------------------------------
 \section{Deliverables Specification}
-The main deliverable from this research is a conclusion about the feasibility of using DRL agents to provide AGC for a two area power system. The expectation is that the DRL agent will perform at least as well as a classical control approach. This expectation is based on the existing research in this field, which has shown that standard RL agents can perform AGC at least as well as classical control methods (REFERENCE). It is envisaged that should the research meet expectations, this could provide a pathway for investigating more exotic DRL models to find even stronger control models. The ultimate goal in this field would be to have a DRL agent that is always learning, so that it can adapt control strategies to unseen system conditions providing a more flexible controller. This would help to avoid problems like that seen in the Alice Springs system black event.\\
-
-In order to provide comment on the feasibility of an AGC DRL agent, this research will also have the following sub-deliverables which make up the main body of research:
-\begin{itemize}
-	\item 
-	\item
-	\item
-	\item
-\end{itemize}
+The main deliverable from this research is a conclusion about the feasibility of using DRL agents to provide AGC for a two area power system. The expectation is that the DRL agent will perform at least as well as a classical control approach. This expectation is based on the existing research in this field, which has shown that standard RL agents can perform AGC at least as well as classical control methods (REFERENCE). It is envisaged that should the research meet expectations, this could provide a pathway for investigation of more exotic DRL models to find better power system controllers. The ultimate goal in this field would be to have a DRL agent that is always learning, so that it can adapt control strategies to unseen system conditions providing a more flexible and less brittle controller. This would help to avoid problems like that seen in the Alice Springs system black event.\\
 
 \clearpage
 
@@ -294,8 +304,18 @@ In order to provide comment on the feasibility of an AGC DRL agent, this researc
 % Resources
 %------------------------------------
 \section{Resources}
-
 The main research objectives, at a minimum, will require a computer with a Linux operating system, RAM, and a Graphics Processing Unit (GPU). The exact specifications of these computational resources are not yet known, and will be dependent on the size of the datasets, and the amount of computation required to optimise the the DRL agent's cost function. Currently, access has been provided to an Intel Quad Core 3.2$\si{\giga\hertz}$ i5 CPU machine with 8GB of RAM, Nvidia GTX960 GPU, and Ubuntu operating system. Most likely these resources will suffice, however, in the event that greater computational power is needed, access to a high end virtualised Amazon Web Services (AWS) system set up to conduct DRL research will be required. Currently, such an instance has been provisioned on an existing AWS account and is currently deactivated to avoid cost. Using such a system can be expensive (1 hour of compute is approximately 20AUD), however, AWS will often supply student research with monetary credit.\\
+\begin{table}[h]
+	\caption{text}
+	\centering
+	\begin{tabular}{ll}
+	\toprule
+	
+	\midrule
+	
+	\bottomrule
+	\end{tabular}
+\end{table}
 
 \newpage
 
