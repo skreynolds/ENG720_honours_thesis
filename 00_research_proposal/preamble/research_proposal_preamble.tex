@@ -1,25 +1,20 @@
-%!TEX root = thesis.tex
+%!TEX root = research_proposal.tex
 
 \usepackage{geometry}
-% The CDU default dimensions are: 
-%  \geometry{a4paper,inner=4.0cm, outer=2cm, top=3cm, bottom=2cm}
-
-% These aren't especially pleasing to look at. Without changing the dimensions
-% of the textblock you can use:
-  \geometry{a4paper,inner=3cm, outer=3cm, top=2cm, bottom=3cm}
+\geometry{a4paper,inner=3cm, outer=3cm, top=2cm, bottom=3cm}
   \pdfpagewidth=\paperwidth 
   \pdfpageheight=\paperheight
   % This acts as a failsafe to ensure things aren't stretched or moved when it's finally printed as a PDF.
-
-%\usepackage[parfill]{parskip} 
-% Activate to begin paragraphs with an empty (return) line, comment out the indent below if you chose the return line option.
 
 \setlength{\parindent}{1em}  % Sets the length of the paragraph indent. Current setup has a an indent. Disable this if you activate the return line above.
 
 % Double or one and a half spacing.
 \usepackage{setspace}
   \onehalfspacing
-  
+
+\usepackage{booktabs}
+% makes tables look sweet with top, mid, and bottom rules
+
 \usepackage{graphicx}
   \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 % Graphics. Remove me and you won't have any figures, and that would be very boring.
@@ -46,25 +41,35 @@
 \usepackage{lscape}
 % Pages in landscape
 
-\usepackage{pdflscape}
-% Landscape pages also rotated in the pdf
-
 \usepackage{wrapfig}
 % Allows figures that don't take up the entire width of the page, wrapping the text around the figure
-
-%\usepackage[position=top,singlelinecheck=false,captionskip=4pt]{subfig} 
-% Multiple figures in an individual figure. Fig. 1 a, b, c, etc. each with, or without, it's own individual caption, and with a global caption for all sub figures.
 
 %-------------------- Special symbols and fonts
 \usepackage{amssymb}
 % Maths symbols
 
+\usepackage{siunitx}
+% important package for scientific papers
+
 %-------------------- Document sections, headers, footers, and bibliography
 \usepackage{fancyhdr}
 % for creating different headers and footers
+ 
+%-------------------- Graphics path specification
+\graphicspath{{./fig/}}
+
+%-------------------- Draft water mark
+%\usepackage[hidelinks]{hyperref}		% for watermark
+%\usepackage[printwatermark]{xwatermark}	% for watermark
+%\usepackage{tikz}						% for watermark
+%\usetikzlibrary{shapes,arrows}			% for watermark
+
+%-------------------- Function to place draft watermark on document
+%\newsavebox\mybox
+%\savebox\mybox{\tikz[color=red,opacity=0.3]\node{DRAFT};}
+%\newwatermark*[allpages,color=red!30,angle=45,scale=7,xpos=-20,ypos=20]{\usebox\mybox}
 
 %-------------------- Bibliography
-%\usepackage[backend=biber,style=ieee,doi=false]{biblatex}
 \usepackage[backend=biber,style=ieee]{biblatex}
 % This is the package that lets you create a bibliography. I recommend reading the biblatex documentation to understand all the options i've specified here. BibLaTeX was created to replace BibTeX. It has lots of extra fields and options. I'm also using the biber backend here rather than the default, it copes with unicode and so can deal with accented characters easily.
 
@@ -76,6 +81,22 @@
 \usepackage[unicode=true,colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black,breaklinks=true]{hyperref}
 % The hyperref package allows you to have clickable links in your pdf. It also allows you to have the mailto link associated with your name. It can be  a bit finicky, so load it last.
 
+%\usepackage[hyphens]{url}
+% package used to properly specify
+
 %-------------------- Command renewals, New commands etc.
 \renewcommand{\thefootnote}{\alph{footnote}}              
 %letters for footnotes instead of numbers to avoid confusion with references.
+
+%-------------------- Function to create a small title block
+\newcommand{\namelistlabel}[1]{\mbox{#1}\hfil}
+\newenvironment{namelist}[1]{%1
+\begin{list}{}
+    {
+        \let\makelabel\namelistlabel
+        \settowidth{\labelwidth}{#1}
+        \setlength{\leftmargin}{1.1\labelwidth}
+    }
+  }{%1
+\end{list}}
+
