@@ -1,0 +1,23 @@
+%!TEX root = single_page_abstract.tex
+
+\usepackage{geometry}
+
+\usepackage{wrapfig, graphicx}
+
+\geometry{a4paper, inner=2cm, outer=2cm, top=2cm, bottom=3cm}
+% The CDU default dimensions for this document are: 
+%  \geometry{a4paper,inner=2.0cm, outer=2cm, top=2cm, bottom=2cm}
+
+
+\newcommand{\namelistlabel}[1]{\mbox{#1}\hfil} % title block
+
+% specification of the title block command
+\newenvironment{namelist}[1]{%1
+\begin{list}{}
+    {
+        \let\makelabel\namelistlabel
+        \settowidth{\labelwidth}{#1}
+        \setlength{\leftmargin}{1.1\labelwidth}
+    }
+  }{%1
+\end{list}}

@@ -1,0 +1,31 @@
+%----------------------- Abstract Master Document --------------------
+%
+% Created by: Shane Reynolds 2020-02-29
+%---------------------------------------------------------------------
+
+\documentclass[11pt]{article}
+\input{preamble/single_page_abstract_preamble} % this must be left as \input, \include wont work in the preamble
+
+%------------------------ Main Document --------------------------
+\begin{document}
+
+\pagenumbering{gobble} % hides page numbers
+
+%-------------- Info for Title Block
+\begin{namelist}{xxxxxxxxxxxxxxxxxxxxxx}
+\item[{\bf Shane Reynolds:}]
+	{\bf Automatic Generation Control of a Two Area Power\\ System Using Deep Reinforcement Learning}\\ \\
+\item[{\bf COURSE:}]
+	{\bf BACHELOR OF ENGINEERING HONOURS}
+\item[{\bf SPECIALISATION:}]
+	{\bf ELECTRICAL}
+\item[{\bf SUPERVISORS:}]
+	{\bf C. Yeo \& S. Klaric}
+\end{namelist}
+
+\vspace{0.044\paperheight} % put some space between title block and abstract
+
+%-------------- Details
+\input{details/abstract_details}
+
+\end{document}
