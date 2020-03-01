@@ -6,8 +6,10 @@
 *.log
 *.lof
 *.lot
+*.nav
 *.out
 *.run.xml
+*.snm
 *.synctex.gz
 *.toc
 *.xwm
