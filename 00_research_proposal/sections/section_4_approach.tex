@@ -1,39 +1,39 @@
 \section{Approach}
 
 \subsection{Required data sources and data management}\label{datamanagement}
-Training a DRL agent to change regulating generator set points in order to maintain system frequency and tie line contractual obligations while load following will require realistic demand profiles. Similarly, performing system restoration after a disturbance will require realistic disturbance scenarios. Ideally this data would come from a major utility, such as PWC, in the form of a time series dataset with a large number of features, and high sample rate. Data acquisition will be one of the principle objectives in the early stages of research. Should the acquisition of data from PWC or TGEN be viable, a data management plan will need to be developed which addresses concerns around the sensitivity and security of the data. The data management plan will provide advice on where data will be stored, and how data will be treated (or disposed of) once the research is concluded.
+Training a DRL agent to change regulating generator set points in order to maintain system frequency and tie line requirements while load following will require realistic demand profiles. Similarly, performing system restoration after a disturbance will require realistic disturbance scenarios. Ideally this data would come from a major utility provider, such as PWC, in the form of a time series dataset with a large number of features, and high sample rate. To this end, data acquisition will be one of the principle objectives in the early stages of research. Should the acquisition of data from PWC or TGEN be viable, a data management plan will need to be developed which addresses concerns around the sensitivity and security of the data. The data management plan will outline where data the will be stored, and how the data will be treated (or disposed of) once the research is concluded.
 
-In the event data cannot be acquired from a utility, a synthetic data set may need to be derived. This would be achieved by understanding key statistical parameters of a typical load demand profile, and using these to create a stochastic process which emulates the load demand signal. This could also be done for other system variables, however, care would need to be taken ensuring correlations are preserved between multiple variables in the synthetic time series dataset.
+In the event data cannot be acquired from a utility provider, a simulated data set may need to be used. This would be achieved by understanding key statistical parameters of a typical load demand profile, and using these to create a process which emulates the load demand signal. This could also be done for other system variables; however, care would need to be taken ensuring correlations are preserved between multiple variables in the simulated time series dataset.
 
 \subsection{Theoretical approach}
 In order to establish the most effective way to approach this research problem, a clear understanding of the benefits and limitations of existing AGC approaches is needed. Determining justifications for practical AGC design choices will help to uncover important performance aspects the research should focus on. Equally important is exploring alternative approaches to AGC that researchers have investigated historically. This should have a particular focus on the use of Neural Networks and DRL agents for AGC. A literature review will be the main avenue for achieving this.
 
-As discussed in Section \ref{datamanagement}, securing load demand profile datasets from a major utility, or developing synthetic load profile datasets based on local load profile characteristics is an important aspect of the research and will need to be conducted as early as possible. Similarly, investigating suitable software packages (open source or commercial) to develop the power system simulation model, and investigating suitable programming languages to implement DRL agent should be explored. This information will most likely be found when exploring the field literature. It will be important to understand how other researchers integrated the DRL agent implementation with the simulation environment.
+As discussed in \S{}\ref{datamanagement}, securing load demand profile datasets from a major utility provider, or developing simulated load profile datasets based on local load profile characteristics is an important aspect of this research and is a priority. Similarly, investigating suitable software packages to develop the power system simulation model, and investigating suitable programming languages to implement a DRL agent are necessary. Exploring the field literature and finding published examples will be a key stepping stone. It will be important to understand how other researchers integrated the DRL agent with the simulation environment.
 
-A simulated model of the two area power system will be developed. The decision to use a linear or non-linear model will be informed by the literature review. It may be interesting to explore DRL agent performance on both linear and non-linear models since one of their advantages is that they have a demonstrated capacity for controlling highly non-linear systems. Classical engineering system modelling techniques will be employed for power system model development \cite{Ogat2010}. An area of interest in this domain is how sensitive a DRL agent control regime is to changes in key plant parameters - for a given set of parameter changes both DRL agent and classical control architecture performance could be compared to see which controller is more brittle.
+A simulated model of the two area power system will be developed. The decision to use a linear or non-linear model will be informed by the literature review. It may be interesting to explore DRL agent performance on both linear and non-linear models since one of their advantages is that they have a demonstrated capacity for controlling non-linear systems. Classical engineering system modelling techniques will be employed for power system model development \cite{Ogat2010}. An area of interest is how sensitive a DRL agent control regime is to changes in key plant parameters --- for a given set of parameter changes both DRL agent and classical control architecture performance could be compared to see which controller is more brittle.
 
-A feedback loop controller will be developed for the two area power system using models presented in the literature. This is an application of classical engineering control theory taught in most undergraduate engineering courses. A DRL agent will be developed using an architecture that provides for continuous input signals and continuous output signals. There are a number of well established DRL models presented in texts like Sutton and Barto that will be explored to determine the most appropriate approach. Time permitting, a DRL model that uses discretised input and output signals will be developed. Discrete models offer lower performance due to errors introduced in the discretisation process, but can be computationally less expensive than continuous models. DRL models will be trained using data previously acquired either from the a utility, or by synthesis. Metrics will be selected to measure the performance of both controllers. Choice of metrics will be informed by earlier research (mentioned above). Control models will be compared, and differences in their performance will be compared - this will be one of the major focuses of the research.
+A feedback loop controller will be developed for the two area power system using models presented in the literature. A DRL agent will be developed using an architecture that takes continuous input signals and provides continuous output signals. There are a number of established DRL models presented in texts like Sutton and Barto that will be explored to determine the most ideal approach \cite{Sutton2018}. Time permitting, a DRL model that uses discrete input and output signals will be developed. Discrete models offer lower performance due to errors introduced in the discretisation process, but can be computationally less expensive than continuous models. DRL models will be trained using data previously acquired either from a utility provider, or from simulation. Metrics will be selected to measure the performance of both controllers. Choice of metrics will be informed by earlier research (mentioned above). Control models differences in performance will be compared --- this will be one of the major focuses of the research.
 
 The full list of tasks for the research design are as follows:
 \begin{enumerate}
-	\item Enquire with power utility to secure data
-	\item Investigate ways to synthesise data
-	\item Develop data management plan
+	\item Enquire with power utility provider to secure data.
+	\item Investigate ways to simulate data.
+	\item Develop data management plan.
 	\item Literature review centred on three central themes:
 	\begin{enumerate}
-		\item Automatic Generation Control
-		\item Deep Reinforcement Learning
-		\item Applications of DRL to Automatic Generation Control
+		\item AGC
+		\item DRL
+		\item Applications of DRL to AGC.
 	\end{enumerate}
-	\item Investigate suitable software package to conduct simulation
-	\item Investigate suitable programming language to implement DRL agent and integrate with simulation
-	\item Develop and test simulation of two area power system
-	\item Develop feedback loop controller for two area power system
-	\item Test classical controller
-	\item Develop DRL model
-	\item Train and test DRL model
-	\item Execute control trials on both models for an unseen sequences of load demand data
-	\item Compare controller performance on AGC task
+	\item Investigate suitable software package to conduct simulation.
+	\item Investigate suitable programming language to implement DRL agent and integrate with simulation.
+	\item Develop and test simulation of two area power system.
+	\item Develop feedback loop controller for two area power system.
+	\item Test classical controller.
+	\item Develop DRL model.
+	\item Train and test DRL model.
+	\item Execute control trials on both models for an unseen sequences of load demand data.
+	\item Compare controller performance on AGC task.
 \end{enumerate}
 
-It is anticipated that there may be some issues in carrying out the aforementioned research design. The biggest risk would the inability to successfully build the control models for both the classical engineering controller, and the DRL controller. For the classical engineering controller, the issue would be present as the inability to find the appropriate parameter settings to deliver stable control. With the DRL controller, the problem is selection of an appropriately sized neural network, and training hyper-parameters.
+It is anticipated that there may be some issues in carrying out the aforementioned research design. The biggest risk would be the inability to successfully build the control models for both the classical engineering controller, and the DRL controller. For the classical engineering controller, the issue would be the inability to find the appropriate parameter settings to deliver stable control. With the DRL controller, the problem is selection of an appropriately sized neural network, and training hyper-parameters.
