@@ -1,5 +1,6 @@
 \section{Introduction \& Background}
-In 2018, approximately 261$\si{\tera\watt\hour}$ of power was generated in the Australian electricity sector. Renewables contributed 19\% of the total generation, an increase from 15\% in 2017. The Department of Industry, Science, Energy and Resources have observed an increase in renewable energy generation year-on-year in the electricity generation market since 2008, as shown in Figure \ref{fig:energyts} \cite{Diser2020}.
+In 2018, approximately 261$\si{\tera\watt\hour}$ of power was generated in the Australian electricity sector. Renewables contributed 19\% of the total generation, an increase from 15\% in 2017. The Department of Industry, Science, Energy and Resources have observed an increase in renewable energy generation year-on-year in the electricity generation market since 2008, as shown in Figure \ref{fig:energyts} \cite{Diser2020}.\\
+
 \begin{figure}[ht]
 	\centering
 	\input{./figures/renewable_energy/renewable_energy}
@@ -46,19 +47,22 @@ When $T_{mech}$ equals $T_{elec}$ the system will be in a steady state of zero a
 
 \newpage
 
-Protection schemes tripping equipment from the network is undesirable as this can leave households and industry without power, resulting in economic loss. Further, if disconnections are uncontrolled the system stability is reduced \cite{AEMOpowerfreqriskrev}. System controllers, such as the AEMO and PWC, are interested in being able to control the system to follow changes in load demand so that system frequency is maintained in the allowable range. Additionally, they are interested in control mechanisms to restore frequency excursions as a result of unexpected disturbances. System controllers can use historical data, like that shown in Figure \ref{fig:energydemand}, to forecast daily demand profiles with some reliability. This type of forecasting does not help when trying to predict the occurrence of random disturbances; however, it does provide a starting point for estimating required generation needed to meet demand. It is important to note that forecasting is not perfect. Inevitably mismatches in supply and demand will occur causing small imbalances between $T_{mech}$ and $T_{elec}$, resulting in a change to angular velocity $\omega$ and the network frequency \cite{Glover2012}. To perfectly match supply and demand, system controllers use generators referred to as regulating units \cite{Kothari2011}. A regulating unit is a generator that has the capacity to increase or decrease mechanical torque $T_{mech}$. If the system controller has a sufficient number of regulating units it can perform two functions: load following, and restoring the system to stable operating conditions in the event of a disturbance \cite{Grainger1994}. Using a regulating unit to load follow is referred to as load following ancillary services \cite{AEMOancilliaryserv}. Load following control adjusts regulating units in order to match supply with a demand load profile, like that shown in Figure \ref{fig:energydemand}. Using a regulator to restore the system after a disturbance is referred to as providing spinning reserves \cite{AEMOancilliaryserv}.
+Protection schemes tripping equipment from the network is undesirable as this can leave households and industry without power, resulting in economic loss. Further, if disconnections are uncontrolled the system stability is reduced \cite{AEMOpowerfreqriskrev}. System controllers, such as the AEMO and PWC, are interested in being able to control the system to follow changes in load demand so that system frequency is maintained in the allowable range. Additionally, they are interested in control mechanisms to restore frequency excursions as a result of unexpected disturbances. System controllers can use historical data, like that shown in Figure \ref{fig:energydemand}, to forecast daily demand profiles with some reliability. This type of forecasting does not help when trying to predict the occurrence of random disturbances; however, it does provide a starting point for estimating required generation needed to meet demand. It is important to note that forecasting is not perfect. Inevitably mismatches in supply and demand will occur causing small imbalances between $T_{mech}$ and $T_{elec}$, resulting in a change to angular velocity $\omega$ and the network frequency \cite{Glover2012}. To perfectly match supply and demand, system controllers use generators referred to as regulating units, placed under Automatic Generation Control (AGC) \cite{Kothari2011}. A regulating unit is a generator that has the capacity to increase or decrease mechanical torque $T_{mech}$, and AGC is the name used for a system providing control over the mechanical torque output of regulating generators. If the system controller has a sufficient number of regulating units under AGC it can perform two functions: load following, and restoring the system to stable operating conditions in the event of a disturbance \cite{Grainger1994}. Using a regulating unit under AGC control to load follow is referred to, by AEMO, as load following ancillary services \cite{AEMOancilliaryserv}.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[height=8cm]{frequency_arrest}
-\caption{A frequency disturbance occurs just before the 10 sec mark. Once the disturbance has been arrested, the regulating units ramp up their generation returning system frequency to 50$\si{\hertz}$.}
+\includegraphics[height=6cm]{frequency_arrest}
+\caption{A minor frequency disturbance occurs at the 2 sec mark and primary control systems (governors) arrest the frequency drop. System frequency is adjusted to desired 50$\si{\hertz}$ operating level using AGC control of regulating units. This referred to as supplementary (or secondary) control in the literature. AEMO refers to this as load following ancilliary services. At the 40 sec mark the network experiences a major frequency disturbance which is arrested by emergency control measures such as under-frequency load shedding (UFLS). System restoration is aided using AGC control of regulating units, which AEMO refers to as spinning reserve ancillary services \cite{Bevrani2011}.}
 \label{fig:freqarrest}
 \end{figure}
 
-When used in this fashion it is important to note that the regulating unit is not responsible for arresting frequency excursions, rather, it is used to restore the system back to the allowable frequency operating range after the frequency excursion has been arrested. An example of a frequency excursion, arrest, and subsequent restoration can be seen in Figure \ref{fig:freqarrest}. AEMO and PWC do not require all generators on the network to act as regulating units since adequate frequency control can be achieved using a subset of the total available generators.
+\newpage
+
+Load following control adjusts regulating units in order to match supply with a demand load profile, and maintain frequency in a normal operating range a shown in the first 40 seconds of Figure \ref{fig:freqarrest}. Using a regulator under AGC control to restore the system after a major disturbance is referred to, by AEMO, as providing spinning reserve ancillary services. \cite{AEMOancilliaryserv}. When used in either fashion it is important to note that the regulating unit is not responsible for arresting frequency excursions, rather, it is used to restore the system back to the allowable frequency operating range after the frequency excursion has been arrested. An example of a frequency excursion, arrest, and subsequent restoration for minor and major disturbances can be seen in Figure \ref{fig:freqarrest}. AEMO and PWC do not require all generators on the network to act as regulating units since adequate frequency control can be achieved using a subset of the total available generators.
+
 
 \subsection{Frequency Control for a Single Area System}\label{oneareapowersystem}
-The power system model shown in Figure \ref{fig:energyts} depicts total generation coming from many generation assets --- this is complex to model. Researchers often find it useful to divide generation assets into sub-groups referred to as control areas \cite{Kothari2011}. A control area is defined as a subset of generators that are in close proximity to each other and constitute a coherent group that speed up and slow down together, maintaining their relative power angles \cite{Kothari2011}. Therefore, the total network is comprised of many interconnected control areas. An example of this can be seen in Figure \ref{fig:interconnectedpa}. Notice that for each area there is only one load and one generator. Typically, for each control area, researchers will aggregate many loads into a single load, and many generators into a single generator. This simplifies the model further \cite{Grainger1994}.
+The power system model shown in Figure \ref{fig:energyts} depicts total generation coming from many generation assets --- this is complex to model. Researchers often find it useful to divide generation assets into sub-groups referred to as control areas \cite{Kothari2011}. A control area is defined as a subset of generators that are in close proximity to each other and constitute a coherent group that speed up and slow down together, maintaining their relative power angles \cite{Kothari2011}. Therefore, the total network is comprised of many interconnected control areas. An example of this can be seen in Figure \ref{fig:interconnectedpa}. Notice that for each area there is only one load and one generator.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[height=8cm]{multiple_area_system}
@@ -66,43 +70,43 @@ The power system model shown in Figure \ref{fig:energyts} depicts total generati
 	\label{fig:interconnectedpa}
 \end{figure}
 
-The simplest power system to control is one that consists of a single control area. A single control area power system has no interconnections to any other control area. It is comprised of a consumer load demand, and a set of generators, some of which are acting as regulating units. As previously mentioned, for modelling simplicity, loads are aggregated to a single load, and generators are aggregated to a single generator. This simple system is well understood. It is generally acknowledged that a governor feedback control regime can successfully perform frequency control of a single area power system \cite{Wood2013, Grainger1994, Kothari2011}. A particularly well laid out approach to developing linear models for the turbine, generator load, and governor was presented by Kothari and Nagrath \cite{Kothari2011}. The full model is shown in Figure \ref{fig:singleareacontrol}. The leftmost block is a first-order linear model of the speed governor. The second block is a first-order model of the turbine, which the controller directly acts on. The final block is the generator load, which is also a first order system. The overall system is a second order linear model, with a first order controller.
+Typically, for each control area, researchers will aggregate many loads into a single load, and many generators into a single generator. This simplifies the model further \cite{Grainger1994}. The simplest power system to control is one that consists of a single control area. A single control area power system has no interconnections to any other control area. It is comprised of a consumer load demand, and a set of generators, some of which are acting as regulating units. As previously mentioned, for modelling simplicity, loads are aggregated to a single load, and generators can be aggregated to a single generator. This simple system is well understood. It is generally acknowledged that a speed droop governor feedback control regime will perform primary frequency control, and an AGC feedback loop is used to perform secondary frequency control when restoring a minor frequency excursion \cite{Wood2013, Grainger1994, Kothari2011, Kundur1994}. A particularly well laid out approach to developing linear models for the turbine, generator, load, and governor was presented by Kundur \cite{Kundur1994}. The full model is shown in Figure \ref{fig:singleareacontrol}. This particular model provides generator models for regulating and non-regulating generators. The governor blocks are first-order linear models of the speed governors. The turbine blocks are first-order models of the turbines. The final block is the generator load, which is also a first order system. The AGC feedback loop uses an integral controller.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[height=5cm]{single_area_control}
-\caption{A classical feedback control approach for a second order linear system. The second order system is comprised of a first order model for both the turbine, and generator load. The controller is modelled as a first order system \cite{Kothari2011}.}
+\includegraphics[height=8cm]{single_area_control}
+\caption{A classical feedback control approach for a single control area power system. The system is comprised of a first order models for both turbines, and generators. The governor controllers are also first order models. AGC is implemented using an integral control block in a feedback loop \cite{Kundur1994}.}
 \label{fig:singleareacontrol}
-\end{figure}
-
-
-\subsection{Frequency control for two area system}
-The single area system presented in Section \ref{oneareapowersystem} is useful to help understand the role of governors in controlling power system frequency, however, a single area model is too simple. In reality, power systems are comprised of many control areas connected by transmission lines (referred to in the literature as tie lines). Often it is the case that there is some net power transfer over the tie lines, enforceable by contract.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[height=3cm]{two_area_system}
-	\caption{Two area power system is comprised of generators and load connected via a tie line. Power flows from one area to the other depending on economic contracts.}
-	\label{fig:twoareapower}
-\end{figure}
-
-Distinct control areas are typically thought of as different participants in the generation market, or simply as different regions in which generation assets are based \cite{Kothari2011}. The simplest model which includes tie lines is the two area power system, shown in Figure \ref{fig:twoareapower}. The control objective with this system is to maintain the inter-area power transfer, whilst regulating the frequency of each area. Simply relying on governor control in each area will not satisfy the control objective. To see this, consider control area A supplying a 50MW load, with a contract to supply control area B with 20MW over the tie line connecting them. If control area B also has a 50MW load, then it is supplying only 30MW to satisfy the demand in this area. Now suppose a 30MW load increase was observed in the demand for area A. Relying on governor control will see generators from both area A and area B speed up in response to this increased load. Ultimately the increased power demands will be met, however, the power transfer over the tie line is likely to be less than the contracted 20MW value, which is problematic. Contract violations due to system instability and control issues do not allow for a stable market in which energy can be reliably traded. Fortunately, two area power systems are well understood. Linear models have been developed to simulate these systems, and classical control approaches have been successfully implemented to meet the new control objectives. In order to achieve this, a metric called Area Control Error (ACE) is used. This measures the distance from a target frequency as well as the deviation from tie-line contractual obligations. The implementation of this control system is shown in Figure \ref{fig:twoareacontrolblock}.
-
-\vspace{2cm}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[height=4.8cm]{two_area_control_block}
-	\caption{A classical feed back control approach to a two power area system. Image taken from \cite{Kothari2011}.}
-	\label{fig:twoareacontrolblock}
 \end{figure}
 
 \newpage
 
-\subsection{Reinforcement learning}
+\subsection{Frequency Control for Two Area System}
+The single area system presented in Section \ref{oneareapowersystem} is useful to help understand the role of governors and AGC in controlling power system frequency. In reality, power systems are comprised of many control areas connected by transmission lines (referred to in the literature as tie lines). Often it is the case that there is some net power transfer over the tie lines, enforceable by economic contract. Single area models do not provide for this additional complexity.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=3cm]{two_area_system}
+	\caption{A two area power system comprised of generators and load connected via a tie line. Power flows from one area to the other depending on the power demands.}
+	\label{fig:twoareapower}
+\end{figure}
+
+Distinct control areas are typically thought of as different participants in the generation market, or simply as different regions in which generation assets are based \cite{Kothari2011}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=12cm]{two_area_control_block}
+	\caption{A classical feedback control approach to a two area power system \cite{Kundur1994}.}
+	\label{fig:twoareacontrolblock}
+\end{figure}
+
+The simplest model that includes tie lines is the two area power system, shown in Figure \ref{fig:twoareapower}. The control objective with this system is to maintain the inter-area power transfer, whilst regulating the frequency of each area. An AGC integral feedback loop on regulating units, like that shown in Figure \ref{fig:singleareacontrol}, would ensure that power system frequency is maintained, however, would not guarantee inter-area power transfer agreements are observed. Violation of power transfer contracts due to control issues does not allow for a stable market in which energy can be reliably traded. Fortunately, multi control area power systems are well understood. Linear models have been developed to simulate these systems, and classical control approaches have been successfully implemented to meet the new control objectives. In order to achieve this, a metric called Area Control Error (ACE) is used in the AGC feedback loop for each control area. ACE is a linear combination of the frequency deviations and the . The implementation of this control system is shown in Figure \ref{fig:twoareacontrolblock}.
+
+
+\subsection{Reinforcement Learning}
 Reinforcement Learning (RL) is a branch of machine learning that is concerned with how agents make sequential decisions to maximise some notion of a cumulative reward. It is a simple idea that allowed Google's DRL agent, AlphaGo, to beat the world's best players in a game of Go \cite{Silver2016}. One of the important aspects of RL is the underlying architecture of the model, which allows for generalisation to many different applications, albeit the models do require training with different data sets for each application. A brief overview of key architectural components of RL can be found in \S{}\S{}\ref{mdp1} and \ref{mdp2}. \S{}\ref{rl} gives details on how these components are implemented to build an agent that can perform a control activity for some application.
 
-\subsubsection{Markov decision process}\label{mdp1}
+\subsubsection{Markov Decision Process}\label{mdp1}
 Suppose an agent exists in some environment that is comprised of many discrete states, $s \in S$, such that $S$ denotes the state space. At any discrete point in time the agent can take an action $a \in A$, where $A$ denotes the action space. When the agent takes an action in a given state, the agent receives some reward, denoted with $r \in R$, where $R$ is the reward set. If an agent is in a given state, $s$, and takes and action, $a$, this will transition the agent to a new state, $s'$, and yield reward, $r$, with some given probability --- these are referred to as state transition probabilities. Transition probabilities are denoted as follows:
 \begin{equation}
 P(S_{t+1}=s', R_{t+1}=r \ | \ S_t = s, A_t = a)\label{eq:2}
@@ -110,7 +114,7 @@ P(S_{t+1}=s', R_{t+1}=r \ | \ S_t = s, A_t = a)\label{eq:2}
 
 The set of parameters outlined above, and equation \ref{eq:2}, make up a framework referred to as a Markov Decision Process (MDP) \cite{Bellm1957}. The MDP framework is important to understanding how RL works; however, it must be noted that it is not necessary for the agent to have any information about the state transition dynamics to develop an effective control regime.
 
-\subsubsection{Return, episodes, and policy}\label{mdp2}
+\subsubsection{Return, Episodes, and Policy}\label{mdp2}
 As the agent takes actions at each discrete time step, it receives a reward. The cumulative sum of this reward is referred to as the return \cite{openai2018}. For $N$ discrete time steps the return is denoted as:
 \begin{equation}
 G_t = r_t + r_{1+1} + r_{t+2} + \ldots + r_{N-1}\label{eq:3}
@@ -125,7 +129,7 @@ The duration of time that an agent will cumulate reward is referred to as an epi
 
 Finally, in order for the robot to act within the environment, it needs to have a policy. A policy, $\pi$, is defined as a mapping from states to actions, i.e. a rule which determines what action the robot will take for a given state. A deterministic policy, $\pi (s)$, maps a single action to a single state. A stochastic policy, $\pi (a | s)$, defines a probability distribution over the actions for a given state. An optimal policy, denoted $\pi^*$, is a policy which will maximise the cumulative reward that the agent receives over an episode \cite{Bellm1954}. It can be thought of as the best control policy an agent can have for the given the environment and cumulative reward function.
 
-\subsubsection{How does an RL agent learn?}\label{rl}
+\subsubsection{How Does an RL Agent Learn?}\label{rl}
 The main objective of RL is to develop an optimal policy. There are many algorithmic approaches to building an optimal policy. One of the most common implementations is called Q-learning. This approach focuses on finding q-values for each state-action pair. A q-value can be thought of as an ordinal value that is discovered and assigned to a state-action pair that tells the agent how important an action is relative to the rest of the actions in a given state. The agent normally starts with a randomised policy meaning that all the q-values are set to zero. This will lead the agent to take actions at random and explore the state-action space. Higher q-values are then assigned to state-action pairs that the agent classifies as useful for building a high cumulative reward. Similarly, the agent assigns low q-values to state-action pairs that do not lead to high cumulative rewards. This process is akin to the agent modifying its policy. The q-value modification process is iterated over many episodes and eventually the agent policy converges on an optimal policy. Often the q-values are presented in a tabular format that the literature refers to as a Q-table. An example of a Q-table can be seen in Figure \ref{fig:qtable}. Rows represent different states, and columns represent different actions. Values in each cell provide an ordinance on how valuable each action is for a given state. The agent only needs to understand inputs that uniquely define a state, and the actions it can take in order to learn an optimal policy. It is not necessary for the agent to know the state transition dynamics of the system, described by Equation \ref{eq:2}. Therefore, an agent can learn to control a system for which is does not have a mathematical model.
 \begin{figure}[ht]
 	\centering
@@ -134,7 +138,7 @@ The main objective of RL is to develop an optimal policy. There are many algorit
 	\label{fig:qtable}
 \end{figure}
 
-\subsection{Deep reinforcement learning}
+\subsection{Deep Reinforcement Learning}
 For low dimensional state-action spaces RL leads to policy convergence in a reasonable time frame. As state-action space dimensionality increases Q-Learning models experience difficulty. Owing to increasing computing demands, it becomes difficult for the discrete RL algorithm to visit every state-action pair unless the computational power is dramatically increased. The impace of dimensionality on Q-learning has been previously reported (REFERENCES). Stopping policy discovery prior to optimal policy convergence is not an option under problems with high dimensionality as this results in sparse Q-tables (mostly populated with zeros).
 \begin{figure}[ht]
 \centering
