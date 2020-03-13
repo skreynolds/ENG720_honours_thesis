@@ -1,14 +1,24 @@
 \section{Resources}
-In order to reach research objectives a computer with a Linux operating system featuring RAM, and a Graphics Processing Unit (GPU) will be required. The exact specifications of these computational resources are not yet known, and will be dependent on the size of the datasets, and the amount of computation required to train the DRL agent. Currently, access has been provided to an Intel Quad Core 3.2$\si{\giga\hertz}$ i5 CPU machine with 8GB of RAM, Nvidia GTX960 GPU, and Ubuntu operating system. It is expected these resources will be sufficient; however, in the event that greater computational power is needed, access to a virtualised environment, such as Amazon Web Services (AWS) set up to conduct DRL research, may be required. Using such a system can be expensive (1 hour of compute is approximately \$20AUD); however, AWS will often supply student research with a monetary credit.
+In order to reach research objectives a computer with a Linux operating system featuring RAM, and a Graphics Processing Unit (GPU) will be required. The exact specifications of these computational resources are not yet known, and will be dependent on the size of the datasets, and the amount of computation required to train the DRL agent. Currently, access has been provided to an Intel Quad Core 3.2$\si{\giga\hertz}$ i5 CPU machine with 8GB of RAM, Nvidia GTX960 GPU, and Ubuntu operating system. It is expected these resources will be sufficient; however, in the event that greater computational power is needed, access to a virtualised environment, such as Amazon Web Services (AWS) set up to conduct DRL research, may be required. Using such a system can be expensive (1 hour of compute is approximately \$20AUD); however, AWS will often supply student research with a monetary credit. Approximately 10 hours of compute would be reasonably expected to achieve desired training outcomes for DRL agent. This allows for errors made in model training parameter specification, and subsequent retraining.
+Table \ref{tab:resources} shows an itemised list of resources needed to complete this research, and their associate costs.
 
-%\begin{table}[h]
-%	\caption{text}
-%	\centering
-%	\begin{tabular}{ll}
-%	\toprule
-%	
-%	\midrule
-%	
-%	\bottomrule
-%	\end{tabular}
-%\end{table}
+\begin{table}[h]
+	\caption{Itemised list of resources needed to complete research and associated costs.}
+	\centering
+	\begin{tabular}{llr}
+	\toprule
+	Equipment 				& Details			 & Cost \\
+	\midrule
+	Intel Quad Core 3.2$\si{\giga\hertz}$ i5 CPU & pre-owned hardware 		& \$0 	 \\
+	8GB of RAM 									 & pre-owned hardware		& \$0 	 \\
+	Nvidia GTX960 GPU 							 & pre-owned hardware		& \$0 	 \\
+	Ubuntu operating system 					 & open source software		& \$0 	 \\
+	AWS GPU Large Instance 						 & ~\$20 @ 10 hours 		& ~\$200 \\
+	Python 3.7 (Open AI Env)  					 & open source software 	& \$0 	 \\
+	Matlab										 & CDU VM licence			& \$0 	 \\
+	\midrule
+	Total 										 & 							& \$200 \\
+	\bottomrule
+	\end{tabular}
+	\label{tab:resources}
+\end{table}
