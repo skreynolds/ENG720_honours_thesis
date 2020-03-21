@@ -9,6 +9,7 @@
 *.nav
 *.out
 *.run.xml
+*.sav
 *.snm
 *.synctex.gz
 *.toc
