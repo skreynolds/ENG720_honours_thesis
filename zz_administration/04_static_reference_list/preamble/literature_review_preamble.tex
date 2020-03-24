@@ -1,0 +1,102 @@
+%!TEX root = literature_review.tex
+
+\usepackage{geometry}
+\geometry{a4paper,inner=3cm, outer=3cm, top=2cm, bottom=3cm}
+  \pdfpagewidth=\paperwidth 
+  \pdfpageheight=\paperheight
+  % This acts as a failsafe to ensure things aren't stretched or moved when it's finally printed as a PDF.
+
+\setlength{\parindent}{1em}  % Sets the length of the paragraph indent. Current setup has a an indent. Disable this if you activate the return line above.
+
+% Double or one and a half spacing.
+\usepackage{setspace}
+  \onehalfspacing
+
+\usepackage{booktabs}
+% makes tables look sweet with top, mid, and bottom rules
+
+\usepackage{graphicx}
+  \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+% Graphics. Remove me and you won't have any figures, and that would be very boring.
+
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+% Adds the ability to make coloured text and lines throughout the document. See documentation for xcolor.
+
+%-------------------- Tables, figures and captions
+\usepackage[font={small},labelfont={bf},margin=4ex]{caption}
+% Makes bold labeled and smaller font captions. Must be loaded before the longtable package to avoid conflicts! 
+
+\usepackage{longtable}
+% Long tables (more than one page). Different headers and footers for beginning and end pages, etc.
+
+\usepackage{afterpage}
+% Make a longtable start on the next clear page, but fills the previous one with text first (no random gaps in the text-from long tables anymore! Man, the day I discovered this...)
+
+\usepackage{booktabs}
+% Nice looking tables and lines in tables
+
+\usepackage{multirow}
+% Entries in tables over multiple rows
+
+\usepackage{lscape}
+% Pages in landscape
+
+\usepackage{wrapfig}
+% Allows figures that don't take up the entire width of the page, wrapping the text around the figure
+
+%-------------------- Special symbols and fonts
+\usepackage{amssymb}
+% Maths symbols
+
+\usepackage{siunitx}
+% important package for scientific papers
+
+%-------------------- Document sections, headers, footers, and bibliography
+\usepackage{fancyhdr}
+% for creating different headers and footers
+ 
+%-------------------- Graphics path specification
+\graphicspath{{./figures/}}
+
+%-------------------- Draft water mark
+%\usepackage[hidelinks]{hyperref}		% for watermark
+%\usepackage[printwatermark]{xwatermark}	% for watermark
+%\usepackage{tikz}						% for watermark
+%\usetikzlibrary{shapes,arrows}			% for watermark
+
+%-------------------- Function to place draft watermark on document
+%\newsavebox\mybox
+%\savebox\mybox{\tikz[color=red,opacity=0.3]\node{DRAFT};}
+%\newwatermark*[allpages,color=red!30,angle=45,scale=7,xpos=-20,ypos=20]{\usebox\mybox}
+
+%-------------------- Bibliography
+\usepackage[backend=biber,style=ieee]{biblatex}
+% This is the package that lets you create a bibliography. I recommend reading the biblatex documentation to understand all the options i've specified here. BibLaTeX was created to replace BibTeX. It has lots of extra fields and options. I'm also using the biber backend here rather than the default, it copes with unicode and so can deal with accented characters easily.
+
+% Currently this is set up to use RSC style references with article titles displayed. You can change this to another numeric style, there are other numeric styles available: Vancouver, american chemical society, american institute of physics, etc. As well, there are author-date styles available. Most journals or styles you can think of are available and you're not restricted to use any particular referencing style at CDU. Royal society of Chemistry is just what I use. I'd recommend you talk to your supervisor about what referencing style to use, usually one that is common in your chosen field.
+
+% Traditionally you would use BibTeX, a special build of TeX, for your bibliogrpahy.The newer biblatex package is a more powerful bibliograpy management tool for LaTeX. You can make multiple, chapter based bibliographies, footnote bibliographes, sort your references by date, author, order cited, essentially by any bit of citation data you happen to have. You can also have a seperate library with a differnet format for say books and articles. Or if you're a PhD student, the thesis references and your a list of YOUR publications. That siad. If you want to use the old way this is it below.
+
+%-------------------- Hyperlinks in your document.
+\usepackage[unicode=true,colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black,breaklinks=true]{hyperref}
+% The hyperref package allows you to have clickable links in your pdf. It also allows you to have the mailto link associated with your name. It can be  a bit finicky, so load it last.
+
+%\usepackage[hyphens]{url}
+% package used to properly specify
+
+%-------------------- Command renewals, New commands etc.
+\renewcommand{\thefootnote}{\alph{footnote}}              
+%letters for footnotes instead of numbers to avoid confusion with references.
+
+%-------------------- Function to create a small title block
+\newcommand{\namelistlabel}[1]{\mbox{#1}\hfil}
+\newenvironment{namelist}[1]{%1
+\begin{list}{}
+    {
+        \let\makelabel\namelistlabel
+        \settowidth{\labelwidth}{#1}
+        \setlength{\leftmargin}{1.1\labelwidth}
+    }
+  }{%1
+\end{list}}
+

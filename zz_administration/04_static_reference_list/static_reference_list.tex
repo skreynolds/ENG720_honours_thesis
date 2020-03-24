@@ -1,0 +1,52 @@
+%----------------------- Static Reference List Master Document ------------------------
+%
+% Created by: Shane Reynolds 2020-03-24
+%
+%----------------------------------------------------------------------------------
+
+%------------------------ Preamble and bibliography resources
+\documentclass[12pt]{article}
+\input{preamble/literature_review_preamble} % this must be left as \input, \include wont work in the preamble
+\usepackage{mathptmx}
+
+% This is where you load your bibliography file. If you use change to BibTeX and natbib in the pramble comment it out.
+\addbibresource{../00_bibliography_db/bibliography_db.bib}
+
+%-------------- Information For The Title Page
+\title{ENG720: Reference List}
+\author{}
+\date{}
+
+%------------------------ Main Document --------------------------
+\begin{document}
+	\maketitle
+
+	\begin{namelist}{xxxxxxxxxxxx}
+		\item[{\bf Title:}]
+			Automatic generation control of a two area power system using deep reinforcement learning
+		\item[{\bf Author:}]
+			Shane Reynolds
+		\item[{\bf Supervisor:}]
+			Charles Yeo \& Stefanija Klaric
+		\item[{\bf Degree:}]
+			Bachelor of Engineering (Honours)
+	\end{namelist}
+
+%-------------- Table of contents
+	%\phantomsection \pdfbookmark[0]{Contents}{Contents}
+	%\tableofcontents
+	%\newpage
+
+%-------------- Sections
+	\cite{*}
+
+%-------------- Bibliography
+    %\cleardoublepage
+    \phantomsection  \addcontentsline{toc}{section}{Bibliography}                    
+    \printbibliography
+    
+    % Uncomment these two lines and remove the \printbibliography above and the \addbibresource{your_bibliography.bib} at the top of the document if you're using the BibTeX and natbib method to include you bibliography. For example, if you're using some online compiling systems which doesn't support biblatex. By default you shouldn't need to touch anything.
+    %\bibliographystyle{plain}
+    %\bibliography{your_bibliography}
+
+\end{document}
