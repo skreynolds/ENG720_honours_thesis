@@ -12,3 +12,8 @@ The assessment for Part A of the thesis is made up of the following items:
 4. Poster presentation
 
 As I undertake my research, I am maintaining a blog in which I hope to summarise the important aspects on my research in a less formal language. A link to the blog can be found [here](https://skreynolds.github.io/).
+
+## MATLAB Simulation
+Work has been undertaken to develop a selection of power systems models with load frequency controllers. These were built for experimentation purposes using MATLAB and Simulink to replicate research papers, understand different model architectures, test model parameters, or try different classical control schemes for the AGC/LFC problem.
+
+A link to the reposistory containing this work can be found [here](https://github.com/skreynolds/ENG720_matlab_models).
