@@ -1,0 +1,22 @@
+% Set up the standalone document class
+\documentclass{standalone}
+
+% Input the preamble (<3)
+\input{../00_preamble/preamble.tex}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+	% Draw the nodes first
+	\node [input] (input) {};
+	\node [block1, right of=input, node distance=4cm, label=above:{Turbine}] (turbine) {$\frac{K_{t}}{1 + T_{t}s}$};
+	\node [output, right of=turbine] (output) {};
+	
+	% Connect the nodes
+	\draw [->] (input) -- node [label=above:{$\Delta Y_E(s)$}] {} (turbine);
+	\draw [->] (turbine) -- node [label=above:{$\Delta P_G(s)$}] {} (output);
+	
+\end{tikzpicture}
+
+\end{document}

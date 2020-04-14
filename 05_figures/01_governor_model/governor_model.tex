@@ -1,0 +1,27 @@
+% Set up the standalone document class
+\documentclass{standalone}
+
+% Input the preamble (<3)
+\input{../00_preamble/preamble.tex}
+
+\begin{document}
+
+\begin{tikzpicture}
+	
+	% Draw the nodes first
+	\node [input] (input) {};
+	\node [sum,add={$-$}{+}{ }{ },right of=input] (sum) {};
+	\node [block1, right of=sum, label=above:{Governor}] (governor) {$\frac{K_{sg}}{1 + T_{sg}s}$};
+	\node [output, right of=governor] (output) {};
+	\node [block2, below of=governor] (regulator) {$\frac{1}{R}$};
+	\node [input, right of=regulator] (frequency) {};
+	
+	% Connect the nodes
+	\draw [->] (input) -- node [label=above:{$\Delta P_C(s)$}] {} (sum);
+	\draw [->] (sum) -- (governor);
+	\draw [->] (governor) -- node [label=above:{$\Delta Y_E(s)$}] {} (output);
+	\draw [->] (frequency) -- node [label=above:{$\Delta F(s)$}] {} (regulator);
+	\draw [->] (regulator) -| (sum);
+\end{tikzpicture}
+
+\end{document}
