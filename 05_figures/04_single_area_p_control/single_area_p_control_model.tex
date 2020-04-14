@@ -1,0 +1,35 @@
+% Set up the standalone document class
+\documentclass{standalone}
+
+% Input the preamble (<3)
+\input{../00_preamble/preamble.tex}
+
+\begin{document}
+	
+\begin{tikzpicture}
+	
+	% Draw the nodes first
+	\node [input] (input) {};
+	\node [sum, add={$-$}{+}{ }{ }, right of=input] (sum1) {};
+	\node [block1, right of=sum1, label=above:{Governor}] (governor) {$\frac{K_{sg}}{1 + T_{sg}s}$};
+	\node [block2, below of=governor] (regulator) {$\frac{1}{R}$};
+	\node [block1, right of=governor, label=above:{Turbine}, node distance=4cm] (turbine) {$\frac{K_t}{1 + T_t s}$};
+	\node [sum, add={ }{+}{$-$}{ }, right of=turbine, node distance=3cm] (sum2) {};
+	\node [input, above of=sum2, node distance=2cm] (demand) {};
+	\node [block1, right of=sum2, label=above:{Gen. Load}] (genload) {$\frac{K_{gl}}{1 + T_{gl}s}$};
+	\node [output, right of=genload] (output) {};
+	
+	% Connect the nodes
+	\draw [->] (input) -- node [label=above:{$\Delta P_C(s)$}] {} (sum1);
+	\draw [->] (sum1) -- (governor);
+	\draw [->] (governor) -- node [label=above:{$\Delta Y_E(s)$}] {} (turbine);
+	\draw [->] (turbine) -- node [label=above:{$\Delta P_G(s)$}] {} (sum2);
+	\draw [->] (demand) -- node [label=right:{$\Delta P_L(s)$}] {} (sum2);
+	\draw [->] (sum2) -- (genload);
+	\draw [->] (genload) -- node [coordinate, name=feedback, label=above:{$\Delta F(s)$}] {} (output);
+	\draw [->] (feedback) |- (regulator);
+	\draw [->] (regulator) -| (sum1);
+	
+\end{tikzpicture}
+	
+\end{document}
