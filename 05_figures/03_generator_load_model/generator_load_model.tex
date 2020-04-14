@@ -9,6 +9,18 @@
 \begin{tikzpicture}
 	
 	% Draw the nodes first
+	\node [input] (input) {};
+	\node [sum,add={ }{+}{$-$}{ },right of=input] (sum) {};
+	\node [block1, right of=sum, label=above:{Gen. Load}] (genload) {$\frac{K_{gl}}{1 + T_{gl}s}$};
+	\node [input, above of=sum, node distance=2cm] (powerdemand) {};
+	\node [output, right of=genload] (output) {};
+	
+	% Connect the nodes
+	\draw [->] (input) -- node [label=above:{$\Delta P_G(s)$}] {} (sum);
+	\draw [->] (sum) -- (genload);
+	\draw [->] (powerdemand) -- node [label=right:{$\Delta P_L(s)$}] {} (sum);
+	\draw [->] (genload) -- node [label=above:{$\Delta F(s)$}] {} (output);
+	
 \end{tikzpicture}
 
 \end{document}
