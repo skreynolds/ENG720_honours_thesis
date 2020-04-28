@@ -1,24 +1,27 @@
 \section{Literature Review}
-Traditional control structures for maintaining power system frequency, like load frequency control (LFC) or automatic generation control (AGC), operate based on an assumption of linear plant models. An increasing proportion of photovoltaic sources of generation, and an increase in the use of high voltage direct current (HVDC) transmission lines to Australia's power network means power system dynamics are becoming more non-linear. This is driving a need to explore applications of novel control architectures to AGC for increased control performance under non-linear plant conditions. One such control architecture being investigated is Deep Reinforcement Learning (DRL). To fully grasp this problem two key areas of understanding are necessary. Firstly, it is important to know what LFC is and the control architectures that have previously been explored to address this problem. Secondly, knowledge of DRL and its historical applications to control problems is required to understand strengths, limitations, and underlying assumptions of the architecture.
+Power systems are non-linear; however, traditional control structures for maintaining power system frequency such as load frequency control (LFC) or automatic generation control (AGC), are designed under the assumption that plant modelled using linear ordinary differential equations can capture the dynamic behaviour of existing power systems. If frequency deviations are small, then this assumption is reasonable for the amount of non-linearity present in existing power systems. If frequency deviations are large, or additional non-linearity were introduced to the system, then it is no longer reasonable to assume linear ODE system models.
 
-This review addresses both aspects in \S{}\S{} \ref{agc} and \ref{drl}, respectively.
+Owing to an increase in the proportion of photovoltaic power generation, along with an increase in the use of high voltage direct current (HVDC) transmission lines in Australia's power network, power system dynamics are becoming more non-linear (REFERENCE). This is creating a need to explore novel control architectures for AGC in order to improve control performance for the non-linear system. One such control architecture being investigated is deep reinforcement Learning (DRL). To fully grasp this problem two key areas of understanding are necessary. Firstly, it is important to know what LFC is and the control architectures that have previously been explored to address this problem. Secondly, knowledge of DRL and its historical applications to control problems is required to understand strengths, limitations, and underlying assumptions of the architecture.
 
 
 \subsection{Automatic Generation Control}\label{agc}
-Since Thomas Edison's first commercial power station, commissioned in 1882 at 255-257 Pearl Street New York, the control of power frequency has been an important consideration for power generation \cite{Cohn1983}. In contrast to Edison's six 100$\si{\kilo\watt}$ generator facility, modern power systems are usually large-scale systems comprised of multiple generation sources such as thermal, hydro, and photovoltaic. Energy storage systems like pumped hydro and batteries are often featured, and high voltage direct current lines are often used when exporting power over long distances \cite{Bevrani2011, Glover2012, Kothari2011, Kundur1994}. Studies have shown that modern power systems display complex non-linear dynamics \cite{Concordia1957, Kwatny1975, Elgerd1994, Morsali2014}; however, the majority of research performed to date has used linearised models of single, two, or multi-area power systems \cite{Kothari2011, Saadat2011, Cohn1956, Bevrani2011, Wood2013, Elgerd1970, Kwatny1975}.
+Since Thomas Edison's first commercial power station, commissioned in 1882 at 255-257 Pearl Street New York, controlling power frequency has been a key factor in power generation \cite{Cohn1983}. One of the first attempts to control the frequency for a single generator and load system was with a device called a turbine governor (REFERENCE). The turbine governor was designed with an in-built proportional feedback control loop (REFERENCE). DESCRIBE HOW THIS ACTUALLY WORKS. The literature often refers to this as the primary control loop \cite{Bevrani2011}. Operators often found that primary loop governor control would require constant fine tuning to ensure that the power system was operating at the scheduled frequency (REFERENCE). XXXX undertook a mathematical analysis using first order linear models for the governor, turbine, and generation load control (REFERENCE). The analysis showed that primary control with a governor was successful in arresting frequency deviations from the desired set point, but persistent offset errors from the set point prevented the uptake of the technology \cite{Saadat}. Later research concluded that a secondary control loop to the governor was required to provide sufficient frequency control \cite{Elgerd1970}. The secondary control loop provided integral control (REFERENCE). Mathematical analysis, using first order linear models for plant showed that atuned proportional-integral (PI) controller was able to arrest frequency deviations and subsequently restore the system frequency to it's scheduled value. The PI control scheme constitutes the classical approach to the solving the LFC problem (REFERENCE).
 
-One of the first attempts to control the frequency of a single area power system under a linear model assumption was using a turbine governor with a proportional control loop. This is often referred to as primary control \cite{Bevrani2011}. The approach saw some success in arresting frequency deviations from the desired set point, but was ultimately found to be insufficient due to a persistent offset error from the set point \cite{Saadat}. Later research concluded that a supplementary integral control loop to the governor was required to provide sufficient frequency control \cite{Elgerd1970}. The combination of primary and supplementary, or proportional and integral control, is referred to as PI control or AGC. This scheme constitutes the classical approach to the solution of the LFC problem.
+Cohn \cite{Cohn1971} and Aggarwal \textit{et al.} \cite{Aggarwal1968, Aggarwal1968a} undertook pioneering work to develop classical control approaches to work with power systems comprised of two or more control areas. A system made up of more than one power system area required frequency control, but also the control of the power flow over the transmission infrastructure (tie lines) which connected the areas (REFERENCE). Cohn's paper used a first order linear system to model the tie line dynamics. The development of a tie line model allowed Cohn to use PI control architectures for each power system area, albeit with modified input signals (REFERENCE). One of the most important things to come out of his work was development of the feedback signal called area control error (ACE). Cohn used ACE to ensure power systems were restored to the scheduled frequency, given a frequency deviations, and that unscheduled tie line power flows were minimised between neighbouring control areas \cite{Cohn1956}. Classical power system frequency controllers can be designed using Bode and Nyquist diagrams to obtain desired gain and phase margins. Root locus plots can also be used \cite{Ogat2010}. While these approaches are simple, well known, and easy for practical implementation, investigations using these approaches have resulted in control schemes that exhibit poor dynamic performance. This is especially true in the presence of parameter variations and nonlinearities \cite{Kundur1994, Elgerd1970, Bechert1977}.
 
-Cohn \cite{Cohn1971} and Aggarwal et al. \cite{Aggarwal1968, Aggarwal1968a} undertook pioneering work to develop classical control approaches to work with power systems comprised of two or more control areas. Cohn's papers referred to this as a tie line bias control strategy. One of the important things to come out of his work was the use of a control feedback signal called area control error (ACE). Cohn used ACE to ensure zero steady state error for frequency deviations, and to minimise unscheduled tie line power flows between neighbouring control areas \cite{Cohn1956}. Classical power system frequency controllers can be designed using Bode and Nyquist diagrams to obtain desired gain and phase margins. Root locus plots can also be used \cite{Ogat2010}. While these approaches are simple, well known, and easy for practical implementation, investigations using these approaches have resulted in control schemes that exhibit poor dynamic performance. This is especially true in the presence of parameter variations and nonlinearities \cite{Kundur1994, Elgerd1970, Bechert1977}.
+Frequency controller analysis and design assumes plant models have linear dynamics; however, studies have shown that modern power systems display complex non-linear dynamics \cite{Concordia1957, Kwatny1975, Elgerd1994, Morsali2014}. Modern power systems are large-scale and comprised of multiple power generation sources such as thermal, hydro, and photovoltaic power --- some of the more commonly researched generator non-linearity include governor dead band (GDB) \cite{Concordia1957} and generator ramp constraint (GRC) \cite{Kwatny1975, Elgerd1994}. Moreover, modern power systems use high voltage direct current (HVDC) lines to export power over long distances, and they also feature energy storage systems such as pumped hydro or batteries \cite{Bevrani2011, Glover2012, Kothari2011, Kundur1994}. Both of these features display highly non-linear characteristics (REFERENCE).
 
-Linear power system models capture some of the underlying plant characteristics; however, these models are only valid within certain operating ranges. Non-linear plant characteristics mean that different linear models are required as plant operating conditions change. Some of the more common non-linearities that impact LFC efforts include governor dead band (GDB) \cite{Concordia1957} and generator ramp constraint (GRC) \cite{Kwatny1975, Elgerd1994}. Governor dead band is observed as a change in generator angular velocity for which there is no change in the governor valve position. GDB is generally attributed to backlash in the governor mechanism, and degrades LFC performance (REFERENCE). Generation rate constraint is a physical limitation of the turbine which imposes upper and lower boundaries on the rate of change in generating power a turbine can produce \cite{Morsali2014}. In recent years, frequency control methods using fuzzy logic, genetic algorithms (GA), and artificial neural networks (ANN), have gone some way to addressing the problems which arise due to non-linearity.
+Linear ODE power system models capture underlying plant characteristics; however, these models are only valid within certain operating ranges. Non-linear plant characteristics mean that different linear ODE models are required as plant operating conditions change. Governor dead band is observed as a change in generator angular velocity for which there is no change in the governor valve position. GDB is generally attributed to backlash in the governor mechanism, and degrades LFC performance (REFERENCE). GRC is a physical limitation of the turbine that imposes upper and lower boundaries on the rate of change in generating power from the turbine \cite{Morsali2014}. In recent years, frequency control methods using fuzzy logic, genetic algorithms (GAs), and artificial neural networks (ANNs), have attempted way to address the problems that arise due to non-linearity.
 
-Fuzzy logic control schemes are developed directly from power system domain experts or operators who control plant manually (REFERENCE). Researchers have shown that a fuzzy gain scheduling PI controller can perform as well as a fixed gain controller, for frequency control of two and multi-area power systems. Moreover, it was found fuzzy controllers are simpler to implement \cite{Chang1997, Cam2005}. Yesil et al. \cite{Yesil2004} proposed a self tuning fuzzy PID controller for a two area power system and noted improvements in controller transient performance when compared to a fuzzy gain scheduling PI controller.
+\subsubsection{Fuzzy Logic Control}
+Fuzzy logic control schemes are developed directly from power system domain experts or operators who control plant manually. Researchers have shown that a fuzzy gain scheduling PI controller can perform as well as a fixed gain controller, for frequency control of two and multi-area power systems. Moreover, it was found fuzzy controllers are simpler to implement \cite{Chang1997, Cam2005}. Yesil et al. \cite{Yesil2004} proposed a self-tuning fuzzy PID controller for a two area power system and noted improvements in controller transient performance when compared to a fuzzy gain scheduling PI controller.
 
+\subsubsection{Genetic Algorithms}
 Genetric algorithms are stochastic global search algorithms based on natural selection. In the context of power system control, GAs operate on a population of individuals. An individual is a set of control system parameters which are initially drawn at random and without knowledge of the task domain. Successive generations of individuals are developed using genetic operations such as recombination or mutation. An individuals chance of being selected for used in an genetic operation is based on an objective measure of fitness --- strong individuals are retained and weak individuals are discarded \cite{Fleming1993}.
 
 Chang et al. \cite{Chang1998} investigated using GA to determine fuzzy PI controller gains, which resulted in a control scheme which performed favourably when compared to a fixed-gain controller. Rekpreedapong et al. \cite{Rerkpreedapong2003} took this one step further by optimally tuning PI controller gains with GA while using linear matrix inequalities (LMI) constraints from a higher order controller. This research, performed on a three area control system, was motivated by the belief higher order controllers are not practical for industry. Rekpreedapong et al. concluded that the GA tuned PI controller, under LMI constraints, performed almost as well a higher order control system. Research undertaken by Ghosal \cite{Ghoshal2004} concluded that PID control with gains optimised by GA provided better transient performance than PI control with gains optimised in the same way.
 
+\subsubsection{Artificial Neural Networks}
 Artificial neural networks are systems that take input signals and, using many simple processing elements, produce output signals. The processing elements, or neurons, each have a number of internal parameters referred to as weights. Changing a weight will change the behaviour of a neuron. If many weights are changed, the behaviour of the ANN can be changed. The goal is to choose weights of the network in order to achieve the desired input/output relationship --- this is called training the network \cite{Nguyen1990}.
 
 Beaufays et al. \cite{Beaufays1994} demonstrated it was possible to used a neural network for frequency control in one and two-area power systems. The ANN replaced the integral controller in the classical structure; however, employed a state variable vector input containing frequency deviation and tie-line power measurements instead of a single value ACE signal seen with classical controllers. The network was trained using a back propagation through time algorithm, and resulted in better transient performance when compared with a classical PI controller. Using these results, Demiroren et al. \cite{Demiroren2001} went further by including non-linearity in the plant models. Specifically, governor deadband, reheater effects, and generating rate constraints are included and it was shown that the results obtained using the ANN controller outperformed the results of a standard PI classical control model for a two-area power system. Research undertaken a year later confirmed these results for a larger four-area power system with thermal and hydro generation sources \cite{Zeynelgil2002}. 
@@ -27,16 +30,68 @@ Beaufays et al. \cite{Beaufays1994} demonstrated it was possible to used a neura
 % Need to include some evaluation of the above fuzzy logic, GA, and ANN approaches
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
+\subsection{Reinforcement Learning}\label{rl}
+According to Sutton and Barto's seminal text (REFERENCE), reinforcement learning (RL) is a branch of machine learning, based on trial-and-error, that is concerned with sequential decision making. An RL agent exists in an environment where it can act and receive a reward. The environment is modelled as a set of probabilistic transitions between states, for a set of possible actions that can be selected by the agent. A state transition presents the agent with a reward signal that informs the agent whether an action taken was good or bad. This environmental architecture is referred to as a Markov Decision Process (MDP). It is the agent's objective to maximise the reward it will receive in the future. An agent can achieve this by learning an optimal policy which maps environment states to actions. Learning such a policy is key idea in RL, and the agent achieves this by experimentation.
+
+\subsubsection{Markov Decision Process}
+Bellman's pioneering work on the Markov Decision Process (MPD) provided the necessary architecture for RL (REFERENCE). His work considered an agent that exists in some environment comprised of many discrete states, $s \in S$, such that $S$ denotes the state space. At any discrete point in time the agent can take action $a \in A$, where $A$ denotes the action space. When the agent takes an action in a given state, the agent receives some reward, denoted with $r \in R$, where $R$ is the set of rewards. Fundamental to Bellman's MDPs were the state transition dynamics which were defined by probabilities: if an agent is in a given state, $s$, and takes action, $a$, this will transition the agent to a new state, $s'$, and yield reward, $r$, with some given probability. This set of probabilities are referred to as the state transition probabilities, and are denoted as follows:
+
+\begin{equation}
+	P(S_{t+1} = s', \ R_{t+1} = r | S_t = s, \ A_t = a) \label{eq:1}
+\end{equation}
+
+The set of parameters outlined above, and expression \ref{eq:1}, make up a framework referred to as an MDP.
+
+\subsubsection{Returns, Episodes, and Policy}
+Bellman used MDP architectures to develop a field of research called dynamic programming (DP) (REFERENCE). Assuming that the agent has complete knowledge of the state transition probabilities of an environment, DP algorithms can be used to determine analytical solutions for the problem of how an agent should behave to maximise the it's reward (REFERENCE). This idea is distinct from RL because the DP agent has complete knowledge of it's environment, whereas the RL agent has no knowledge of the environment dynamics (REFERENCE). Many researchers made links between DP and RL (REFERENCE), but it wasn't until 1989 that Watkins presented the first formal treatment of RL in an MDP framework, paving the way for modification of DP algorithms for use with RL problems (REFERENCE). Three of the central ideas used in DP algorithms are episodes, returns, and policies (REFERENCE).
+
+The duration of time that an agent will spend taking actions and transitioning states before encountering a terminal state is defined as an episode. It is the agent's goal to take actions such that it maximises the sum of all the rewards as it concludes an episode. The cumulative sum of rewards is called the return. Consider an agent taking an action at each discrete time step, $t$, and receiving reward, $r_t$, after each action. If there are $N$ discrete time steps before the agent reaches a terminal state, Bellman defines the return as:
+
+\begin{equation}
+	G_t = \sum_{k = 0}^{N-1} r_{t + k} \label{eq:2}
+\end{equation}
+
+Rewards received in the future are often perceived as less valuable than rewards received in the present. To account for this Bellman used a discount factor applied to each reward in the sequence. Letting $\gamma \in [0,1]$ then \ref{eq:2} becomes:
+
+\begin{equation}
+	G_t = \sum_{min}^{max}\gamma^k r_{t+k} \label{eq:3}
+\end{equation}
+
+Finally, in order for the agent to take actions it must have a belief of what action it should take, given it's current state. Bellman called this belief a policy, denoted as $\pi$ (REFERENCE). A policy is defined by Sutton and Barto as the mapping of states to actions i.e. a rule that determines what actions the agent should take for a given state. A policy can be deterministic, and depend only on the state, $\pi(s)$, or stochastic, $\pi(a|s)$, such that it defines a probability distribution over the actions, for a given state. An optimal policy, denoted $\pi*$, is a policy which will
+maximise the return an agent receives over an episode.
+
+\subsubsection{Value Function and the Bellman Equations}
+Someone else developed value functions first
+Bellman developed value functions
+Someone else used value functions in reinforcement learning
+
+
+\subsubsection{Value Based}
+
+\textbf{Monte Carlo Methods}
+
+\textbf{Temporal Difference Methods}
+
+\subsubsection{Policy Search Methods}
+
+\subsubsection{Actor Critic Methods}
+
+
+\subsection{Deep Neural Networks}\label{dnn}
+
+\subsubsection{Artificial Neuron}
+
+\subsubsection{Activation Functions}
+
+\subsubsection{Feedforward Networks}
+
+\subsubsection{Training the Network}
+
+\subsubsection{Regularisation}
+
+
 \subsection{Deep Reinforcement Learning}\label{drl}
 
-The AGC problem can be viewed as a stochastic multi-stage decision-making problem or a Markov Chain control problem, and algorithms have been presented for designing AGC based on a reinforcement learning approach \cite{Ahamed2002}.
+\subsubsection{Deep Q-Learning}
 
-% What is deep reinforcement learning when was it first used and what previous reserch is it derived from
-
-% What reaserach has been undertaken in the theory on how to develop agents to perform sequential decision making
-
-% What are the most common architectures and what are their benefits and limitations
-
-% What are the main applications of deep reinformcement learning
-
-%
+\subsubsection{Deep Deterministic Policy Gradient}
