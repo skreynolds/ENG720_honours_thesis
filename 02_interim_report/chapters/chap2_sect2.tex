@@ -1,0 +1,91 @@
+\section{Reinforcement Learning}\label{rl}
+According to Sutton and Barto's seminal text, reinforcement learning (RL) is a branch of machine learning, based on trial-and-error, that is concerned with sequential decision making \cite{Sutton2018}. An RL agent exists in an environment where it can act and receive a reward. The environment is modelled as a set of probabilistic transitions between states, for a set of possible actions that can be selected by the agent. A state transition presents the agent with a reward signal that informs the agent whether an action taken was good or bad. This environmental architecture is referred to as a Markov Decision Process (MDP). It is the agent's objective to maximise the reward it will receive in the future. An agent can achieve this by learning an optimal policy which maps environment states to actions. Learning such a policy is key idea in RL, and the agent achieves this by experimentation.
+
+%------------------------ SS: MDP
+
+\subsection{Markov Decision Process}
+Bellman's pioneering work on the Markov Decision Process (MPD) provided the necessary architecture to develop RL algorithms \cite{Bellm1957}. His work considered an agent that exists in some environment comprised of many discrete states, $s \in S$, such that $S$ denotes the state space. At any discrete point in time the agent can take action $a \in A$, where $A$ denotes the action space. When the agent takes an action in a given state, the agent receives some reward, denoted with $r \in R$, where $R$ is the set of rewards. Fundamental to Bellman's MDPs were the state transition dynamics which were defined by probabilities: if an agent is in a given state, $s$, and takes action, $a$, this will transition the agent to a new state, $s'$, and yield reward, $r$, with some given probability. This set of probabilities are referred to as the state transition probabilities, and are denoted as follows:
+
+\begin{equation}
+	P(S_{t+1} = s', \ R_{t+1} = r | S_t = s, \ A_t = a) = p(s', r | s, a) \label{eq:21}
+\end{equation}
+
+The set of parameters outlined above, and expression \ref{eq:21}, make up a framework referred to as an MDP.
+
+%------------------------ SS: Returns and Policy
+
+\subsection{Returns, Episodes, and Policy} \label{rep}
+In addition to  developing the MDP framework, Bellman was also responsible for key developments in a field of research called dynamic programming (DP) \cite{Bellm1954}. Assuming that the agent has complete knowledge of the state transition probabilities of an environment, DP algorithms can be used to determine analytical solutions for the problem of how an agent should behave to maximise it's cumulative reward \cite{Bellm1954, Howard1960}. This idea is distinct from RL but was critical in RL's development. The main difference is that DP provides the agent with complete knowledge of it's environment, whereas the RL agent has no knowledge of the environment dynamics and must learn them as well as how to maximise it's cumulative reward \cite{Sutton2018}. Many researchers made links between DP and RL \cite{Bellm1959, Witten1977, Werbos1987}, but it wasn't until 1989 that Watkins presented the first formal treatment of RL in an MDP framework, paving the way for modification of DP algorithms for use with RL problems \cite{Watkins1989}. Three of the central ideas used in DP algorithms are episodes, returns, and policies \cite{Sutton2018}.
+
+The duration of time that an agent will spend taking actions and transitioning states before encountering a terminal state is defined as an episode. It is the agent's goal to take actions such that it maximises the sum of all the rewards as it concludes an episode. The cumulative sum of rewards is called the return. Consider an agent taking an action at each discrete time step, $t$, and receiving reward, $r_t$, after each action. If there are $N$ discrete time steps before the agent reaches a terminal state, Bellman defines the return as:
+
+\begin{equation}
+	G_t = \sum_{k = 0}^{N-1} r_{t + k} \label{eq:22}
+\end{equation}
+
+Rewards received in the future are often perceived as less valuable than rewards received in the present. To account for this Bellman used a discount factor applied to each reward in the sequence. Letting $\gamma \in [0,1]$ then \ref{eq:22} becomes:
+
+\begin{equation}
+	G_t = \sum_{min}^{max}\gamma^k r_{t+k} \label{eq:23}
+\end{equation}
+
+Finally, in order for the agent to take actions it must have a belief of what action it should take, given it's current state. This belief is called a policy and denoted as $\pi$ \cite{Sutton2018}. Sutton and Barto define a  policy as the mapping of states to actions i.e. a rule that determines what actions the agent should take for a given state. A policy can be deterministic, and depend only on the state, $\pi(s)$, or stochastic, $\pi(a|s)$, such that it defines a probability distribution over the actions, for a given state. An optimal policy, denoted $\pi*$, is a policy which will maximise the return an agent receives over an episode.
+
+%------------------------ SS: Value Function and Bellman
+
+\subsection{Value Function and the Bellman Equations}
+The basic principal of dynamic programming is to assign a value to each state that informs an agent how useful a state is to achieving a high cumulative reward. Watkins refers to the creation of systems to assign values to states as the credit assignment problem \cite{Watkin1989}. Bellman's approach to solving credit assignment was to develop mathematical functions to assign values to states \cite{Bellm1954}. Bellman's \textit{value function}, $V_{\pi}(s)$ , is defined as the expected sum of the discounted return, $G_t$, that the agent will receive while following policy $\pi$ from a particular state $s$. Mathematically, this is expressed as:
+
+\begin{equation}
+	V_{\pi}(s) = \mathbb{E}_{\pi} \big( G_t | s_t - s \big) = \mathbb{E}_{\pi} \bigg( \sum_{k = 0}^{\inf} \gamma^k r_{t+k} | s_t = s \bigg) \label{eq:24}
+\end{equation}
+
+A slight variation of equation \ref{eq:24} is the \textit{state-action value function}, $Q_{\pi}(s,a)$, which is defined as the expected sum of the discounted return, $G_t$, that the agent will receive if it takes action $a$ in state $s$, and then follows policy $\pi$ thereafter. Mathematically, this is expressed as:
+
+\begin{equation}
+	Q_{\pi}(s, a) = \mathbb{E}_{\pi} \big( G_t | s_t - s, a_t = a \big) = \mathbb{E}_{\pi} \bigg( \sum_{k = 0}^{\inf} \gamma^k r_{t+k} | s_t = s, a_t = a \bigg) \label{eq:25}
+\end{equation}
+
+Bellman used the value functions presented in \ref{eq:24} and \ref{eq:25} to formulate recursive expressions which could then be used to solve the DP problem \cite{Bellm1957}. These are known as the \textit{Bellman equations}. It is clear the agent would prefer policy $\pi$ over some other policy $\pi'$ provided the expected return from using policy $\pi$ is greater than the expected return from using policy $\pi'$ for all $s \in S$. Since the value function is defined by the expected return, Bellman expressed this idea in value function terms i.e. if policy $\pi$ is preferred to $\pi'$ then $V_{\pi}(s) \geq V_{\pi'}(s)$ for all $s \in S$. Thus, the optimal value function, $V*(s)$, can be defined as,
+\begin{equation}
+	V*(s) = \max_{\pi} V_{pi}(s), \ \forall s \in S.
+\end{equation}
+
+Similarly, the optimal state-action value function, $Q*(s,a)$, can be defined as,
+\begin{equation}
+	Q*(s,a) = \max_{\pi} Q_{\pi}(s,a), \ \forall s \in S, \ a \in A.
+\end{equation}
+
+Letting $A(s)$ be the set of actions available in state $s$, if the agent is operating under the optimal policy $\pi*$ then it is true that
+\begin{equation}
+	V*(s) = \max_{a \in A(s)} Q_{\pi*}(s,a). \label{eq:26}
+\end{equation}
+
+Using equation \ref{eq:25}, equation \ref{eq:26} can be rewritten as
+\begin{equation}
+	V*(s) = max_{a} \sum_{s',r}P(S_{t+1} = s', R_{t+1} = r | S_t = s, A_t = a)[r + \gamma V*(s')]. \label{eq:27}
+\end{equation}  
+
+Equation \ref{eq:27} is referred to as the Bellman optimality equation for $V*(s)$. The Bellman optimality equation for $Q*(s,a)$ is
+\begin{equation}
+\end{equation}
+
+Watkins is credited with the most influential integration of RL with MDPs, and DP. His work on an RL algorithm called Q-learning highlighted the importance of another type of value function called the action-value function. The action-value function is defined as the expected sum of rewards that the agent will receive while taking action $a$ in state $s$ and, thereafter, following policy $\pi$.
+
+
+
+
+
+
+BELLMAN EQUATION FOR ACTION-VALUE FUNCTION
+
+\subsection{Value Based}
+Bellman invented these algorithms - where were they formaliesd though? Watkins adapted these DP algorithms for the use with RL
+
+\subsubsection{Monte Carlo Methods}
+
+\subsubsection{Temporal Difference Methods}
+
+\subsection{Policy Search Methods}
+
+\subsection{Actor Critic Methods}

@@ -1,0 +1,90 @@
+\section{Power Systems and Frequency}
+Interconnected power systems are comprised of power generating units and energy storage systems connected to transmission and distribution networks. Generated power is used to service load demand. A single line diagram of a power network can be seen in Figure \ref{fig:generation}. The diagram shows how thermal generation units (left-hand side), such as coal and nuclear, in addition to renewable sources of generation, like wind and solar provide a power generation mix that is transmitted by a network for the consumers of generated energy: industry and households (right-hand side).
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.85]{power_system}
+	\caption{A single line diagram of a typical power system. The image shows points of generation from thermal and renewable sources, and the subsequent supply of generated energy to meet load demand through the transmission and distribution network \cite{Glavic2019}.}
+	\label{fig:generation}
+\end{figure}
+
+One of the key elements to successful operation of interconnected power systems is ensuring total load demand is matched with total generation while taking into account power losses involved with generation, transmission, and distribution \cite{Wood2013}. To understand why it is important to match generation with load demand consider the basic operation of a single thermal generator. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=1.4cm]{generation}
+	\caption{A thermal generation unit consisting of a prime mover (turbine), and a synchronous machine \cite{Wood2013}.}
+	\label{fig:turbine}
+\end{figure}
+
+The essential elements of a thermal generator are a prime mover (such as a gas turbine) and a synchronous machine, as depicted in Figure \ref{fig:turbine}. The prime mover provides mechanical torque, $T_{mech}$, which drives the synchronous machine producing electrical energy. In response, the synchronous machine creates an opposing torque that depends on the size of the load demand. This opposing torque is referred to as electrical torque and is denoted as $T_{elec}$. If $\alpha$ represents angular acceleration of the generator rotating mass, and $I$ is its moment of inertia, then by Newton's second law:
+\begin{equation}
+	T_{mech} - T_{elec} = I \alpha \label{eq:1}
+\end{equation}
+
+When $T_{mech}$ equals $T_{elec}$ the system will be in a steady state of zero angular acceleration with a constant angular velocity, $\omega$. Now, if $T_{mech} > T_{elec}$, then the system has an angular acceleration causing the angular velocity, $\omega$, to increase. This results in a frequency increase in the system. Conversely, if $T_{mech} < T_{elec}$ then the angular velocity $\omega$ will decrease, resulting in a frequency decrease. It is important to note that, at any point in time, the total electrical load demand will fluctuate as businesses and households switch grid connected appliances or motors on and off. The result is that an uncontrolled system will have a continually changing frequency. Australia's electricity network is designed to operate at a frequency of 50$\si{\hertz}$. In the majority of network scenarios, the Australian Energy Market Operator (AEMO) has a desired operating range for frequency which lies between 49.85 and 50.15$\si{\hertz}$ \cite{AEMOfreqdev}. Similarly, the Power and Water Corporation (PWC) network technical code for the Northern Territory states that under normal operating conditions frequency should be maintained in the range of 49.80 to 50.20$\si{\hertz}$ \cite{Pwc2013}. Network operation outside of the specified range can cause damage to electrical equipment such as transformers or motors, which are designed to operate at specific frequencies \cite{Sen2014}. Network designers engineer protection schemes so that sustained frequency excursions outside of the allowed range will cause equipment to trip from the network \cite{AEMOpowerfreqriskrev}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=7cm]{load_profile}
+	\caption{Weekday energy demand profile in South Australia during summer \cite{Aemosaenergyrep}.}
+	\label{fig:energydemand}
+\end{figure}
+
+\newpage
+
+Protection schemes tripping equipment from the network is undesirable as this can leave households and industry without power, resulting in economic loss. Further, if disconnections are uncontrolled the system stability is reduced \cite{AEMOpowerfreqriskrev}. System controllers, such as the AEMO and PWC, are interested in being able to control the system to follow changes in load demand so that system frequency is maintained in the allowable range. Additionally, they are interested in control mechanisms to restore frequency excursions as a result of unexpected disturbances. System controllers can use historical data, like that shown in Figure \ref{fig:energydemand}, to forecast daily demand profiles with some reliability. This type of forecasting does not help when trying to predict the occurrence of random disturbances; however, it does provide a starting point for estimating required generation needed to meet demand. It is important to note that forecasting is not perfect. Inevitably mismatches in supply and demand will occur causing small imbalances between $T_{mech}$ and $T_{elec}$, resulting in a change to angular velocity $\omega$ and the network frequency \cite{Glover2012}. To perfectly match supply and demand, system controllers use generators referred to as regulating units, placed under Automatic Generation Control (AGC) \cite{Kothari2011}. A regulating unit is a generator that has the capacity to increase or decrease mechanical torque $T_{mech}$, and AGC is the name used for a system providing control over the mechanical torque output of regulating generators. If the system controller has a sufficient number of regulating units under AGC it can perform two functions: load following, and restoring the system to stable operating conditions in the event of a disturbance \cite{Grainger1994}. Using a regulating unit under AGC control to load follow is referred to, by AEMO, as load following ancillary services \cite{AEMOancilliaryserv}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[height=6cm]{frequency_arrest}
+\caption{A minor frequency disturbance occurs at the 2 sec mark and primary control systems (governors) arrest the frequency drop. System frequency is adjusted to desired 50$\si{\hertz}$ operating level using AGC control of regulating units. This referred to as supplementary (or secondary) control in the literature. AEMO refers to this as load following ancilliary services. At the 40 sec mark the network experiences a major frequency disturbance which is arrested by emergency control measures such as under-frequency load shedding (UFLS). System restoration is aided using AGC control of regulating units, which AEMO refers to as spinning reserve ancillary services \cite{Bevrani2011}.}
+\label{fig:freqarrest}
+\end{figure}
+
+\newpage
+
+Load following control adjusts regulating units in order to match supply with a demand load profile, and maintain frequency in a normal operating range a shown in the first 40 seconds of Figure \ref{fig:freqarrest}. Using a regulator under AGC control to restore the system after a major disturbance is referred to, by AEMO, as providing spinning reserve ancillary services. \cite{AEMOancilliaryserv}. When used in either fashion it is important to note that the regulating unit is not responsible for arresting frequency excursions, rather, it is used to restore the system back to the allowable frequency operating range after the frequency excursion has been arrested. An example of a frequency excursion, arrest, and subsequent restoration for minor and major disturbances can be seen in Figure \ref{fig:freqarrest}. AEMO and PWC do not require all generators on the network to act as regulating units since adequate frequency control can be achieved using a subset of the total available generators.
+
+%------------------------ SS: Single Area
+
+\subsection{Frequency Control for a Single Area System}\label{oneareapowersystem}
+The power system model shown in Figure \ref{fig:energyts} depicts total generation coming from many generation assets --- this is complex to model. Researchers often find it useful to divide generation assets into sub-groups referred to as control areas \cite{Kothari2011}. A control area is defined as a subset of generators that are in close proximity to each other and constitute a coherent group that speed up and slow down together, maintaining their relative power angles \cite{Kothari2011}. Therefore, the total network is comprised of many interconnected control areas. An example of this can be seen in Figure \ref{fig:interconnectedpa}. Notice that for each area there is only one load and one generator.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=8cm]{multiple_area_system}
+	\caption{An example of three interconnected control areas in a 60$\si{\hertz}$ power system. The interconnections allow power to flow from one area to another, allowing generators to service loads from different areas. Each control area consists of several generators and loads, but are modelled with a single generator and single load for simplicity \cite{Grainger1994}.}
+	\label{fig:interconnectedpa}
+\end{figure}
+
+Typically, for each control area, researchers will aggregate many loads into a single load, and many generators into a single generator. This simplifies the model further \cite{Grainger1994}. The simplest power system to control is one that consists of a single control area. A single control area power system has no interconnections to any other control area. It is comprised of a consumer load demand, and a set of generators, some of which are acting as regulating units. As previously mentioned, for modelling simplicity, loads are aggregated to a single load, and generators can be aggregated to a single generator. This simple system is well understood. It is generally acknowledged that a speed droop governor feedback control regime will perform primary frequency control, and an AGC feedback loop is used to perform secondary frequency control when restoring a minor frequency excursion \cite{Wood2013, Grainger1994, Kothari2011, Kundur1994}. A particularly well laid out approach to developing linear models for the turbine, generator, load, and governor was presented by Kundur \cite{Kundur1994}. The full model is shown in Figure \ref{fig:singleareacontrol}. This particular model provides generator models for regulating and non-regulating generators. The governor blocks are first-order linear models of the speed governors. The turbine blocks are first-order models of the turbines. The final block is the generator load, which is also a first order system. The AGC feedback loop uses an integral controller.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[height=8cm]{single_area_control}
+\caption{A classical feedback control approach for a single control area power system. The system is comprised of a first order models for both turbines, and generators. The governor controllers are also first order models. AGC is implemented using an integral control block in a feedback loop \cite{Kundur1994}.}
+\label{fig:singleareacontrol}
+\end{figure}
+
+\newpage
+
+%------------------------ SS: Two Area
+
+\subsection{Frequency Control for Two Area System}
+The single area system presented in Section \ref{oneareapowersystem} is useful to help understand the role of governors and AGC in controlling power system frequency. In reality, power systems are comprised of many control areas connected by transmission lines (referred to in the literature as tie lines). Often it is the case that there is some net power transfer over the tie lines, enforceable by economic contract. Single area models do not provide for this additional complexity.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=3cm]{two_area_system}
+	\caption{A two area power system comprised of generators and load connected via a tie line. Power flows from one area to the other depending on the power demands.}
+	\label{fig:twoareapower}
+\end{figure}
+
+Distinct control areas are typically thought of as different participants in the generation market, or simply as different regions in which generation assets are based \cite{Kothari2011}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=12cm]{two_area_control_block}
+	\caption{A classical feedback control approach to a two area power system \cite{Kundur1994}.}
+	\label{fig:twoareacontrolblock}
+\end{figure}
+
+The simplest model that includes tie lines is the two area power system, shown in Figure \ref{fig:twoareapower}. The control objective with this system is to maintain the inter-area power transfer, whilst regulating the frequency of each area. An AGC integral feedback loop on regulating units, like that shown in Figure \ref{fig:singleareacontrol}, would ensure that power system frequency is maintained, however, would not guarantee inter-area power transfer agreements are observed. Violation of power transfer contracts due to control issues does not allow for a stable market in which energy can be reliably traded. Fortunately, multi control area power systems are well understood. Linear models have been developed to simulate these systems, and classical control approaches have been successfully implemented to meet the new control objectives. In order to achieve this, a metric called Area Control Error (ACE) is used in the AGC feedback loop for each control area. ACE is a linear combination of the frequency deviations and the . The implementation of this control system is shown in Figure \ref{fig:twoareacontrolblock}.
