@@ -1,20 +1,28 @@
 \section{Deep Neural Networks}\label{dnn}
+
 introduction
 
 %------------------------ SS: Deep Neural Networks
 
 \subsection{A Perceptron}
+The inputs from the previous layer, and the non-linear activation of a node form a computational element called a neuron (also known as a perceptron) - these can be loosely thought of as decision making elements. An example of a neuron can seen in Figure 5.
+
 artificial neuron rosenblatt
+
 
 \subsection{Activation Functions}
 sigmoid - who developed these
 relu - who developed these
 tanh - who developed these
 
+
 \subsection{Feedforward Networks}
-what is a feedforward network - how is it defined?
+A typical fully connected feed-forward ANN consists of an input layer, one or more hidden layers, and an output layer, as shown in Figure 4. Hidden layers are made up of multiple nodes. The nodes themselves contain a non-linear activation function, such as a sigmoid or ReLU, and receive weighted input from the previous layers in the model.
+
 
 \subsection{Training the Network}
+Changing the weights in a neuron changes the neurons’s contribution to the model, which in turn affects the overall model output. Weight changes occur during model training, which uses large volumes of labelled data to adjust the weights. Hidden layers are important because they allow highly non-linear models to be constructed, providing an approach for estimating complex phenomena which may be difficult to model with classical approaches, or computationally intractable. Generally, the more hidden layers, the more non-linear the model. Network architectures with multiple hidden layers have become so wide spread that the term Deep Neural Network (DNN) was coined to describe feed-forward ANNs which use two or more hidden layers. It must be noted that whilst increased non-linearity may allow us to model more complex phenomenon, making the ANN deeper does not guarantee increased model performance. This is mainly due to the fact that deeper models may over-fit the data during training, resulting in a failure to generalise on test and validation data sets.
+
 werbos backpropagation
 
 \subsection{Regularisation}
