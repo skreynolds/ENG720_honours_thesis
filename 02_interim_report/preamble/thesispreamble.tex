@@ -20,9 +20,6 @@
 \usepackage{setspace}
   \onehalfspacing
   
-\usepackage{booktabs}
-% Nice looking tables and lines in tables
-  
 \usepackage{graphicx}
   \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 % Graphics. Remove me and you won't have any figures, and that would be very boring.
@@ -101,14 +98,11 @@
 % Import tikz libraries
 
 \usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
 % make pretty plots
 
 \usepgfplotslibrary{dateplot}
 % use the date plot library to create nice timeseries plots
-
-%-------------------- Command renewals, New commands etc.
-\renewcommand{\thefootnote}{\alph{footnote}}              
-%letters for footnotes instead of numbers to avoid confusion with references.
 
 %-------------------- Function to lift power a bit
 \newcommand\mystrut{\rule{0pt}{10pt}}
