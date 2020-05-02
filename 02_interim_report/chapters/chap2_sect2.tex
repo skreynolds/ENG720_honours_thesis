@@ -106,7 +106,16 @@ Model free methods can be applied to any RL problem since they do not require a 
 \subsubsection{Monte Carlo Methods}
 Sutton and Barto were the first to introduce a version of the Monte Carlo (MC) control algorithm for estimating state-action value functions \cite{Sutton2018}. The MC control algorithm is based on an iterative approach that takes a sample of episodic sequences consisting of states, actions, and rewards. Sequences are obtained from the agent interacting with the environment, using some policy $\pi$. This is called the \textit{policy evaluation} step. Once an episode is completed, the state-action value function, $Q_{\pi}(s,a)$, is updated for each discrete state-action pair visited. This second step is called the \textit{policy improvement} step.
 
-Sutton and Barto found that during the policy evaluation step, if the agent was allowed to select the action with a greedy policy (\ref{eq:210}) from the current iteration of the state-action value function, then MC control would not always converge to the optimal state-action value function. The problem with using the greedy policy is that it can cause the agent to over commit to locally promising but globally poor solutions. This is due to the agent not sufficiently exploring the state-action value space, and is especially problematic during the early stages of the algorithm since the agent has no understanding of the environment. The most common method of overcoming this problem is to use an $\epsilon$-greedy policy instead of the greedy policy. The $\epsilon$-greedy policy is defined as:
+\begin{figure}[h]
+	\centering
+	\input{./figures/212_monte_carlo_method/monte_carlo_method}
+	\caption{text}
+	\label{fig:210_monte_carlo_methods}
+\end{figure}
+
+Sutton and Barto found that during the policy evaluation step, if the agent was allowed to select the action with a greedy policy (\ref{eq:210}) from the current iteration of the state-action value function, then MC control would not always converge to the optimal state-action value function. The problem with using the greedy policy is that it can cause the agent to over commit to locally promising but globally poor solutions. This is due to the agent not sufficiently exploring the state-action value space, and is especially problematic during the early stages of the algorithm where the agent has little knowledge about the environment.
+
+The most common method of overcoming this problem is to use an $\epsilon$-greedy policy instead of the greedy policy. The basic idea behind the $\epsilon$-greedy policy is to select the greedy action most of the time, and select non-greedy actions the other times. This is achieved by setting a parameter, $\epsilon \in [0,1]$, which allows the agent to select non-greedy actions with a non-zero probability. The $\epsilon$-greedy policy is defined as:
 \begin{equation}
    \pi (a | s) = % 
    \begin{cases}
@@ -115,14 +124,6 @@ Sutton and Barto found that during the policy evaluation step, if the agent was 
    \end{cases}
 \end{equation}
 
-
-
-\begin{figure}[h]
-	\centering
-	\input{./figures/212_monte_carlo_method/monte_carlo_method}
-	\caption{text}
-	\label{fig:210_monte_carlo_methods}
-\end{figure}
 
 \begin{algorithm}[h]
 	\caption{Constant $\alpha$ Monte Carlo Control}
