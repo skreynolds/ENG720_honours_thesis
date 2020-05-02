@@ -52,22 +52,31 @@ The basic principal of dynamic programming is to assign a value to each state th
 	V_{\pi}(s) = \mathbb{E}_{\pi} \big( G_t \ | \ s_t = s \big) = \mathbb{E}_{\pi} \bigg( \sum_{k = 0}^{\infty} \gamma\mystrut^k r_{t+k} \ | \ s_t = s \bigg). \label{eq:205}
 \end{equation}
 
-A slight variation of equation \ref{eq:205} is the \textit{state-action value function}, $Q_{\pi}(s,a)$, which is defined as the expected sum of the discounted return, $G_t$, that the agent will receive if it takes action $a$ in state $s$, and then follows policy $\pi$ thereafter. Mathematically, this is expressed as
-\begin{equation}
-	Q_{\pi}(s, a) = \mathbb{E}_{\pi} \big( G_t \ | \ s_t = s, \ a_t = a \big) = \mathbb{E}_{\pi} \bigg( \sum_{k = 0}^{\infty} \gamma\mystrut^k r_{t+k} \ | \ s_t = s, \ a_t = a \bigg). \label{eq:206}
-\end{equation}
-
-Bellman used the value functions presented in \ref{eq:205} and \ref{eq:206} to formulate recursive expressions which could then be used to solve the DP problem \cite{Bellm1957}. These are known as the \textit{Bellman equations}. It is clear the agent would prefer policy $\pi$ over some other policy $\pi'$ provided the expected return from using policy $\pi$ is greater than the expected return from using policy $\pi'$ for all $s \in S$. Since the value function is defined by the expected return, Bellman expressed this idea in value function terms i.e. if policy $\pi$ is preferred to $\pi'$ then $V_{\pi}(s) \geq V_{\pi'}(s)$ for all $s \in S$. Thus, the optimal value function, $V^*(s)$, can be defined as
+The state value function was useful to Bellman because it provided a way to check if one policy was better than another policy. It is clear an agent would prefer policy $\pi$ over some other policy $\pi'$ if the expected return from using policy $\pi$ is greater than the expected return from using policy $\pi'$ for all $s \in S$. Since the state value function is defined by the expected return, Bellman expressed this idea in state value function terms i.e. if policy $\pi$ is preferred to $\pi'$ then $V_{\pi}(s) \geq V_{\pi'}(s)$ for all $s \in S$. The optimal policy, $\pi^*$, yields the best state value function, $V^*(s)$, referred to as the optimal state value function and defined as:
 \begin{equation}
 	V^*(s) = \max_{\pi} V_{\pi}(s), \ \forall \ s \in S.
 \end{equation}
 
-Similarly, the optimal state-action value function, $Q^*(s,a)$, can be defined as,
+Although the state value function provides a way to compare one policy against another policy, it can not be used to specify the policy it evaluates. Bellman developed a variation of equation \ref{eq:205} called the \textit{state-action value function} that can evaluate and specify a policy. The state-action value function, $Q_{\pi}(s,a)$, is defined as the expected sum of the discounted return, $G_t$, that the agent will receive if it takes action $a$ in state $s$, and then follows policy $\pi$ thereafter. Mathematically, this is expressed as:
+\begin{equation}
+	Q_{\pi}(s, a) = \mathbb{E}_{\pi} \big( G_t \ | \ s_t = s, \ a_t = a \big) = \mathbb{E}_{\pi} \bigg( \sum_{k = 0}^{\infty} \gamma\mystrut^k r_{t+k} \ | \ s_t = s, \ a_t = a \bigg). \label{eq:206}
+\end{equation}
+
+Similarly to the state value function, the state-action value function's optimal form, $Q^*(s,a)$, can be defined as:
 \begin{equation}
 	Q^*(s,a) = \max_{\pi} Q_{\pi}(s,a), \ \forall \ s \in S, \ a \in A.
 \end{equation}
 
-Letting $A(s)$ be the set of actions available in state $s$, if the agent is operating under the optimal policy $\pi^*$ then it is true that
+To extract the policy $\pi$ from a state-action value function $Q_{\pi}$ the action corresponding to the largest state-action value is chosen for each given state. This is called the greedy policy and is defined, for each $s \in S$, as:
+\begin{equation}
+	\pi (a | s) = % 
+	   \begin{cases}
+	   		1 \ \ \text{if} \ \ a = \arg\max_{a'} Q(s,a') \\
+	   		0 \ \ \text{if} \ \ a \neq \arg\max_{a'} Q(s,a')
+	   \end{cases} \label{eq:210}
+\end{equation} 
+
+Bellman used the value functions presented in \ref{eq:205} and \ref{eq:206} to formulate recursive expressions which could then be used to solve the DP problem \cite{Bellm1957}. These are known as the \textit{Bellman equations}. Letting $A(s)$ be the set of actions available in state $s$, if the agent is operating under the optimal policy $\pi^*$ then it is true that
 \begin{equation}
 	V^*(s) = \max_{a \in A(s)} Q_{\pi*}(s,a). \label{eq:207}
 \end{equation}
@@ -79,13 +88,13 @@ Using the notation shown in equation \ref{eq:202}, equation \ref{eq:207} can be 
 
 Equation \ref{eq:208} is referred to as the Bellman optimality equation for $V^*(s)$. The Bellman optimality equation for $Q^*(s,a)$ is
 \begin{equation}
-	Q^*(s,a) = \sum_{s'} p(s', r \ | \ s, a)[r + \gamma \max_{a'} Q^*(s',a')].
+	Q^*(s,a) = \sum_{s'} p(s', r \ | \ s, a)[r + \gamma \max_{a'} Q^*(s',a')]. \label{eq:209}
 \end{equation}
 
-If the transition probabilities and rewards are known to the agent then the Bellman opitmality equations can be solved iteratively, which is known as dynamic programming \cite{Bellm1957}. Algorithms which assume probabilities are collectively referred to as \textit{model-based} algorithms. Most RL problems assume state transition probabilities are unknown. The collection of algorithms that provide solutions to these problems are called \textit{model-free} algorithms. Monte Carlo, temporal difference, and policy search are the most common types of model-free algorithms used.
+If the transition probabilities and rewards are known to the agent then the Bellman opitmality equations can be solved iteratively, which is known as dynamic programming \cite{Bellm1957}. Algorithms which assume known transition probabilities and rewards are collectively referred to as \textit{model-based} algorithms. Most RL problems assume state transition probabilities are unknown. The collection of algorithms that provide solutions to these problems are called \textit{model-free} algorithms.
 
 \subsection{Value Function Based Methods}
-what are these? why are they used? what is good about them? what are the types?
+Model free methods can be applied to any RL problem since they do not require a model of the environment. Figure \ref{fig:211_families_of_RL_algorithms} provides an overview of the different families of algorithms used for solving RL problems. Algorithms that try to solve the RL problem by estimating the optimal state-action value function, $Q^*$, and inferring the optimal policy from it are referred to as value function based methods. The most common value function based methods are Monte Carlo and temporal difference approaches.
 
 \begin{figure}[h]
 	\centering
@@ -95,19 +104,9 @@ what are these? why are they used? what is good about them? what are the types?
 \end{figure}
 
 \subsubsection{Monte Carlo Methods}
-Sutton and Barto first introduced a version of the Monte Carlo (MC) control algorithm for estimating state-action value functions in 1998 \cite{Sutton2018}. The basic idea is based on an iterative approach that takes a sample of episodic sequences consisting of states, actions, and rewards. Sequences are obtained from the agent interacting with the environment, using some policy $\pi$. This is called the \textit{policy evaluation} step. Once an episode is completed, the state-action value function, $Q_{\pi}(s,a)$, is updated for each discrete state-action pair visited. This second step is called the \textit{policy improvement} step. Figure \ref{fig:210_monte_carlo_methods} illustrates the iterative process.
+Sutton and Barto were the first to introduce a version of the Monte Carlo (MC) control algorithm for estimating state-action value functions \cite{Sutton2018}. The MC control algorithm is based on an iterative approach that takes a sample of episodic sequences consisting of states, actions, and rewards. Sequences are obtained from the agent interacting with the environment, using some policy $\pi$. This is called the \textit{policy evaluation} step. Once an episode is completed, the state-action value function, $Q_{\pi}(s,a)$, is updated for each discrete state-action pair visited. This second step is called the \textit{policy improvement} step.
 
-Greedy policy talk about this guy too
-\begin{equation}
-	\pi (a | s) = % 
-	   \begin{cases}
-	   		1 \ \ \text{if} \ \ a = \arg\max_{a'} Q(s,a') \\
-	   		0 \ \ \text{if} \ \ a \neq \arg\max_{a'} Q(s,a')
-	   \end{cases}
-\end{equation}
-
-
-Need to talk about greedy and epsilon greedy policies and their motivation first.
+Sutton and Barto found that during the policy evaluation step, if the agent was allowed to select the action with a greedy policy (\ref{eq:210}) from the current iteration of the state-action value function, then MC control would not always converge to the optimal state-action value function. The problem with using the greedy policy is that it can cause the agent to over commit to locally promising but globally poor solutions. This is due to the agent not sufficiently exploring the state-action value space, and is especially problematic during the early stages of the algorithm since the agent has no understanding of the environment. The most common method of overcoming this problem is to use an $\epsilon$-greedy policy instead of the greedy policy. The $\epsilon$-greedy policy is defined as:
 \begin{equation}
    \pi (a | s) = % 
    \begin{cases}
@@ -130,15 +129,15 @@ Need to talk about greedy and epsilon greedy policies and their motivation first
 	\label{alg:01_monte_carlo}
 	\begin{algorithmic}[1]
 		\State{\textbf{Input:} $\mathtt{num\_episodes}$, $\alpha$, $\epsilon_i$}
-		\State{\textbf{Output:} $\pi$ ($\approx \pi^*$ if $\mathtt{num\_episodes}$ is large enough)}
+		\State{\textbf{Output:} $Q$ ($\approx Q^*$ if $\mathtt{num\_episodes}$ is large enough)}
 		\State{Initialise $Q$ such that $Q(s,a) = 0 \ \text{for all} \ s \in A \ \text{and} \ a \in A$}
 		\For{$i \gets 1:\mathtt{num\_episodes}$}
 			\State{$\epsilon \gets \epsilon_i$}
-			\State{$\pi \gets \epsilon-\text{greedy}Q$}
+			\State{$\pi \gets \epsilon-\text{greedy}$}
 			\State{Generate and episode $S_0, A_0, R_1,\dots,S_T$ using $\pi$}
 			\For{$t \gets 0:(T-1)$}
-				\If $(S_t, A_t)$ is a first visit
-					$Q(S_t, A_t) \gets Q(S_t, A_t) + \alpha(G_t - Q(S_t, A_t))$
+				\If{$(S_t, A_t)$ is a first visit}
+					\State{$Q(S_t, A_t) \gets Q(S_t, A_t) + \alpha(G_t - Q(S_t, A_t))$}
 				\EndIf
 			\EndFor
 		\EndFor
@@ -146,7 +145,7 @@ Need to talk about greedy and epsilon greedy policies and their motivation first
 	\end{algorithmic}
 \end{algorithm}
 
-
+Write a note about how the optimal policy can be selected from the optimal Q function.
 
 \subsubsection{Temporal Difference Methods}
 Talk about the fact that Monte Carlo methods collect an entire episode prior to making an update - temporal difference methods use an idea of bootstrapping to update the Q after each time step. This has low bias but high variance (check this idea)?
@@ -162,18 +161,22 @@ Watkins is credited with the most influential integration of RL with MDPs, and D
 	\caption{Q-learning}
 	\label{alg:02_q_learning}
 	\begin{algorithmic}[1]
-		\State{\textbf{Input:}}
-		\State{\textbf{Output:}}
-		\State{Initialise $Q(s,a)$ randomly}
-		\Repeat
-			\State{Observe initial state $s_1$}
-			\For{$t \gets 1:T$} 
-				\State{Select an action $a$ using policy derived from $Q$ (e.g. $\epsilon$-greedy)}
-				\State{Carry out action $a$}
-				\State{Observe reward $r$ and new state $s'$}
-				\State Update {$Q(s,a) \gets Q(s,a) + \alpha[r + \max_{a'} \gamma Q(s',a') - Q(s,a)]$}
-			\EndFor
-		\Until{Terminated}
+		\State{\textbf{Input:} $\mathtt{num\_episodes}$, $\alpha$, $\epsilon_i$}
+		\State{\textbf{Output:} value function $Q$ ($\approx Q^*$ if $\mathtt{num\_episodes}$ is large enough)}
+		\State{Initialise $Q$ such that $Q(s,a) = 0 \ \text{for all} \ s \in S \ \text{and} \ a \in A$}
+		\For{$i \gets 1:\mathtt{num\_episodes}$}
+			\State{$\epsilon \gets \epsilon_i$}
+			\State{Observe initial state $S_0$}
+			\State{$t \gets 0$}
+			\Repeat
+				\State{Select an action $A_t$ using policy derived from $Q$ (e.g. $\epsilon$-greedy)}
+				\State{Carry out action $A_t$}
+				\State{Observe reward $R_{t+1}$ and new state $S_{t+1}$}
+				\State {$Q(S_t,A_t) \gets Q(S_t,A_t) + \alpha[R_{t+1} + \gamma\max_{a} Q(S_{t+1},a) - Q(S_t,A_t)]$}
+				\State{$t \gets t+1$}
+			\Until{$S_t$ is terminal}
+		\EndFor
+		\State{\textbf{return} Q}
 	\end{algorithmic}
 \end{algorithm}
 
