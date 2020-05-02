@@ -1,5 +1,5 @@
 \section{Reinforcement Learning}\label{rl}
-According to Sutton and Barto's seminal text, reinforcement learning (RL) is a branch of machine learning, based on trial-and-error, that is concerned with sequential decision making \cite{Sutton2018}. An RL agent exists in an environment where it can act in the environment, and it can observe the environment and receive rewards. These two discrete steps, action and observation, are repeated indefinitely with the goal of the agent to make decisions so as to maximise its long term reward --- this scenario is represented diagramatically in Figure \ref{fig:209_reinforcement_learning_problem}.
+According to Sutton and Barto's seminal text, reinforcement learning (RL) is a branch of machine learning, based on trial-and-error, that is concerned with sequential decision making \cite{Sutton2018}. An RL agent exists in an environment. Within the environment it can act, and it can make observations of it's state and receive rewards. These two discrete steps, action and observation, are repeated indefinitely with the agent's goal being to make decisions so as to maximise its long term reward --- this scenario is represented diagramatically in Figure \ref{fig:209_reinforcement_learning_problem}.
 
 \begin{figure}[h]
 	\centering
@@ -30,16 +30,14 @@ The set of parameters outlined above, and expression \ref{eq:202}, make up a fra
 %------------------------ SS: Returns and Policy
 
 \subsection{Returns, Episodes, and Policy} \label{rep}
-In addition to  developing the MDP framework, Bellman was also responsible for key developments in a field of research called dynamic programming (DP) \cite{Bellm1954}. Assuming that the agent has complete knowledge of the state transition probabilities of an environment, DP algorithms can be used to determine analytical solutions for the problem of how an agent should behave to maximise it's cumulative reward \cite{Bellm1954, Howard1960}. This idea is distinct from RL but was critical in RL's development. The main difference is that DP provides the agent with complete knowledge of it's environment, whereas the RL agent has no knowledge of the environment dynamics and must learn them as well as how to maximise it's cumulative reward \cite{Sutton2018}. Many researchers made links between DP and RL \cite{Bellm1959, Witten1977, Werbos1987}, but it wasn't until 1989 that Watkins presented the first formal treatment of RL in an MDP framework, paving the way for modification of DP algorithms for use with RL problems \cite{Watkins1989}. Three of the central ideas used in DP algorithms are episodes, returns, and policies \cite{Sutton2018}.
+In addition to  developing the MDP framework, Bellman was also responsible for key developments in a field of research called dynamic programming (DP) \cite{Bellm1954}. Assuming that the agent has complete knowledge of the state transition probabilities of an environment, DP algorithms can be used to determine analytical solutions for the problem of how an agent should behave to maximise it's cumulative reward \cite{Bellm1954, Howard1960}. This idea was originally thought to be distinct from RL. The main difference is that DP provides the agent with complete knowledge of it's environment, whereas RL agents have no knowledge of environment dynamics and must learn them as well as how to maximise their cumulative reward \cite{Sutton2018}. Many researchers made links between DP and RL \cite{Bellm1959, Witten1977, Werbos1987}, but it wasn't until 1989 that Watkins presented the first formal treatment of RL in an MDP framework. Watkin's work showed that DP algorithms could be modified for use with RL problems \cite{Watkins1989}. Central ideas used in DP algorithms include episodes, returns, and policies \cite{Sutton2018}.
 
 The duration of time that an agent will spend taking actions and transitioning states before encountering a terminal state is defined as an episode. It is the agent's goal to take actions such that it maximises the sum of all the rewards as it concludes an episode. The cumulative sum of rewards is called the return. Consider an agent taking an action at each discrete time step, $t$, and receiving reward, $r_t$, after each action. If there are $N$ discrete time steps before the agent reaches a terminal state, Bellman defines the return as
-
 \begin{equation}
 	G_t = \sum_{k = 0}^{N-1} r_{t + k}. \label{eq:203}
 \end{equation}
 
 Rewards received in the future are often perceived as less valuable than rewards received in the present. To account for this Bellman used a discount factor applied to each reward in the sequence. Letting $\gamma \in [0,1]$ then \ref{eq:203} becomes
-
 \begin{equation}
 	G_t = \sum_{k = 0}^{N-1}\gamma\mystrut^k r_{t+k}. \label{eq:204}
 \end{equation}
@@ -50,13 +48,11 @@ Finally, in order for the agent to take actions it must have a belief of what ac
 
 \subsection{Value Function and the Bellman Equations}
 The basic principal of dynamic programming is to assign a value to each state that informs an agent how useful a state is to achieving a high cumulative reward. Watkins refers to the creation of systems to assign values to states as the credit assignment problem \cite{Watkins1989}. Bellman's approach to solving credit assignment was to develop mathematical functions to assign values to states \cite{Bellm1954}. Bellman's \textit{value function}, $V_{\pi}(s)$ , is defined as the expected sum of the discounted return, $G_t$, that the agent will receive while following policy $\pi$ from a particular state $s$. Mathematically, this is expressed as
-
 \begin{equation}
 	V_{\pi}(s) = \mathbb{E}_{\pi} \big( G_t \ | \ s_t = s \big) = \mathbb{E}_{\pi} \bigg( \sum_{k = 0}^{\infty} \gamma\mystrut^k r_{t+k} \ | \ s_t = s \bigg). \label{eq:205}
 \end{equation}
 
 A slight variation of equation \ref{eq:205} is the \textit{state-action value function}, $Q_{\pi}(s,a)$, which is defined as the expected sum of the discounted return, $G_t$, that the agent will receive if it takes action $a$ in state $s$, and then follows policy $\pi$ thereafter. Mathematically, this is expressed as
-
 \begin{equation}
 	Q_{\pi}(s, a) = \mathbb{E}_{\pi} \big( G_t \ | \ s_t = s, \ a_t = a \big) = \mathbb{E}_{\pi} \bigg( \sum_{k = 0}^{\infty} \gamma\mystrut^k r_{t+k} \ | \ s_t = s, \ a_t = a \bigg). \label{eq:206}
 \end{equation}
@@ -86,36 +82,100 @@ Equation \ref{eq:208} is referred to as the Bellman optimality equation for $V^*
 	Q^*(s,a) = \sum_{s'} p(s', r \ | \ s, a)[r + \gamma \max_{a'} Q^*(s',a')].
 \end{equation}
 
-If the transition probabilities and rewards are known to the agent then this is the DP problem, which can be solved analytically, or 
-
-
-
-
+If the transition probabilities and rewards are known to the agent then the Bellman opitmality equations can be solved iteratively, which is known as dynamic programming \cite{Bellm1957}. Algorithms which assume probabilities are collectively referred to as \textit{model-based} algorithms. Most RL problems assume state transition probabilities are unknown. The collection of algorithms that provide solutions to these problems are called \textit{model-free} algorithms. Monte Carlo, temporal difference, and policy search are the most common types of model-free algorithms used.
 
 \subsection{Value Function Based Methods}
 what are these? why are they used? what is good about them? what are the types?
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{211_families_of_RL_algorithms}
+	\caption{text}
+	\label{fig:211_families_of_RL_algorithms}
+\end{figure}
+
 \subsubsection{Monte Carlo Methods}
 Sutton and Barto first introduced a version of the Monte Carlo (MC) control algorithm for estimating state-action value functions in 1998 \cite{Sutton2018}. The basic idea is based on an iterative approach that takes a sample of episodic sequences consisting of states, actions, and rewards. Sequences are obtained from the agent interacting with the environment, using some policy $\pi$. This is called the \textit{policy evaluation} step. Once an episode is completed, the state-action value function, $Q_{\pi}(s,a)$, is updated for each discrete state-action pair visited. This second step is called the \textit{policy improvement} step. Figure \ref{fig:210_monte_carlo_methods} illustrates the iterative process.
 
+Greedy policy talk about this guy too
+\begin{equation}
+	\pi (a | s) = % 
+	   \begin{cases}
+	   		1 \ \ \text{if} \ \ a = \arg\max_{a'} Q(s,a') \\
+	   		0 \ \ \text{if} \ \ a \neq \arg\max_{a'} Q(s,a')
+	   \end{cases}
+\end{equation}
+
 
 Need to talk about greedy and epsilon greedy policies and their motivation first.
+\begin{equation}
+   \pi (a | s) = % 
+   \begin{cases}
+   		1 - \epsilon \ \ \text{if} \ \ a = \arg\max_{a'} Q(s,a') \\
+   		\frac{\epsilon}{|A|-1} \ \ \text{if} \ \ a \neq \arg\max_{a'} Q(s,a')
+   \end{cases}
+\end{equation}
+
 
 
 \begin{figure}[h]
 	\centering
-	\input{./figures/211_monte_carlo_method/monte_carlo_method}
+	\input{./figures/212_monte_carlo_method/monte_carlo_method}
 	\caption{text}
 	\label{fig:210_monte_carlo_methods}
 \end{figure}
 
-
+\begin{algorithm}[h]
+	\caption{Constant $\alpha$ Monte Carlo Control}
+	\label{alg:01_monte_carlo}
+	\begin{algorithmic}[1]
+		\State{\textbf{Input:} $\mathtt{num\_episodes}$, $\alpha$, $\epsilon_i$}
+		\State{\textbf{Output:} $\pi$ ($\approx \pi^*$ if $\mathtt{num\_episodes}$ is large enough)}
+		\State{Initialise $Q$ such that $Q(s,a) = 0 \ \text{for all} \ s \in A \ \text{and} \ a \in A$}
+		\For{$i \gets 1:\mathtt{num\_episodes}$}
+			\State{$\epsilon \gets \epsilon_i$}
+			\State{$\pi \gets \epsilon-\text{greedy}Q$}
+			\State{Generate and episode $S_0, A_0, R_1,\dots,S_T$ using $\pi$}
+			\For{$t \gets 0:(T-1)$}
+				\If $(S_t, A_t)$ is a first visit
+					$Q(S_t, A_t) \gets Q(S_t, A_t) + \alpha(G_t - Q(S_t, A_t))$
+				\EndIf
+			\EndFor
+		\EndFor
+		\State{\textbf{return} $Q$}
+	\end{algorithmic}
+\end{algorithm}
 
 
 
 \subsubsection{Temporal Difference Methods}
+Talk about the fact that Monte Carlo methods collect an entire episode prior to making an update - temporal difference methods use an idea of bootstrapping to update the Q after each time step. This has low bias but high variance (check this idea)?
+
 
 Watkins is credited with the most influential integration of RL with MDPs, and DP. His work on an RL algorithm called Q-learning highlighted the importance of another type of value function called the action-value function. The action-value function is defined as the expected sum of rewards that the agent will receive while taking action $a$ in state $s$ and, thereafter, following policy $\pi$.
+
+\begin{equation}
+	Q(s,a) := Q(s,a) + \alpha[r + \max_{a'}Q(s',a') - Q(s,a)]
+\end{equation}
+
+\begin{algorithm}[h]
+	\caption{Q-learning}
+	\label{alg:02_q_learning}
+	\begin{algorithmic}[1]
+		\State{\textbf{Input:}}
+		\State{\textbf{Output:}}
+		\State{Initialise $Q(s,a)$ randomly}
+		\Repeat
+			\State{Observe initial state $s_1$}
+			\For{$t \gets 1:T$} 
+				\State{Select an action $a$ using policy derived from $Q$ (e.g. $\epsilon$-greedy)}
+				\State{Carry out action $a$}
+				\State{Observe reward $r$ and new state $s'$}
+				\State Update {$Q(s,a) \gets Q(s,a) + \alpha[r + \max_{a'} \gamma Q(s',a') - Q(s,a)]$}
+			\EndFor
+		\Until{Terminated}
+	\end{algorithmic}
+\end{algorithm}
 
 
 \subsection{Policy Search Methods}
