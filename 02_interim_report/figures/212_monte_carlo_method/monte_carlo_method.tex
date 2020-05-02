@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+	
+	% Create nodes
+	\node (A) {\huge$\pi$};
+	\node[right of=A, node distance=5cm] (B) {\huge$Q$};
+	
+	% Create arrow
+	\draw[->, line width=1pt] (A) edge[bend left=45] node[below=0.1cm] {$Q \rightsquigarrow q_\pi $} node[above] {evaluation} (B);
+	
+	% Create arrow
+	\draw[->, line width=1pt] (B) edge[bend left=45] node[below] {improvement} node[above=0.25cm] {$\pi \rightsquigarrow greedy(Q)$} (A);
+	
+\end{tikzpicture}
