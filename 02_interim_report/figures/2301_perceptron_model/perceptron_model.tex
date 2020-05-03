@@ -1,3 +1,5 @@
+%------------------------ Set up drawing styles
+
 \tikzset{basic/.style={draw,fill=blue!20,text width=1em,text badly centered}}
 \tikzset{input/.style={basic,circle}}
 \tikzset{weights/.style={basic,rectangle}}
@@ -6,10 +8,7 @@
 \begin{tikzpicture}
    	\node[functions] (center) {$f$};
 	\node[below of=center,font=\scriptsize,text width=4em] {Activation function};
-	%\draw[thick] (0.5em,0.5em) -- (0,0.5em) -- (0,-0.5em) -- (-0.5em,-0.5em);
-	%\draw (0em,0.75em) -- (0em,-0.75em);
-	%\draw (0.75em,0em) -- (-0.75em,0em);
-	\node[right of=center] (right) {};
+	\node[right of=center] (right) {$y$};
     	\path[draw,->] (center) -- (right);
 	\node[functions,left=3em of center] (left) {$\sum$};
     	\path[draw,->] (left) -- (center);
@@ -23,7 +22,7 @@
 	\node[weights,above of=2] (1) {$w_1$} -- (1) node[input,left of=1] (l1) {$x_1$};
     	\path[draw,->] (l1) -- (1);
     	\path[draw,->] (1) -- (left);
-	\node[weights,above of=1] (0) {$w_0$} -- (0) node[input,left of=0] (l0) {$1$};
+	\node[weights,above of=1] (0) {$b$} -- (0) node[input,left of=0] (l0) {$1$};
     	\path[draw,->] (l0) -- (0);
     	\path[draw,->] (0) -- (left);
 	\node[below of=ln,font=\scriptsize] {inputs};

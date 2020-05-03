@@ -1,12 +1,13 @@
 \section{Deep Neural Networks}\label{dnn}
 Deep neural networks are the technology responsible for some of the most recent state-of-the-art technological breakthroughs in fields such as audio to text speech recognition systems \cite{Hinton2012}, image classification systems \cite{Krizhevsky2012, Simonyan2014, Szegedy2015, He2016}, text-to-text machine translation (REFERENCE), and robotics \cite{Mnih2015, Lillicrap2015, Schulman2015, Schulman2015highdimensional}.
 
-Deep neural networks are able to adapt to the different needs of diverse research fields due to their unique computational architecture. A deep neural network (DNN) is comprised of many nodes, called perceptrons, each of which are equipped with an activation function. Using the activation function each node can signal when it recognises an input or not. The DNN architecture connects many nodes together, using weighted edges, to form a network. Modifying the edge weights is referred to as \textit{training the network}, and allows the DNN to change its behaviour. Given this flexibility, a DNN is often thought of as a tool for universal function approximation.
+Deep neural networks are able to adapt to the different needs of diverse research fields due to their unique computational architecture. A deep neural network (DNN) is comprised nodes, called perceptrons, which perform simple linear combination operations on inputs they receive. Additionally, each node is equipped with an activation function. The activation function allows the node to signal when it recognises the linear combination of inputs. DNN architectures connect many nodes together, using weighted edges, to form a computational graph. Modifying the edge weights is referred to as \textit{training the network}, and allows the DNN to change its behaviour. Given this flexibility, a DNN is often thought of as a tool for universal function approximation.
+
 
 %------------------------ SS: Perceptron Model
 
 \subsection{Perceptron Model}
-Rosenblatt is credited with developing the perceptron model that is the fundamental neural network architectures \cite{Rosenblatt1958}. (WHAT WAS THE MOTIVATION OF HIS WORK). Rosenblatt's perceptron consisted of a single node, or neuron, used for the classification of patterns that are linearly separable. The neuron takes a vector of inputs and applies a weight, multiplicatively, to each vector element. The multiplied elements are then summed along with a bias term. Letting input vector elements be $x_i$, weight terms be $w_i$, and the bias term be $b$, the summation operation can be expressed as:
+Rosenblatt is credited with developing the perceptron model that is a fundamental building block for neural network architectures. Motivated by Hebbian theory of synaptic plasticity (i.e. the adaptation of brain neurons during the learning process), Rosenblatt developed a model to emulate the ``perceptual processes of a biological brain'' \cite{Rosenblatt1957}. Rosenblatt's perceptron model consisted of a single node used for binary classification of patterns that are linearly separable \cite{Rosenblatt1958}. The neuron takes a vector of inputs and applies a weight, multiplicatively, to each vector element. The multiplied elements are then summed along with a bias term. Letting input vector elements be $x_i$, weight terms be $w_i$, and the bias term be $b$, the summation operation can be expressed as:
 \begin{equation}
 	\sum_{i}x_i w_i + b \label{eq:2301}
 \end{equation} 
@@ -29,9 +30,21 @@ Figure \ref{fig:2301_perceptron_model} provides an shows the computational model
 %------------------------ SS: Activation Functions
 
 \subsection{Activation Functions}
-sigmoid - who developed these
-relu - who developed these
-tanh - who developed these
+The activation function is a key component of Rosenblatt's perceptron --- it determines if the perceptron will activate or not. Rosenblatt's model used a Heaviside step function, which was effective under his simple perceptron learning algorithm; however, as neural networks grew in size, new training algorithms had to be developed. The most widely used learning algorithm today is backpropagation (REFERENCE). This algorithm relies on the calculation of gradients Since the Heaviside function has no gradient, it was ultimately seen as an impediment to network learning once the back-propagation learning algorithm was developed. According to Haykin, a number of other activation function are widely used instead of the Heaviside function \cite{Haykin99}. Some of the most common are:
+\begin{enumerate}
+	\item Hyperbolic tangent: $f:\mathbb{R} \to [-1,1]$ where
+	\begin{equation}
+		f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
+	\end{equation}
+	\item Logistic sigmoid: $f:\mathbb{R} \to [0,1]$ where
+	\begin{equation}
+		f(x) = \frac{1}{1 + e^{-x}}
+	\end{equation}
+\end{enumerate}
+
+Both of these activation function suffer from a problem called the vanishing gradient problem. The back-propagation learning algorithm  
+
+
 
 
 %------------------------ SS: Feedforward Network
