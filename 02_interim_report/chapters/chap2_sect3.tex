@@ -1,13 +1,32 @@
 \section{Deep Neural Networks}\label{dnn}
-Deep neural networks are the technology responsible for some of the most recent technological breakthroughs in fields such as audio to text speech recognition systems \cite{Hinton2012}, image classification systems (REFERENCE), text to text machine translation (REFERENCE), and robotics \cite{Mnih2015, Lillicrap2015, Schulman2015, Schulman2015highdimensional}.
+Deep neural networks are the technology responsible for some of the most recent state-of-the-art technological breakthroughs in fields such as audio to text speech recognition systems \cite{Hinton2012}, image classification systems \cite{Krizhevsky2012, Simonyan2014, Szegedy2015, He2016}, text to text machine translation (REFERENCE), and robotics \cite{Mnih2015, Lillicrap2015, Schulman2015, Schulman2015highdimensional}.
 
-%------------------------ SS: Deep Neural Networks
+Deep neural networks are able to adapt to the different needs of diverse research fields due to their unique computational architecture. A deep neural network (DNN) is comprised of many nodes, called perceptrons, each of which are equipped with an activation function. Using the activation function each node can signal when it recognises an input or not. The DNN architecture connects many nodes together, using weighted edges, to form a network. Modifying the edge weights is referred to as \textit{training the network}, and allows the DNN to change its behaviour. Given this flexibility, a DNN is often thought of as a tool for universal function approximation.
 
-\subsection{A Perceptron}
-The inputs from the previous layer, and the non-linear activation of a node form a computational element called a neuron (also known as a perceptron) - these can be loosely thought of as decision making elements. An example of a neuron can seen in Figure 5.
+%------------------------ SS: Perceptron Model
 
-artificial neuron rosenblatt
+\subsection{Perceptron Model}
+Rosenblatt is credited with developing the perceptron model ubiquitous to neural network architectures \cite{Rosenblatt1958}. (WHAT WAS THE MOTIVATION OF HIS WORK). Rosenblatt's perceptron consisted of a single node, or neuron, used for the classification of patterns that are linearly separable. The neuron takes a vector of inputs and applies a weight, multiplicatively, to each vector element. The multiplied elements are then summed along with a bias term. Letting input vector elements be $x_i$, weight terms be $w_i$, and the bias term be $b$, the summation operation can be expressed as:
+\begin{equation}
+	\sum_{i}x_i w_i + b \label{eq:2301}
+\end{equation} 
 
+The summation is then passed through an activation function, $f$, to produce the neuron output. Using equation \ref{eq:2301} and letting the neuron output be $y$, the neuron model can be expressed as:
+\begin{equation}
+	y = f\bigg( \sum_{i}x_i w_i + b \bigg) \label{eq:2302}
+\end{equation}
+
+Figure \ref{fig:2301_perceptron_model} provides an shows the computational model of a neuron, expressing \ref{eq:2302}.
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/2301_perceptron_model/perceptron_model}
+	\caption{text}
+	\label{fig:2301_perceptron_model}
+\end{figure}
+
+
+%------------------------ SS: Activation Functions
 
 \subsection{Activation Functions}
 sigmoid - who developed these
@@ -15,14 +34,21 @@ relu - who developed these
 tanh - who developed these
 
 
+%------------------------ SS: Feedforward Network
+
 \subsection{Feedforward Networks}
 A typical fully connected feed-forward ANN consists of an input layer, one or more hidden layers, and an output layer, as shown in Figure 4. Hidden layers are made up of multiple nodes. The nodes themselves contain a non-linear activation function, such as a sigmoid or ReLU, and receive weighted input from the previous layers in the model.
 
+
+%------------------------ SS: Training the Network
 
 \subsection{Training the Network}
 Changing the weights in a neuron changes the neurons’s contribution to the model, which in turn affects the overall model output. Weight changes occur during model training, which uses large volumes of labelled data to adjust the weights. Hidden layers are important because they allow highly non-linear models to be constructed, providing an approach for estimating complex phenomena which may be difficult to model with classical approaches, or computationally intractable. Generally, the more hidden layers, the more non-linear the model. Network architectures with multiple hidden layers have become so wide spread that the term Deep Neural Network (DNN) was coined to describe feed-forward ANNs which use two or more hidden layers. It must be noted that whilst increased non-linearity may allow us to model more complex phenomenon, making the ANN deeper does not guarantee increased model performance. This is mainly due to the fact that deeper models may over-fit the data during training, resulting in a failure to generalise on test and validation data sets.
 
 werbos backpropagation
+
+
+%------------------------ SS: Regularisation
 
 \subsection{Regularisation}
 dropout
