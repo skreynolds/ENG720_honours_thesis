@@ -1,1 +1,32 @@
 \section{Turbine Model}
+Consider a fossil-fuelled single reheat tandem-compound turbine. For the purposes of developing a model, a basic configuration of components can be seen in Figure 1. Steam enters the high pressure (HP) section through the control valve and the inlet piping. The housing for the control valves is called the steam chest. The HP exhaust steam is passed through the re-heater. The reheat steam flows into the IP turbine section through the reheat intercept valve (IV) and the inlet piping. The crossover piping provides a path for the steam from IP section exhaust to the low pressure (LP) inlet.
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{A03_turbine_configuration}
+	\caption{Configuration of a fossil-fuelled single reheat tandem-compound turbine}
+	\label{fig:A03_turbine_configuration}
+\end{figure}
+
+The control valve position, $y_E$, modulates the steam flow through the turbine for load/frequency control during normal operation. The response of steam flow to a change in control valve opening exhibits a time constant $T_{CH}$ due to the charging time of the steam chest and the inlet piping to the HP section. The intercept valve is normally used for rapid control of the turbine in the event of an overspeed, and won't be considered in this analysis. The reheater holds a substantial amount of steam and has a time constant $T_{RH}$. The steam flow into the LP sections experiences an additional time constant $T_{CO}$ associated with the crossover piping. Figure 2 shows the block diagram representation of the tandem compound reheat turbine.
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{A04_turbine_full_block_diagram}
+	\caption{Block diagram of the tandem compound reheat turbine}
+	\label{fig:A04_turbine_full_block_diagram}
+\end{figure}
+
+To simplify the model shown in Figure 2, it is assumed that $T_{CO}$ is negligible in comparison to $T_{RH}$. Moreover, the remaining two time constants, $T_{CH}$ and $T_{RH}$, have been combined into a single time constant $T_t$. Hence, the power output of the turbine, $\Delta P_G(s)$, can be linked to the valve position, $\Delta Y_E(s)$, in the frequency domain with the following expression:
+\begin{equation}
+	\Delta F(s) = \bigg( \frac{K_t}{1 + T_t s} \bigg) \times P_G(s) \label{eq:A10}
+\end{equation}
+
+Equation \ref{eq:A10} is the simplified model of the turbine in the frequency domain. The parameter $K_t$ is referred to as the gain of the turbine; and the parameter $T_t$ is referred to as the time constant of the turbine. The block diagram showing this representation can be seen in Figure 3 below.   
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/A05_turbine_model/turbine_model}
+	\caption{Simplified block diagram of the tandem compound reheat turbine}
+	\label{fig:A05_turbine_model}
+\end{figure}
