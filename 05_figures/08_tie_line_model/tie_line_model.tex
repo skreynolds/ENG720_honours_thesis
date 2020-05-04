@@ -1,0 +1,29 @@
+% Set up the standalone document class
+\documentclass{standalone}
+
+% Input the preamble (<3)
+\input{../00_preamble/preamble.tex}
+
+\begin{document}
+
+\begin{tikzpicture}
+	
+	% Draw the nodes first
+	\node [input] (input1) {};
+	\node [sum,add={ }{+}{ }{$-$}, right of=input1, node distance=4cm] (sum) {};
+	\node [right of=sum, node distance=6.55cm] (input2) {};
+	\node [block1, above of=sum] (tieline) {$\frac{2 \pi T_{12}}{s}$};
+	\node [block2, right of=tieline] (a12) {$-a_{12}$};
+	\node [output, right of=a12] (P2) {};
+	\node [output, left of=tieline] (P1) {};
+	
+	% Connect the nodes
+	\draw [->] (input1) -- node [label=above:{$\Delta F_1(s)$}] {} (sum);
+	\draw [->] (input2) -- node [label=above:{$\Delta F_2(s)$}] {} (sum);
+	\draw [->] (sum) -- (tieline);
+	\draw [->] (tieline) -- node[label=above:{$\Delta P_{tie,1}$}] {} (P1);
+	\draw [->] (tieline) -- (a12);
+	\draw [->] (a12) -- node[label=above:{$\Delta P_{tie,2}$}] {} (P2);
+\end{tikzpicture}
+
+\end{document}
