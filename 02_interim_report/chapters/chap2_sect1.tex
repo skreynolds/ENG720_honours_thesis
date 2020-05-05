@@ -91,11 +91,15 @@ The single area system presented in Section \ref{oneareapowersystem} is useful t
 
 Distinct control areas are typically thought of as different participants in the generation market, or simply as different regions in which generation assets are based \cite{Kothari2011}.
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[height=12cm]{208_two_area_control_block}
-	\caption{A classical feedback control approach to a two area power system \cite{Kundur1994}.}
-	\label{fig:208_two_area_control_block}
-\end{figure}
+The simplest model that includes tie lines is the two area power system, shown in Figure \ref{fig:207_two_area_system}. The control objective with this system is to maintain the inter-area power transfer, whilst regulating the frequency of each area. An AGC integral feedback loop on regulating units, like that shown in Figure \ref{fig:206_single_area_pi_control_model}, would ensure that power system frequency is maintained, however, would not guarantee inter-area power transfer agreements are observed. Violation of power transfer contracts due to control issues does not allow for a stable market in which energy can be reliably traded. Fortunately, multi control area power systems are well understood. Linear models have been developed to simulate these systems, and classical control approaches have been successfully implemented to meet the new control objectives. In order to achieve this, a metric called Area Control Error (ACE) is used in the AGC feedback loop for each control area. ACE is a linear combination of the frequency deviations and the . The implementation of this control system is shown in Figure \ref{fig:208_two_area_pi_control_model}.
 
-The simplest model that includes tie lines is the two area power system, shown in Figure \ref{fig:207_two_area_system}. The control objective with this system is to maintain the inter-area power transfer, whilst regulating the frequency of each area. An AGC integral feedback loop on regulating units, like that shown in Figure \ref{fig:206_single_area_pi_control_model}, would ensure that power system frequency is maintained, however, would not guarantee inter-area power transfer agreements are observed. Violation of power transfer contracts due to control issues does not allow for a stable market in which energy can be reliably traded. Fortunately, multi control area power systems are well understood. Linear models have been developed to simulate these systems, and classical control approaches have been successfully implemented to meet the new control objectives. In order to achieve this, a metric called Area Control Error (ACE) is used in the AGC feedback loop for each control area. ACE is a linear combination of the frequency deviations and the . The implementation of this control system is shown in Figure \ref{fig:208_two_area_control_block}.
+\clearpage
+
+\begin{sidewaysfigure}[ht]
+\centering
+\resizebox{22cm}{!}{\input{./figures/208_two_area_pi_control_model/two_area_pi_control_model}}
+\caption{A classical feedback control approach to a two area power system \cite{Kundur1994}.}
+\label{fig:208_two_area_pi_control_model}
+\end{sidewaysfigure}
+
+\clearpage
