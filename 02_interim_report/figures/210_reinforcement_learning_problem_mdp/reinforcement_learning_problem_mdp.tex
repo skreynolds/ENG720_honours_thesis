@@ -1,0 +1,29 @@
+% Additional styles
+\tikzstyle{blockn} = [rectangle, draw, text width=8em, text centered, rounded corners, minimum height=4em]
+    
+\tikzstyle{line} = [draw, -latex]
+
+\tikzset{
+    block/.style={
+        draw,
+        rectangle split,
+        rectangle split parts=2,
+        text centered,
+        text width=8em,
+        rounded corners,
+        minimum height=4em
+        }
+}
+
+
+\begin{tikzpicture}[node distance = 6em, auto, thick]
+    \node [blockn, fill=blue!25!gray, text=white] (Agent) {\Large Agent};
+    \node [block, below of=Agent, rectangle split empty part height=1cm, rectangle split part fill={green!20!gray,white!80!green}] (Environment) {\Large\textcolor{white}{MDP} \nodepart{second} \scriptsize $\begin{aligned}
+   		s_{t+1} &\sim  P( \ \cdot \ | \ s_t,a_t )\\
+   		r_{t+1} &\sim R(s_t, a_t, s_{t+1})
+    \end{aligned}$};
+    
+     \path [line] (Agent.0) --++ (4em,0em) |- node [near start]{$a_t$} (Environment.-10);
+     \path [line] (Environment.200) --++ (-6em,0em) |- node [near start] {$s_t$} (Agent.170);
+     \path [line] (Environment.180) --++ (-4.25em,0em) |- node [near start, right] {$r_t$} (Agent.190);
+\end{tikzpicture}
