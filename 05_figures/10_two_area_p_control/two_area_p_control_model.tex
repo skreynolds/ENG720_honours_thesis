@@ -5,9 +5,7 @@
 \input{../00_preamble/preamble.tex}
 
 \begin{document}
-	
 \begin{tikzpicture}
-	
 	% Tie line nodes
 	\node [sum, add={$-$}{}{+}{ }] (sum1) {};
 	\node [block1, right of=sum1, label=above:{Tie Line}] (tieline) {$\frac{2\pi T_{12}}{s}$};
@@ -78,17 +76,5 @@
 	\draw [->] (r2) -| (sum5);
 	\draw (p22) -- (p21);
 	\draw [->] (p21) -- (sum3);
-	
-%	\draw [->] (input) -- node [label=above:{$\Delta P_C(s)$}] {} (sum1);
-%	\draw [->] (sum1) -- (governor);
-%	\draw [->] (governor) -- node [label=above:{$\Delta Y_E(s)$}] {} (turbine);
-%	\draw [->] (turbine) -- node [label=above:{$\Delta P_G(s)$}] {} (sum2);
-%	\draw [->] (demand) -- node [label=right:{$\Delta P_L(s)$}] {} (sum2);
-%	\draw [->] (sum2) -- (genload);
-%	\draw [->] (genload) -- node [coordinate, name=feedback, label=above:{$\Delta F(s)$}] {} (output);
-%	\draw [->] (feedback) |- (regulator);
-%	\draw [->] (regulator) -| (sum1);
-	
 \end{tikzpicture}
-	
 \end{document}
