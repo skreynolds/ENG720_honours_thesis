@@ -3,7 +3,7 @@ Interconnected power systems are comprised of power generating units and energy 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.85]{201_power_system}
-	\caption{A single line diagram of a typical power system. The image shows points of generation from thermal and renewable sources, and the subsequent supply of generated energy to meet load demand through the transmission and distribution network \cite{Glavic2019}.}
+	\caption[High level overview of a power network]{A single line diagram of a typical power system. The image shows points of generation from thermal and renewable sources, and the subsequent supply of generated energy to meet load demand through the transmission and distribution network \cite{Glavic2019}.}
 	\label{fig:201_power_system}
 \end{figure}
 
@@ -11,7 +11,7 @@ One of the key elements to successful operation of interconnected power systems 
 \begin{figure}[h]
 	\centering
 	\includegraphics[height=1.4cm]{202_generation}
-	\caption{A thermal generation unit consisting of a prime mover (turbine), and a synchronous machine \cite{Wood2013}.}
+	\caption[Turbine generator model]{A thermal generation unit consisting of a prime mover (turbine), and a synchronous machine \cite{Wood2013}.}
 	\label{fig:202_generation}
 \end{figure}
 
@@ -25,7 +25,7 @@ When $T_{mech}$ equals $T_{elec}$ the system will be in a steady state of zero a
 \begin{figure}[ht]
 	\centering
 	\includegraphics[height=7cm]{203_load_profile}
-	\caption{Weekday energy demand profile in South Australia during summer \cite{Aemosaenergyrep}.}
+	\caption[Intraday load demand profile]{Weekday energy demand profile in South Australia during summer \cite{Aemosaenergyrep}.}
 	\label{fig:203_load_profile}
 \end{figure}
 
@@ -36,7 +36,7 @@ Protection schemes tripping equipment from the network is undesirable as this ca
 \begin{figure}[ht]
 \centering
 \includegraphics[height=6cm]{204_frequency_arrest}
-\caption{A minor frequency disturbance occurs at the 2 sec mark and primary control systems (governors) arrest the frequency drop. System frequency is adjusted to desired 50$\si{\hertz}$ operating level using AGC control of regulating units. This referred to as supplementary (or secondary) control in the literature. AEMO refers to this as load following ancilliary services. At the 40 sec mark the network experiences a major frequency disturbance which is arrested by emergency control measures such as under-frequency load shedding (UFLS). System restoration is aided using AGC control of regulating units, which AEMO refers to as spinning reserve ancillary services \cite{Bevrani2011}.}
+\caption[Frequency profiles of differing disturbance types]{A minor frequency disturbance occurs at the 2 sec mark and primary control systems (governors) arrest the frequency drop. System frequency is adjusted to desired 50$\si{\hertz}$ operating level using AGC control of regulating units. This referred to as supplementary (or secondary) control in the literature. AEMO refers to this as load following ancilliary services. At the 40 sec mark the network experiences a major frequency disturbance which is arrested by emergency control measures such as under-frequency load shedding (UFLS). System restoration is aided using AGC control of regulating units, which AEMO refers to as spinning reserve ancillary services \cite{Bevrani2011}.}
 \label{fig:204_frequency_arrest}
 \end{figure}
 
@@ -56,7 +56,7 @@ The power system model shown in Figure \ref{fig:201_power_system} depicts total 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[height=8cm]{205_multiple_area_system}
-	\caption{An example of three interconnected control areas in a 60$\si{\hertz}$ power system. The interconnections allow power to flow from one area to another, allowing generators to service loads from different areas. Each control area consists of several generators and loads, but are modelled with a single generator and single load for simplicity \cite{Grainger1994}.}
+	\caption[Multiple area power system]{An example of three interconnected control areas in a 60$\si{\hertz}$ power system. The interconnections allow power to flow from one area to another, allowing generators to service loads from different areas. Each control area consists of several generators and loads, but are modelled with a single generator and single load for simplicity \cite{Grainger1994}.}
 	\label{fig:205_multiple_area_system}
 \end{figure}
 
@@ -67,7 +67,7 @@ Typically, for each control area, researchers will aggregate many loads into a s
 \begin{sidewaysfigure}[ht]
 \centering
 \input{./figures/206_single_area_pi_control_model/single_area_pi_control_model}
-\caption{A classical feedback control approach for a single control area power system. The system is comprised of a first order models for both turbines, and generators. The governor controllers are also first order models. AGC is implemented using an integral control block in a feedback loop \cite{Kundur1994}.}
+\caption[Single power area with PI feedback control]{A classical feedback control approach for a single control area power system. The system is comprised of a first order models for both turbines, and generators. The governor controllers are also first order models. AGC is implemented using an integral control block in a feedback loop \cite{Kundur1994}.}
 \label{fig:206_single_area_pi_control_model}
 \end{sidewaysfigure}
 
@@ -84,8 +84,8 @@ The single area system presented in Section \ref{oneareapowersystem} is useful t
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[height=3cm]{207_two_area_system}
-	\caption{A two area power system comprised of generators and load connected via a tie line. Power flows from one area to the other depending on the power demands.}
+	\input{./figures/207_two_area_power_system_overview/two_area_power_system_overview}
+	\caption[Overview of two area power system with tie line]{A two area power system comprised of generators and load connected via a tie line. Power flows from one area to the other depending on the power demands.}
 	\label{fig:207_two_area_system}
 \end{figure}
 
@@ -98,7 +98,7 @@ The simplest model that includes tie lines is the two area power system, shown i
 \begin{sidewaysfigure}[ht]
 \centering
 \resizebox{22cm}{!}{\input{./figures/208_two_area_pi_control_model/two_area_pi_control_model}}
-\caption{A classical feedback control approach to a two area power system \cite{Kundur1994}.}
+\caption[Two area power system with PI feedback control]{A classical feedback control approach to a two area power system \cite{Kundur1994}.}
 \label{fig:208_two_area_pi_control_model}
 \end{sidewaysfigure}
 
