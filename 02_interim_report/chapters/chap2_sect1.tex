@@ -55,7 +55,7 @@ Load following control adjusts regulating units in order to match supply with a 
 The power system model shown in Figure \ref{fig:201_power_system} depicts total generation coming from many generation assets --- this is complex to model. Researchers often find it useful to divide generation assets into sub-groups referred to as control areas \cite{Kothari2011}. A control area is defined as a subset of generators that are in close proximity to each other and constitute a coherent group that speed up and slow down together, maintaining their relative power angles \cite{Kothari2011}. Therefore, the total network is comprised of many interconnected control areas. An example of this can be seen in Figure \ref{fig:205_multiple_area_system}. Notice that for each area there is only one load and one generator.
 \begin{figure}[ht]
 	\centering
-	\includegraphics[height=8cm]{205_multiple_area_system}
+	\resizebox{12cm}{!}{\input{./figures/205_multiple_area_power_system/multiple_area_power_system}}
 	\caption[Multiple area power system]{An example of three interconnected control areas in a 60$\si{\hertz}$ power system. The interconnections allow power to flow from one area to another, allowing generators to service loads from different areas. Each control area consists of several generators and loads, but are modelled with a single generator and single load for simplicity \cite{Grainger1994}.}
 	\label{fig:205_multiple_area_system}
 \end{figure}
