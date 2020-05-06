@@ -1,0 +1,10 @@
+\begin{tikzpicture}
+
+	% Tie line nodes
+	\node [draw, circle, fill=blue!20] (area1) {Area 1};
+	\node [draw, circle, right of=area1, fill=blue!20, node distance=4cm] (area2) {Area 2}; 
+
+	% Connect the tieline nodes
+	\draw (area1) -- node [label=above:{Tie Line}] {} (area2);
+	
+\end{tikzpicture}
