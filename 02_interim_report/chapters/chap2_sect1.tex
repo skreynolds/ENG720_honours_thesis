@@ -47,20 +47,27 @@ Load following control adjusts regulating units in order to match supply with a 
 %------------------------ SS: Modelling a Single Area
 
 \subsection{Modelling a Single Area System}
-
-
-%------------------------ SS: Single Area
-
-\subsection{Frequency Control for a Single Area System}\label{oneareapowersystem}
 The power system model shown in Figure \ref{fig:201_power_system} depicts total generation coming from many generation assets --- this is complex to model. Researchers often find it useful to divide generation assets into sub-groups referred to as control areas \cite{Kothari2011}. A control area is defined as a subset of generators that are in close proximity to each other and constitute a coherent group that speed up and slow down together, maintaining their relative power angles \cite{Kothari2011}. Therefore, the total network is comprised of many interconnected control areas. An example of this can be seen in Figure \ref{fig:205_multiple_area_system}. Notice that for each area there is only one load and one generator.
 \begin{figure}[ht]
 	\centering
-	\resizebox{12cm}{!}{\input{./figures/205_multiple_area_power_system/multiple_area_power_system}}
+	\resizebox{12cm}{!}{\input{./figures/205_multiple_area_power_system_overview/multiple_area_power_system_overview}}
 	\caption[Multiple area power system]{An example of three interconnected control areas in a 60$\si{\hertz}$ power system. The interconnections allow power to flow from one area to another, allowing generators to service loads from different areas. Each control area consists of several generators and loads, but are modelled with a single generator and single load for simplicity \cite{Grainger1994}.}
 	\label{fig:205_multiple_area_system}
 \end{figure}
 
-Typically, for each control area, researchers will aggregate many loads into a single load, and many generators into a single generator. This simplifies the model further \cite{Grainger1994}. The simplest power system to control is one that consists of a single control area. A single control area power system has no interconnections to any other control area. It is comprised of a consumer load demand, and a set of generators, some of which are acting as regulating units. As previously mentioned, for modelling simplicity, loads are aggregated to a single load, and generators can be aggregated to a single generator. This simple system is well understood. It is generally acknowledged that a speed droop governor feedback control regime will perform primary frequency control, and an AGC feedback loop is used to perform secondary frequency control when restoring a minor frequency excursion \cite{Wood2013, Grainger1994, Kothari2011, Kundur1994}. A particularly well laid out approach to developing linear models for the turbine, generator, load, and governor was presented by Kundur \cite{Kundur1994}. The full model is shown in Figure \ref{fig:206_single_area_pi_control_model}. This particular model provides a model for a single regulating generator supplying a load. The governor block is a first-order linear model of the governor. The turbine block is a first-order linear model of the turbine. The final block is the generator-load, which is also a first-order linear model. The AGC feedback loop uses a proportional integral controller.
+Typically, for each control area, researchers will aggregate many loads into a single load, and many generators into a single generator. This simplifies the model further \cite{Grainger1994}. The simplest power system to control is one that consists of a single control area. A single control area power system has no interconnections to any other control area. It is comprised of a consumer load demand, and a set of generators, some of which are acting as regulating units. As previously mentioned, for modelling simplicity, loads are aggregated to a single load, and generators can be aggregated to a single generator. This simple system, shown in Figure \ref{fig:205a_single_area_system_overview} is well understood.
+
+\begin{figure}[h]
+	\centering
+	\resizebox{4.5cm}{!}{\input{./figures/205a_single_area_power_system_overview/single_area_power_system_overview}}
+	\caption[Single area power system]{A single area power system has a load and a generator, with no connections to other power areas}
+	\label{fig:205a_single_area_system_overview}
+\end{figure}
+
+%------------------------ SS: Single Area
+
+\subsection{Frequency Control for a Single Area System}\label{oneareapowersystem}
+It is generally acknowledged that a speed droop governor feedback control regime will perform primary frequency control, and an AGC feedback loop is used to perform secondary frequency control when restoring a minor frequency excursion \cite{Wood2013, Grainger1994, Kothari2011, Kundur1994}. A particularly well laid out approach to developing linear models for the turbine, generator, load, and governor was presented by Kundur \cite{Kundur1994}. The full model is shown in Figure \ref{fig:206_single_area_pi_control_model}. This particular model provides a model for a single regulating generator supplying a load. The governor block is a first-order linear model of the governor. The turbine block is a first-order linear model of the turbine. The final block is the generator-load, which is also a first-order linear model. The AGC feedback loop uses a proportional integral controller.
 
 \clearpage
 
@@ -84,7 +91,7 @@ The single area system presented in Section \ref{oneareapowersystem} is useful t
 
 \begin{figure}[ht]
 	\centering
-	\input{./figures/207_two_area_power_system_overview/two_area_power_system_overview}
+	\resizebox{12cm}{!}{\input{./figures/207_two_area_power_system_overview/two_area_power_system_overview}}
 	\caption[Overview of two area power system with tie line]{A two area power system comprised of generators and load connected via a tie line. Power flows from one area to the other depending on the power demands.}
 	\label{fig:207_two_area_system}
 \end{figure}
