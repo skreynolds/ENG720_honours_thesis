@@ -32,7 +32,7 @@ The set of parameters outlined above, and expression \ref{eq:202}, make up a fra
 \subsection{Returns, Episodes, and Policy} \label{rep}
 In addition to  developing the MDP framework, Bellman was also responsible for key developments in a field of research called dynamic programming (DP) \cite{Bellm1954}. Assuming that the agent has complete knowledge of the state transition probabilities of an environment, DP algorithms can be used to determine analytical solutions for the problem of how an agent should behave to maximise it's cumulative reward \cite{Bellm1954, Howard1960}. This idea was originally thought to be distinct from RL. The main difference is that DP provides the agent with complete knowledge of it's environment, whereas RL agents have no knowledge of environment dynamics and must learn them as well as how to maximise their cumulative reward \cite{Sutton2018}. Many researchers made links between DP and RL \cite{Bellm1959, Witten1977, Werbos1987}, but it wasn't until 1989 that Watkins presented the first formal treatment of RL in an MDP framework. Watkin's work showed that DP algorithms could be modified for use with RL problems \cite{Watkins1989}. Central ideas used in DP algorithms include episodes, returns, and policies \cite{Sutton2018}.
 
-The duration of time that an agent will spend taking actions and transitioning states before encountering a terminal state is defined as an episode. It is the agent's goal to take actions such that it maximises the sum of all the rewards as it concludes an episode. The cumulative sum of rewards is called the return. Consider an agent taking an action at each discrete time step, $t$, and receiving reward, $r_t$, after each action. If there are $N$ discrete time steps before the agent reaches a terminal state, Bellman defines the return as
+The set of states, action, and rewards that an agent encounters before arriving at a terminal state is defined as an episode. The set of states and actions (without rewards) is often referred to as the trajectory, $\tau$. It is the agent's goal to take actions such that it maximises the sum of all the rewards as it concludes an episode. The cumulative sum of rewards is called the return. Consider an agent taking an action at each discrete time step, $t$, and receiving reward, $r_t$, after each action. If there are $N$ discrete time steps before the agent reaches a terminal state, Bellman defines the return as:
 \begin{equation}
 	G_t = \sum_{k = 0}^{N-1} r_{t + k}. \label{eq:203}
 \end{equation}
@@ -199,7 +199,7 @@ The Q-learning algorithm is summarised in listing \ref{alg:02}.
 %------------------------ SS: Policy Search Methods
 
 \subsection{Policy Search Methods}
-Policy search methods are another class of RL algorithms that do not use value functions to determine states to action policy mappings. Figure \ref{fig:2xx_families_of_RL_algorithms} provides a high level overview of policy search methods compared to dynamic programming and value function based methods.
+Policy search methods are another class of RL algorithms that do not use value functions to determine state to action policy mappings. Figure \ref{fig:2xx_families_of_RL_algorithms} provides a high level overview of policy search methods compared to dynamic programming and value function based methods.
 
 \begin{figure}[h]
 	\centering
@@ -208,9 +208,28 @@ Policy search methods are another class of RL algorithms that do not use value f
 	\label{fig:2xx_families_of_RL_algorithms}
 \end{figure}
 
-Policy search methods use parameterised policies, $\pi_{\theta}(a | s)$. The parameters are represented as a vector, $\theta$, in some vector space, $\Theta$. Changing the elements of $\mathbf{\theta}$ changes how the policy maps states to actions. The basic idea behind policy search methods is that the agent searches directly for the optimal policy in the parameter space, $\Theta$. Suppose the agent possess some policy, $\pi_{\theta}$, which it can roll-out in the environment and get some return, $G$. It can then slightly modify $\theta$ to get some marginally different policy, say $\pi_{\theta'}$. The agent would then roll-out the new policy in the environment and receive a return $G'$. If $G' > G$, the agent would discard the policy $\pi_{\theta}$ in favour of $\pi_{\theta'}$. If $G' < G$, then the agent would retain policy $\pi_{\theta}$. Continued iterations of the above would see the agent's policy converge to an optimal policy, although this is not guaranteed to be globally optimal. 
+Policy search uses parameterised policies, $\pi(a | s;\theta)$, such that parameters are represented as a vector, $\theta$, in some vector space, $\Theta$. Changing individual elements of vector $\mathbf{\theta}$ changes how the policy maps states to actions.
 
-TALK about the REINFORCE algorithm
+WHAT FUNCTIONS ARE USED TO REPRESENT THE POLICY
+
+The basic idea behind policy search is that the agent searches directly for the optimal policy in vector space, $\Theta$. To express this idea more formally, let $J(\theta)$ denote the expected value of the discounted return of trajectory $\tau$, for policy $\pi(a|s;\theta)$. Mathematically, this is written as:
+\begin{equation}
+	J(\theta) = \mathbb{E}_{\tau \sim \pi(a|s;\theta)} \bigg( \sum_{t=1}^{\infty} \gamma\mystrut^{t-1} r_t \bigg). \label{eq:215}
+\end{equation}
+
+Given equation \ref{eq:215}, the optimal policy for policy search can now be expressed as a maximisation problem  for $J(\theta)$, that is: 
+\begin{equation}
+	\pi^* = \pi\big(a|s;\arg\max_{\theta} J(\theta)\big) \label{eq:216}
+\end{equation}
+
+Expressing the policy search problem this way allows for the application of many different optimisation algorithms. One simple approach is to use a hill climbing algorithm. Suppose the agent possess some policy, $\pi_{\theta}$, which it can roll-out in the environment and get some return, $G$. It can then slightly modify $\theta$ to get some marginally different policy, say $\pi_{\theta'}$. The agent could then roll-out the new policy in the environment and receive a return $G'$. If $G' > G$, then hill climbing would discards policy $\pi_{\theta}$ in favour of $\pi_{\theta'}$; and if $G' < G$, then hill climbing retains policy $\pi_{\theta}$. Continued iterations of the above would see the agent's policy converge to an optimal policy, although this is not guaranteed to be globally optimal.
+
+Another well known algorithm that is used to solve \ref{eq:216} is gradient ascent. In gradient ascent, the parameter update direction is given by the gradient $\nabla_{\theta} J(\theta)$ as it points in the direction of steepest ascent of the expected return. Provided $\nabla_{\theta} J(\theta)$ exists, the parameter update rule is expressed as:
+\begin{equation}
+	\theta \gets \theta + \alpha \nabla_{\theta}J(\theta),
+\end{equation}
+where $\alpha$ is a user-specified learning rate.
+
 
 %------------------------ SS: Actor Critic Methods
 
