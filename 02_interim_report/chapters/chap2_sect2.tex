@@ -93,15 +93,19 @@ Equation \ref{eq:208} is referred to as the Bellman optimality equation for $V^*
 
 If the transition probabilities and rewards are known to the agent then the Bellman opitmality equations can be solved iteratively, which is known as dynamic programming \cite{Bellm1957}. Algorithms which assume known transition probabilities and rewards are collectively referred to as \textit{model-based} algorithms. Most RL problems assume state transition probabilities are unknown. The collection of algorithms that provide solutions to these problems are called \textit{model-free} algorithms.
 
+%------------------------ SS: Value Function Based Methods
+
 \subsection{Value Function Based Methods}
-Model free methods can be applied to any RL problem since they do not require a model of the environment. Figure \ref{fig:211_families_of_RL_algorithms} provides an overview of the different families of algorithms used for solving RL problems. Algorithms that try to solve the RL problem by estimating the optimal state-action value function, $Q^*$, and inferring the optimal policy from it are referred to as value function based methods. The most common value function based methods are Monte Carlo and temporal difference approaches.
+Model free methods can be applied to any RL problem since they do not require a model of the environment. Algorithms that try to solve the RL problem by estimating the optimal state-action value function, $Q^*$, and inferring the optimal policy from it are referred to as value function based methods. Figure \ref{fig:211_families_of_RL_algorithms} provides a high level overview of value function based methods. The most common value function based methods are Monte Carlo and temporal difference approaches.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{211_families_of_RL_algorithms}
-	\caption{text}
+	\caption[RL approaches: Value Based]{Value based approaches try to estimate the state-action value function}
 	\label{fig:211_families_of_RL_algorithms}
 \end{figure}
+
+%------------------------ SSS: Monte Carlo Methods
 
 \subsubsection{Monte Carlo Methods}
 Sutton and Barto were the first to introduce a version of the Monte Carlo (MC) control algorithm for estimating state-action value functions \cite{Sutton2018}. The MC control algorithm is based on an iterative approach that takes a sample of episodic sequences consisting of states, actions, and rewards. Sequences are obtained from the agent interacting with the environment, using some policy $\pi$. This is called the \textit{policy evaluation} step. Once an episode is completed, the state-action value function, $Q_{\pi}(s,a)$, is updated for each discrete state-action pair visited. This second step is called the \textit{policy improvement} step.
@@ -109,7 +113,7 @@ Sutton and Barto were the first to introduce a version of the Monte Carlo (MC) c
 \begin{figure}[h]
 	\centering
 	\input{./figures/212_monte_carlo_method/monte_carlo_method}
-	\caption{text}
+	\caption[Monte Carlo iterative approach]{The Monte Carlo algorithm takes a policy evaluation step and policy improvement step, for each episodic iteration.}
 	\label{fig:210_monte_carlo_methods}
 \end{figure}
 
@@ -121,9 +125,15 @@ The most common method of overcoming this problem is to use an $\epsilon$-greedy
    \begin{cases}
    		1 - \epsilon \ \ \text{if} \ \ a = \arg\max_{a'} Q(s,a') \\
    		\frac{\epsilon}{|A|-1} \ \ \text{if} \ \ a \neq \arg\max_{a'} Q(s,a')
-   \end{cases}
+   \end{cases} \label{eq:211}
 \end{equation}
 
+Originally, for a given state-action pair, $(s,a)$, the policy improvement step updated the state-action value function, $Q(s,a)$, using an average approach. The average value used for the update was derived from the returns of all visits, past and present, to a given state-action value pair. This approach worked; however, learning in the later stages of the algorithm was reduced because the averaging algorithm placed a uniform importance on all stages of learning. To overcome this problem, Sutton and Barto employed a coarser update rule using the difference between observed returns and the current state-action value function. The update value was then multiplied by some value $\alpha \in [0,1]$ to ensure that the update steps were not too large. If update steps are too large, this may prevent the algorithm convergence to $Q^*$. For some point in time $t$, if $S_t$ is the state, $A_t$ is the action, and $G_t$ is the observed return for completion of the current episode, then update rule can be written as:
+\begin{equation}
+	Q(S_t, A_t) \gets Q(S_t, A_t) + \alpha[G_t - Q(S_t, A_t)] \label{eq:212}
+\end{equation}
+
+The MC implementation using the $\epsilon$-greedy policy \ref{eq:211} for the evaluation step, and the constant $\alpha$ update rule in \ref{eq:212} is referred to as the Constant $\alpha$ Monte Carlo control algorithm. The algorithm is shown in listing \ref{alg:01}. Note that the algorithm returns as approximation of the optimal state-action value function, and the optimal policy can be extracted using the greedy policy in \ref{eq:210}.
 
 \begin{algorithm}[h]
 	\caption{Constant $\alpha$ Monte Carlo Control}
@@ -143,20 +153,25 @@ The most common method of overcoming this problem is to use an $\epsilon$-greedy
 			\EndFor
 		\EndFor
 		\State{\textbf{return} $Q$}
-	\end{algorithmic}
+	\end{algorithmic} \label{alg:01}
 \end{algorithm}
 
-Write a note about how the optimal policy can be selected from the optimal Q function.
+%------------------------ SSS: Temporal Difference Methods
 
 \subsubsection{Temporal Difference Methods}
-Talk about the fact that Monte Carlo methods collect an entire episode prior to making an update - temporal difference methods use an idea of bootstrapping to update the Q after each time step. This has low bias but high variance (check this idea)?
+Monte Carlo (MC) methods collect experience from an episode, and update the policy once the episode is complete. This approach works for environments that have short episodes, but becomes computationally intractable for environments where an episode takes a long time to reach a terminal state, or for continuing tasks that never reach a terminal state. Temporal difference (TD) methods address this problem.
 
-
-Watkins is credited with the most influential integration of RL with MDPs, and DP. His work on an RL algorithm called Q-learning highlighted the importance of another type of value function called the action-value function. The action-value function is defined as the expected sum of rewards that the agent will receive while taking action $a$ in state $s$ and, thereafter, following policy $\pi$.
-
+TD methods take an almost identical approach to MC methods, except they perform state-action value function updates after every time step during an episode instead of waiting until episode completion. This is achieved by estimating the return for a given time step, since it would be unknown during an episode. More concretely, for a given state-action pair, $(S_t, A_t)$, which transitions the environment to state $S_{t+1}$, the return is estimated using the transition reward, $R_{t+1}$, and the state-action value function estimate for the subsequent state, assuming a greedy policy:
 \begin{equation}
-	Q(s,a) := Q(s,a) + \alpha[r + \max_{a'}Q(s',a') - Q(s,a)]
+	G_t \approx R_{t+1} + \max_{a}Q(S_{t+1}, a) \label{eq:213}
 \end{equation}
+
+Along with his highly influential integration of RL with MDPs and DP, Watkins developed one of the most widely used TD algorithms called Q-learning \cite{Watkins1989}. Watkins used \ref{eq:213} to modify the update rule \ref{eq:213} as follows:
+\begin{equation}
+	Q(S_t, A_t) \gets Q(S_t, A_t) + \alpha[R_{t+1} + \gamma \max_{a} Q(S_{t+1},a) - Q(S_t, A_t)] \label{eq:214}
+\end{equation}
+
+The Q-learning algorithm is summarised in listing \ref{alg:02}.
 
 \begin{algorithm}[h]
 	\caption{Q-learning}
@@ -178,10 +193,25 @@ Watkins is credited with the most influential integration of RL with MDPs, and D
 			\Until{$S_t$ is terminal}
 		\EndFor
 		\State{\textbf{return} Q}
-	\end{algorithmic}
+	\end{algorithmic} \label{alg:02}
 \end{algorithm}
 
+%------------------------ SS: Policy Search Methods
 
 \subsection{Policy Search Methods}
+Policy search methods are another class of RL algorithms that do not use value functions to determine states to action policy mappings. Figure \ref{fig:2xx_families_of_RL_algorithms} provides a high level overview of policy search methods compared to dynamic programming and value function based methods.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{211_families_of_RL_algorithms}
+	\caption[RL approaches: Policy search]{Policy search approaches try to estimate the policy directly without using state-action values.}
+	\label{fig:2xx_families_of_RL_algorithms}
+\end{figure}
+
+Policy search methods use parameterised policies, $\pi_{\theta}(a | s)$. The parameters are represented as a vector, $\theta$, in some vector space, $\Theta$. Changing the elements of $\mathbf{\theta}$ changes how the policy maps states to actions. The basic idea behind policy search methods is that the agent searches directly for the optimal policy in the parameter space, $\Theta$. Suppose the agent possess some policy, $\pi_{\theta}$, which it can roll-out in the environment and get some return, $G$. It can then slightly modify $\theta$ to get some marginally different policy, say $\pi_{\theta'}$. The agent would then roll-out the new policy in the environment and receive a return $G'$. If $G' > G$, the agent would discard the policy $\pi_{\theta}$ in favour of $\pi_{\theta'}$. If $G' < G$, then the agent would retain policy $\pi_{\theta}$. Continued iterations of the above would see the agent's policy converge to an optimal policy, although this is not guaranteed to be globally optimal. 
+
+TALK about the REINFORCE algorithm
+
+%------------------------ SS: Actor Critic Methods
 
 \subsection{Actor Critic Methods}
