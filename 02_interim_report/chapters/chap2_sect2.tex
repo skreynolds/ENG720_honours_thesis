@@ -208,9 +208,7 @@ Policy search methods are another class of RL algorithms that do not use value f
 	\label{fig:2xx_families_of_RL_algorithms}
 \end{figure}
 
-Policy search uses parameterised policies, $\pi(a | s;\theta)$, such that parameters are represented as a vector, $\theta$, in some vector space, $\Theta$. Changing individual elements of vector $\mathbf{\theta}$ changes how the policy maps states to actions.
-
-WHAT FUNCTIONS ARE USED TO REPRESENT THE POLICY
+Instead of value functions, policy search methods use parameterised policies, $\pi(a | s;\theta)$. Parameters are represented as a vector, $\theta \in \Theta$, and changing individual elements of vector $\mathbf{\theta}$ changes how the policy maps states to actions. The novelty of this approach is that the policy is expressed as a parameterised functional form, where the function can be anything from a linear model to a neural network, although not all functions perform equally.
 
 The basic idea behind policy search is that the agent searches directly for the optimal policy in vector space, $\Theta$. To express this idea more formally, let $J(\theta)$ denote the expected value of the discounted return of trajectory $\tau$, for policy $\pi(a|s;\theta)$. Mathematically, this is written as:
 \begin{equation}
