@@ -1,0 +1,53 @@
+% Additional styles
+\tikzstyle{blockn} = [rectangle, draw, text width=4em, text centered, rounded corners, minimum height=4em]
+    
+\tikzstyle{line} = [draw, -latex]
+
+\tikzset{
+    block/.style={
+        draw,
+        rectangle split,
+        rectangle split parts=2,
+        text centered,
+        text width=8em,
+        rounded corners,
+        minimum height=4em
+        }
+}
+
+
+\begin{tikzpicture}[node distance = 6em, auto, thick]
+    
+	% Environment node
+	\node [block, rectangle split empty part height=1cm, rectangle split part fill={green!20!gray,white!80!green}] (Environment) {\Large\textcolor{white}{Experience} \nodepart{second} \scriptsize $\begin{matrix}
+	  		s_0 	& r_0 	  	& a_0  \\
+	  		s_1 	& r_1 	  	& a_1  \\
+	  				& \vdots	&	   \\
+	  		s_{t-1} & r_{t-1} 	& a_{t-1}
+	\end{matrix}$};
+	
+	\node [coordinate, right of=Environment, node distance=7cm] (c1) {};
+	
+	\node [coordinate, below of=c1, node distance=0.67cm] (test1) {};
+	
+	\node [blockn, above of=c1, fill=blue!25!gray, text=white, opacity=0.5] (dynamic) {\Large $P$, $R$};
+	
+	\node [blockn, right of=c1, node distance=4cm, fill=blue!25!gray, text=white, opacity=0.5] (value) {\Large $Q$};
+	
+	\node [coordinate, right of=value, node distance=4cm] (c2) {};
+	
+	\node [blockn, below of=c2, node distance=2.5cm, fill=blue!25!gray, text=white] (policy) {\Large $\pi$};
+	
+	\path [line, color=gray] (Environment.0) --++ (4em,0em) |- node [near end]{\small dynamic prog.} (dynamic.180);
+	
+	\path [line, color=gray] (test1) -- (c1) -- node {\small value func. based} (value.180);
+	
+	\draw (Environment.-20) --++ (4em,0em) -| node [near start] {\small model free} (test1);
+	
+	\path [line] (test1) |- node [near end] {\small policy based} (policy);
+	
+	\path [line, color=gray] (dynamic.0) -| (value.90);
+	\path [line, color=gray] (value.0) -| (policy.90);
+	\path [line, color=gray] (dynamic.0) -| (policy.90);
+	
+\end{tikzpicture}
