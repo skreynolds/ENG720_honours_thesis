@@ -14,15 +14,15 @@
 }
 
 %----------- Block style 1
-\tikzstyle{block1} = [draw, fill=blue!20, rectangle, 
+\tikzstyle{block1} = [draw, fill=white!80!green, rectangle, 
 minimum height=3em, minimum width=6em, node distance=2.5cm]
 
 %----------- Block style 2
-\tikzstyle{block2} = [draw, fill=blue!20, rectangle, 
+\tikzstyle{block2} = [draw, fill=white!80!blue, rectangle, 
 minimum height=3em, minimum width=3em, node distance=2.5cm]
 
 %----------- Sum style
-\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=2cm]
+\tikzstyle{sum} = [draw, fill=white!80!green, circle, node distance=2cm]
 
 %----------- Input style
 \tikzstyle{input} = [coordinate, node distance=4cm]
@@ -39,7 +39,7 @@ minimum height=3em, minimum width=3em, node distance=2.5cm]
 	% Draw the nodes first
 	\node [input] (input) {};
 	\node [block2, right of=input] (integral) {$\frac{K_i}{s}$};
-	\node [sum, add={$-$}{+}{ }{ }, right of=integral, node distance=2.5cm] (sum1) {};
+	\node [sum, add={$-$}{+}{ }{ }, right of=integral, node distance=2.5cm, fill=white!80!blue] (sum1) {};
 	\node [block1, right of=sum1, label=above:{Governor}] (governor) {$\frac{K_{sg}}{1 + T_{sg}s}$};
 	\node [block2, below of=governor] (regulator) {$\frac{1}{R}$};
 	\node [coordinate, below of=regulator] (feedback2) {};

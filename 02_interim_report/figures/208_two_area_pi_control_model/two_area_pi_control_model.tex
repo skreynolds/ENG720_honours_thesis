@@ -14,15 +14,15 @@
 }
 
 %----------- Block style 1
-\tikzstyle{block1} = [draw, fill=blue!20, rectangle, 
+\tikzstyle{block1} = [draw, fill=white!80!green, rectangle, 
 minimum height=3em, minimum width=6em, node distance=2.5cm]
 
 %----------- Block style 2
-\tikzstyle{block2} = [draw, fill=blue!20, rectangle, 
+\tikzstyle{block2} = [draw, fill=white!80!blue, rectangle, 
 minimum height=3em, minimum width=3em, node distance=2.5cm]
 
 %----------- Sum style
-\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=2cm]
+\tikzstyle{sum} = [draw, fill=white!80!green, circle, node distance=2cm]
 
 %----------- Input style
 \tikzstyle{input} = [coordinate, node distance=4cm]
@@ -40,7 +40,7 @@ minimum height=3em, minimum width=3em, node distance=2.5cm]
 	\node [output, right of=tieline, node distance=2cm] (out) {};
 	\node [coordinate, above of=out, node distance=5cm] (c1) {};
 	\node [coordinate, below of=out, node distance=5cm] (c2) {};
-	\node [block2, left of=c2] (a12) {$-a_{12}$};
+	\node [block2, left of=c2, fill=white!80!green] (a12) {$-a_{12}$};
 	
 	% Position a reference coordinate for drawing
 	\node [coordinate, left of=sum1, node distance=2.5cm] (c3) {};
@@ -55,10 +55,10 @@ minimum height=3em, minimum width=3em, node distance=2.5cm]
 	\node [coordinate, left of=p11, node distance=0.5cm, label=left:{$\Delta P_{L1}(s)$}] (p12) {};
 	\node [block1, left of=sum2, node distance=3.5cm, label=above:{Turbine 1}] (turbine1) {$\frac{K_{t1}}{T_{t1}s+1}$};
 	\node [block1, left of=turbine1, node distance=4.5cm, label=above:{Governor 1}] (governor1) {$\frac{K_{g1}}{T_{g1}s+1}$};
-	\node [sum, left of=governor1, add={$-$}{}{+}{}, node distance=2.5cm] (sum4) {};
+	\node [sum, left of=governor1, add={$-$}{}{+}{}, node distance=2.5cm, fill=white!80!blue] (sum4) {};
 	\node [block2, below of=sum4, node distance=1.75cm] (r1) {$R_1$};
 	\node [block2, left of=sum4] (int1) {$\frac{K_{i2}}{s}$};
-	\node [sum, left of=int1, add={+}{ }{+}{ }] (sum6) {};
+	\node [sum, left of=int1, add={+}{ }{+}{ }, fill=white!80!blue] (sum6) {};
 	\node [block2, below of=sum6, node distance=1.75cm] (b1) {$b_1$};
 	
 	% Create nodes for lower leg
@@ -69,10 +69,10 @@ minimum height=3em, minimum width=3em, node distance=2.5cm]
 	\node [coordinate, left of=p21, node distance=0.5cm, label=left:{$\Delta P_{L2}(s)$}] (p22) {};
 	\node [block1, left of=sum3, node distance=3.5cm, label=above:{Turbine 2}] (turbine2) {$\frac{K_{t2}}{T_{t2}s+1}$};
 	\node [block1, left of=turbine2, node distance=4.5cm, label=above:{Governor 2}] (governor2) {$\frac{K_{g2}}{T_{g2}s+1}$};
-	\node [sum, left of=governor2, add={+}{}{$-$}{}, node distance=2.5cm] (sum5) {};
+	\node [sum, left of=governor2, add={+}{}{$-$}{}, node distance=2.5cm, fill=white!80!blue] (sum5) {};
 	\node [block2, above of=sum5, node distance=1.75cm] (r2) {$R_2$};
 	\node [block2, left of=sum5] (int2) {$\frac{K_{i2}}{s}$};
-	\node [sum, left of=int2, add={+}{ }{+}{ }] (sum7) {};
+	\node [sum, left of=int2, add={+}{ }{+}{ }, fill=white!80!blue] (sum7) {};
 	\node [block2, above of=sum7, node distance=1.75cm] (b2) {$b_2$};
 	
 	

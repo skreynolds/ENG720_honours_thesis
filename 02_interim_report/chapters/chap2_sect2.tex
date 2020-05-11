@@ -215,12 +215,12 @@ The basic idea behind policy search is that the agent searches directly for the 
 	J(\theta) = \mathbb{E}_{\tau \sim \pi(a|s;\theta)} \bigg( \sum_{t=1}^{\infty} \gamma\mystrut^{t-1} r_t \bigg). \label{eq:215}
 \end{equation}
 
-Given equation \ref{eq:215}, the optimal policy for policy search can now be expressed as a maximisation problem  for $J(\theta)$, that is: 
+Finding the optimal policy, for policy search, can now be expressed as a maximisation problem of $J(\theta)$, that is: 
 \begin{equation}
 	\pi^* = \pi\big(a|s;\arg\max_{\theta} J(\theta)\big) \label{eq:216}
 \end{equation}
 
-Expressing the policy search problem this way allows for the application of many different optimisation algorithms. One simple approach is to use a hill climbing algorithm. Suppose the agent possess some policy, $\pi_{\theta}$, which it can roll-out in the environment and get some return, $G$. It can then slightly modify $\theta$ to get some marginally different policy, say $\pi_{\theta'}$. The agent could then roll-out the new policy in the environment and receive a return $G'$. If $G' > G$, then hill climbing would discards policy $\pi_{\theta}$ in favour of $\pi_{\theta'}$; and if $G' < G$, then hill climbing retains policy $\pi_{\theta}$. Continued iterations of the above would see the agent's policy converge to an optimal policy, although this is not guaranteed to be globally optimal.
+Expressing the policy search problem this way allows for the application of many different optimisation algorithms. One simple approach is to use a hill climbing algorithm. Suppose the agent possess some policy, $\pi_{\theta}$, which it can roll-out in the environment and get some return, $G$. It can then slightly modify $\theta$ to get some marginally different policy, say $\pi_{\theta'}$. The agent could then roll-out the new policy in the environment and receive a return $G'$. If $G' > G$, then hill climbing would discard policy $\pi_{\theta}$ in favour of $\pi_{\theta'}$; and if $G' < G$, then hill climbing retains policy $\pi_{\theta}$. Continued iterations of the above would see the agent's policy converge to an optimal policy, although this is not guaranteed to be globally optimal.
 
 Another well known algorithm that is used to solve \ref{eq:216} is gradient ascent. In gradient ascent, the parameter update direction is given by the gradient $\nabla_{\theta} J(\theta)$ as it points in the direction of steepest ascent of the expected return. Provided $\nabla_{\theta} J(\theta)$ exists, the parameter update rule is expressed as:
 \begin{equation}
@@ -228,7 +228,13 @@ Another well known algorithm that is used to solve \ref{eq:216} is gradient asce
 \end{equation}
 where $\alpha$ is a user-specified learning rate.
 
+Policy search has better convergence properties and can learn stochastic policies which are not possible with value based approaches
+
+NEED TO CONCLUDE THIS SECTION
+
 
 %------------------------ SS: Actor Critic Methods
 
 \subsection{Actor Critic Methods}
+
+NEED TO WRITE THIS SECTION
