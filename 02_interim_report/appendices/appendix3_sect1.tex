@@ -1,0 +1,57 @@
+\section{Temporal Domain Model for a Two Area Power System}
+
+To develop a system of first order, linear, ordinary differential equations for a two area power system, consider only the governor, turbine, generator-load, and tie-line components of Figure \ref{fig:206_single_area_pi_control_model}. Let $X_2(s)$, $X_3(s)$, $X_4(s)$, $X_5(s)$, $X_7(s)$, $X_8(s)$, and $X_9(s)$ represent model variables, according to Figure \ref{fig:C101}.
+
+\begin{figure}[h]
+	\centering
+	\resizebox{\textwidth}{!}{\input{./figures/C101_two_area_ode_derivation/two_area_ode_derivation}}
+	\caption[Combined governor, turbine, generator-load, and tie-line for a two power area system]{The governor, turbine, generator-load, and tie-line models for both power areas.}
+	\label{fig:C101}
+\end{figure}
+
+Note that $X_4(s)$ represents the frequency output of area 1; $X_9(s)$ represents the frequency output of area 2; and $X_5(s)$ represents the power flow over the tie-line connecting areas 1 and 2. The system also receives two external control signals that act as inputs the governors in each area. These are denoted as $U_1(s)$ and $U_2(s)$ for control area 1 and control area 2, respectively. Finally, the system experiences changes in load demand as individuals and industry switch appliances on and off --- these are represented by $\Delta P_{L1}(s)$ and $\Delta P_{L2}(s)$ for areas 1 and 2, respectively.
+
+Now, using the governor block transfer function in area 1, the following expression can be written:
+\begin{equation}
+	X_2(s) = \frac{K_{sg1}}{T_{sg1}s + 1} U_1(s) \label{eq:C011}
+\end{equation}
+
+Rearranging \ref{eq:C011} and taking the inverse Laplace transform yields the following first order differential equation:
+\begin{equation}
+	\dot{x}_2(t) = \frac{1}{T_{sg1}}\big( K_{sg1} u_1(t) - x_2(t) \big) \label{eq:C012}
+\end{equation}
+
+Since the two areas of the system are symmetrical, a similar analysis for the same section in area 2 yields:
+\begin{equation}
+	\dot{x}_7(t) = \frac{1}{T_{sg2}}\big( K_{sg2} u_2(t) - x_7(t) \big) \label{eq:C013}
+\end{equation}
+
+Next, the turbine block transfer function in area 1 can be used to write the following expression:
+\begin{equation}
+	X_3(s) = \frac{K_{t1}}{T_{t1}s + 1} X_2(s) \label{eq:C014}
+\end{equation}
+
+Rearranging and taking the inverse Laplace transform:
+\begin{equation}
+	\dot{x}_3(t) = \frac{1}{T_{t1}} \big( K_{t1} x_2(t) - x_3(t) \big) \label{eq:C015}
+\end{equation}
+
+Given symmetry in the system a similar equation can be written for area 1:
+\begin{equation}
+	\dot{x}_8(t) = \frac{1}{T_{t2}} \big( K_{t2} x_7(t) - x_8(t) \big) \label{eq:C016}
+\end{equation}
+
+The same analysis that was undertaken for the governor and turbine can be performed for the generator-load demand block. For area 1, this yields the following first order, ordinary differential equation:
+\begin{equation}
+	\dot{x}_4(t) = \frac{1}{T_{gl1}} \bigg( K_{gl1} \big( x_3(t) - x_5(t) - \Delta p_{L1}(t) \big) - x_4(t) \bigg) \label{eq:C017}
+\end{equation}
+
+Since the areas are symmetrical, using \ref{eq:C017} the generator-load model for area two can be written as:
+\begin{equation}
+	\dot{x}_9(t) = \frac{1}{T_{gl2}} \bigg( K_{gl2} \big( x_8(t) - x_5(t) - \Delta p_{L2}(t) \big) - x_9(t) \bigg) \label{eq:C018}
+\end{equation}
+
+Finally, the ordinary differential equation for the tie-line block can be expressed as:
+\begin{equation}
+	\dot{x}_5(t) = 2 \pi T_{12} \big( x_4(t) - x_9(t) \big)
+\end{equation}

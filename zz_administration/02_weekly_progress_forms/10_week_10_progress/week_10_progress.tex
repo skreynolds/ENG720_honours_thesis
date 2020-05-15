@@ -1,0 +1,73 @@
+%----------------------- Weekly Progress Document ------------------------
+%
+% Created by: Shane Reynolds 2020-02-29
+%
+%-------------------------------------------------------------------------
+
+%-------------- Preamble
+\documentclass[12pt]{article}
+\input{preamble/weekly_progress_preamble} % this must be left as \input, \include wont work in the preamble
+
+%-------------- Information For The Title Page
+\title{	
+		Thesis Progress Form\\
+		CHARLES DARWIN UNIVERSITY\\
+		College of Engineering, IT, and Environment
+	  }
+\author{}
+\date{}
+
+%------------------------ Main Document --------------------------
+\begin{document}
+	
+	\maketitle
+	
+	\begin{namelist}{xxxxxxxxxxxx}
+		\item[{\bf Name:}]
+			Shane Reynolds
+		\item[{\bf Unit:}]
+			ENG720
+		\item[{\bf Title:}]
+			Automatic generation control of a two area power system using deep reinforcement learning
+		\item[{\bf Supervisors:}]
+			Charles Yeo \& Stefanija Klaric
+		\item[{\bf Time \& Date:} \today \ @ 2.30pm]
+			
+	\end{namelist}
+	
+	\pagestyle{plain} % get rid of fancy headers
+	\textheight = 565pt % hack to include page numbers
+	
+	%-------------- Sections
+	\section{Progress since last meeting}
+	\begin{itemize}
+		\item Completed writing sections of background on Monte Carlo and Temporal difference approaches to RL
+		\item Implemented time iterative modelling using ode integrate
+		\item Split system and control functions into separate parts and confirmed that modelling results match with combined system
+		\item Implemented environment in Open AI
+		\item Implemented classical control agent to interact with Open AI two area power system
+		\item Commenced re-writing of approach
+	\end{itemize}
+	
+	\section{Discussion Points}
+	\begin{itemize}
+		\item No points to discuss at this time
+	\end{itemize}
+	
+	\section{Plan until the next meeting}
+	\begin{itemize}
+		\item Continue writing interim report
+		\item Complete implementation of DRL agent, and train using simulated signals to confirm proof of agent capability 
+	\end{itemize}
+	
+	%-------------- Supervisor sign-off
+	\par
+	\vspace{\fill}%
+	\noindent\rule{0.4\linewidth}{0.5pt}%
+	\vspace{1em}%
+	\par
+	\noindent\textbf{Supervisor}\vspace{1em}%
+	\par
+	\noindent\today
+
+\end{document}
