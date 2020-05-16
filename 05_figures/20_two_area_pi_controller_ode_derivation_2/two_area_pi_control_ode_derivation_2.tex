@@ -1,0 +1,39 @@
+% Set up the standalone document class
+\documentclass{standalone}
+
+% Input the preamble (<3)
+\input{../00_preamble/preamble.tex}
+
+\begin{document}
+\begin{tikzpicture}	
+	% Initial position node
+	\node [coordinate] (c1) {};
+	
+	
+	% Create nodes for lower leg
+	\node [sum, below of=c1, add={+}{}{$-$}{}, node distance=3.5cm] (sum5) {};
+	\node [coordinate, below of=sum5, node distance=1.25cm] (c11) {};
+	\node [coordinate, right of=c11, node distance=2cm] (c13) {};
+	\node [coordinate, right of=sum5, node distance=2cm] (c3) {};
+	\node [coordinate, above of=c3] (c5) {};
+	\node [block2, above of=sum5, node distance=1.75cm] (r2) {$R_2$};
+	\node [coordinate, above of=r2] (c7) {};
+	\node [coordinate, right of=c7, node distance=2cm] (c9) {};
+	\node [block2, left of=sum5] (int2) {$\frac{K_{i_2}}{s}$};
+	\node [sum, left of=int2, add={+}{ }{+}{ }] (sum7) {};
+	\node [block2, above of=sum7, node distance=1.75cm] (b2) {$b_2$};
+	
+	
+	% Connect nodes
+	\draw [->] (sum5) -- node [at end, label=below:{$X_2(s)$}] {} (c3);
+	\draw [->] (r2) -- (sum5);
+	\draw [->] (b2) -- (sum7);
+	\draw [->] (sum7) -- (int2);
+	\draw [->] (int2) -- (sum5);
+	\draw [->] (c9) -| node [at start, label=below:{$F_2(s)$}] {} (r2);
+	\draw [->] (c9) -| (b2);
+	\draw [->] (c13) -| node [at start, label=below:{$-T(s)$}] {} (sum5);
+	\draw [->] (c13) -| (sum7);
+	
+\end{tikzpicture}
+\end{document}
