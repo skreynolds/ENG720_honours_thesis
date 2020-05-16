@@ -48,30 +48,30 @@ minimum height=3em, minimum width=3em, node distance=2.5cm]
 	\node [coordinate, below of=c3, node distance=0.75cm] (c5) {};
 	
 	% Create nodes for upper leg
-	\node [block1, above of=c3, node distance=3.5cm, label=above:{Gen. Load 1}] (genload1) {$\frac{K_{gl1}}{T_{gl1}s+1}$};
+	\node [block1, above of=c3, node distance=3.5cm, label=above:{Gen. Load 1}] (genload1) {$\frac{K_{gl_1}}{T_{gl_1}s+1}$};
 	\node [coordinate, right of=genload1, node distance=1.5cm] (c6) {};
 	\node [sum, left of=genload1, add={$-$}{+}{$-$}{}, node distance=2.5cm] (sum2) {};
 	\node [coordinate, below of=sum2] (p11) {};
-	\node [coordinate, left of=p11, node distance=0.5cm, label=left:{$\Delta P_{L1}(s)$}] (p12) {};
-	\node [block1, left of=sum2, node distance=3.5cm, label=above:{Turbine 1}] (turbine1) {$\frac{K_{t1}}{T_{t1}s+1}$};
-	\node [block1, left of=turbine1, node distance=4.5cm, label=above:{Governor 1}] (governor1) {$\frac{K_{g1}}{T_{g1}s+1}$};
+	\node [coordinate, left of=p11, node distance=0.5cm, label=left:{$\Delta P_{L_1}(s)$}] (p12) {};
+	\node [block1, left of=sum2, node distance=3.5cm, label=above:{Turbine 1}] (turbine1) {$\frac{K_{t_1}}{T_{t_1}s+1}$};
+	\node [block1, left of=turbine1, node distance=4.5cm, label=above:{Governor 1}] (governor1) {$\frac{K_{g_1}}{T_{g_1}s+1}$};
 	\node [sum, left of=governor1, add={$-$}{}{+}{}, node distance=2.5cm, fill=white!80!blue] (sum4) {};
 	\node [block2, below of=sum4, node distance=1.75cm] (r1) {$R_1$};
-	\node [block2, left of=sum4] (int1) {$\frac{K_{i2}}{s}$};
+	\node [block2, left of=sum4] (int1) {$\frac{K_{i_2}}{s}$};
 	\node [sum, left of=int1, add={+}{ }{+}{ }, fill=white!80!blue] (sum6) {};
 	\node [block2, below of=sum6, node distance=1.75cm] (b1) {$b_1$};
 	
 	% Create nodes for lower leg
-	\node [block1, below of=c3, node distance=3.5cm, label=above:{Gen. Load 2}] (genload2) {$\frac{K_{gl1}}{T_{gl1}s+1}$};
+	\node [block1, below of=c3, node distance=3.5cm, label=above:{Gen. Load 2}] (genload2) {$\frac{K_{gl_1}}{T_{gl_1}s+1}$};
 	\node [coordinate, right of=genload2, node distance=1.5cm] (c7) {};
 	\node [sum, left of=genload2, add={$-$}{+}{$-$}{}, node distance=2.5cm] (sum3) {};
 	\node [coordinate, above of=sum3] (p21) {};
-	\node [coordinate, left of=p21, node distance=0.5cm, label=left:{$\Delta P_{L2}(s)$}] (p22) {};
-	\node [block1, left of=sum3, node distance=3.5cm, label=above:{Turbine 2}] (turbine2) {$\frac{K_{t2}}{T_{t2}s+1}$};
-	\node [block1, left of=turbine2, node distance=4.5cm, label=above:{Governor 2}] (governor2) {$\frac{K_{g2}}{T_{g2}s+1}$};
+	\node [coordinate, left of=p21, node distance=0.5cm, label=left:{$\Delta P_{L_2}(s)$}] (p22) {};
+	\node [block1, left of=sum3, node distance=3.5cm, label=above:{Turbine 2}] (turbine2) {$\frac{K_{t_2}}{T_{t_2}s+1}$};
+	\node [block1, left of=turbine2, node distance=4.5cm, label=above:{Governor 2}] (governor2) {$\frac{K_{g_2}}{T_{g_2}s+1}$};
 	\node [sum, left of=governor2, add={+}{}{$-$}{}, node distance=2.5cm, fill=white!80!blue] (sum5) {};
 	\node [block2, above of=sum5, node distance=1.75cm] (r2) {$R_2$};
-	\node [block2, left of=sum5] (int2) {$\frac{K_{i2}}{s}$};
+	\node [block2, left of=sum5] (int2) {$\frac{K_{i_2}}{s}$};
 	\node [sum, left of=int2, add={+}{ }{+}{ }, fill=white!80!blue] (sum7) {};
 	\node [block2, above of=sum7, node distance=1.75cm] (b2) {$b_2$};
 	
