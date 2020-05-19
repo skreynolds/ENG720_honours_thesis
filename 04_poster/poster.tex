@@ -25,11 +25,16 @@
 
 \usetheme{confposter} % Use the confposter theme supplied with this template
 
-\setbeamercolor{block title}{fg=ngreen,bg=white} % Colors of the block titles
+\setbeamercolor{block title}{fg=black,bg=white} % Colors of the block titles
 \setbeamercolor{block body}{fg=black,bg=white} % Colors of the body of blocks
-\setbeamercolor{block alerted title}{fg=white,bg=dblue!70} % Colors of the highlighted block titles
-\setbeamercolor{block alerted body}{fg=black,bg=dblue!10} % Colors of the body of highlighted blocks
+%\setbeamercolor{block alerted title}{fg=white,bg=green!20!gray} % Colors of the highlighted block titles
+%\setbeamercolor{block alerted body}{fg=black,bg=dgreen!10} % Colors of the body of highlighted blocks
 % Many more colors are available for use in beamerthemeconfposter.sty
+
+\newenvironment{variableblock}[3]{%
+  \setbeamercolor{block alerted body}{#2}
+  \setbeamercolor{block alerted title}{#3}
+  \begin{alertblock}{#1}}{\end{alertblock}}
 
 %-----------------------------------------------------------
 % Define the column widths and overall poster size
@@ -55,6 +60,16 @@
 \usepackage{graphicx}  % Required for including images
 
 \usepackage{booktabs} % Top and bottom rules for tables
+
+\usepackage{amsmath} % Required for math font
+
+\usepackage{multicol} % To put equations side by side
+
+\usepackage{tikz} % Required for drawing sik pictures
+
+% Import tikz libraries
+\usetikzlibrary{shapes, arrows}
+\usetikzlibrary{positioning, calc}
 
 \graphicspath{{./figures/}}
 
@@ -90,26 +105,33 @@
 %	Background
 %----------------------------------------------------------------------------------------
 
-\begin{alertblock}{Background}
+\begin{block}{Background}
+content...
+\end{block}
 
-
-\end{alertblock}
 
 %----------------------------------------------------------------------------------------
 %	Section 1
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Section 1}
-
-
+\begin{block}{Reinforcement Learning}
+Reinforcement learning is 
+	\begin{figure}
+		\input{./figures/02_reinforcement_learning/reinforcement_learning}
+	\end{figure}
 \end{block}
+
+
+\begin{variableblock}{The Environment}{fg=black,bg=dgreen!10}{fg=white,bg=green!20!gray}
+	\begin{figure}
+	\centering
+	\input{./figures/02_two_area_power_system_overview/two_area_power_system_overview}
+	\end{figure}
+\end{variableblock}
 
 %------------------------------------------------
 
-\begin{figure}
-	\includegraphics[width=0.8\linewidth]{placeholder}
-	\caption{caption}
-\end{figure}
+
 
 %----------------------------------------------------------------------------------------
 
@@ -117,50 +139,42 @@
 
 \begin{column}{\sepwid}\end{column} % Empty spacer column
 
-\begin{column}{\twocolwid} % Begin a column which is two columns wide (column 2)
-
-\begin{columns}[t,totalwidth=\twocolwid] % Split up the two columns wide column
-
-\begin{column}{\onecolwid}\vspace{-.6in} % The first column within column 2 (column 2.1)
-
-%----------------------------------------------------------------------------------------
-%	Section 2
-%----------------------------------------------------------------------------------------
-
-\begin{block}{Section 2}
+\begin{column}[t]{\twocolwid} % Begin a column which is two columns wide (column 2)
 
 
-\end{block}
-
-%----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.1
-
-\begin{column}{\onecolwid}\vspace{-.6in} % The second column within column 2 (column 2.2)
-
-%----------------------------------------------------------------------------------------
-%	Section 3
-%----------------------------------------------------------------------------------------
-\begin{block}{Section 3}
-
-	
-\end{block}
-
-
-%----------------------------------------------------------------------------------------
-
-\end{column} % End of column 2.2
-
-\end{columns} % End of the split of column 2 - any content after this will now take up 2 columns width
 
 %----------------------------------------------------------------------------------------
 %	Section 4
 %----------------------------------------------------------------------------------------
 
-\begin{alertblock}{Section 4}
-
-
-\end{alertblock} 
+\begin{variableblock}{The Environment in the Frequency \& Temporal Domains}{fg=black,bg=dgreen!10}{fg=white,bg=green!20!gray}
+	\begin{figure}
+	\resizebox{50cm}{!}{\input{./figures/04_two_area_ode_derivation/two_area_ode_derivation}}
+	\end{figure}
+	
+	\begin{center}
+	\textbf{Two Area System ODE}\\
+	\vspace{1cm}
+	\begin{minipage}{0.45\linewidth}
+	\small
+		\begin{align*}
+			\dot{x}_2(t) &= \frac{1}{T_{sg_1}}\big( K_{sg_1} u_1(t) - x_2(t) \big) \\
+			\dot{x}_3(t) &= \frac{1}{T_{t_1}} \big( K_{t_1} x_2(t) - x_3(t) \big) \\
+			\dot{x}_4(t) &= \frac{1}{T_{gl_1}} \bigg( K_{gl_1} \big( x_3(t) - x_5(t) - \Delta p_{L1}(t) \big) - x_4(t) \bigg)
+		\end{align*}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}{0.45\linewidth}
+	\small
+		\begin{align*}
+			\boldsymbol{\dot{x}_2(t)} &= \frac{1}{T_{sg_1}}\big( K_{sg_1} u_1(t) - x_2(t) \big) \\
+			\dot{x}_3(t) &= \frac{1}{T_{t_1}} \big( K_{t_1} x_2(t) - x_3(t) \big) \\
+			\dot{x}_4(t) &= \frac{1}{T_{gl_1}} \bigg( K_{gl_1} \big( x_3(t) - x_5(t) - \Delta p_{L1}(t) \big) - x_4(t) \bigg)
+		\end{align*}
+	\end{minipage}
+	\end{center}
+	
+\end{variableblock}
 
 %----------------------------------------------------------------------------------------
 
@@ -172,10 +186,8 @@
 %	Section 5
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Section 5}
-
-	
-\end{block}
+\begin{variableblock}{Classical PI Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
+\end{variableblock}
 
 %----------------------------------------------------------------------------------------
 
@@ -187,10 +199,8 @@
 %	RESULTS
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Section 6}
-	
-	
-\end{block}
+\begin{variableblock}{DDPG Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
+\end{variableblock}
 
 %----------------------------------------------------------------------------------------
 
@@ -208,7 +218,7 @@
 %	Section 7
 %----------------------------------------------------------------------------------------
 
-\begin{block}{Section 7}
+\begin{block}{Results}
 
 
 \end{block}

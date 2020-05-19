@@ -115,3 +115,27 @@
 
 %-------------------- Function to lift power a bit
 \newcommand\mystrut{\rule{0pt}{10pt}}
+
+%-------------------- Code listings
+\usepackage{listings}
+% Allows the input of Python code to latex
+
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{9} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{9}  % for normal
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{magenta}{rgb}{0.8,0,0.8}
+
+\lstset{basicstyle=\ttfamily\scriptsize,
+		columns=fixed,
+		tabsize=4,
+		otherkeywords={self},
+		keywordstyle=\ttb\color{deepblue},
+		emph={__init__,
+				int_power_system_sim, int_control_system_sim},
+		emphstyle=\ttb\color{deepred},
+		stringstyle=\ttm\color{magenta},
+		commentstyle=\ttm\color{deepgreen},
+		frame=tb}
