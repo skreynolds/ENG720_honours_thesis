@@ -3,3 +3,36 @@
 \subsection{Deep Q-Learning}
 
 \subsection{Deep Deterministic Policy Gradient}
+
+\begin{algorithm}[h]
+	\caption{DDPG Algorithm}
+	\label{alg:ddpg}
+	\begin{algorithmic}[1]
+		\State{Randomly initialise critic $Q(s,a|\theta^Q)$ and actor $\mu(s|\theta^Q)$ with weights $\theta^Q$ and $\theta^\mu$}
+		\State{Initialise target networks $Q\prime$ and $\mu\prime$ with weights $\theta^{Q^\prime} \leftarrow \theta^Q$, $\theta^{\mu^\prime} \leftarrow \theta^\mu$}
+		\State{Initialise replay buffer $R$}
+		\For{$episode \gets 1:M$}
+			\State{Initialise a random process $\mathcal{N}$ for action exploration}
+			\State{Receive initial observation state $s_1$}
+			\For{$t \gets 0:(T-1)$}
+				\State{Select action $a_t = \mu(s_t|\theta^\mu) + \mathcal{N}_t$ with noise exploration noise}
+				\State{Execute action $a_t$ and observe reward $r_t$ and observe new state $s_{t+1}$}
+				\State{Store transition ($s_t$,$a_t$,$r_t$,$s_{t+1}$) in $R$}
+				\State{Sample a random minibatch of $N$ transitions ($s_i$,$a_i$,$r_i$,$s_{i+1}$) from $R$}
+				\State{Set $y_i = r_i + \gamma Q'(s_{i+1}, \mu'(s_{i+1}|\theta^{Q'}))$}
+				\State{Update critic by minimising the loss: $L = \frac{1}{N} \sum_{i}(y_i - Q(s_i, a_i|\theta^Q))^2$}
+				\State{Update the actor policy using the sampled policy gradient:
+				\begin{equation*}
+					\nabla_{\theta^\mu}J \approx \frac{1}{N} \sum_{i} \nabla_a Q(s,a|\theta^Q)|_{s = s_i, a = \mu(s_i)} \nabla_{\theta^\mu}\mu(s|\theta^\mu)|_{s = s_i}
+				\end{equation*}
+				}
+				\State{Update the target networks:
+				\begin{align*}
+					\theta^{Q'} &= \tau \theta^Q + (1 - \tau) \theta^{Q'} \\
+					\theta^{\mu'} &= \tau \theta^{\mu} + (1 - \tau) \theta^{\mu'}
+				\end{align*}
+				}
+			\EndFor
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}

@@ -63,6 +63,8 @@
 
 \usepackage{graphicx}  % Required for including images
 
+\usepackage[linesnumbered, ruled]{algorithm2e}
+
 \usepackage{booktabs} % Top and bottom rules for tables
 
 \usepackage{amsmath} % Required for math font
@@ -79,7 +81,7 @@
 %	TITLE SECTION 
 %----------------------------------------------------------------------------------------
 
-\title{Automatic Generation Control of a Two Area Power System Using Deep Reinforcement Learning} % Poster title
+\title{Automatic Generation Control for a Two Area Power \\ System Using Deep Reinforcement Learning} % Poster title
 
 \author{Shane Reynolds} % Author(s)
 
@@ -88,6 +90,12 @@
 %----------------------------------------------------------------------------------------
 
 \begin{document}
+\addtobeamertemplate{headline}{} 
+{
+\begin{tikzpicture}[remember picture,overlay] 
+\node [shift={(7cm,-10cm)}] at (current page.north west) {\includegraphics[scale=3.5]{01_cdu_logo}}; 
+\end{tikzpicture} 
+}
 
 \addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
 \addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
@@ -224,18 +232,16 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 %	RESULTS
 %----------------------------------------------------------------------------------------
 \vspace{-1cm}
-\begin{variableblock}{DDPG Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
-	\begin{center}
-		\textbf{Neural Network Architecture}
-	\end{center}
-	\begin{figure}
-		\centering
-		\resizebox{25cm}{!}{\input{./figures/06_feedforward_network/feedforward_network}}
-	\end{figure}
-	\begin{center}
-			\textbf{Agent Training Algorithm}
-		\end{center}
-\end{variableblock}
+\begin{block}{Experimental Setup}
+content...
+\end{block}
+
+\begin{block}{Classical PI Controller Results}
+content...
+\end{block}
+
+
+
 
 %----------------------------------------------------------------------------------------
 
@@ -252,14 +258,64 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 %----------------------------------------------------------------------------------------
 %	Section 7
 %----------------------------------------------------------------------------------------
+\begin{variableblock}{DDPG Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
+	\begin{center}
+		\textbf{Neural Network Architecture}
+	\end{center}
+	\begin{figure}
+		\centering
+		\resizebox{25cm}{!}{\input{./figures/06_feedforward_network/feedforward_network}}
+	\end{figure}
+	
+	\scalebox{0.7}{
+	\begin{minipage}{1.4\textwidth}
+	\hspace{0.5cm}\begin{algorithm}[H]\DontPrintSemicolon
+	Rand. init. critic $Q(s,a|\theta^Q)$ and actor $\mu(s|\theta^\mu)$ with $\theta^Q$ and $\theta^\mu$\;
+	
+	Init. target networks $Q^\prime$ and $\mu^\prime$ with $\theta^{Q^\prime} \leftarrow \theta^Q$, $\theta^{\mu^\prime} \leftarrow \theta^\mu$\;
+	
+	Initialise replay buffer $R$\;
+	
+	\For{$episode \gets 1$ \textbf{to} $M$}{
+		
+		Initialise a random process $\mathcal{N}$ for action exploration\;
+		
+		Receive initial observation state $s_1$\;
+		
+		\For{$t \gets 0$ \textbf{to} $T$}{
+			Select action $a_t = \mu(s_t|\theta^\mu) + \mathcal{N}_t$ with noise exploration noise\;
+		
+			Execute $a_t$ and observe reward $r_t$ and new state $s_{t+1}$\;
+		
+			Store transition ($s_t$,$a_t$,$r_t$,$s_{t+1}$) in $R$\;
+			
+			Sample random $N$ transitions ($s_i$,$a_i$,$r_i$,$s_{i+1}$) from $R$\;
+			
+			Set $y_i = r_i + \gamma Q'(s_{i+1}, \mu'(s_{i+1}|\theta^{Q'}))$\;
+			
+			Update critic by min. loss: $L = \frac{1}{N} \sum_{i}(y_i - Q(s_i, a_i|\theta^Q))^2$\;
+			
+			Update the actor policy using the sampled policy gradient:
+			\begin{equation*}
+				\nabla_{\theta^\mu}J \approx \frac{1}{N} \sum_{i} \nabla_a Q(s,a|\theta^Q)|_{s = s_i, a = \mu(s_i)} \nabla_{\theta^\mu}\mu(s|\theta^\mu)|_{s = s_i}
+			\end{equation*}\\
+			
+			Update the target networks:
+			\begin{align*}
+				\theta^{Q'} &= \tau \theta^Q + (1 - \tau) \theta^{Q'} \\
+				\theta^{\mu'} &= \tau \theta^{\mu} + (1 - \tau) \theta^{\mu'}
+			\end{align*}\\
+		}
+	}
+	\caption{DDPG}
+	\end{algorithm}
+	\end{minipage}
+	}
+\end{variableblock}
 
-\begin{block}{Experiments}
 
 
-\end{block}
-
-
-\begin{block}{Results}
+\begin{block}{DDPG Controller Results}
 
 
 \end{block}
