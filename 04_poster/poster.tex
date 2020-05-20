@@ -27,6 +27,10 @@
 
 \setbeamercolor{block title}{fg=black,bg=white} % Colors of the block titles
 \setbeamercolor{block body}{fg=black,bg=white} % Colors of the body of blocks
+
+\setbeamercolor{itemize item}{fg=black}
+\setbeamertemplate{itemize item}[circle]
+
 %\setbeamercolor{block alerted title}{fg=white,bg=green!20!gray} % Colors of the highlighted block titles
 %\setbeamercolor{block alerted body}{fg=black,bg=dgreen!10} % Colors of the body of highlighted blocks
 % Many more colors are available for use in beamerthemeconfposter.sty
@@ -62,8 +66,6 @@
 \usepackage{booktabs} % Top and bottom rules for tables
 
 \usepackage{amsmath} % Required for math font
-
-\usepackage{multicol} % To put equations side by side
 
 \usepackage{tikz} % Required for drawing sik pictures
 
@@ -106,7 +108,17 @@
 %----------------------------------------------------------------------------------------
 
 \begin{block}{Background}
-content...
+A generator's angular acceleration is governed by:
+\begin{equation*}
+	\boldsymbol{\Delta T = T_{mech} - T_{elec} = I \alpha}
+\end{equation*}
+\vspace{-2cm}
+\begin{itemize}
+	\setlength{\itemindent}{1em}
+	\item \ If $\boldsymbol{\Delta T > 0}$, then $\boldsymbol{\alpha \uparrow}$ and $\boldsymbol{f}$ \textbf{(Hz)} $\uparrow$
+	\item \ If $\boldsymbol{\Delta T < 0}$, then $\boldsymbol{\alpha \downarrow}$ and $\boldsymbol{f}$ \textbf{(Hz)} $\downarrow$
+\end{itemize}
+The Australian power network operates at 50 Hz.
 \end{block}
 
 
@@ -115,18 +127,21 @@ content...
 %----------------------------------------------------------------------------------------
 
 \begin{block}{Reinforcement Learning}
-Reinforcement learning is 
+Reinforcement learning is a branch of machine learning concerned with an agent's sequential decision making to maximise cumulative expected reward.
 	\begin{figure}
 		\input{./figures/02_reinforcement_learning/reinforcement_learning}
 	\end{figure}
+The agent exists in some environment and at each time step observes state $\boldsymbol{s_t \in S}$; and takes an action $\boldsymbol{a_t \in A}$. Following this, the agent then receives a reward $\boldsymbol{r_t \in R: S \times A \times S \to [R_{min}, R_{max}]}$.
 \end{block}
 
 
 \begin{variableblock}{The Environment}{fg=black,bg=dgreen!10}{fg=white,bg=green!20!gray}
+Two power areas connected via a transmission line. Each power area consists of: a governor controlled generator; and stochastic load demand.
 	\begin{figure}
 	\centering
 	\input{./figures/02_two_area_power_system_overview/two_area_power_system_overview}
 	\end{figure}
+The control objective is to maintain inter-area power transfer, whilst regulating the frequency of each area.
 \end{variableblock}
 
 %------------------------------------------------
@@ -158,18 +173,18 @@ Reinforcement learning is
 	\begin{minipage}{0.45\linewidth}
 	\small
 		\begin{align*}
-			\dot{x}_2(t) &= \frac{1}{T_{sg_1}}\big( K_{sg_1} u_1(t) - x_2(t) \big) \\
-			\dot{x}_3(t) &= \frac{1}{T_{t_1}} \big( K_{t_1} x_2(t) - x_3(t) \big) \\
-			\dot{x}_4(t) &= \frac{1}{T_{gl_1}} \bigg( K_{gl_1} \big( x_3(t) - x_5(t) - \Delta p_{L1}(t) \big) - x_4(t) \bigg)
+			\boldsymbol{\dot{x}_2(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{sg_1}}\big( K_{sg_1} u_1(t) - x_2(t) \big)} \\
+			\boldsymbol{\dot{x}_3(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{t_1}} \big( K_{t_1} x_2(t) - x_3(t) \big)} \\
+			\boldsymbol{\dot{x}_4(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{gl_1}} \bigg( K_{gl_1} \big( x_3(t) - x_5(t) - \Delta p_{L1}(t) \big) - x_4(t) \bigg)}
 		\end{align*}
 	\end{minipage}
 	\hspace{0.5cm}
 	\begin{minipage}{0.45\linewidth}
 	\small
 		\begin{align*}
-			\boldsymbol{\dot{x}_2(t)} &= \frac{1}{T_{sg_1}}\big( K_{sg_1} u_1(t) - x_2(t) \big) \\
-			\dot{x}_3(t) &= \frac{1}{T_{t_1}} \big( K_{t_1} x_2(t) - x_3(t) \big) \\
-			\dot{x}_4(t) &= \frac{1}{T_{gl_1}} \bigg( K_{gl_1} \big( x_3(t) - x_5(t) - \Delta p_{L1}(t) \big) - x_4(t) \bigg)
+			\boldsymbol{\dot{x}_7(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{sg_2}}\big( K_{sg_2} u_2(t) - x_7(t) \big)} \\
+			\boldsymbol{\dot{x}_8(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{t_2}} \big( K_{t_2} x_7(t) - x_8(t) \big)} \\
+			\boldsymbol{\dot{x}_9(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{gl_2}} \bigg( K_{gl_2} \big( x_8(t) - x_5(t) - \Delta p_{L2}(t) \big) - x_9(t) \bigg)}
 		\end{align*}
 	\end{minipage}
 	\end{center}
@@ -185,8 +200,18 @@ Reinforcement learning is
 %----------------------------------------------------------------------------------------
 %	Section 5
 %----------------------------------------------------------------------------------------
-
+\vspace{-1cm}
 \begin{variableblock}{Classical PI Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
+	\begin{figure}
+		\resizebox{!}{21cm}{\input{./figures/03_classical_pi_controller/classical_pi_controller}}
+	\end{figure}
+	\begin{center}
+		\textbf{ODE System}\\
+		\vspace{0.75cm}
+		\small
+		$\boldsymbol{\dot{x}_1(t) = b_1 \Delta f_1(t) + x_5(t)}$ \ 
+		$\boldsymbol{\dot{x}_6(t) = b_2 \Delta f_2(t) - x_5(t)}$
+	\end{center}
 \end{variableblock}
 
 %----------------------------------------------------------------------------------------
@@ -198,8 +223,18 @@ Reinforcement learning is
 %----------------------------------------------------------------------------------------
 %	RESULTS
 %----------------------------------------------------------------------------------------
-
+\vspace{-1cm}
 \begin{variableblock}{DDPG Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
+	\begin{center}
+		\textbf{Neural Network Architecture}
+	\end{center}
+	\begin{figure}
+		\centering
+		\resizebox{25cm}{!}{\input{./figures/06_feedforward_network/feedforward_network}}
+	\end{figure}
+	\begin{center}
+			\textbf{Agent Training Algorithm}
+		\end{center}
 \end{variableblock}
 
 %----------------------------------------------------------------------------------------
@@ -217,6 +252,12 @@ Reinforcement learning is
 %----------------------------------------------------------------------------------------
 %	Section 7
 %----------------------------------------------------------------------------------------
+
+\begin{block}{Experiments}
+
+
+\end{block}
+
 
 \begin{block}{Results}
 
