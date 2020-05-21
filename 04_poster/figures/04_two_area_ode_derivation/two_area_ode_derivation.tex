@@ -37,11 +37,11 @@ minimum height=3em, minimum width=3em, node distance=12.5cm, line width=4pt]
 \begin{tikzpicture}	
 	% Tie line nodes
 	\node [sum, add={$-$}{}{\textbf{+}}{ }] (sum1) {};
-	\node [block1, right of=sum1, label=above:{\textbf{Tie Line}}] (tieline) {\large$\boldsymbol{\frac{2\pi T_{12}}{s}}$};
+	\node [block1, right of=sum1, label=above:{\large\textbf{Tie Line}}] (tieline) {};
 	\node [output, right of=tieline, node distance=8cm] (out) {};
 	\node [coordinate, above of=out, node distance=10cm] (c1) {};
 	\node [coordinate, below of=out, node distance=10cm] (c2) {};
-	\node [block2, left of=c2] (a12) {$\boldsymbol{-a_{12}}$};
+	\node [block2, left of=c2] (a12) {$\boldsymbol{-1}$};
 	
 	% Position a reference coordinate for drawing
 	\node [coordinate, left of=sum1, node distance=8cm] (c3) {};
@@ -49,46 +49,46 @@ minimum height=3em, minimum width=3em, node distance=12.5cm, line width=4pt]
 	\node [coordinate, below of=c3, node distance=1.25cm] (c5) {};
 	
 	% Create nodes for upper leg
-	\node [block1, above of=c3, node distance=6cm, label=above:{\textbf{Gen. Load 1}}] (genload1) {\large$\boldsymbol{\frac{K_{gl1}}{T_{gl1}s+1}}$};
+	\node [block1, above of=c3, node distance=6cm, label=above:{\large\textbf{Gen. Load 1}}] (genload1) {};
 	\node [coordinate, right of=genload1, node distance=6cm] (c6) {};
 	\node [sum, left of=genload1, add={$-$}{+}{$-$}{}, node distance=6cm] (sum2) {};
 	\node [coordinate, below of=sum2, node distance=3.5cm] (p11) {};
-	\node [coordinate, left of=p11, node distance=2cm, label=left:{$\boldsymbol{\Delta P_{L1}(s)}$}] (p12) {};
-	\node [block1, left of=sum2, node distance=8.5cm, label=above:{\textbf{Turbine 1}}] (turbine1) {\large$\boldsymbol{\frac{K_{t1}}{T_{t1}s+1}}$};
-	\node [block1, left of=turbine1, node distance=12.5cm, label=above:{\textbf{Governor 1}}] (governor1) {\large$\boldsymbol{\frac{K_{g1}}{T_{g1}s+1}}$};
-	\node [coordinate, left of=governor1, node distance=8cm] (c8) {};
-	\node [coordinate, left of=c5, node distance=35cm] (c10) {};
+	\node [coordinate, left of=p11, node distance=2cm, label=left:{\textbf{POWER DEMAND INPUT 1}}] (p12) {};
+	\node [block1, left of=sum2, node distance=8.5cm, label=above:{\large\textbf{Turbine 1}}] (turbine1) {};
+	\node [block1, left of=turbine1, node distance=12.5cm, label=above:{\large\textbf{Governor 1}}] (governor1) {};
+	\node [draw, coordinate, left of=governor1, node distance=8cm, label={[align=left]left:\textbf{CONTROL}\\\textbf{INPUT 1}}] (c8) {};
+	\node [coordinate, left of=c5, node distance=35cm, label={[align=left]below:\textbf{FREQ. OUT 2}}] (c10) {};
 	\node [coordinate, left of=c1, node distance=58.5cm] (c12) {};
 	
 	
 	
 	% Create nodes for lower leg
-	\node [block1, below of=c3, node distance=6cm, label=below:{\textbf{Gen. Load 2}}] (genload2) {\large$\boldsymbol{\frac{K_{gl1}}{T_{gl1}s+1}}$};
+	\node [block1, below of=c3, node distance=6cm, label=below:{\large\textbf{Gen. Load 2}}] (genload2) {};
 	\node [coordinate, right of=genload2, node distance=6cm] (c7) {};
 	\node [sum, left of=genload2, add={$-$}{+}{$-$}{}, node distance=6cm] (sum3) {};
 	\node [coordinate, above of=sum3, node distance=3.5cm] (p21) {};
-	\node [coordinate, left of=p21, node distance=2cm, label=left:{$\boldsymbol{\Delta P_{L2}(s)}$}] (p22) {};
-	\node [block1, left of=sum3, node distance=8.5cm, label=below:{\textbf{Turbine 2}}] (turbine2) {\large$\boldsymbol{\frac{K_{t2}}{T_{t2}s+1}}$};
-	\node [block1, left of=turbine2, node distance=12.5cm, label=below:{\textbf{Governor 2}}] (governor2) {\large$\boldsymbol{\frac{K_{g2}}{T_{g2}s+1}}$};
-	\node [coordinate, left of=governor2, node distance=8cm] (c9) {};
-	\node [coordinate, left of=c4, node distance=35cm] (c11) {};
+	\node [coordinate, left of=p21, node distance=2cm, label=left:{\textbf{POWER DEMAND INPUT 2}}] (p22) {};
+	\node [block1, left of=sum3, node distance=8.5cm, label=below:{\large\textbf{Turbine 2}}] (turbine2) {};
+	\node [block1, left of=turbine2, node distance=12.5cm, label=below:{\large\textbf{Governor 2}}] (governor2) {};
+	\node [coordinate, left of=governor2, node distance=8cm, label={[align=left]left:\textbf{CONTROL}\\\textbf{INPUT 2}}] (c9) {};
+	\node [coordinate, left of=c4, node distance=35cm, label={[align=left]above:\textbf{FREQ. OUT 1}}] (c11) {};
 	\node [coordinate, left of=a12, node distance=46cm] (c13) {};
 	
 	
 	% Connect the tieline nodes
 	\draw [->, line width=4pt] (sum1) -- (tieline);
-	\draw [line width=4pt] (tieline) -- node [label=below:{$\boldsymbol{X_5(s)}$}] {} (out);
+	\draw [line width=4pt] (tieline) -- node [label=below:{}] {} (out);
 	
 	% Connect nodes in upper block
 	\draw [line width=4pt] (out) -- (c1);
 	\draw [->, line width=4pt] (c1) -| (sum2);
 	
-	\draw [->, line width=4pt] (governor1) -- node [label=below:{$\boldsymbol{X_2(s)}$}] {} (turbine1);
-	\draw [->, line width=4pt] (turbine1) -- node [label=below:{$\boldsymbol{X_3(s)}$}] {} (sum2);
+	\draw [->, line width=4pt] (governor1) -- node [label=below:{}] {} (turbine1);
+	\draw [->, line width=4pt] (turbine1) -- node [label=below:{}] {} (sum2);
 	\draw [->, line width=4pt] (sum2) -- (genload1);
-	\draw [->, line width=4pt] (genload1) -| node [label=right:{$\boldsymbol{X_4(s)}$}] {} (sum1);
+	\draw [->, line width=4pt] (genload1) -| node [label=right:{}] {} (sum1);
 	\draw [line width=4pt] (c6) |- (c4);
-	\draw [->, line width=4pt] (c8) -- node [label=below:{$\boldsymbol{U_1(s)}$}] {} (governor1);
+	\draw [->, line width=4pt] (c8) -- (governor1);
 	\draw [line width=4pt] (p12) -- (p11);
 	\draw [->, line width=4pt] (p11) -- (sum2);
 	\draw [->, line width=4pt] (c4) -- (c11);
@@ -99,12 +99,12 @@ minimum height=3em, minimum width=3em, node distance=12.5cm, line width=4pt]
 	\draw [line width=4pt] (out) -- (c2);
 	\draw [->, line width=4pt] (c2) -- (a12);
 	\draw [->, line width=4pt] (a12) -| (sum3);
-	\draw [->, line width=4pt] (governor2) -- node [label=above:{$\boldsymbol{X_7(s)}$}] {} (turbine2);
-	\draw [->, line width=4pt] (turbine2) -- node [label=above:{$\boldsymbol{X_8(s)}$}] {} (sum3);
+	\draw [->, line width=4pt] (governor2) -- node [label=above:{}] {} (turbine2);
+	\draw [->, line width=4pt] (turbine2) -- node [label=above:{}] {} (sum3);
 	\draw [->, line width=4pt] (sum3) -- (genload2);
-	\draw [->, line width=4pt] (genload2) -| node [label=right:{$\boldsymbol{X_9(s)}$}] {} (sum1);
+	\draw [->, line width=4pt] (genload2) -| node [label=right:{}] {} (sum1);
 	\draw [line width=4pt] (c7) |- (c5);
-	\draw [->, line width=4pt] (c9) -- node [label=above:{$\boldsymbol{U_2(s)}$}] {} (governor2);
+	\draw [->, line width=4pt] (c9) -- (governor2);
 	\draw [line width=4pt] (p22) -- (p21);
 	\draw [->, line width=4pt] (p21) -- (sum3);
 	\draw [->, line width=4pt] (c5) -- (c10);

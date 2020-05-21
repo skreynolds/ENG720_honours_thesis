@@ -71,6 +71,8 @@
 
 \usepackage{tikz} % Required for drawing sik pictures
 
+\usepackage{pgfplots} % Required for drawing sik plots
+
 % Import tikz libraries
 \usetikzlibrary{shapes, arrows}
 \usetikzlibrary{positioning, calc}
@@ -83,7 +85,7 @@
 
 \title{Automatic Generation Control for a Two Area Power \\ System Using Deep Reinforcement Learning} % Poster title
 
-\author{Shane Reynolds} % Author(s)
+\author{Shane Reynolds, Charles Yeo, \& Stefanija Klaric} % Author(s)
 
 \institute{Charles Darwin University} % Institution(s)
 
@@ -114,42 +116,35 @@
 %----------------------------------------------------------------------------------------
 %	Background
 %----------------------------------------------------------------------------------------
-
-\begin{block}{Background}
-A generator's angular acceleration is governed by:
-\begin{equation*}
-	\boldsymbol{\Delta T = T_{mech} - T_{elec} = I \alpha}
-\end{equation*}
-\vspace{-2cm}
-\begin{itemize}
-	\setlength{\itemindent}{1em}
-	\item \ If $\boldsymbol{\Delta T > 0}$, then $\boldsymbol{\alpha \uparrow}$ and $\boldsymbol{f}$ \textbf{(Hz)} $\uparrow$
-	\item \ If $\boldsymbol{\Delta T < 0}$, then $\boldsymbol{\alpha \downarrow}$ and $\boldsymbol{f}$ \textbf{(Hz)} $\downarrow$
-\end{itemize}
-The Australian power network operates at 50 Hz.
+\vspace{-1.5cm}
+\begin{block}{Problem Statement \& Aim}
+An increase in photovoltaic power generation, and battery energy storage systems is causing Australian power system dynamics to become more non-linear, driving a need to explore novel control architectures to improve frequency control performance. This research aims to investigate the feasibility of controlling the power system frequency with a neural network.
 \end{block}
 
 
 %----------------------------------------------------------------------------------------
 %	Section 1
 %----------------------------------------------------------------------------------------
-
+\vspace{-1cm}
 \begin{block}{Reinforcement Learning}
 Reinforcement learning is a branch of machine learning concerned with an agent's sequential decision making to maximise cumulative expected reward.
 	\begin{figure}
 		\input{./figures/02_reinforcement_learning/reinforcement_learning}
+		\caption{ \ The agent exists in some environment and at each time step observes state $\boldsymbol{s_t \in S}$; and takes an action $\boldsymbol{a_t \in A}$. Following this, the agent then receives a reward $\boldsymbol{r_t \in R: S \times A \times S \to [R_{min}, R_{max}]}$.}
 	\end{figure}
-The agent exists in some environment and at each time step observes state $\boldsymbol{s_t \in S}$; and takes an action $\boldsymbol{a_t \in A}$. Following this, the agent then receives a reward $\boldsymbol{r_t \in R: S \times A \times S \to [R_{min}, R_{max}]}$.
 \end{block}
 
+\vspace{-1.5cm}
 
 \begin{variableblock}{The Environment}{fg=black,bg=dgreen!10}{fg=white,bg=green!20!gray}
-Two power areas connected via a transmission line. Each power area consists of: a governor controlled generator; and stochastic load demand.
+The control objective is to maintain inter-area power transfer, whilst regulating the frequency of each area.
 	\begin{figure}
 	\centering
 	\input{./figures/02_two_area_power_system_overview/two_area_power_system_overview}
+	\caption{ \ Two power areas connected via a transmission line. Each power area consists of: a governor controlled generator and a stochastic load demand.}
 	\end{figure}
-The control objective is to maintain inter-area power transfer, whilst regulating the frequency of each area.
+	\vspace{-1cm}
+
 \end{variableblock}
 
 %------------------------------------------------
@@ -169,35 +164,48 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 %----------------------------------------------------------------------------------------
 %	Section 4
 %----------------------------------------------------------------------------------------
-
-\begin{variableblock}{The Environment in the Frequency \& Temporal Domains}{fg=black,bg=dgreen!10}{fg=white,bg=green!20!gray}
-	\begin{figure}
-	\resizebox{50cm}{!}{\input{./figures/04_two_area_ode_derivation/two_area_ode_derivation}}
-	\end{figure}
-	
-	\begin{center}
-	\textbf{Two Area System ODE}\\
-	\vspace{1cm}
+\vspace{-1.5cm}
+\begin{variableblock}{The Environment: A More Detailed View}{fg=black,bg=dgreen!10}{fg=white,bg=green!20!gray}
+\makebox[52cm][c]{
 	\begin{minipage}{0.45\linewidth}
-	\small
-		\begin{align*}
-			\boldsymbol{\dot{x}_2(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{sg_1}}\big( K_{sg_1} u_1(t) - x_2(t) \big)} \\
-			\boldsymbol{\dot{x}_3(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{t_1}} \big( K_{t_1} x_2(t) - x_3(t) \big)} \\
-			\boldsymbol{\dot{x}_4(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{gl_1}} \bigg( K_{gl_1} \big( x_3(t) - x_5(t) - \Delta p_{L1}(t) \big) - x_4(t) \bigg)}
-		\end{align*}
+		\begin{figure}
+			\resizebox{40cm}{!}{\input{./figures/04_two_area_ode_derivation/two_area_ode_derivation}}
+		\end{figure}
 	\end{minipage}
-	\hspace{0.5cm}
-	\begin{minipage}{0.45\linewidth}
-	\small
-		\begin{align*}
-			\boldsymbol{\dot{x}_7(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{sg_2}}\big( K_{sg_2} u_2(t) - x_7(t) \big)} \\
-			\boldsymbol{\dot{x}_8(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{t_2}} \big( K_{t_2} x_7(t) - x_8(t) \big)} \\
-			\boldsymbol{\dot{x}_9(t)} &\boldsymbol{=} \boldsymbol{\frac{1}{T_{gl_2}} \bigg( K_{gl_2} \big( x_8(t) - x_5(t) - \Delta p_{L2}(t) \big) - x_9(t) \bigg)}
-		\end{align*}
+	\hspace{15.5cm}
+	\begin{minipage}{0.27\linewidth}
+		\begin{figure}
+			\vspace{0.5cm}
+			\setlength{\belowcaptionskip}{-10pt}
+			\caption{ \ Block diagram of two area power system connected via a tie-line. Generators are modelled using governor and  turbine models. Governors, turbines, generator loads, and tie-lines are all modelled using first order linear systems. Simulation is undertaken in the temporal domain.}
+		\end{figure}
 	\end{minipage}
-	\end{center}
-	
+}
 \end{variableblock}
+\vspace{-1.5cm}
+\begin{block}{Results Comparison from Preliminary Experiments}
+	\begin{minipage}{0.5\textwidth}
+		\begin{figure}\scriptsize
+			\hspace{3cm}
+			\input{./figures/07_classical_controller/frequency_response.tikz}
+		\end{figure}
+		\begin{figure}\scriptsize
+			\hspace{3cm}
+			\input{./figures/07_classical_controller/control_signal_1.tikz}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+		\begin{figure}\scriptsize
+			\hspace{3cm}
+			\input{./figures/07_classical_controller/frequency_response.tikz}
+		\end{figure}
+		\begin{figure}\scriptsize
+			\hspace{3cm}
+			\input{./figures/07_classical_controller/control_signal_2.tikz}
+		\end{figure}
+	\end{minipage}
+	
+\end{block}
 
 %----------------------------------------------------------------------------------------
 
@@ -209,17 +217,11 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 %	Section 5
 %----------------------------------------------------------------------------------------
 \vspace{-1cm}
-\begin{variableblock}{Classical PI Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
+\begin{variableblock}{PI Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
 	\begin{figure}
-		\resizebox{!}{21cm}{\input{./figures/03_classical_pi_controller/classical_pi_controller}}
+		\resizebox{25cm}{!}{\input{./figures/03_classical_pi_controller/classical_pi_controller}}
+		\caption{Block diagram of the PI controllers used to classically control power system frequency. Two feedback loop proportional integral (PI) controllers are used to control the frequency and the tie-line power flow. A single PI controller is connected to each power area.}
 	\end{figure}
-	\begin{center}
-		\textbf{ODE System}\\
-		\vspace{0.75cm}
-		\small
-		$\boldsymbol{\dot{x}_1(t) = b_1 \Delta f_1(t) + x_5(t)}$ \ 
-		$\boldsymbol{\dot{x}_6(t) = b_2 \Delta f_2(t) - x_5(t)}$
-	\end{center}
 \end{variableblock}
 
 %----------------------------------------------------------------------------------------
@@ -232,16 +234,15 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 %	RESULTS
 %----------------------------------------------------------------------------------------
 \vspace{-1cm}
-\begin{block}{Experimental Setup}
-content...
-\end{block}
-
-\begin{block}{Classical PI Controller Results}
-content...
-\end{block}
-
-
-
+\begin{variableblock}{DDPG Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
+	\begin{center}
+		\textbf{Neural Network Architecture}
+	\end{center}
+	\begin{figure}
+		\resizebox{25cm}{!}{\input{./figures/06_feedforward_network/feedforward_network}}
+		\caption{ \ Indicative architecture of a neural network.}
+	\end{figure}
+\end{variableblock}
 
 %----------------------------------------------------------------------------------------
 
@@ -258,64 +259,18 @@ content...
 %----------------------------------------------------------------------------------------
 %	Section 7
 %----------------------------------------------------------------------------------------
-\begin{variableblock}{DDPG Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
-	\begin{center}
-		\textbf{Neural Network Architecture}
-	\end{center}
-	\begin{figure}
-		\centering
-		\resizebox{25cm}{!}{\input{./figures/06_feedforward_network/feedforward_network}}
-	\end{figure}
-	
-	\scalebox{0.7}{
-	\begin{minipage}{1.4\textwidth}
-	\hspace{0.5cm}\begin{algorithm}[H]\DontPrintSemicolon
-	Rand. init. critic $Q(s,a|\theta^Q)$ and actor $\mu(s|\theta^\mu)$ with $\theta^Q$ and $\theta^\mu$\;
-	
-	Init. target networks $Q^\prime$ and $\mu^\prime$ with $\theta^{Q^\prime} \leftarrow \theta^Q$, $\theta^{\mu^\prime} \leftarrow \theta^\mu$\;
-	
-	Initialise replay buffer $R$\;
-	
-	\For{$episode \gets 1$ \textbf{to} $M$}{
-		
-		Initialise a random process $\mathcal{N}$ for action exploration\;
-		
-		Receive initial observation state $s_1$\;
-		
-		\For{$t \gets 0$ \textbf{to} $T$}{
-			Select action $a_t = \mu(s_t|\theta^\mu) + \mathcal{N}_t$ with noise exploration noise\;
-		
-			Execute $a_t$ and observe reward $r_t$ and new state $s_{t+1}$\;
-		
-			Store transition ($s_t$,$a_t$,$r_t$,$s_{t+1}$) in $R$\;
-			
-			Sample random $N$ transitions ($s_i$,$a_i$,$r_i$,$s_{i+1}$) from $R$\;
-			
-			Set $y_i = r_i + \gamma Q'(s_{i+1}, \mu'(s_{i+1}|\theta^{Q'}))$\;
-			
-			Update critic by min. loss: $L = \frac{1}{N} \sum_{i}(y_i - Q(s_i, a_i|\theta^Q))^2$\;
-			
-			Update the actor policy using the sampled policy gradient:
-			\begin{equation*}
-				\nabla_{\theta^\mu}J \approx \frac{1}{N} \sum_{i} \nabla_a Q(s,a|\theta^Q)|_{s = s_i, a = \mu(s_i)} \nabla_{\theta^\mu}\mu(s|\theta^\mu)|_{s = s_i}
-			\end{equation*}\\
-			
-			Update the target networks:
-			\begin{align*}
-				\theta^{Q'} &= \tau \theta^Q + (1 - \tau) \theta^{Q'} \\
-				\theta^{\mu'} &= \tau \theta^{\mu} + (1 - \tau) \theta^{\mu'}
-			\end{align*}\\
-		}
-	}
-	\caption{DDPG}
-	\end{algorithm}
-	\end{minipage}
-	}
-\end{variableblock}
+
+\begin{block}{Preliminary Experiment Setup}
 
 
+\end{block}
 
-\begin{block}{DDPG Controller Results}
+\begin{block}{DDPG Controller Evolution}
+
+
+\end{block}
+
+\begin{block}{Research Direction}
 
 
 \end{block}

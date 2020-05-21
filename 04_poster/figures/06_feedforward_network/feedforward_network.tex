@@ -22,7 +22,7 @@
 \begin{tikzpicture}[shorten >=1pt,->, node distance=\layersep]
     
     % Draw the input layer nodes
-    \foreach \i\y\j in {1/1/$\boldsymbol{x_4(t) = \Delta f_1}$, 2/2/$\boldsymbol{x_9(t) = \Delta f_2}$, 3/3/$\boldsymbol{x_5(t) = \Delta \texttt{TieLine}}$}
+    \foreach \i\y\j in {1/1/\textbf{FREQ. INPUT 1}, 2/2/\textbf{FREQ. INPUT 2}, 3/3/\textbf{TIELINE INPUT}}
     % This is the same as writing \foreach \name / \y in {1/1,2/2,3/3,4/4}
         \node[input neuron, pin=left:\j] (I-\i) at (0,-2*\y) {};
 
@@ -37,7 +37,7 @@
 			node[hidden neuron] (H2-\name) at (2*\layersep,-2*\y cm) {};
 	
     % Draw the output layer node
-    \foreach \name / \y in {1/$\boldsymbol{u_1(t)}$,2/$\boldsymbol{u_2(t)}$}
+    \foreach \name / \y in {1/\textbf{CTL. OUTPUT 1},2/\textbf{CTL. OUTPUT 2}}
     	\path[yshift=-2*0.5cm]
     		node[output neuron, pin={[pin edge={->}]right:\y}] (O-\name) at (3*\layersep,-2*\name cm) {};
 
