@@ -77,6 +77,10 @@
 \usetikzlibrary{shapes, arrows}
 \usetikzlibrary{positioning, calc}
 
+\usepackage[backend=biber,style=ieee]{biblatex}
+\AtBeginBibliography{\tiny}
+\addbibresource{../zz_administration/00_bibliography_db/bibliography_db.bib}
+
 \graphicspath{{./figures/}}
 
 %----------------------------------------------------------------------------------------
@@ -118,23 +122,24 @@
 %----------------------------------------------------------------------------------------
 \vspace{-1.5cm}
 \begin{block}{Problem Statement \& Aim}
-An increase in photovoltaic power generation, and battery energy storage systems is causing Australian power system dynamics to become more non-linear, driving a need to explore novel control architectures to improve frequency control performance. This research aims to investigate the feasibility of controlling the power system frequency with a neural network.
+An increase in photovoltaic power generation, and battery energy storage systems is causing Australian power system dynamics to become increasingly non-linear, driving a need to explore novel control architectures to improve frequency control. This research aims to investigate the feasibility of controlling power system frequency with a neural network.
 \end{block}
 
 
 %----------------------------------------------------------------------------------------
 %	Section 1
 %----------------------------------------------------------------------------------------
-\vspace{-1cm}
+\vspace{-0.75cm}
 \begin{block}{Reinforcement Learning}
-Reinforcement learning is a branch of machine learning concerned with an agent's sequential decision making to maximise cumulative expected reward.
+Reinforcement learning is a branch of machine learning concerned with an agent's sequential decision making to maximise cumulative reward \cite{Sutton2018}.
+\vspace{0.52cm}
 	\begin{figure}
 		\input{./figures/02_reinforcement_learning/reinforcement_learning}
-		\caption{ \ The agent exists in some environment and at each time step observes state $\boldsymbol{s_t \in S}$; and takes an action $\boldsymbol{a_t \in A}$. Following this, the agent then receives a reward $\boldsymbol{r_t \in R: S \times A \times S \to [R_{min}, R_{max}]}$.}
+		\caption{ \ The agent exists in some environment and at each time step observes a state $\boldsymbol{s_t \in S}$; and takes an action $\boldsymbol{a_t \in A}$. Following this, the agent then receives a reward $\boldsymbol{r_t \in R: S \times A \times S \to [R_{min}, R_{max}]}$.}
 	\end{figure}
 \end{block}
 
-\vspace{-1.5cm}
+\vspace{-0.9cm}
 
 \begin{variableblock}{The Environment}{fg=black,bg=dgreen!10}{fg=white,bg=green!20!gray}
 The control objective is to maintain inter-area power transfer, whilst regulating the frequency of each area.
@@ -177,31 +182,44 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 		\begin{figure}
 			\vspace{0.5cm}
 			\setlength{\belowcaptionskip}{-10pt}
-			\caption{ \ Block diagram of two area power system connected via a tie-line. Generators are modelled using governor and  turbine models. Governors, turbines, generator loads, and tie-lines are all modelled using first order linear systems. Simulation is undertaken in the temporal domain.}
+			\caption{ \ Block diagram of two area power system connected via a tie-line. Generators are modelled using governor and  turbine models. Governors, turbines, generator loads, and tie-lines are all modelled using first order linear systems \cite{Kothari2011}. Simulation is undertaken in the temporal domain.}
 		\end{figure}
 	\end{minipage}
 }
 \end{variableblock}
 \vspace{-1.5cm}
 \begin{block}{Results Comparison from Preliminary Experiments}
-	\begin{minipage}{0.5\textwidth}
+	\begin{minipage}{0.4\textwidth}
 		\begin{figure}\scriptsize
 			\hspace{3cm}
-			\input{./figures/07_classical_controller/frequency_response.tikz}
+			\input{./figures/08_results_comparison/frequency_response_1.tikz}
+			\vspace{-1cm}
+			\caption{ \ PI vs. DDPG frequency (Hz) for power area one over time (seconds).}
+			\label{fig:f1}
 		\end{figure}
+		\vspace{-1.5cm}
 		\begin{figure}\scriptsize
 			\hspace{3cm}
-			\input{./figures/07_classical_controller/control_signal_1.tikz}
+			\input{./figures/08_results_comparison/control_signal_1.tikz}
+			\vspace{-1cm}
+			\caption{ \ PI vs. DDPG control signal for power area one over time (seconds).}
 		\end{figure}
 	\end{minipage}
-	\begin{minipage}{0.5\textwidth}
+	\hspace{6cm}
+	\begin{minipage}{0.4\textwidth}
 		\begin{figure}\scriptsize
 			\hspace{3cm}
-			\input{./figures/07_classical_controller/frequency_response.tikz}
+			\input{./figures/08_results_comparison/frequency_response_2.tikz}
+			\vspace{-1cm}
+			\caption{ \ PI vs. DDPG frequency (Hz) for power area two over time (seconds).}
+			\label{fig:f2}
 		\end{figure}
+		\vspace{-1.5cm}
 		\begin{figure}\scriptsize
 			\hspace{3cm}
-			\input{./figures/07_classical_controller/control_signal_2.tikz}
+			\input{./figures/08_results_comparison/control_signal_2.tikz}
+			\vspace{-1cm}
+			\caption{ \ PI vs. DDPG control signal for power area two over time (seconds).}
 		\end{figure}
 	\end{minipage}
 	
@@ -216,11 +234,11 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 %----------------------------------------------------------------------------------------
 %	Section 5
 %----------------------------------------------------------------------------------------
-\vspace{-1cm}
+\vspace{-1.5cm}
 \begin{variableblock}{PI Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
 	\begin{figure}
 		\resizebox{25cm}{!}{\input{./figures/03_classical_pi_controller/classical_pi_controller}}
-		\caption{Block diagram of the PI controllers used to classically control power system frequency. Two feedback loop proportional integral (PI) controllers are used to control the frequency and the tie-line power flow. A single PI controller is connected to each power area.}
+		\caption{ \ Block diagram of the proportional integral (PI) controllers used to classically control power system frequency. Two feedback loop PI controllers are used to control the frequency and the tie-line power flow.}
 	\end{figure}
 \end{variableblock}
 
@@ -233,7 +251,7 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 %----------------------------------------------------------------------------------------
 %	RESULTS
 %----------------------------------------------------------------------------------------
-\vspace{-1cm}
+\vspace{-1.5cm}
 \begin{variableblock}{DDPG Controller}{fg=black,bg=dblue!10}{fg=white,bg=blue!20!gray}
 	\begin{center}
 		\textbf{Neural Network Architecture}
@@ -242,6 +260,9 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 		\resizebox{25cm}{!}{\input{./figures/06_feedforward_network/feedforward_network}}
 		\caption{ \ Indicative architecture of a neural network.}
 	\end{figure}
+	\vspace{-1cm}
+	Deep deterministic policy gradient (DDPG) trains two neural networks to perform control actions, using an experience replay buffer. An Ornstein–Uhlenbeck process is used to explore \cite{Lillicrap2015}.
+	\vspace{0.15cm}
 \end{variableblock}
 
 %----------------------------------------------------------------------------------------
@@ -259,19 +280,53 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 %----------------------------------------------------------------------------------------
 %	Section 7
 %----------------------------------------------------------------------------------------
-
-\begin{block}{Preliminary Experiment Setup}
-
-
+\vspace{-1.5cm}
+\begin{block}{Preliminary Experiment \& Results}
+	The environment was configured to experience a load demand step change in area one at the 1 sec mark, and run for a total of 30 sec. The DDPG algorithm was trained for approximately 210 episodes. \\
+	\vspace{0.75cm}
+	PI and DDPG controller performance was evaluated for 3000 time steps of 0.01 sec.  At each time step the agent received the reward:
+	\vspace{0.75cm}
+	\begin{equation*}
+	\begin{split}
+		\texttt{r} = &- 8 \times |\texttt{Frequency 1} + \texttt{Frequency 2}| \\
+			  &- 4 \times |\texttt{Tieline}| \\
+			  &- 5 \times |\texttt{Control 1} + \texttt{Control 2}|
+	\end{split}
+	\end{equation*}
+	
+	\vspace{0.75cm}
+	
+	The calculated cumulative rewards for the PI and DDPG controllers are shown in Table \ref{tab:1}
+	
+	\begin{table}
+	\caption{ \ Cumulative reward for PI and DDPG agents}
+	\label{tab:1}
+		\begin{tabular}{lr}
+		\toprule
+		\textbf{Agent} \ \ \ & \textbf{Cumulative Reward} \\
+		\midrule
+		 PI & -211.15 \\
+		 DDPG & -311.42 \\
+		\bottomrule
+		\end{tabular}
+	\end{table}
+	\vspace{0.75cm}
+	Cumulative reward is bound in the region $[0, -\infty)$ providing evidence the DDPG controller's performance is comparable to the PI controller performance. Demonstrable results of the DDPG controller performance compared to PI control is shown in Figure \ref{fig:f1} and \ref{fig:f2}.
 \end{block}
 
-\begin{block}{DDPG Controller Evolution}
+\vspace{-1cm}
 
-
+\begin{block}{Discussion \& Conclusion}
+PI controllers are an industry standard for frequency control of power systems. Preliminary experiments show comparable performance of PI and DDPG controllers and demonstrate that using a DDPG trained neural network to control power system frequency is feasible. Future research will explore DDPG performance under increasingly stochastic load demands.
 \end{block}
 
-\begin{block}{Research Direction}
+%----------------------------------------------------------------------------------------
+%	REFERENCES
+%----------------------------------------------------------------------------------------
+\vspace{-1cm}
+\begin{block}{References}
 
+\tiny{\printbibliography}
 
 \end{block}
 

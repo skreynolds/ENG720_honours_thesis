@@ -58,7 +58,7 @@ minimum height=3em, minimum width=3em, node distance=12.5cm, line width=4pt]
 	\node [block1, left of=turbine1, node distance=12.5cm, label=above:{\large\textbf{Governor 1}}] (governor1) {};
 	\node [draw, coordinate, left of=governor1, node distance=8cm, label={[align=left]left:\textbf{CONTROL}\\\textbf{INPUT 1}}] (c8) {};
 	\node [coordinate, left of=c5, node distance=35cm, label={[align=left]below:\textbf{FREQ. OUT 2}}] (c10) {};
-	\node [coordinate, left of=c1, node distance=58.5cm] (c12) {};
+	\node [coordinate, left of=c1, node distance=58.5cm, label={[align=left]left:\textbf{TIELINE}\\ \textbf{OUTPUT}}] (c12) {};
 	
 	
 	
@@ -72,7 +72,7 @@ minimum height=3em, minimum width=3em, node distance=12.5cm, line width=4pt]
 	\node [block1, left of=turbine2, node distance=12.5cm, label=below:{\large\textbf{Governor 2}}] (governor2) {};
 	\node [coordinate, left of=governor2, node distance=8cm, label={[align=left]left:\textbf{CONTROL}\\\textbf{INPUT 2}}] (c9) {};
 	\node [coordinate, left of=c4, node distance=35cm, label={[align=left]above:\textbf{FREQ. OUT 1}}] (c11) {};
-	\node [coordinate, left of=a12, node distance=46cm] (c13) {};
+	\node [coordinate, left of=a12, node distance=46cm, , label={[align=left]left:-\textbf{TIELINE}\\ \textbf{OUTPUT}}] (c13) {};
 	
 	
 	% Connect the tieline nodes
