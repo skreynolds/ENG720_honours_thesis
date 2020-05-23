@@ -135,7 +135,7 @@ Reinforcement learning is a branch of machine learning concerned with an agent's
 \vspace{0.52cm}
 	\begin{figure}
 		\input{./figures/02_reinforcement_learning/reinforcement_learning}
-		\caption{ \ The agent exists in some environment and at each time step observes a state $\boldsymbol{s_t \in S}$; and takes an action $\boldsymbol{a_t \in A}$. Following this, the agent then receives a reward $\boldsymbol{r_t \in R: S \times A \times S \to [R_{min}, R_{max}]}$.}
+		\caption{ \ The agent exists in some environment and at each time step observes a state $\boldsymbol{s_t \in S}$, and takes an action $\boldsymbol{a_t \in A}$. Following this, the agent then receives a reward $\boldsymbol{r_t \in R: S \times A \times S \to [R_{min}, R_{max}]}$.}
 	\end{figure}
 \end{block}
 
@@ -146,7 +146,7 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 	\begin{figure}
 	\centering
 	\input{./figures/02_two_area_power_system_overview/two_area_power_system_overview}
-	\caption{ \ Two power areas connected via a transmission line. Each power area consists of: a governor controlled generator and a stochastic load demand.}
+	\caption{ \ Two power areas connected via a transmission line. Each power area consists of a governor controlled generator and a stochastic load demand.}
 	\end{figure}
 	\vspace{-1cm}
 
@@ -188,13 +188,13 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 }
 \end{variableblock}
 \vspace{-1.5cm}
-\begin{block}{Results Comparison from Preliminary Experiments}
+\begin{block}{Results Comparison from Preliminary Experiment}
 	\begin{minipage}{0.4\textwidth}
 		\begin{figure}\scriptsize
 			\hspace{3cm}
 			\input{./figures/08_results_comparison/frequency_response_1.tikz}
 			\vspace{-1cm}
-			\caption{ \ PI vs. DDPG frequency (Hz) for power area one over time (seconds).}
+			\caption{ \ PI vs. DDPG frequency (Hz) for power area one over time (sec).}
 			\label{fig:f1}
 		\end{figure}
 		\vspace{-1.5cm}
@@ -202,7 +202,7 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 			\hspace{3cm}
 			\input{./figures/08_results_comparison/control_signal_1.tikz}
 			\vspace{-1cm}
-			\caption{ \ PI vs. DDPG control signal for power area one over time (seconds).}
+			\caption{ \ PI vs. DDPG control signal for power area one over time (sec).}
 		\end{figure}
 	\end{minipage}
 	\hspace{6cm}
@@ -211,7 +211,7 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 			\hspace{3cm}
 			\input{./figures/08_results_comparison/frequency_response_2.tikz}
 			\vspace{-1cm}
-			\caption{ \ PI vs. DDPG frequency (Hz) for power area two over time (seconds).}
+			\caption{ \ PI vs. DDPG frequency (Hz) for power area two over time (sec).}
 			\label{fig:f2}
 		\end{figure}
 		\vspace{-1.5cm}
@@ -219,10 +219,9 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 			\hspace{3cm}
 			\input{./figures/08_results_comparison/control_signal_2.tikz}
 			\vspace{-1cm}
-			\caption{ \ PI vs. DDPG control signal for power area two over time (seconds).}
+			\caption{ \ PI vs. DDPG control signal for power area two over time (sec).}
 		\end{figure}
 	\end{minipage}
-	
 \end{block}
 
 %----------------------------------------------------------------------------------------
@@ -288,9 +287,9 @@ The control objective is to maintain inter-area power transfer, whilst regulatin
 	\vspace{0.75cm}
 	\begin{equation*}
 	\begin{split}
-		\texttt{r} = &- 8 \times |\texttt{Frequency 1} + \texttt{Frequency 2}| \\
+		\texttt{r} = &- 8 \times (|\texttt{Frequency 1}| + |\texttt{Frequency 2}|) \\
 			  &- 4 \times |\texttt{Tieline}| \\
-			  &- 5 \times |\texttt{Control 1} + \texttt{Control 2}|
+			  &- 5 \times (|\texttt{Control 1}| + |\texttt{Control 2}|)
 	\end{split}
 	\end{equation*}
 	
