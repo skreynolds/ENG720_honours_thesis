@@ -4,12 +4,12 @@
     ymin=-1.5, ymax=1.5,
     axis lines=center,
     axis on top=true,
-    domain=-5:5,
+    domain=-4.5:4.5,
     ylabel=$y$,
     xlabel=$x$,
     ]
 
-    \addplot [mark=none,draw=blue!20!gray,ultra thick] {tanh(\x)};
+    \addplot [<->, mark=none,draw=blue!20!gray,ultra thick] {tanh(\x)};
     
 \end{axis}
 \end{tikzpicture}

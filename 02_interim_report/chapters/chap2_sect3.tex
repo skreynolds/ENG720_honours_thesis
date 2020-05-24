@@ -1,13 +1,15 @@
 \section{Deep Neural Networks}\label{dnn}
 Deep neural networks are the technology responsible for some of the most recent state-of-the-art technological breakthroughs in fields such as audio to text speech recognition systems \cite{Hinton2012}, image classification systems \cite{Krizhevsky2012, Simonyan2014, Szegedy2015, He2016}, text-to-text machine translation (REFERENCE), and robotics \cite{Mnih2015, Lillicrap2015, Schulman2015, Schulman2015highdimensional}.
 
-Deep neural networks are able to adapt to the different needs of diverse research fields due to their unique computational architecture. A deep neural network (DNN) is comprised nodes, called perceptrons, which perform simple linear combination operations on inputs they receive. Additionally, each node is equipped with an activation function. The activation function allows the node to signal when it recognises the linear combination of inputs. DNN architectures connect many nodes together, using weighted edges, to form a computational graph. Modifying the edge weights is referred to as \textit{training the network}, and allows the DNN to change its behaviour. Given this flexibility, a DNN is often thought of as a tool for universal function approximation.
+Deep neural networks are able to adapt to the different needs of diverse research fields due to their unique computational architecture.
+
+%A deep neural network (DNN) is comprised nodes, called perceptrons, which perform simple linear combination operations on inputs they receive. Additionally, each node is equipped with an activation function. The activation function allows the node to signal when it recognises the linear combination of inputs. DNN architectures connect many nodes together, using weighted edges, to form a computational graph. Modifying the edge weights is referred to as \textit{training the network}, and allows the DNN to change its behaviour. Given this flexibility, a DNN is often thought of as a tool for universal function approximation.
 
 
 %------------------------ SS: Feedforward Network
 
 \subsection{Feedforward Networks}
-A typical fully connected feed-forward ANN consists of an input layer, one or more hidden layers, and an output layer, as shown in Figure 4. Hidden layers are made up of multiple nodes. The nodes themselves contain a non-linear activation function, such as a sigmoid or ReLU, and receive weighted input from the previous layers in the model.
+The most common architecture used in a DNN is the \textit{feedforward} neural network (FNN), often referred to as a \textit{multilayer perceptron} model. First developed in 1971, a fully connected FNN consists of an input layer, one or more hidden layers, and an output layer, as shown in Figure \ref{fig:2302_feedforward_network}.
 
 \begin{figure}[h]
 	\centering
@@ -15,6 +17,10 @@ A typical fully connected feed-forward ANN consists of an input layer, one or mo
 	\caption[Feedforward network example]{An example of a feedforward network consisting of an input layer, two hidden layers, and an output layer}
 	\label{fig:2302_feedforward_network}
 \end{figure}
+
+When an input signal is introduced to the input layer, it propagates through the network, in a forward direction, on a layer-by-layer basis. The emergent signal at the output layer, is called the network response \cite{Haykin99}. Hidden and output layers are made up of multiple nodes, called perceptrons. Each perceptron receives the weighted sum of inputs from the previous layer, which is passed through an activation function. The activation function allows the node to signal when it recognises the weighted linear combination of inputs.
+
+FNN architectures connect many perceptrons together, using weighted edges, to form a computational graphs. Modifying the edge weights is referred to as \textit{training the network}, and allows the DNN to change its behaviour. A trained network is able to form highly non-linear models used for estimation or classifying of complex phenomena that is difficult to model using classical approaches, or is computationally intractable.
 
 
 %------------------------ SS: Perceptron Model
@@ -43,7 +49,7 @@ Figure \ref{fig:2301_perceptron_model} provides an shows the computational model
 %------------------------ SS: Activation Functions
 
 \subsection{Activation Functions}
-The activation function is a key component of Rosenblatt's perceptron --- it determines if the perceptron will activate or not. Rosenblatt's model used a Heaviside step function, which was effective under his perceptron learning algorithm for some classification tasks. In 1969, Minsky and Papert published a book called Perceptrons that argued Rosenblatt's perceptron had significant limitations, such as the inability to solve exclusive-or (XOR) classification problems \cite{Minsky1969}. This limitation was overcome by increasing the size of neural networks, which required the development of new algorithms to train the networks. One such algorithm is backpropagation \cite{Werbos1982}. The backpropagation algorithm is discussed further in \textsection \ref{sec:networktraining}; however, one important aspect is that it requires a differentiable activation function (REFERENCE). The Heaviside function is non-differentiable at $x = 0$, and has a zero derivative elsewhere and is therefore not suitable. According to Haykin, a number of different activation functions can be adopted to replace the Heaviside function \cite{Haykin99}. Two of the most common are:
+The activation function is a key component of Rosenblatt's perceptron --- it determines if the perceptron will activate or not. Rosenblatt's model used a Heaviside step function, which was effective under his perceptron learning algorithm for some classification tasks. In 1969, Minsky and Papert published a book called Perceptrons that argued Rosenblatt's perceptron had significant limitations, such as the inability to solve exclusive-or (XOR) classification problems \cite{Minsky1969}. This limitation was overcome by increasing the size of neural networks, which subsequently required the development of new algorithms to train the networks. One such algorithm is backpropagation \cite{Werbos1982}. The backpropagation algorithm is discussed further in \textsection \ref{sec:networktraining}; however, one important aspect is that it requires a differentiable activation function (REFERENCE). The Heaviside function is non-differentiable at $x = 0$, and has a zero derivative elsewhere and is therefore not suitable (REFERENCE). According to Haykin, a number of different activation functions can be adopted to replace the Heaviside function \cite{Haykin99}. Two of the most common are:
 \begin{enumerate}
 	\item Hyperbolic tangent: $f:\mathbb{R} \to (-1,1)$, shown in Figure \ref{fig:2303_tanh_activation_function}, where
 	\begin{equation}
@@ -60,19 +66,19 @@ The activation function is a key component of Rosenblatt's perceptron --- it det
 	\begin{minipage}[t]{0.45\textwidth}
 		\centering
 		\input{./figures/2303_tanh_activation_function/tanh_activation_function}
-		\caption[Hyperbolic tangent activation function]{Hyperbolic tangent function}
+		\caption[Hyperbolic tangent activation function]{Hyperbolic tangent activation function}
 		\label{fig:2303_tanh_activation_function}
 	\end{minipage}
 	\hspace{1cm}
 	\begin{minipage}[t]{0.45\textwidth}
 		\centering
 		\input{./figures/2304_sigmoid_activation_function/sigmoid_activation_function}
-		\caption[Sigmoid activation function]{Sigmoid function}
+		\caption[Sigmoid activation function]{Sigmoid activation function}
 		\label{fig:2304_sigmoid_activation_function}
 	\end{minipage}
 \end{figure}
 
-For shallow neural networks, the hyperbolic tangent and sigmoid activation functions work well. As the network is deepened with additional hidden layers hyperbolic tangent and sigmoid activation functions suffer from the vanishing gradient problem (REFERENCE). WHAT IS THE VANISHING GRADIENT PROBLEM. Two commonly used activation functions that are used to overcome the vanishing gradient problem are:
+For shallow neural networks, the hyperbolic tangent and sigmoid activation functions work well. As the network is deepened with additional hidden layers hyperbolic tangent and sigmoid activation functions  cause the network to learn sub-optimally. This phenomena was first discovered by Hochreiter in 1991 and is referred to as the vanishing gradient problem \cite{Hochreiter1991}. It describes a situation where the gradients for hyperbolic tangent and sigmoid activation functions become close to zero toward the function tails. The result is that the backpropagation algorithm sends very small error signals general inability  Two commonly used activation functions that are used to overcome the vanishing gradient problem are:
 \begin{enumerate}
 	\item Rectified Linear Unit (ReLU): $f:\mathbb{R} \to [0,\infty)$, shown in Figure \ref{fig:2303_tanh_activation_function}, where
 	\begin{equation}
@@ -81,21 +87,40 @@ For shallow neural networks, the hyperbolic tangent and sigmoid activation funct
 							0 \ \ \text{if} \ \ x < 0	
 						   \end{cases}
 	\end{equation}
-	\item Leaky ReLU (LReLU): $f:\mathbb{R} \to (0,1)$, shown in Figure \ref{fig:2304_sigmoid_activation_function}, where
+	\item Leaky ReLU (LReLU): $f:\mathbb{R} \to \mathbb{R}$, shown in Figure \ref{fig:2304_sigmoid_activation_function}, where for $\alpha < 1$
 	\begin{equation}
-		f(x) =  \begin{cases}
-				x \ \ \text{if} \ \ x \geq 0 \\
-				\alpha x \ \ \text{if} \ \ x < 0	
-			   	\end{cases}
+		f(x) = \max(x, \alpha x) =   \begin{cases}
+									  x \ \ \text{if} \ \ x \geq 0 \\
+									 \alpha x \ \ \text{if} \ \ x < 0	
+			   						 \end{cases}
 	\end{equation}
 \end{enumerate}
 
-To overcome this problem new activation functions were created that. 
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.45\textwidth}
+		\centering
+		\input{./figures/2305_relu_activation_function/relu_activation_function}
+		\caption[ReLU activation function]{ReLU activation function}
+		\label{fig:2305_relu_activation_function}
+	\end{minipage}
+	\hspace{1cm}
+	\begin{minipage}[t]{0.45\textwidth}
+		\centering
+		\input{./figures/2306_lrelu_activation_function/lrelu_activation_function}
+		\caption[LReLU activation function]{LReLU activation function}
+		\label{fig:2306_lrelu_activation_function}
+	\end{minipage}
+\end{figure}
+
+ 
+
+what is interesting about the relu is that theoretically they should not work with backpropagation since 
 
 
 %------------------------ SS: Training the Network
 
 \subsection{Training the Network} \label{sec:networktraining}
-Changing the weights in a neuron changes the neurons’s contribution to the model, which in turn affects the overall model output. Weight changes occur during model training, which uses large volumes of labelled data to adjust the weights. Hidden layers are important because they allow highly non-linear models to be constructed, providing an approach for estimating complex phenomena which may be difficult to model with classical approaches, or computationally intractable. Generally, the more hidden layers, the more non-linear the model. Network architectures with multiple hidden layers have become so wide spread that the term Deep Neural Network (DNN) was coined to describe feed-forward ANNs which use two or more hidden layers. It must be noted that whilst increased non-linearity may allow us to model more complex phenomenon, making the ANN deeper does not guarantee increased model performance. This is mainly due to the fact that deeper models may over-fit the data during training, resulting in a failure to generalise on test and validation data sets.
+Changing the weights in a neuron changes the neurons’s contribution to the model, which in turn affects the overall model output. Weight changes occur during model training, which data to adjust the weights.
 
 werbos backpropagation
