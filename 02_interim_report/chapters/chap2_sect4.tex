@@ -1,6 +1,40 @@
 \section{Deep Reinforcement Learning}\label{drl}
 
 \subsection{Deep Q-Learning}
+Reinforcement learning algorithms outlined in \textsection \ref{sec:reinforcement_learning} are capable of controlling environments with low dimensional state space representations, but perform poorly in environments with high dimensional state space representations. In 2015 Mnih \textit{et alias} published a ground breaking paper that presented a novel agent: a deep Q-network (DQN) \cite{Mnih2015}. The agent was able to take advantage of recent developments in the field of deep neural networks, discussed in \textsection \ref{sec:deep_neural_networks}, and combine them with the Q-learning algorithm, discussed in \textsection \ref{sec:reinforcement_learning}. Adapting the Q-learning algorithm, Mnih \textit{et alias} trained a neural network to act as a function approximator for the state-action value function $Q(s,a)$. This approach was able to train neural networks that achieved human level performance across a set of 49 Atari 2600 games.
+
+Historically, applications of neural networks to reinforcement learning failed because they were unstable and divergent. This was due to temporally correlated sequences of states, actions, and rewards arising during an episode causing over fitting in the network during training \cite{Tsitsiklis1997}. Mnih \textit{et alias} overcame the temporal correlations problem by creating a buffer, $D$, to store agent experience, $(s_t, a_t, r_t, s_{t+1})$. At each time step, experience is recalled from the buffer via uniform random sampling. The samples are then used to train the network. The technique is referred to as \textit{experience replay}.
+
+
+
+The update process uses a loss function, and gradient descent, along with backpropagation.
+
+The other key innovation was the use of a second neural network, called the target network. The target network was a copy of the original neural network, updated periodically. 
+
+
+\begin{algorithm}[h]
+	\caption{DQN Algorithm}
+	\begin{algorithmic}[1]
+		\State{Initialise replay memory $D$ to capacity $N$}
+		\State{Initialise action-value function $Q$ with random weights $\theta$}
+		\State{Initialise target action-value function $Q$ with weights $\theta^- = \theta$}
+		\For{$episode \gets 1:M$}
+			\State{Receive initial observation state $s_1$}
+			\For{$t \gets 1:T$}
+				\State{With probability $\epsilon$ select a random action $a_t$} otherwise select $a_t = \arg\max_a Q(s_t, a; \theta)$
+				\State{Execute action $a_t$ and observe reward $r_t$ and state $s_{t+1}$}
+				\State{Store transition ($s_t$, $a_t$, $r_t$, $s_{t+1}$) in $D$}
+				\State{Sample random minibatch of transitions ($s_j$, $a_j$, $r_j$, $s_{j+1}$) from $D$}
+				\State{Set $y_j = \begin{cases}
+									r_j \ \ \text{if episode terminates at step} \ \ j+1 \\
+									r_j + \gamma \max_{a^\prime} \hat{Q}(s_{j+1, a^\prime; \theta^-}) \ \ \text{otherwise}
+								  \end{cases}$}
+				\State{Perform a gradient descent step on $\big( y_j + Q(s_j, a_j; \theta) \big)^2$ with respect to network parameters $\theta$}
+				\State{Every $C$ steps reset $\hat{Q} = Q$}
+			\EndFor
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
 
 \subsection{Deep Deterministic Policy Gradient}
 
