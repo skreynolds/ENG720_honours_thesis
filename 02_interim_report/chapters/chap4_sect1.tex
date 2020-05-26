@@ -1,54 +1,75 @@
 \section{Model Development and Implementation}
+Models were developed in a modular fashion breaking up the environment and controllers so that only one environmental model had to be created
 
 %---------------- SS: Environment
 
-\subsection{Environment} \label{ssec:env_modelling}
-The environment model described in \textsection \ref{ssec:modelling_two_area_system}, and shown in Figure \ref{fig:208_two_area_pi_control_model}, exists in the frequency domain. Classical approaches for analysing systems in the frequency domain, using Laplacian transforms for example, are not suitable for this research for two reasons. Firstly, according to reinforcement learning architectures outlined in \textsection \ref{sec:reinforcement_learning}, control signals from the neural network agent need to be introduced to the system at each time step. This would be difficult to achieve in the frequency domain, unless the neural network is also expressed in the frequency domain, and its Laplacian transform is known. Secondly, techniques such as Laplacian transforms assume that the system initial conditions are zero \cite{Ogat2010}. Whilst the second assumption would work when modelling variable deviations from initial conditions, this approach would limit the ability to extend research findings to real world conditions.
+\subsection{Environment Model} \label{ssec:env_modelling}
+The two area power system model described in \textsection \ref{ssec:modelling_two_area_system}, and shown in Figure \ref{fig:208_two_area_pi_control_model}, was converted from the frequency domain to the temporal domain. The main reason for taking this approach is to provide reinforcement learning architectures, outlined in \textsection \ref{sec:reinforcement_learning}, with the ability to export control signals to the power system at each time step. This approach is a common practice when developing environments for reinforcement learning \cite{Brockman2016}. Additionally, frequency domain simulation techniques, such as Laplacian transforms, have strict initial condition assumptions \cite{Ogat2010}, that would limit the reach of research findings to real world applications.
 
-Given this, conversion of the environment system model from the frequency to the temporal domain is desirable. Moreover, in order to accommodate numerical analysis schemes, such as Runge-Kutta, the environment system should be expressed as a first order system of ordinary linear differential equations. A full derivation of the first order linear system is described in Appendix \ref{app:C1_power_system_ode}.
+Higher order ordinary differential equations and systems involving higher order ordinary differential equations would provide a more compact system representation; however, to accommodate numerical analysis schemes, such as Runge-Kutta, the environment system was expressed as a first order system of linear ordinary differential equations.
 
-The first order system of linear ordinary differential equations for area 1 is:
+\begin{figure}[h]
+	\centering
+	\resizebox{\textwidth}{!}{\input{./figures/4101_two_area_power_system_temporal_model/two_area_power_system_temporal_model}}
+	\caption{text}
+	\label{4101_two_area_power_system_temporal_model}
+\end{figure}
+
+Suppose variables are assigned to the power system according to Figure \ref{4101_two_area_power_system_temporal_model}. The first order system of linear ordinary differential equations for area 1 is:
 \begin{align}
 	\dot{x}_2(t) &= \frac{1}{T_{sg_1}}\big( K_{sg_1} u_1(t) - x_2(t) \big) \label{eq:4101} \\
 	\dot{x}_3(t) &= \frac{1}{T_{t_1}} \big( K_{t_1} x_2(t) - x_3(t) \big) \label{eq:4102} \\
-	\dot{x}_4(t) &= \frac{1}{T_{gl_1}} \bigg( K_{gl_1} \big( x_3(t) - x_5(t) - \Delta p_{L1}(t) \big) - x_4(t) \label{eq:4103} \bigg)
-\end{align}
-	
-The first order system of linear ordinary differential equations for area 2 is:
-\begin{align}
-	\dot{x}_7(t) &= \frac{1}{T_{sg_2}}\big( K_{sg_2} u_2(t) - x_7(t) \big) \label{eq:4104} \\
-	\dot{x}_8(t) &= \frac{1}{T_{t_2}} \big( K_{t_2} x_7(t) - x_8(t) \label{eq:4105} \big)\\
-	\dot{x}_9(t) &= \frac{1}{T_{gl_2}} \bigg( K_{gl_2} \big( x_8(t) - x_5(t) - \Delta p_{L2}(t) \big) - x_9(t) \label{eq:4106} \bigg)
+	\dot{x}_4(t) &= \frac{1}{T_{gl_1}} \bigg( K_{gl_1} \big( x_3(t) - x_5(t) - \Delta p_{L1}(t) \big) - x_4(t) \bigg) \label{eq:4103}  \\
+	\dot{x}_5(t) &= 2 \pi T_{12} \big( x_4(t) - x_9(t) \big) \label{eq:4104} \\
+	\dot{x}_7(t) &= \frac{1}{T_{sg_2}}\big( K_{sg_2} u_2(t) - x_7(t) \big) \label{eq:4105} \\
+	\dot{x}_8(t) &= \frac{1}{T_{t_2}} \big( K_{t_2} x_7(t) - x_8(t) \big) \label{eq:4106} \\
+	\dot{x}_9(t) &= \frac{1}{T_{gl_2}} \bigg( K_{gl_2} \big( x_8(t) - x_5(t) - \Delta p_{L2}(t) \big) - x_9(t) \bigg) \label{eq:4107}
 \end{align}
 
-The first order linear ordinary differential equation for the tie-line connecting areas 1 and 2 is:
-\begin{equation}
-	\dot{x}_5(t) = 2 \pi T_{12} \big( x_4(t) - x_9(t) \big) \label{eq:4107}
-\end{equation}
+A full derivation of the first order linear system described by equations \ref{eq:4101} through \ref{eq:4107} is described in Appendix \ref{app:C1_power_system_ode}. The system of equation were implemented as a method \verb|int_power_system_sim| in a Python class \verb|TwoAreaPowerSystemEnv|. Implementation for \verb|int_power_system_sim| is detailed in Appendix \ref{app:implementation_of_power_system_model}.
 
-Equations \ref{eq:4101} through \ref{eq:4107} were implemented as a method called \verb|int_power_system_sim| in a Python class called \verb|TwoAreaPowerSystemEnv|.
 
-Implementation for \verb|int_power_system_sim| is detailed in Appendix \ref{app:implementation_of_power_system_model}.
 
 %---------------- SS: PI Controller
 
-\subsection{Classical PI Controller}
-The proportional integral (PI) controller model described in \textsection \ref{ssec:control_two_area_system}, and shown in Figure \ref{fig:208_two_area_pi_control_model} needs to be expressed in the temporal domain for the same reasons as those described in section \ref{ssec:env_modelling}. A full derivation of the first order linear system is described in Appendix \ref{sec:temporal_domain_for_pi_controller}.
+\subsection{Classical PI Controller Model}
+The proportional integral (PI) controller model described in \textsection \ref{ssec:control_two_area_system}, and shown in Figure \ref{fig:208_two_area_pi_control_model}, was also converted from the frequency domain to the temporal domain to ensure compatibility with the environment model.
 
-The first order system of linear differential equations for the PI controller are:
+\begin{figure}[h]
+	\begin{minipage}[b]{0.5\textwidth}
+		\resizebox{7.0cm}{!}{\input{./figures/4102_two_area_pi_controller_temporal_1/two_area_pi_controller_temporal_1}}
+		\caption{}
+		\label{fig:4102_two_area_pi_controller_temporal_1}
+	\end{minipage}
+	\hspace{0.1cm}
+	\begin{minipage}[b]{0.5\textwidth}
+		\resizebox{7.2cm}{!}{\input{./figures/4103_two_area_pi_controller_temporal_2/two_area_pi_controller_temporal_2}}
+		\caption{}
+		\label{fig:4103_two_area_pi_controller_temporal_2}
+	\end{minipage}
+\end{figure}
+
+Suppose variables are assigned to the controller for area 1 and the controller for area 2 according to Figures \ref{fig:4102_two_area_pi_controller_temporal_1} and \ref{fig:4103_two_area_pi_controller_temporal_2}, respectively. The first order system of linear differential equations for the PI controller are:
 \begin{align}
-	\dot{x}_1(t) &= b_1 \Delta f_1(t) + x_5(t) \\
-	\dot{x}_6(t) &= b_2 \Delta f_2(t) - x_5(t)
+	\dot{x}_1(t) &= b_1 \Delta f_1(t) + x_5(t) \label{eq:4108} \\
+	\dot{x}_6(t) &= b_2 \Delta f_2(t) - x_5(t) \label{eq:4109}
 \end{align}
 
+Note that once the PI controller has been stepped forward in time during simulation the actual control signals exported from the controller are $u_1(t)$ and $u_2(t)$. These are expressed as:
+\begin{align}
+	u_1(t) &= x_1(t) + x_5(t) - R_1 x_4(t) \\
+	u_2(t) &= x_6(t) - x_5(t) - R_2 x_9(t) 
+\end{align}
+
+A full derivation of the first order linear system described by equations \ref{eq:4108} and \ref{eq:4109} is described in Appendix \ref{sec:temporal_domain_for_pi_controller}. The system of equations were implemented as a method \verb|int_control_system_sim| in a Python class \verb|ClassicalPiController|. Implementation for \verb|int_control_system_sim| is detailed in Appendix \ref{sec:implementation_of_controller}.
 
 %---------------- SS: DDPG Controller
 
-\subsection{DDPG Neural Networks}
+\subsection{DDPG Trained Neural Network Controller}
 
-\subsubsection{Neural Network Architecture}
+\subsubsection{Neural Network Models}
 
-\subsubsection{title}
+\subsubsection{DDPG Training Algorithm}
 
 
 %---------------- SS: DDPG Controller
