@@ -5,11 +5,12 @@ Reinforcement learning algorithms outlined in \textsection \ref{sec:reinforcemen
 
 Historically, applications of neural networks to reinforcement learning failed because they were unstable and divergent. This was due to temporally correlated sequences of states, actions, and rewards arising during an episode causing over fitting in the network during training \cite{Tsitsiklis1997}. Mnih \textit{et alias} overcame the temporal correlations problem by creating a buffer, $D$, to store agent experience, $(s_t, a_t, r_t, s_{t+1})$. At each time step, experience is recalled from the buffer via uniform random sampling. The samples are then used to train the network. The technique is referred to as \textit{experience replay}.
 
+The other main innovation from DQN was the use of a second neural network called the \textit{target network}. Prior to DQN, Q-learning updates (\ref{eq:214}) were used to create a loss function using only the network parameters $\theta$. Letting the notation $(s,a,r,s^\prime) \sim U(D)$ denote uniform random sampling from the buffer, the DQN loss function can be expressed as:
+\begin{equation}
+	L_i(\theta_i) = \mathbb{E}_{(s,a,r,s^\prime) \sim U(D)} \bigg[ \bigg( r + \gamma \max_{a^\prime} Q(s^\prime, a^\prime; \theta_i) - Q(s, a; \theta_i) \bigg)^2 \bigg] \label{eq:2401}
+\end{equation}
 
-
-The update process uses a loss function, and gradient descent, along with backpropagation.
-
-The other key innovation was the use of a second neural network, called the target network. The target network was a copy of the original neural network, updated periodically. 
+Appling gradient descent to \ref{eq:2401} creates error values which are backpropagated through the network to adjust network weights, as described in \textsection \ref{sec:networktraining}. The problem with this approach is the correlation between the state-action values $Q(s,a)$ and the target values $r + \gamma \max_{a^\prime} Q(s^\prime,a^\prime)$, which makes learning unstable and divergent, similarly to the temporal correlation problem described above. Mnih \textit{et alias} overcame this issue by specifying a second set of network parameters, $\theta^-$, referred to as the target network. The target network parameters, $\theta^-$, are just a copy of the original network parameters $\theta$, that are updated periodically.
 
 
 \begin{algorithm}[h]
