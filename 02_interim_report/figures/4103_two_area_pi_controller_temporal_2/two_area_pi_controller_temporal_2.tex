@@ -1,0 +1,66 @@
+%----------- Create a fancy summing block
+\tikzset{add/.style n args={4}{
+		minimum width=6mm,
+		path picture={
+			\draw[black] 
+			(path picture bounding box.south east) -- (path picture bounding box.north west)
+			(path picture bounding box.south west) -- (path picture bounding box.north east);
+			\node at ($(path picture bounding box.south)+(0,0.13)$)     {\tiny #1};
+			\node at ($(path picture bounding box.west)+(0.13,0)$)      {\tiny #2};
+			\node at ($(path picture bounding box.north)+(0,-0.13)$)    {\tiny #3};
+			\node at ($(path picture bounding box.east)+(-0.13,0)$)     {\tiny #4};
+		}
+	}
+}
+
+%----------- Block style 1
+\tikzstyle{block1} = [draw, fill=white!80!blue, rectangle, 
+minimum height=3em, minimum width=6em, node distance=2.5cm]
+
+%----------- Block style 2
+\tikzstyle{block2} = [draw, fill=white!80!blue, rectangle, 
+minimum height=3em, minimum width=3em, node distance=2.5cm]
+
+%----------- Sum style
+\tikzstyle{sum} = [draw, fill=white!80!blue, circle, node distance=2cm]
+
+%----------- Input style
+\tikzstyle{input} = [coordinate, node distance=4cm]
+
+%----------- Output style
+\tikzstyle{output} = [coordinate, node distance=4cm]
+
+%----------- Pin style
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\begin{tikzpicture}	
+	% Initial position node
+	\node [coordinate] (c1) {};
+	
+	
+	% Create nodes for lower leg
+	\node [sum, below of=c1, add={+}{}{$-$}{}, node distance=3.5cm] (sum5) {};
+	\node [coordinate, below of=sum5, node distance=1.25cm] (c11) {};
+	\node [coordinate, right of=c11, node distance=2cm] (c13) {};
+	\node [coordinate, right of=sum5, node distance=2cm] (c3) {};
+	\node [coordinate, above of=c3] (c5) {};
+	\node [block2, above of=sum5, node distance=1.75cm] (r2) {$R_2$};
+	\node [coordinate, above of=r2] (c7) {};
+	\node [coordinate, right of=c7, node distance=2cm] (c9) {};
+	\node [block2, left of=sum5] (int2) {$\frac{K_{i_2}}{s}$};
+	\node [sum, left of=int2, add={+}{ }{+}{ }] (sum7) {};
+	\node [block2, above of=sum7, node distance=1.75cm] (b2) {$b_2$};
+	
+	
+	% Connect nodes
+	\draw [->] (sum5) -- node [at end, label=right:{$u_2(t)$}] {} (c3);
+	\draw [->] (r2) -- (sum5);
+	\draw [->] (b2) -- (sum7);
+	\draw [->] (sum7) -- (int2);
+	\draw [->] (int2) -- node [label=below:{$x_6(t)$}] {} (sum5);
+	\draw [->] (c9) -| node [at start, label=right:{$x_9(t)$}] {} (r2);
+	\draw [->] (c9) -| (b2);
+	\draw [->] (c13) -| node [at start, label=right:{$-x_5(t)$}] {} (sum5);
+	\draw [->] (c13) -| (sum7);
+	
+\end{tikzpicture}
