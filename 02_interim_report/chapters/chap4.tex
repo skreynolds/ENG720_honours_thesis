@@ -1,55 +1,18 @@
 \chapter{Approach}
+The approach is broken up into four main phases, undertaken sequentially. The first phase focuses on model development and implementation of the power system environment, proportional integral controller, and the deep deterministic policy gradient (DDPG) agent. The second phase undertakes preliminary investigations of simulation system settings and DDPG agent learning hyperparameters to understand DDPG control feasibility. The third phase will conduct the experiments on both the DDPG agent and PI controller's capacity to cope with stochastic load demand profiles, and plant non-linearity. Finally, the fourth phase will analyse the results found in phase three comparing the performance of DDPG and PI controllers.
 
 %---------------- S: Model Dev. and Implementation
 
-\section{Model Development and Implementation}
-
-%---------------- SS: Environment
-
-\subsection{Environment}
-
-%---------------- SS: PI Controller
-
-\subsection{Classical PI Controller}
-
-%---------------- SS: DDPG Controller
-
-\subsection{DDPG Neural Networks}
-
+\input{./chapters/chap4_sect1}
 
 %---------------- S: Prelim. Investigation
 
-\section{Preliminary Investigation}
-
-%---------------- SS: Hyperparams
-
-\subsection{Training Hyperparameters}
-
-%---------------- SS: Reward Function
-
-\subsection{Reward Function}
-
-%---------------- SS: OU Process
-
-\subsection{Ornstein–Uhlenbeck Process}
-
-%---------------- SS: DDPG Neural Network Selection
-
-\subsection{DDPG Neural Network Selection}
-
+\input{./chapters/chap4_sect2}
 
 %---------------- S: Main Experimentation
 
-\section{Experimentation}
-
-%---------------- S: Introduction of Non-linearity
-
-\subsection{Modelling Non-linearity}
-
-%---------------- S: Real World Load Demand
-
-\subsection{Real World Load Demand}
+\input{./chapters/chap4_sect3}
 
 %---------------- S: Analysis
 
-\section{Analysis}
+\input{./chapters/chap4_sect4}

@@ -1,17 +1,19 @@
 \section{Deep Reinforcement Learning}\label{drl}
+Deep reinforcement learning (DRL) refers to the use of deep neural networks in reinforcement learning frameworks. Typically, either 
 
 \subsection{Deep Q-Learning}
-Reinforcement learning algorithms outlined in \textsection \ref{sec:reinforcement_learning} are capable of controlling environments with low dimensional state space representations, but perform poorly in environments with high dimensional state space representations. In 2015 Mnih \textit{et alias} published a ground breaking paper that presented a novel agent: a deep Q-network (DQN) \cite{Mnih2015}. The agent was able to take advantage of recent developments in the field of deep neural networks, discussed in \textsection \ref{sec:deep_neural_networks}, and combine them with the Q-learning algorithm, discussed in \textsection \ref{sec:reinforcement_learning}. Adapting the Q-learning algorithm, Mnih \textit{et alias} trained a neural network to act as a function approximator for the state-action value function $Q(s,a)$. This approach was able to train neural networks that achieved human level performance across a set of 49 Atari 2600 games.
+Reinforcement learning algorithms outlined in \textsection \ref{sec:reinforcement_learning} are capable of controlling environments with low dimensional state space representations, but perform poorly in environments with high dimensional state space representations. In 2015 Mnih \textit{et alias} published a ground breaking paper that presented a novel agent: a deep Q-network (DQN) \cite{Mnih2015}. The agent was able to take advantage of recent developments in the field of deep neural networks, discussed in \textsection \ref{sec:deep_neural_networks}, and combine them with the Q-learning algorithm, discussed in \textsection \ref{sec:reinforcement_learning}. Adapting the Q-learning algorithm, Mnih \textit{et alias} trained a neural network, $Q(s,a;\theta)$, to act as a function approximator for the state-action value function $Q(s,a)$. This approach was able to train agents that achieved human level performance across a set of 49 Atari 2600 games.
 
-Historically, applications of neural networks to reinforcement learning failed because they were unstable and divergent. This was due to temporally correlated sequences of states, actions, and rewards arising during an episode causing over fitting in the network during training \cite{Tsitsiklis1997}. Mnih \textit{et alias} overcame the temporal correlations problem by creating a buffer, $D$, to store agent experience, $(s_t, a_t, r_t, s_{t+1})$. At each time step, experience is recalled from the buffer via uniform random sampling. The samples are then used to train the network. The technique is referred to as \textit{experience replay}.
+Historically, applications of neural networks to reinforcement learning failed because they were unstable and divergent. One of the reasons was due to temporally correlated sequences of states, actions, and rewards arising during an episode causing over fitting in the network during training \cite{Tsitsiklis1997}. Mnih \textit{et alias} overcame the temporal correlations problem by creating a buffer, $D$, to store agent experience, $(s_t, a_t, r_t, s_{t+1})$. At each time step, experience is recalled from the buffer via uniform random sampling. The samples are then used to train the network. The technique is referred to as \textit{experience replay}.
 
-The other main innovation from DQN was the use of a second neural network called the \textit{target network}. Prior to DQN, Q-learning updates (\ref{eq:214}) were used to create a loss function using only the network parameters $\theta$. Letting the notation $(s,a,r,s^\prime) \sim U(D)$ denote uniform random sampling from the buffer, the DQN loss function can be expressed as:
+The other main innovation from DQN was the use of a second neural network called the \textit{target network}, represented by $\hat{Q}(s,a;\theta^-)$. The target network parameters, $\theta^-$, are a copy of the original network parameters $\theta$, that are updated periodically. Letting the notation $(s,a,r,s^\prime) \sim U(D)$ denote uniform random sampling from the buffer, the DQN loss function can be expressed as the mean-squared error of the Q-learning update (\ref{eq:214}):
 \begin{equation}
-	L_i(\theta_i) = \mathbb{E}_{(s,a,r,s^\prime) \sim U(D)} \bigg[ \bigg( r + \gamma \max_{a^\prime} Q(s^\prime, a^\prime; \theta_i) - Q(s, a; \theta_i) \bigg)^2 \bigg] \label{eq:2401}
+	L_i(\theta_i) = \mathbb{E}_{(s,a,r,s^\prime) \sim U(D)} \bigg[ \bigg( r + \gamma \max_{a^\prime} \hat{Q}(s^\prime, a^\prime; \theta_i^-) - Q(s, a; \theta_i) \bigg)^2 \bigg] \label{eq:2401}
 \end{equation}
 
-Appling gradient descent to \ref{eq:2401} creates error values which are backpropagated through the network to adjust network weights, as described in \textsection \ref{sec:networktraining}. The problem with this approach is the correlation between the state-action values $Q(s,a)$ and the target values $r + \gamma \max_{a^\prime} Q(s^\prime,a^\prime)$, which makes learning unstable and divergent, similarly to the temporal correlation problem described above. Mnih \textit{et alias} overcame this issue by specifying a second set of network parameters, $\theta^-$, referred to as the target network. The target network parameters, $\theta^-$, are just a copy of the original network parameters $\theta$, that are updated periodically.
+Appling gradient descent to \ref{eq:2401} creates error values which are backpropagated through the network to adjust network weights, as described in \textsection \ref{sec:networktraining}. If the target network is not used then a correlation arises between the state-action values $Q(s,a; \theta)$ and the target values, $r + \gamma \max_{a^\prime} Q(s^\prime,a^\prime; \theta)$, causing unstable learning, similar to the temporal correlation problem described above.
 
+The DQN algorithm is summarised in listing \ref{alg:2401}.
 
 \begin{algorithm}[h]
 	\caption{DQN Algorithm}
@@ -28,16 +30,19 @@ Appling gradient descent to \ref{eq:2401} creates error values which are backpro
 				\State{Sample random minibatch of transitions ($s_j$, $a_j$, $r_j$, $s_{j+1}$) from $D$}
 				\State{Set $y_j = \begin{cases}
 									r_j \ \ \text{if episode terminates at step} \ \ j+1 \\
-									r_j + \gamma \max_{a^\prime} \hat{Q}(s_{j+1, a^\prime; \theta^-}) \ \ \text{otherwise}
+									r_j + \gamma \max_{a^\prime} \hat{Q}(s_{j+1}, a^\prime; \theta^-) \ \ \text{otherwise}
 								  \end{cases}$}
-				\State{Perform a gradient descent step on $\big( y_j + Q(s_j, a_j; \theta) \big)^2$ with respect to network parameters $\theta$}
+				\State{Perform a gradient descent step on $\big( y_j - Q(s_j, a_j; \theta) \big)^2$ with respect to network parameters $\theta$}
 				\State{Every $C$ steps reset $\hat{Q} = Q$}
 			\EndFor
 		\EndFor
-	\end{algorithmic}
+	\end{algorithmic}\label{alg:2401}
 \end{algorithm}
 
+The DQN algorithm is able to train neural networks to solve problems with high-dimensional state spaces; however, it is only suitable for discrete, low-dimensional actions spaces (REFERENCE). This is because the algorithm needs to calculate the maximum over actions during the update step, as shown in line 11 of Listing \ref{alg:2401}. The implication being that each update step would be computationally expensive for action spaces with a large number of discrete actions, and computationally intractable for continuous action spaces (REFERENCE).
+
 \subsection{Deep Deterministic Policy Gradient}
+In late 2015 Lillicrap \textit{et alias} adapted key ideas from DQN and the deterministic policy gradient theorem from \cite{Silver2014} to develop an algorithm, Deep Deterministic Policy Gradient (DDPG), that could train a neural network successfully on problems with continuous action domains \cite{Lillicrap2015}. DDPG uses a total of four neural networks. The first network is called the actor, denoted by $\pi$. The second network is called the critic, denoted by $Q$. DDPG makes use of DQN's target networks idea, implementing a further two neural networks --- one for each of the actor and critic networks.
 
 \begin{algorithm}[h]
 	\caption{DDPG Algorithm}
