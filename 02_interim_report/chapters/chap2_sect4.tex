@@ -1,7 +1,7 @@
-\section{Deep Reinforcement Learning}\label{drl}
+\section{Deep Reinforcement Learning}\label{sec:deep_reinforcement_learning}
 Deep reinforcement learning (DRL) refers to the use of deep neural networks in reinforcement learning frameworks. Typically, either 
 
-\subsection{Deep Q-Learning}
+\subsection{Deep Q-Learning}\label{ssec:deep_q_learning}
 Reinforcement learning algorithms outlined in \textsection \ref{sec:reinforcement_learning} are capable of controlling environments with low dimensional state space representations, but perform poorly in environments with high dimensional state space representations. In 2015 Mnih \textit{et alias} published a ground breaking paper that presented a novel agent: a deep Q-network (DQN) \cite{Mnih2015}. The agent was able to take advantage of recent developments in the field of deep neural networks, discussed in \textsection \ref{sec:deep_neural_networks}, and combine them with the Q-learning algorithm, discussed in \textsection \ref{sec:reinforcement_learning}. Adapting the Q-learning algorithm, Mnih \textit{et alias} trained a neural network, $Q(s,a;\theta)$, to act as a function approximator for the state-action value function $Q(s,a)$. This approach was able to train agents that achieved human level performance across a set of 49 Atari 2600 games.
 
 Historically, applications of neural networks to reinforcement learning failed because they were unstable and divergent. One of the reasons was due to temporally correlated sequences of states, actions, and rewards arising during an episode causing over fitting in the network during training \cite{Tsitsiklis1997}. Mnih \textit{et alias} overcame the temporal correlations problem by creating a buffer, $D$, to store agent experience, $(s_t, a_t, r_t, s_{t+1})$. At each time step, experience is recalled from the buffer via uniform random sampling. The samples are then used to train the network. The technique is referred to as \textit{experience replay}.
@@ -41,7 +41,7 @@ The DQN algorithm is summarised in listing \ref{alg:2401}.
 
 The DQN algorithm is able to train neural networks to solve problems with high-dimensional state spaces; however, it is only suitable for discrete, low-dimensional actions spaces (REFERENCE). This is because the algorithm needs to calculate the maximum over actions during the update step, as shown in line 11 of Listing \ref{alg:2401}. The implication being that each update step would be computationally expensive for action spaces with a large number of discrete actions, and computationally intractable for continuous action spaces (REFERENCE).
 
-\subsection{Deep Deterministic Policy Gradient}
+\subsection{Deep Deterministic Policy Gradient}\label{ssec:deep_deterministic_policy_gradient}
 In late 2015 Lillicrap \textit{et alias} adapted key ideas from DQN and the deterministic policy gradient theorem from \cite{Silver2014} to develop an algorithm, Deep Deterministic Policy Gradient (DDPG), that could train a neural network successfully on problems with continuous action domains \cite{Lillicrap2015}. DDPG uses a total of four neural networks. The first network is called the actor, denoted by $\pi$. The second network is called the critic, denoted by $Q$. DDPG makes use of DQN's target networks idea, implementing a further two neural networks --- one for each of the actor and critic networks.
 
 \begin{algorithm}[h]

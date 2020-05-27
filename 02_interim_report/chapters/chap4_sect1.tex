@@ -63,16 +63,29 @@ Note that once the PI controller has been stepped forward in time during simulat
 
 A full derivation of the first order linear system described by equations \ref{eq:4108} and \ref{eq:4109} is described in Appendix \ref{sec:temporal_domain_for_pi_controller}. The system of equations were implemented as a method \verb|int_control_system_sim| in a Python class \verb|ClassicalPiController|. Implementation for \verb|int_control_system_sim| is detailed in Appendix \ref{sec:implementation_of_controller}.
 
-%---------------- SS: DDPG Controller
+%---------------- SS: DDPG NN Controller
 
-\subsection{DDPG Trained Neural Network Controller}
-
-\subsubsection{Neural Network Models}
-
-\subsubsection{DDPG Training Algorithm}
+\subsection{DDPG Neural Network Controller}
+Deep deterministic policy gradient (DDPG), described in \textsection \ref{ssec:deep_deterministic_policy_gradient}, is used to train neural networks to perform control actions given a state observation. Recall that DDPG uses actor and critic networks, both of which also have target networks. The implication is that a total of four neural networks are required for a single DDPG controller instance. To accommodate this requirement, two Python class were created: one for the actor called \verb|Actor|, and another for the critic called \verb|Critic|. Both actor and critic networks were structured using an input layer, two hidden layers and an output layer --- an identical structure to experiments conducted by Lillicrap \textit{et alias}. Neural network hidden layers used rectified linear units (ReLU) for activation functions, and the final output layer of the actor network used a $\tanh$ activation function.
 
 
-%---------------- SS: DDPG Controller
+
+
+
+
+
+%---------------- SS: DDPG Training
+
+\subsection{DDPG Training Algorithm}
+
+The DDPG algorithm, shown in listing \ref{}, was implemented as a Python class \verb||
+
+%---------------- SS: Simulation
 
 \subsection{Simulation}
 Method implementation details are shown in Appendix XXXX. The method is used as an argument for another method of the same class, called \verb|step|. When \verb|step| is called with \verb|int_power_system_sim| as an argument, the system simulation will iterate a single time step, which is performed using function \verb|odeint| from Python's Scipy library.
+
+
+
+
+Policy network architecture can significantly impact results for DDPG. Furthermore, certain activation functions such as rectified linear units (ReLU) have been shown to cause worsened learning performance due to the dying relu problem.
