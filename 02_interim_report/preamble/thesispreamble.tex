@@ -43,6 +43,9 @@
 \usepackage{multirow}
 % Entries in tables over multiple rows
 
+\usepackage{cprotect}
+% protects verb in captions
+
 \usepackage{rotating}
 % Provides the ability to rotate a figure into landscape mode (does not create page in landscape)
 
@@ -134,7 +137,10 @@
 		otherkeywords={self},
 		keywordstyle=\ttb\color{deepblue},
 		emph={__init__,
-				int_power_system_sim, int_control_system_sim},
+			  int_power_system_sim, int_control_system_sim,
+			  Actor,
+			  reset_parameters,
+			  forward},
 		emphstyle=\ttb\color{deepred},
 		stringstyle=\ttm\color{magenta},
 		commentstyle=\ttm\color{deepgreen},

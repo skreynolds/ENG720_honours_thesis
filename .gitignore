@@ -3,6 +3,7 @@
 *.bbl
 *.bcf
 *.blg
+*.cpt
 *.log
 *.lof
 *.lot

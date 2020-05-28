@@ -48,7 +48,7 @@ Figure \ref{fig:2301_perceptron_model} provides an shows the computational model
 
 %------------------------ SS: Activation Functions
 
-\subsection{Activation Functions}
+\subsection{Activation Functions}\label{sec:activation_functions}
 The activation function is a key component of Rosenblatt's perceptron --- it determines if the perceptron will activate or not. Rosenblatt's model used a Heaviside step function, which was effective under his perceptron learning algorithm for some classification tasks. In 1969, Minsky and Papert published a book called Perceptrons that argued Rosenblatt's perceptron had significant limitations, such as the inability to solve exclusive-or (XOR) classification problems \cite{Minsky1969}. This limitation was overcome by increasing the size of neural networks, which subsequently required the development of new algorithms to train the networks. One such algorithm is backpropagation \cite{Werbos1982}. The backpropagation algorithm is discussed further in \textsection \ref{sec:networktraining}; however, one important aspect is that it requires a differentiable activation function (REFERENCE). The Heaviside function is non-differentiable at $x = 0$, and has a zero derivative elsewhere and is therefore not suitable (REFERENCE). According to Haykin, a number of different activation functions can be adopted to replace the Heaviside function \cite{Haykin99}. Two of the most common are:
 \begin{enumerate}
 	\item Hyperbolic tangent: $f:\mathbb{R} \to (-1,1)$, shown in Figure \ref{fig:2303_tanh_activation_function}, where
