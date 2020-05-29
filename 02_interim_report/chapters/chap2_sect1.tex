@@ -47,22 +47,61 @@ Load following control adjusts regulating units in order to match supply with a 
 %------------------------ SS: Modelling a Single Area
 
 \subsection{Modelling a Single Area System}
-The power system model shown in Figure \ref{fig:201_power_system} depicts total generation coming from many generation assets --- this is complex to model. Researchers often find it useful to divide generation assets into sub-groups referred to as control areas \cite{Kothari2011}. A control area is defined as a subset of generators that are in close proximity to each other and constitute a coherent group that speed up and slow down together, maintaining their relative power angles \cite{Kothari2011}. Therefore, the total network is comprised of many interconnected control areas. An example of this can be seen in Figure \ref{fig:205_multiple_area_system}. Notice that for each area there is only one load and one generator.
+The power system model shown in Figure \ref{fig:201_power_system} depicts total generation coming from many generation assets --- this is complex to model. Researchers often find it useful to divide generation assets into sub-groups referred to as control areas \cite{Kothari2011}. A control area is defined as a subset of generators that are in close proximity to each other and constitute a coherent group that speed up and slow down together, maintaining their relative power angles \cite{Kothari2011}. Therefore, the total network is comprised of many interconnected control areas. An example of this can be seen in Figure \ref{fig:2105_multiple_area_system}. Notice that for each area there is only one load and one generator.
 \begin{figure}[ht]
 	\centering
-	\resizebox{12cm}{!}{\input{./figures/205_multiple_area_power_system_overview/multiple_area_power_system_overview}}
+	\resizebox{12cm}{!}{\input{./figures/2105_multiple_area_power_system_overview/multiple_area_power_system_overview}}
 	\caption[Multiple area power system]{An example of three interconnected control areas in a 60$\si{\hertz}$ power system. The interconnections allow power to flow from one area to another, allowing generators to service loads from different areas. Each control area consists of several generators and loads, but are modelled with a single generator and single load for simplicity \cite{Grainger1994}.}
-	\label{fig:205_multiple_area_system}
+	\label{fig:2105_multiple_area_system}
 \end{figure}
 
-Typically, for each control area, researchers will aggregate many loads into a single load, and many generators into a single generator. This simplifies the model further \cite{Grainger1994}. The simplest power system to control is one that consists of a single control area. A single control area power system has no interconnections to any other control area. It is comprised of a consumer load demand, and a set of generators, some of which are acting as regulating units. As previously mentioned, for modelling simplicity, loads are aggregated to a single load, and generators can be aggregated to a single generator. This simple system, shown in Figure \ref{fig:205a_single_area_system_overview} is well understood.
+Typically, for each control area, researchers will aggregate many loads into a single load, and many generators into a single generator. This simplifies the model further \cite{Grainger1994}. The simplest power system to control is one that consists of a single control area. A single control area power system has no interconnections to any other control area. It is comprised of a consumer load demand, and a set of generators, some of which are acting as regulating units. As previously mentioned, for modelling simplicity, loads are aggregated to a single load, and generators can be aggregated to a single generator. This simple system, shown in Figure \ref{fig:2106_single_area_system_overview} is well understood.
 
 \begin{figure}[h]
 	\centering
-	\resizebox{4.5cm}{!}{\input{./figures/205a_single_area_power_system_overview/single_area_power_system_overview}}
+	\resizebox{4.5cm}{!}{\input{./figures/2106_single_area_power_system_overview/single_area_power_system_overview}}
 	\caption[Single area power system]{A single area power system has a load and a generator, with no connections to other power areas}
-	\label{fig:205a_single_area_system_overview}
+	\label{fig:2106_single_area_system_overview}
 \end{figure}
+
+When expressing the single area model mathematically, researchers consider three separate elements: the governor, the turbine, and the generator-load.
+
+\subsubsection{Governor Model}
+The governor is a device which is used to regulate the speed of a generator. It is often modelled as a first order system (REFERENCE), as shown in Figure \ref{fig:2107_governor_model}. The governor receives an input, $\Delta P_C(s)$, which represents a power increase/decrease command brought about by adjusting the governor speed changer (REFERENCE). Older governors operated by mechanically coupling the governor with the rotating shaft of the generator (REFERENCE); however, newer governors operate electronically (REFERENCE). Owing to the older mechanical governor designs, governor models often include a proportional feedback loop using turbine rotational frequency change, $\Delta F(s)$. The output, $\Delta Y_E(s)$, represents a control signal to change the turbine steam valve position (REFERENCE). The model parameter $K_{sg}$ is the static gain of the speed-governing mechanism, and the parameter $T_{sg}$ is the time constant of the speed-governing mechanism (REFERENCE).
+
+The complete frequency domain derivation of the governor model can be found in Appendix \ref{app:governor_model}.
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/2107_governor_model/governor_model}
+	\caption[Frequency domain model for governor]{Frequency domain model for the generator governor.}
+	\label{fig:2107_governor_model}
+\end{figure}
+
+\subsubsection{Turbine Model}
+A steam turbine converts energy stored in the form of high pressure and high temperature steam into rotational energy (REFERENCE). The steam is created in a boiler heated by fossil fuel combustion (REFERENCE). Alternatively, a nuclear reactor could be used to produce the heat (REFERENCE). The steam is forced through turbine nozzle sections accelerating it to high velocities. Kinetic energy from the high velocity steam is converted into shaft torque as it collides with moving blades attached to the turbine rotor. Coupling the turbine rotor to a synchronous machine converts rotational energy to electrical energy (REFERENCE).
+
+Steam turbines come in a variety of configurations. Multiple turbines, and steam reheating systems are common features. 
+
+The second element is the turbine, shown in Figure \ref{fig:2108_turbine_model}. The frequency domain derivation of the governor model can be found in Appendix \ref{app:turbine_model}.
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/2108_turbine_model/turbine_model}
+	\caption[Frequency domain model for governor]{Frequency domain model for the generator turbine.}
+	\label{fig:2108_turbine_model}
+\end{figure}
+
+\subsubsection{Generator Load Model}
+The third element is the generator-load, shown in Figure \ref{fig:2109_generator_load_model}. The frequency domain derivation of the governor model can be found in Appendix \ref{app:gen_load_model}.
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/2109_generator_load_model/generator_load_model}
+	\caption[Frequency domain model for generator-load]{Frequency domain model for the generator-load.}
+	\label{fig:2109_generator_load_model}
+\end{figure}
+
 
 %------------------------ SS: Single Area
 
