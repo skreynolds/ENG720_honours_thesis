@@ -106,15 +106,15 @@ The third element is the generator-load, shown in Figure \ref{fig:2109_generator
 %------------------------ SS: Single Area
 
 \subsection{Frequency Control for a Single Area System}\label{oneareapowersystem}
-It is generally acknowledged that a speed droop governor feedback control regime will perform primary frequency control, and an AGC feedback loop is used to perform secondary frequency control when restoring a minor frequency excursion \cite{Wood2013, Grainger1994, Kothari2011, Kundur1994}. A particularly well laid out approach to developing linear models for the turbine, generator, load, and governor was presented by Kundur \cite{Kundur1994}. The full model is shown in Figure \ref{fig:206_single_area_pi_control_model}. This particular model provides a model for a single regulating generator supplying a load. The governor block is a first-order linear model of the governor. The turbine block is a first-order linear model of the turbine. The final block is the generator-load, which is also a first-order linear model. The AGC feedback loop uses a proportional integral controller.
+It is generally acknowledged that a speed droop governor feedback control regime will perform primary frequency control, and an AGC feedback loop is used to perform secondary frequency control when restoring a minor frequency excursion \cite{Wood2013, Grainger1994, Kothari2011, Kundur1994}. A particularly well laid out approach to developing linear models for the turbine, generator, load, and governor was presented by Kundur \cite{Kundur1994}. The full model is shown in Figure \ref{fig:2110_single_area_pi_control_model}. This particular model provides a model for a single regulating generator supplying a load. The governor block is a first-order linear model of the governor. The turbine block is a first-order linear model of the turbine. The final block is the generator-load, which is also a first-order linear model. The AGC feedback loop uses a proportional integral controller.
 
 \clearpage
 
 \begin{sidewaysfigure}[ht]
 \centering
-\input{./figures/206_single_area_pi_control_model/single_area_pi_control_model}
+\input{./figures/2110_single_area_pi_control_model/single_area_pi_control_model}
 \caption[Single power area with PI feedback control]{A classical feedback control approach for a single control area power system. The system is comprised of a first order models for both turbines, and generators. The governor controllers are also first order models. AGC is implemented using an integral control block in a feedback loop \cite{Kundur1994}.}
-\label{fig:206_single_area_pi_control_model}
+\label{fig:2110_single_area_pi_control_model}
 \end{sidewaysfigure}
 
 \clearpage
@@ -122,22 +122,41 @@ It is generally acknowledged that a speed droop governor feedback control regime
 %------------------------ SS: Modelling a Two Area System
 
 \subsection{Modelling a Two Area System} \label{ssec:modelling_two_area_system}
+The single area system presented in Section \ref{oneareapowersystem} is useful to help understand the role of governors and AGC in controlling power system frequency. In reality, power systems are comprised of many control areas connected by transmission lines (referred to in the literature as tie lines). Often it is the case that there is some net power transfer over the tie lines, enforceable by economic contract. Single area models do not provide for this additional complexity.
+
+Distinct control areas are typically thought of as different participants in the generation market, or simply as different regions in which generation assets are based \cite{Kothari2011}.
+
+The simplest model that includes tie lines is the two area power system, shown in Figure \ref{fig:2111_two_area_system}.
+
+\begin{figure}[h]
+	\centering
+	\resizebox{12cm}{!}{\input{./figures/2111_two_area_power_system_overview/two_area_power_system_overview}}
+	\caption[Overview of two area power system with tie line]{A two area power system comprised of generators and load connected via a tie line. Power flows from one area to the other depending on the power demands.}
+	\label{fig:2111_two_area_system}
+\end{figure}
+
+
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/2112_tie_line_model/tie_line_model}
+	\caption[Frequency domain model for a transmission line]{Frequency domain model for the transmission line between two power areas.}
+	\label{fig:2112_tie_line_model}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/2113_generator_load_model_1_with_tie_line/generator_load_model_1_with_tie_line}
+	\caption[Frequency domain model for generator-load with tie-line connection]{Frequency domain model for the generator-load with feedback from a tie-line.}
+	\label{fig:2113_generator_load_model_1_with_tie_line}
+\end{figure}
+
+\newpage
 
 %------------------------ SS: Two Area
 
 \subsection{Frequency Control for Two Area System} \label{ssec:control_two_area_system}
-The single area system presented in Section \ref{oneareapowersystem} is useful to help understand the role of governors and AGC in controlling power system frequency. In reality, power systems are comprised of many control areas connected by transmission lines (referred to in the literature as tie lines). Often it is the case that there is some net power transfer over the tie lines, enforceable by economic contract. Single area models do not provide for this additional complexity.
-
-\begin{figure}[ht]
-	\centering
-	\resizebox{12cm}{!}{\input{./figures/207_two_area_power_system_overview/two_area_power_system_overview}}
-	\caption[Overview of two area power system with tie line]{A two area power system comprised of generators and load connected via a tie line. Power flows from one area to the other depending on the power demands.}
-	\label{fig:207_two_area_system}
-\end{figure}
-
-Distinct control areas are typically thought of as different participants in the generation market, or simply as different regions in which generation assets are based \cite{Kothari2011}.
-
-The simplest model that includes tie lines is the two area power system, shown in Figure \ref{fig:207_two_area_system}. The control objective with this system is to maintain the inter-area power transfer, whilst regulating the frequency of each area. An AGC integral feedback loop on regulating units, like that shown in Figure \ref{fig:206_single_area_pi_control_model}, would ensure that power system frequency is maintained, however, would not guarantee inter-area power transfer agreements are observed. Violation of power transfer contracts due to control issues does not allow for a stable market in which energy can be reliably traded. Fortunately, multi control area power systems are well understood. Linear models have been developed to simulate these systems, and classical control approaches have been successfully implemented to meet the new control objectives. In order to achieve this, a metric called Area Control Error (ACE) is used in the AGC feedback loop for each control area. ACE is a linear combination of the frequency deviations and the . The implementation of this control system is shown in Figure \ref{fig:208_two_area_pi_control_model}.
+The control objective for a two area power system is to maintain the inter-area power transfer, whilst regulating the frequency of each area. An AGC integral feedback loop on regulating units, like that shown in Figure \ref{fig:2110_single_area_pi_control_model}, would ensure that power system frequency is maintained, however, would not guarantee inter-area power transfer agreements are observed. Violation of power transfer contracts due to control issues does not allow for a stable market in which energy can be reliably traded. Fortunately, multi control area power systems are well understood. Linear models have been developed to simulate these systems, and classical control approaches have been successfully implemented to meet the new control objectives. In order to achieve this, a metric called Area Control Error (ACE) is used in the AGC feedback loop for each control area. ACE is a linear combination of the frequency deviations and the . The implementation of this control system is shown in Figure \ref{fig:208_two_area_pi_control_model}.
 
 \clearpage
 
