@@ -91,7 +91,7 @@ Deep deterministic policy gradient (DDPG), described in \textsection \ref{ssec:d
 	\label{tab:4101}
 \end{table}
 
-Alternative neural network architectures were also developed. These alternative actor and critic architectures occur frequently in the literature for DDPG control of robotic systems \cite{} and contain less weight parameters than the networks used by Lillicrap \textit{et alias}. The actor network contains a total of 1280 weight parameters, and the critic network contains a total of 99200 weight parameters. An additional feature of the critic is that it makes use of Leaky ReLUs to avoid the dying ReLU problem discussed in \textsection \ref{sec:activation_functions}. Implementations for these alternative classes can be found in Appendices \ref{app:implementation_alt_actor_model} and \ref{app:implementation_alt_critic_model} for the actor and critic, respectively. Network details can be found in Table \ref{tab:4101}.
+Alternative neural network architectures were also developed. These alternative actor and critic architectures occur frequently in the literature for DDPG control of robotic systems \cite{} and contain less weight parameters than the networks used by Lillicrap \textit{et alias}. The actor network contains a total of 1280 weight parameters, and the critic network contains a total of 99200 weight parameters. An additional feature of the critic is that it makes use of Leaky ReLUs to avoid the dying ReLU problem discussed in \textsection \ref{sec:activation_functions}. Implementations for these alternative classes can be found in Appendices \ref{app:implementation_alt_actor_model} and \ref{app:implementation_alt_critic_model} for the actor and critic, respectively. Network details can be found in Table \ref{tab:4102}.
 
 \begin{table}[h]
 	\centering
@@ -110,7 +110,7 @@ Alternative neural network architectures were also developed. These alternative 
 		Output Layer & $\tanh$ & 2  & None   & 1 \\
 		\bottomrule
 	\end{tabular}
-	\label{tab:4101}
+	\label{tab:4102}
 \end{table}
 
 %---------------- SSS: Training
