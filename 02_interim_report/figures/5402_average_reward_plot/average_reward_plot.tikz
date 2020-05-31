@@ -1,5 +1,5 @@
 % This file was created by tikzplotlib v0.9.1.
-\begin{tikzpicture}
+\begin{tikzpicture}[trim axis right,trim axis left]
 
 \definecolor{color0}{rgb}{1,0.498039215686275,0.0549019607843137}
 \definecolor{color1}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
@@ -19,7 +19,8 @@ scaled y ticks=base 10:-3,
 width=7cm,
 height=7cm,
 xlabel=Episode,
-ylabel=Average Reward
+ylabel=Average Reward,
+y label style={at={(-0.2,0.5)}}
 ]
 
 \addplot[thick, black, dotted, domain=0:200] {-46.53};

@@ -1,25 +1,77 @@
 \chapter{Preliminary Investigation}
+A preliminary investigation was undertaken to assess the DDPG algorithm's capacity to train a neural network tasked with controlling the frequency and power interchange of a two area power system. The preliminary investigation was conducted according to the outline in \textsection \ref{sec:preliminary_investigation}; however, due to time constraints only changes to the environment reward function and OU exploratory noise were considered. A total of 6 experiments were conducted, labelled A through F. At the commencement of each experiment a new instance of a DDPG agent was initialised, and replay buffers cleared. Each experiment used an identical episode scenario in which the system and agent response was simulated for a total of 30 sec, after which the episode was terminated. During this time a 0.01pu step change in the power demanded for area 1 was introduced at the 1 sec mark, as shown in Figure \ref{fig:5001_demand_profile}.
+\begin{figure}[h]
+	\centering
+	\input{./figures/5001_demand_profile/demand_profile.tikz}
+	\caption{At the 1 sec mark a the system experiences a step load change in the power demanded in Area 1, and the simulation continues for 30 sec thereafter.}
+	\label{fig:5001_demand_profile}
+\end{figure}
 
-%--------------------- S: Prelim. Exp. A
+From initialisation the simulation was incrementally stepped forward by 0.01 sec for a total of 3000 steps. At each time step the DDPG agent was trained using experience stored in the replay buffer from current and previous system interactions, for a given experiment. Experiment were allowed to run for a total of 200 episodes, and were conducted sequentially. At the conclusion of each experiment the agent performance during and after training was analysed to provide motivation for subsequent experiments.
 
-\input{./chapters/chap5_sect1}
+Experiments used identical actor and critic neural network architectures. Actor network architectures consisted of an input layer (7 perceptrons), a single hidden layer (256 perceptrons), and an output layer (2 perceptrons). Hidden layers used ReLU activation functions, and the output layer used a $\tanh$ activation function. Critic network architectures consisted of an input layer (7 perceptrons), three hidden layers (256, 256, and 128 perceptrons), and an output layer (1 nodes). Hidden layers used LReLU activation functions, and the output layer used no activation function. Note that the number of neural network inputs was increased to 7, using features from each of the 7 differential equations used to model the power system. Additional features were used in an attempt to provide neural networks with more information to reduce the number of episodes required for training. Hyperparameters were held constant for each experiment --- details are shown in Table \ref{tab:5000_hyperparameters}.
 
-%--------------------- S: Prelim. Exp. B
+\begin{table}[h]
+	\centering
+	\caption{DDPG hyperparameters used for preliminary investigation experiments.}
+	\begin{tabular}{lrlr}
+	\toprule
+	\textbf{Hyperparameter} & \textbf{Value} & \textbf{Hyperparameter} & \textbf{Value} \\
+	\midrule
+	Buffer Size 	 & $1 \times 10^6$  & Batch Size 	& 256 \\
+	Gamma ($\gamma$) & 0.99 	& Tau ($\tau$) 	& $1 \times 10^{-3}$ \\
+	Actor Learning Rate ($\alpha_{\texttt{actor}}$) & $1 \times 10^{-4}$ & Critic Learning Rate ($\alpha_{\texttt{critic}}$) & $3 \times 10^{-4} $ \\
+	Weight Decay & 0.00 & & \\
+	\bottomrule
+	\end{tabular}\label{tab:5000_hyperparameters}
+\end{table}
 
-\input{./chapters/chap5_sect2}
+%--------------------- S: Prelim. Exp. A Setup
 
-%--------------------- S: Prelim. Exp. C
+\input{./chapters/chap5_exp_a_1}
 
-\input{./chapters/chap5_sect3}
+%--------------------- S: Prelim. Exp. B Setup
 
-%--------------------- S: Prelim. Exp. D
+\input{./chapters/chap5_exp_b_1}
 
-\input{./chapters/chap5_sect4}
+%--------------------- S: Prelim. Exp. C Setup
 
-%--------------------- S: Prelim. Exp. E
+\input{./chapters/chap5_exp_c_1}
 
-\input{./chapters/chap5_sect5}
+%--------------------- S: Prelim. Exp. D Setup
 
-%--------------------- S: Prelim. Exp. F
+\input{./chapters/chap5_exp_d_1}
 
-\input{./chapters/chap5_sect6}
+%--------------------- S: Prelim. Exp. E Setup
+
+\input{./chapters/chap5_exp_e_1}
+
+%--------------------- S: Prelim. Exp. F Setup
+
+\input{./chapters/chap5_exp_f_1}
+
+\clearpage
+
+%--------------------- S: Prelim. Exp. A Results
+
+\input{./chapters/chap5_exp_a_2}
+
+%--------------------- S: Prelim. Exp. B Results
+
+\input{./chapters/chap5_exp_b_2}
+
+%--------------------- S: Prelim. Exp. C Results
+
+\input{./chapters/chap5_exp_c_2}
+
+%--------------------- S: Prelim. Exp. D Results
+
+\input{./chapters/chap5_exp_d_2}
+
+%--------------------- S: Prelim. Exp. E Results
+
+\input{./chapters/chap5_exp_e_2}
+
+%--------------------- S: Prelim. Exp. F Results
+
+\input{./chapters/chap5_exp_f_2}
