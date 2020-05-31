@@ -4,8 +4,6 @@
 \definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
 \definecolor{color1}{rgb}{1,0.498039215686275,0.0549019607843137}
 
-\pgfplotsset{scaled y ticks=false}
-
 \begin{axis}[
 compat=newest,
 tick align=outside,
@@ -30,7 +28,7 @@ height=7cm,
 xlabel=Time (sec),
 ylabel=Control Signal
 ]
-\addplot [thick, blue!20!gray, dotted]
+\addplot [ultra thick, blue!20!gray, dotted]
 table {%
 0 0
 0.01 0
@@ -3035,7 +3033,7 @@ table {%
 30.0000000000019 0.0100039140135233
 };
 \addlegendentry{PI};
-\addplot [thick, blue!20!gray]
+\addplot [ultra thick, blue!20!gray]
 table {%
 0 0
 0.01 0.0128481662273407

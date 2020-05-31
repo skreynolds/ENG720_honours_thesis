@@ -116,6 +116,10 @@
 \usepgfplotslibrary{dateplot}
 % use the date plot library to create nice timeseries plots
 
+\usepgfplotslibrary{external} 
+\tikzexternalize[prefix=tikz/]
+% to create figures outside of the latex environment
+
 %-------------------- Function to lift power a bit
 \newcommand\mystrut{\rule{0pt}{10pt}}
 
