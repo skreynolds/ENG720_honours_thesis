@@ -1,1 +1,5 @@
-\chapter{Discussion of Results and Future Directions}
+\chapter{Discussion and Future Directions}
+
+Whilst there are no restrictions on reward function specification, it is widely acknowledged that poor reward function selection can impede agent learning. Reward functions are designed to elicit a desirable control behaviour from the agent. The task of controlling frequency and power interchange for a two area power system should therefore have a reward structure which provides the agent with an incentive to minimise frequency deviations from scheduled values. Moreover, it may be prudent to discourage the agent from letting the system see large frequency excursions that might activate system protection settings on a real world power system. The agent should also be encouraged to minimise deviations in the tie-line power interchange from the scheduled value. Finally, it would be useful if the agent finds policies which achieve minimal frequency and tieline power deviations without requiring extreme control signals.
+
+Experiments conducted on reward functions will consider functions which penalise for different combinations of frequency deviations, tie-line deviations, and control signal magnitudes.
