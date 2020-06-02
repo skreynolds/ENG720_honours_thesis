@@ -1,5 +1,18 @@
 \chapter{Preliminary Investigation}
-A preliminary investigation was undertaken to assess the DDPG algorithm's capacity to train a neural network tasked with controlling the frequency and power interchange of a two area power system. The preliminary investigation was conducted according to the outline in \textsection \ref{sec:preliminary_investigation}; however, due to time constraints only changes to the environment reward function and OU exploratory noise were considered. A total of 6 experiments were conducted, labelled A through F. At the commencement of each experiment a new instance of a DDPG agent was initialised, and replay buffers cleared. Each experiment used an identical episode scenario in which the system and agent response was simulated for a total of 30 sec, after which the episode was terminated. During this time a 0.01pu step change in the power demanded for area 1 was introduced at the 1 sec mark, as shown in Figure \ref{fig:5001_demand_profile}.
+A preliminary investigation was undertaken to assess the DDPG algorithm's capacity to train a neural network tasked with controlling the frequency and power interchange of a two area power system. The preliminary investigation was conducted according to the outline in \textsection \ref{sec:preliminary_investigation}; however, due to time constraints only changes to the environment reward function and OU exploratory noise parameters were considered. A total of 6 experiments were conducted, labelled A through F. The environment and optimally tuned PI controller parameters are shown in Table XXXX.
+\begin{table}[h]
+	\centering
+	\caption{text}
+	\begin{tabular}{lrlr}
+		\toprule
+		\textbf{Parameter} & \textbf{Value} & \textbf{Parameter} & \textbf{Value} \\
+		\midrule
+		
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+At the commencement of each experiment a new instance of a DDPG agent was initialised, and replay buffers cleared. Each experiment used an identical episode scenario in which the system and agent response was simulated for a total of 30 sec, after which the episode was terminated. During this time a 0.01pu step change in the power demanded for area 1 was introduced at the 1 sec mark, as shown in Figure \ref{fig:5001_demand_profile}.
 \begin{figure}[h]
 	\centering
 	\input{./figures/5001_demand_profile/demand_profile.tikz}
@@ -9,7 +22,7 @@ A preliminary investigation was undertaken to assess the DDPG algorithm's capaci
 
 From initialisation the simulation was incrementally stepped forward by 0.01 sec for a total of 3000 steps. At each time step the DDPG agent was trained using experience stored in the replay buffer from current and previous system interactions, for a given experiment. Experiment were allowed to run for a total of 200 episodes, and were conducted sequentially. At the conclusion of each experiment the agent performance during and after training was analysed to provide motivation for subsequent experiments.
 
-Experiments used identical actor and critic neural network architectures. Actor network architectures consisted of an input layer (7 perceptrons), a single hidden layer (256 perceptrons), and an output layer (2 perceptrons). Hidden layers used ReLU activation functions, and the output layer used a $\tanh$ activation function. Critic network architectures consisted of an input layer (7 perceptrons), three hidden layers (256, 256, and 128 perceptrons), and an output layer (1 nodes). Hidden layers used LReLU activation functions, and the output layer used no activation function. Note that the number of neural network inputs was increased to 7, using features from each of the 7 differential equations used to model the power system. Additional features were used in an attempt to provide neural networks with more information to reduce the number of episodes required for training. Hyperparameters were held constant for each experiment --- details are shown in Table \ref{tab:5000_hyperparameters}.
+Experiments used identical actor and critic neural network architectures. Actor network architectures consisted of an input layer (7 perceptrons), a single hidden layer (256 perceptrons), and an output layer (2 perceptrons). Hidden layers used ReLU activation functions, and the output layer used a $\tanh$ activation function. Critic network architectures consisted of an input layer (7 perceptrons), three hidden layers (256, 256, and 128 perceptrons), and an output layer (1 nodes). Hidden layers used LReLU activation functions, and the output layer used no activation function. Note that the network architectures were similar to those outlined in Table \ref{tab:4102} with the exception being the number of neural network inputs was increased to 7. Input features consisted of the 7 differential equation outputs used to model the power system. Additional features were used in an attempt to provide neural networks with more information to reduce the number of episodes required for training. Hyperparameters were held constant for each experiment --- details are shown in Table \ref{tab:5000_hyperparameters}.
 
 \begin{table}[h]
 	\centering
@@ -25,6 +38,16 @@ Experiments used identical actor and critic neural network architectures. Actor 
 	\bottomrule
 	\end{tabular}\label{tab:5000_hyperparameters}
 \end{table}
+
+Configuration of termination conditions, reward functions, and OU noise noise parameters for experiments A through F can be found in Tables \ref{tab:5001} through \ref{tab:5006}, respectively. The tables also contain a cumulative reward for a DDPG agent trained for 200 episodes under the given settings. The reward for an optimal PI controller under the same reward function settings is provided for comparison. 
+
+Experiments A and B implemented a condition whereby the episode was terminated early if a frequency change in either area exceeded 0.75 Hz. Given this additional termination condition, the agent received a positive reward for each time step it remained in the allowable region. This positive reward was reduced by magnitudes of frequency deviations, tieline power deviations, and control signals. Settings for the OU noise parameters were identical to experiments undertaken by Lillicrap \textit{et alias}.
+
+Experiments C, D, and E removed the early termination condition and allowed the agent to explore the full state-action space. Under this scenario the agent only received a negative rewards based on the magnitude of frequency deviations, tieline power deviations, and control signals. 
+
+A series of six plots were created for each experiment. (a) of Figure \ref{fig:results_A}, and the average of these cumulative rewards are shown in part (b). The DDPG controller performance is shown in Figure \ref{fig:results_A} parts (c) and (d). The 
+
+
 
 %--------------------- S: Prelim. Exp. A Setup
 
