@@ -1,20 +1,20 @@
 \section{Generator Load Model with Tie Line Input}
-The analysis in XXXX reasoned that the incremental power input to the generator load system was given by $\Delta P_G - \Delta P_L$ and that this difference was made up from the rate of increase of stored kinetic energy in the generator rotor, and the additional power drawn by frequency dependent loads such as motors. In the presence of a second power area, this power difference could also come from the power given (or taken) over the tie line. Using this idea, the incremental power balance equation for area 1 can be written as:
+The derivation presented here borrows heavily from Kothari \cite{Kothari2011}. Analysis in Appendix \ref{app:gen_load_model} reasoned that the incremental power input to the generator load system was given by $\Delta P_G - \Delta P_L$ and that this difference was made up from the rate of increase of stored kinetic energy in the generator rotor, and the additional power drawn by frequency dependent loads such as motors. In the presence of a second power area, this power difference could also come from the power transfer over the tie line. Using this idea, the incremental power balance equation for area 1 can be written as:
 \begin{equation}
-	\Delta P_{G1} - \Delta P_{L1} = \frac{2 H_1}{(f_1)_0} \frac{d}{dt} \Delta f_1 + B_1 \Delta f_1 + \Delta P_{tie, 1} \label{eq:B201}
+	\Delta P_{G1} - \Delta P_{L1} = \frac{2 H_1}{(f_1)_0} \frac{d}{dt} \Delta f_1 + B_1 \Delta f_1 + \Delta P_{tie, 1}. \label{eq:B201}
 \end{equation}
 
-A couple of parameters got introduced in equation \ref{eq:B201}. These include: the generator inertia, $H_1$; and the static rate of change in the load demand with respect to frequency due to motors, $B_1$. Taking the Laplace transform of equation \ref{eq:B201} and rearranging, we get:
+Additional parameters introduced in Equation \ref{eq:B201} include: the generator inertia, $H_1$; and the static rate of change in the load demand with respect to frequency due to motors, $B_1$. Taking the Laplace transform of Equation \ref{eq:B201} and rearranging provides:
 \begin{equation}
 	\Delta F_1(s) = [\Delta P_{G1}(s) - \Delta P_{L1}(s) - \Delta P_{tie,1}(s)] \times \bigg( \frac{K_{gl1}}{1 + T_{gl1}s} \bigg), \label{eq:B202}
 \end{equation}
 where
 \begin{align}
 	K_{gl1} &= \frac{1}{B_1} \\
-	T_{gl1} &= \frac{2H_1}{B_1 (f_1)_0}
+	T_{gl1} &= \frac{2H_1}{B_1 (f_1)_0}.
 \end{align}
 
-Equation \ref{eq:B202} shows that the only thing to really change is that the generator-load system now has an input from the tie line. Note that power could flow either way depending on the scheduled contract for provision of power between area 1 and area 2. Figure \ref{fig:B201_generator_load_model_1_with_tie_line} shows the generator-load block diagram with the additional tie line input.
+Equation \ref{eq:B202} is an updated model of the generator-load system which provides for input from the tie line. Note that power could flow either way depending on the scheduled contract for provision of power between area 1 and area 2. Figure \ref{fig:B201_generator_load_model_1_with_tie_line} shows the generator-load block diagram with the additional tie line input. Given the symmetry of a two-area power system, an identical update can be applied to the generator load model for area 2.
 
 \begin{figure}[h]
 	\centering

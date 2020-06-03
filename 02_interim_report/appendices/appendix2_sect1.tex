@@ -1,53 +1,55 @@
 \section{Tie Line Model}
-Power systems in each of the control areas are very similar to the single area model shown in Figure 2. In fact, we don't have to change our governor, or turbine models. We do, however, still have make some changes --- these are as follows:
+The power systems in each of the control areas for a two-area power system are comparable to the single area model shown in Figure \ref{fig:2110_single_area_pi_control_model}. In fact, the governor, and turbine models are interchangeable between the single area model and the two-area model. We do, however, still have make some changes --- these are as follows:
 \begin{enumerate}
 	\item model the interaction of the two power systems over the tie line; and
 	\item re-analyse our generator-load demand model.
 \end{enumerate}
 
-The tie line allows for the flow of power from area 1 to area 2, and vice versa. For the convenience of this derivation, let any symbol with a subscript of 1 refer to power area 1 and those with a subscript 2 refer to power area 2. Now, letting the power angles of the area 1 generator and the area 2 generator be $(\delta_1)_0$ and $(\delta_2)_0$, respectively, we can write an expression for the power transported out of area 1 as:
+The derivations presented below are motivated by Kothari \cite{Kothari2011}.
+
+The transmission infrastructure, or tie line, allows for the flow of power from area 1 to area 2, and vice versa. For the convenience of this derivation, let any symbol with a subscript of 1 refer to power area 1 and those with a subscript 2 refer to power area 2. Now, letting the power angles of the area 1 generator and the area 2 generator be $(\delta_1)_0$ and $(\delta_2)_0$, respectively, we can write an expression for the power transported out of area 1 as:
 \begin{equation}
-	P_{tie, 1} = \frac{|V_1||V_2|}{X_{12}} \sin \big( (\delta_1)_0 - (\delta_2)_0 \big)
+	P_{tie, 1} = \frac{|V_1||V_2|}{X_{12}} \sin \big( (\delta_1)_0 - (\delta_2)_0 \big).
 \end{equation}
 
 Using incremental changes in $\delta_1$ $\delta_2$, we can determine an incremental change in the tie line power using a Taylor series expansion:
 \begin{equation}
-	\Delta P_{tie, 1}(pu) = T_{12} (\Delta \delta_1 - \Delta \delta_2) \label{eq:B01}
+	\Delta P_{tie, 1}(pu) = T_{12} (\Delta \delta_1 - \Delta \delta_2). \label{eq:B01}
 \end{equation}
 
 Note that $T_{12}$ is the synchronising coefficient, and is mathematically expressed as:
 \begin{equation}
-	T_{12} = \frac{|V_1||V_2|}{P_{r1} X_{12}} \cos \big( (\delta_1)_0 - (\delta_2)_0 \big)
+	T_{12} = \frac{|V_1||V_2|}{P_{r1} X_{12}} \cos \big( (\delta_1)_0 - (\delta_2)_0 \big).
 \end{equation}
 
-Incremental power angles are integrals of incremental frequencies (because frequency is basically the same as angular velocity). This allows us to re-express equation \ref{eq:B01} as:
+Incremental power angles are integrals of incremental frequencies, owing to the link between  angular velocity and frequency. This allows the re-expression of Equation \ref{eq:B01} as:
 \begin{equation}
-	\Delta P_{tie, 1} = 2 \pi T_{12} \bigg( \int \Delta f_1 dt - \int \Delta f_2 dt \bigg) \label{eq:B02}
+	\Delta P_{tie, 1} = 2 \pi T_{12} \bigg( \int \Delta f_1 dt - \int \Delta f_2 dt \bigg). \label{eq:B02}
 \end{equation}
 
 The variables $\Delta f_1$ and $\Delta f_2$ are incremental frequency changes of areas 1 and 2, respectively.
 
-Power can flow both ways over the tie line - the ideas governing the flow from area 2 to area 1 are symmetrical to those presented above. Hence, we can write:
+Power can flow both ways over the tie line --- the ideas governing the flow from area 2 to area 1 are symmetrical to those presented above. Hence, we can write:
 \begin{equation}
-	\Delta P_{tie, 2} = 2 \pi T_{21} \bigg( \int \Delta f_2 dt - \int \Delta f_1 dt \bigg) \label{eq:B03}
+	\Delta P_{tie, 2} = 2 \pi T_{21} \bigg( \int \Delta f_2 dt - \int \Delta f_1 dt \bigg). \label{eq:B03}
 \end{equation}
 
-Note that the synchronising coefficient $T_{21}$ can be expressed in terms of $T_{12}$, hence, we can write that:
+Note that the synchronising coefficient, $T_{21}$, can be expressed in terms of $T_{12}$, therefore:
 \begin{equation}
-	T_{21} = \frac{|V_2||V_1|}{P_{r2} X_{21}} \cos \big( (\delta_2)_0 - (\delta_1)_0 \big) = \bigg( \frac{P_{r1}}{P_{r2}} \bigg) T_{12} = a_{12} T_{12} \label{eq:B04}
+	T_{21} = \frac{|V_2||V_1|}{P_{r2} X_{21}} \cos \big( (\delta_2)_0 - (\delta_1)_0 \big) = \bigg( \frac{P_{r1}}{P_{r2}} \bigg) T_{12} = a_{12} T_{12}. \label{eq:B04}
 \end{equation}
 
-Equations \ref{eq:B02} and \ref{eq:B03} describe tie line power flow from area 1 to area 2, and from area 2 to area 1, respectively. These expressions need to be linked back to the power system model. To do this, first take the inverse Laplace transform of equation \ref{eq:B02} which yields:
+Equations \ref{eq:B02} and \ref{eq:B03} describe tie line power flow from area 1 to area 2, and from area 2 to area 1, respectively. To link these expression back to the power system model, first take the inverse Laplace transform of Equation \ref{eq:B02} to provide:
 \begin{equation}
-	\Delta P_{tie,1}(s) = \frac{2 \pi T_{12}}{s} \times [\Delta F_1(s) - \Delta F_2(s)] \label{eq:B05}
+	\Delta P_{tie,1}(s) = \frac{2 \pi T_{12}}{s} \times [\Delta F_1(s) - \Delta F_2(s)]. \label{eq:B05}
 \end{equation}
 
-Then we need to take the inverse Laplace transform of equation \ref{eq:B03}, which gives:
+Then take the inverse Laplace transform of Equation \ref{eq:B03}, which gives:
 \begin{equation}
 	\Delta P_{tie,2}(s) = - \frac{2 \pi a_{12} T_{12}}{s} \times [\Delta F_1(s) - \Delta F_2(s)] \label{eq:B06}
 \end{equation}
 
-Equation \ref{eq:B05} and \ref{eq:B06} provide guidance on how to structure the block equation for the tie line. Note that the input for both \ref{eq:B05} and \ref{eq:B06} is $\Delta F_1(s) - \Delta F_2(s)$, and the transfer functions for each differ by a factor of $-a_{12}$. The tie line block diagram is shown in Figure \ref{fig:B101_tie_line_model}.
+Equation \ref{eq:B05} and \ref{eq:B06} describe the tieline models for power area 1 and 2, respectively. Note that the input for both \ref{eq:B05} and \ref{eq:B06} is $\Delta F_1(s) - \Delta F_2(s)$, and the transfer functions for each differ by a factor of $-a_{12}$. This symmetry allows for the use of a single tie-line model to represent the interconnection dynamics for a two area power system. The tie line block diagram is shown in Figure \ref{fig:B101_tie_line_model}.
 
 \begin{figure}[h]
 	\centering
