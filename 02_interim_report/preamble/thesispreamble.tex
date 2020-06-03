@@ -150,3 +150,9 @@
 		stringstyle=\ttm\color{magenta},
 		commentstyle=\ttm\color{deepgreen},
 		frame=tb}
+
+% Algorithmic new command to wrap text
+\newcommand{\algmargin}{\the\ALG@thistlm}   
+\makeatother
+\algnewcommand{\parState}[1]{\State%
+    \parbox[t]{\dimexpr\linewidth-\algmargin}{\strut #1\strut}}
