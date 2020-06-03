@@ -17,8 +17,8 @@ scaled y ticks=true,
 scaled y ticks=base 10:2,
 width=10cm,
 height=5cm,
-xlabel=Power Demand (pu),
-ylabel=Time (Sec)
+xlabel=Time (Sec),
+ylabel=Power Demand (pu)
 ]
 \addplot [ultra thick, green!20!gray]
 table {%
