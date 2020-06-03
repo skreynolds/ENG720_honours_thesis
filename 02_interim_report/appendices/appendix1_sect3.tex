@@ -1,5 +1,5 @@
 \section{Generator Load Model}\label{app:gen_load_model}
-If the turbine output is in some steady state, and the power system experiences some perturbation, then let the incremental power from the turbine be $\Delta P_G$. Noting that the main perturbation experienced by a power system is the change in load demand, $\Delta P_L$, the incremental input to the generator-load system is given by $\Delta P_G - \Delta P_L$.
+The generator-load model derivation presented below borrows heavily from Kothari \cite{Kothari2011}. If the turbine output is in some steady state, and the power system experiences some perturbation, then the incremental power from the turbine is given by $\Delta P_G$. Noting that the main perturbation experienced by a power system is the change in load demand, $\Delta P_L$, the incremental input to the generator-load system is given by $\Delta P_G - \Delta P_L$.
 
 The increment in power input to the system is accounted for in two ways:
 \begin{enumerate}
@@ -8,36 +8,36 @@ The increment in power input to the system is accounted for in two ways:
 	\begin{equation}
 		(W_{ke})_0 = H \times P_r,
 	\end{equation}
-	where $P_r$ is the kilowatt rating of the turbo-generator and $H$ is defined as it's inertial constant. Given that the kinetic energy is proportional to the square of the speed (frequency), the kinetic energy at a frequency of $f_0 + \Delta f$ can be written as:
+	where $P_r$ is the kilowatt rating of the turbo-generator and $H$ is defined as the inertial constant. Given that the kinetic energy is proportional to the square of the speed (frequency), the kinetic energy at a frequency of $f_0 + \Delta f$ can be written as:
 	\begin{equation}
 		W_{ke} = (W_{ke})_0 \bigg( \frac{f_0 + \Delta f}{f_0} \bigg)^2 \approx H P_r \bigg( 1 + \frac{2\Delta f}{f_0} \bigg)
 	\end{equation}
 	
-	The rate of change of kinetic energy is therefore:
+	Therefore, the rate of change of kinetic energy is:
 	\begin{equation}
-		\frac{d}{dt}(W_{ke}) = \frac{2 H P_r}{f_0} \frac{d}{dt} (\Delta f) \label{eq:A11}
+		\frac{d}{dt}(W_{ke}) = \frac{2 H P_r}{f_0} \frac{d}{dt} (\Delta f). \label{eq:A11}
 	\end{equation}
 	
 	\item Given that motors make up a reasonable percentage of the load demand it must be considered that the motor load changes as the frequency changes. The rate of change of load with respect to frequency, $\frac{\partial P_L}{\partial f}$, can be considered constant for small changes in frequency $\Delta f$ and can be expressed as:
 	\begin{equation}
 		\frac{\partial P_L}{\partial f} \Delta f = B \Delta f \label{eq:A12},
 	\end{equation}
-	where $B$ can be empirically determined, and is dependent on the proportion of motors that comprise the load demand. Note that is $B$ is positive, then the the load is predominantly comprised of motors.
+	where $B$ can be empirically determined, and is dependent on the proportion of motors that comprise the load demand. Note that where $B$ is positive, then the load is predominantly comprised of motors.
 \end{enumerate}
 
-Using equations \ref{eq:A11} and \ref{eq:A12}, the power balance equation for the incremental input to the generator-load system can be written as:
+Using Equations \ref{eq:A11} and \ref{eq:A12}, the power balance equation for the incremental input to the generator-load system can be written as:
 \begin{equation}
-	\Delta P_G - \Delta P_L = \frac{2 H P_r}{f_0} \frac{d}{dt} (\Delta f) + B \Delta f
+	\Delta P_G - \Delta P_L = \frac{2 H P_r}{f_0} \frac{d}{dt} (\Delta f) + B \Delta f.
 \end{equation}
 
 Dividing throughout by $P_r$ yields the following:
 \begin{equation}
-	\Delta P_G(pu) - \Delta P_L(pu) = \frac{2 H}{f_0} \frac{d}{dt} (\Delta f) + B(pu) \Delta f \label{eq:A13}
+	\Delta P_G(pu) - \Delta P_L(pu) = \frac{2 H}{f_0} \frac{d}{dt} (\Delta f) + B(pu) \Delta f. \label{eq:A13}
 \end{equation}
 
 Taking the Laplace transform of equation \ref{eq:A13} and rearranging, we get the following expression:
 \begin{equation}
-	\Delta F(s) = \frac{\Delta P_G(s) - \Delta P_L(s)}{B + \frac{2H}{f_0}s} \label{eq:A14}
+	\Delta F(s) = \frac{\Delta P_G(s) - \Delta P_L(s)}{B + \frac{2H}{f_0}s}. \label{eq:A14}
 \end{equation}
 
 Equation \ref{eq:A14} can re-expressed as:
@@ -47,12 +47,12 @@ Equation \ref{eq:A14} can re-expressed as:
 where
 \begin{align}
 K_{gl} &= \frac{1}{B} \\
-T_{gl} &= \frac{2H}{B f_0}
+T_{gl} &= \frac{2H}{B f_0}.
 \end{align}
 
-Equation \ref{eq:A15} is the model of the generator-load in the frequency domain. The parameter $K_{gl}$ is referred to as the gain of the generator load; and the parameter $T_{gl}$ is referred to as the time constant of the generator load.
+Equation \ref{eq:A15} describes the generator-load in the frequency domain. The parameter $K_{gl}$ is referred to as the gain of the generator load; and the parameter $T_{gl}$ is referred to as the time constant of the generator load.
 
-The complete block diagram of governor model can be seen in Figure XXXX below.
+The complete block diagram of governor model can be seen in Figure \ref{fig:A06_generator_load_model} below.
 
 \begin{figure}[h]
 	\centering
