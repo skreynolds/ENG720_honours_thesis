@@ -222,7 +222,7 @@ Finding the optimal policy, for policy search, can now be expressed as a maximis
 
 Expressing the policy search problem this way allows for the application of many different optimisation algorithms. One simple approach is to use a hill climbing algorithm. Suppose the agent possess some policy, $\pi_{\theta}$, which it can roll-out in the environment and get some return, $G$. It can then slightly modify $\theta$ to get some marginally different policy, say $\pi_{\theta'}$. The agent could then roll-out the new policy in the environment and receive a return $G'$. If $G' > G$, then hill climbing would discard policy $\pi_{\theta}$ in favour of $\pi_{\theta'}$; and if $G' < G$, then hill climbing retains policy $\pi_{\theta}$. Continued iterations of the above would see the agent's policy converge to an optimal policy, although this is not guaranteed to be globally optimal.
 
-Another algorithm that is used to solve \ref{eq:216} is gradient ascent. In gradient ascent, the parameter update direction is given by the gradient $\nabla_{\theta} J(\theta)$ as it points in the direction of steepest ascent of the expected return. Provided $\nabla_{\theta} J(\theta)$ exists, the parameter update rule is expressed as:
+Another algorithm that is used to solve Equation \ref{eq:216} is gradient ascent. In gradient ascent, the parameter update direction is given by the gradient $\nabla_{\theta} J(\theta)$ as it points in the direction of steepest ascent of the expected return. Provided $\nabla_{\theta} J(\theta)$ exists, the parameter update rule is expressed as:
 \begin{equation}
 	\theta \gets \theta + \alpha \nabla_{\theta}J(\theta),
 \end{equation}
