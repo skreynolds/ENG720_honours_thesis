@@ -46,7 +46,7 @@ Load following control adjusts regulating units in order to match supply with a 
 
 %------------------------ SS: Modelling a Single Area
 
-\subsection{Modelling a Single Area System}
+\subsection{Modelling a Single Area System}\label{sec:modlling_a_single_area}
 The power system model shown in Figure \ref{fig:201_power_system} depicts total generation coming from many generation assets. This is complex to model. Generation assets are often divided into sub-groups referred to as control areas \cite{Kothari2011}. A control area is defined as a subset of generators that are in close proximity to each other and constitute a coherent group that speed up and slow down together, maintaining their relative power angles \cite{Kothari2011}. Therefore, the total network is comprised of many interconnected control areas. An example of this can be seen in Figure \ref{fig:2105_multiple_area_system}. Notice that for each area there is only one load and one generator.
 \begin{figure}[ht]
 	\centering
@@ -124,7 +124,7 @@ It is common for a speed droop governor feedback control regime to perform prima
 %------------------------ SS: Modelling a Two Area System
 
 \subsection{Modelling a Two Area System} \label{ssec:modelling_two_area_system}
-The single area system presented in Section \ref{oneareapowersystem} is useful to help understand the role of governors and AGC in controlling power system frequency. In reality, power systems are comprised of many control areas connected by transmission lines, referred to as tie lines. Often, there is some net power transfer over the tie lines, dictated by contractual agreement. Single area models do not describe this additional complexity.The simplest model that includes tie lines is the two area power system, shown in Figure \ref{fig:2111_two_area_system}.
+The single area system presented in Section \ref{oneareapowersystem} is useful to help understand the role of governors and AGC in controlling power system frequency. In reality, power systems are comprised of many control areas connected by transmission lines, referred to as tie lines. Often, there is some net power transfer over the tie lines, dictated by contractual agreement. Single area models do not describe this additional complexity. The simplest model that includes tie lines is the two area power system, shown in Figure \ref{fig:2111_two_area_system}.
 
 \begin{figure}[h]
 	\centering
@@ -133,7 +133,10 @@ The single area system presented in Section \ref{oneareapowersystem} is useful t
 	\label{fig:2111_two_area_system}
 \end{figure}
 
-Distinct control areas are typically thought of as different participants in the generation market, or simply as different regions in which generation assets are based \cite{Kothari2011}.
+Governor, and turbine models presented in \textsection \ref{sec:modlling_a_single_area} are used in each of the power areas for a two-area power system model. Additionally, a model for the tie-line connection between the two power areas is used, as well as an updated generator-load model. 
+
+\subsubsection{Tie Line Model}\label{sec:tie_line_model}
+The transmission line connecting two power areas exports power from one area to another, allowing an increase or decrease in the input to the generator-load model for each area. This effect is implemented using a feedback loop. Inputs to the tie-line model are derived from frequency outputs from both areas. The values are differenced and converted to a change in power by multiplying by $2\pi$ and integrating the result. Outputs, $\Delta P_{tie,1}$ and $\Delta_{tie,2}$, represent incremental power supplied or received over the tie-line. The tie-line model is shown in Figure \ref{fig:2112_tie_line_model}. The model derivation can be found in Appendix \ref{fig:tie_line_model}.
 
 \begin{figure}[h]
 	\centering
@@ -142,6 +145,9 @@ Distinct control areas are typically thought of as different participants in the
 	\label{fig:2112_tie_line_model}
 \end{figure}
 
+\subsubsection{Generator Load Model for Two-Area Power System}
+As mentioned in \textsection \ref{sec:tie_line_model}, the generator-load model either supplies or receives power via the tie-line connection between the two areas. To accommodate for this a feedback loop is implemented, which adds tie-line power back into the generator-load, as shown in Figure \ref{fig:2113_generator_load_model_1_with_tie_line}.
+
 \begin{figure}[h]
 	\centering
 	\input{./figures/2113_generator_load_model_1_with_tie_line/generator_load_model_1_with_tie_line}
@@ -149,12 +155,16 @@ Distinct control areas are typically thought of as different participants in the
 	\label{fig:2113_generator_load_model_1_with_tie_line}
 \end{figure}
 
-\newpage
+The frequency domain derivation of the generator-load model for a two area power system can be found in Appendix \ref{app:generator_load_model_with_tie_line}.
 
 %------------------------ SS: Two Area
 
 \subsection{Frequency Control for Two Area System} \label{ssec:control_two_area_system}
-The control objective for a two area power system is to maintain the inter-area power transfer, whilst regulating the frequency of each area. An AGC integral feedback loop on regulating units, like that shown in Figure \ref{fig:2110_single_area_pi_control_model}, would ensure that power system frequency is maintained, however, would not guarantee inter-area power transfer agreements are observed. Violation of power transfer contracts due to control issues does not allow for a stable market in which energy can be reliably traded. Fortunately, multi control area power systems are well understood. Linear models have been developed to simulate these systems, and classical control approaches have been successfully implemented to meet the new control objectives. In order to achieve this, a metric called Area Control Error (ACE) is used in the AGC feedback loop for each control area. ACE is a linear combination of the frequency deviations and the . The implementation of this control system is shown in Figure \ref{fig:208_two_area_pi_control_model}.
+The control objective for a two area power system is to maintain the inter-area power transfer, whilst regulating the frequency of each area. An AGC integral feedback loop on regulating units, like that shown in Figure \ref{fig:2110_single_area_pi_control_model}, would ensure that power system frequency is maintained, however, would not guarantee inter-area power transfer agreements are observed.
+
+Violation of power transfer contracts due to control issues does not allow for a stable market in which energy can be reliably traded. Fortunately, multi control area power systems are well understood, and classical control approaches have been successfully implemented to meet the new control objectives. In order to apply classical PI controllers to two-area power system control, a metric called Area Control Error (ACE) is used in the AGC feedback loop for each control area. ACE is a linear combination of the frequency deviations and tie-line power flows.
+
+The two-area power system can be modelled using governor, turbine, tie-line and generator-load models developed in \textsection \ref{sec:modlling_a_single_area} and \textsection \ref{ssec:control_two_area_system}. This is shown shown in Figure \ref{fig:208_two_area_pi_control_model}, in addition to the classical PI controller with ACE input.
 
 \clearpage
 
