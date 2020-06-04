@@ -39,7 +39,7 @@ The DQN algorithm is summarised in listing \ref{alg:2401}.
 	\end{algorithmic}\label{alg:2401}
 \end{algorithm}
 
-The DQN algorithm is able to train neural networks to solve problems with high-dimensional state spaces; however, it is only suitable for discrete, low-dimensional actions spaces (REFERENCE). This is because the algorithm needs to calculate the maximum over actions during the update step, as shown in line 11 of Listing \ref{alg:2401}. The implication being that each update step would be computationally expensive for action spaces with a large number of discrete actions, and computationally intractable for continuous action spaces (REFERENCE).
+The DQN algorithm is able to train neural networks to solve problems with high-dimensional state spaces; however, it is only suitable for discrete, low-dimensional actions spaces. This is because the algorithm needs to calculate the maximum over actions during the update step, as shown in line 11 of Listing \ref{alg:2401}. The implication being that each update step would be computationally expensive for action spaces with a large number of discrete actions, and computationally intractable for continuous action spaces.
 
 \subsection{Deep Deterministic Policy Gradient}\label{ssec:deep_deterministic_policy_gradient}
 In late 2015 Lillicrap \textit{et al.} adapted key ideas from DQN and the deterministic policy gradient theorem from \cite{Silver2014} and developed the first algorithm that could train a neural network successfully on problems with continuous action domains \cite{Lillicrap2015}. The algorithm is called Deep Deterministic Policy Gradient (DDPG), and uses a total of four neural networks. The first network is called the actor, $\pi(s|\theta^{\pi})$, where $\theta^{\pi}$ denotes the network parameters. The actor part of the DDPG agent is classified as a policy search method, discussed in \textsection \ref{sec:policy_search_method}. The second network is called the critic, $Q(s,a|\theta^{Q})$, where $\theta^Q$ denotes the network parameters. The critic part of the DDPG agent is classified as a value function method, discussed in \textsection \ref{sec:value_function_method}.
@@ -48,15 +48,17 @@ DDPG makes use of DQN's target network idea, implementing a further two neural n
 
 The loss function for the critic network is similar to the DQN loss function (\ref{eq:2401}) except that actions are selected by the actor network. Using the standard Q-learning update and the mean square error, the critic loss function is expressed as:
 \begin{equation}
-	L_i(\theta^Q_i) = \mathbb{E}_{(s,a,r,s^\prime) \sim U(D)} \bigg[ \bigg( r + \gamma Q \big(s^\prime, \pi\big(s^\prime | \theta^{\pi^\prime}_i \big) | \theta^{Q^\prime}_i \big) - Q \big(s,a | \theta^Q_i \big) \bigg)^2 \bigg]
-\end{equation}\label{eq:2402}
+	L_i(\theta^Q_i) = \mathbb{E}_{(s,a,r,s^\prime) \sim U(D)} \bigg[ \bigg( r + \gamma Q \big(s^\prime, \pi\big(s^\prime | \theta^{\pi^\prime}_i \big) | \theta^{Q^\prime}_i \big) - Q \big(s,a | \theta^Q_i \big) \bigg)^2 \bigg]\label{eq:2402}
+\end{equation}
 
 The actor network is updated using the deterministic policy gradient theorem \cite{Silver2014}. The gradient update is given by:
 \begin{equation}
-	\nabla_{\theta^\pi} J(\theta^\pi) = \mathbb{E}\big[ \nabla_a Q(s,a | \theta^Q)|_{s, \ a=\pi(s|\theta^\pi)} \nabla_{\theta^\pi} \pi(s|\theta^\pi) \ | \ s \big]
-\end{equation}\label{eq:2405}
+	\nabla_{\theta^\pi} J(\theta^\pi) = \mathbb{E}\big[ \nabla_a Q(s,a | \theta^Q)|_{s, \ a=\pi(s|\theta^\pi)} \nabla_{\theta^\pi} \pi(s|\theta^\pi) \ | \ s \big] \label{eq:2405}
+\end{equation}
 
+Equations \ref{eq:2402} and \ref{eq:2405} are used with gradient descent and the backpropagation algorithms to update actor and critic network weights during training. The full DDPG algorithm can be seen in listing \ref{alg:2402}.
 
+Using DDPG, Lillicrap \textit{et al.} were able to solve challenging problems across a variety of domains with continuous action spaces. Moreover, DDPG was shown to be more efficient that DQN for the video game domain, needing fewer steps of experience than DQN to learn solutions.
 
 \begin{algorithm}[h]
 	\caption{DDPG Algorithm}
@@ -88,5 +90,5 @@ The actor network is updated using the deterministic policy gradient theorem \ci
 				}
 			\EndFor
 		\EndFor
-	\end{algorithmic}
+	\end{algorithmic}\label{alg:2402}
 \end{algorithm}

@@ -23,5 +23,10 @@ Neural networks are systems that take input signals and by using many simple pro
 
 Beaufays \textit{et al.} \cite{Beaufays1994} demonstrated it was possible to used a neural network for frequency control in one and two-area power systems. A neural network was used instead of an integral controller in the classical structure and received a state variable input vector containing frequency deviation and tie-line power measurements instead of a single value ACE signal seen with classical controllers. The network was trained using gradient descent and the back propagation algorithms, resulting in better transient performance when compared with a classical PI controller. Using these results, Demiroren et al. \cite{Demiroren2001} went further by including non-linearity in the plant models. Specifically, governor deadband, reheater effects, and generating rate constraints are included and it was shown that the results obtained using the ANN controller outperformed the results of a standard PI classical control model for a two-area power system. Additional work confirmed these results for a larger four-area power system with thermal and hydro generation sources \cite{Zeynelgil2002}.
 
-
 \section{Deep Reinforcement Learning}
+A literature survey on deep reinforcement learning for power system applications, published in March 2020, highlighted that load frequency control is a critical aspect of operational control that is becoming more complex and challenging as renewable energy sources become more prevalent. Moreover, the survey only cited one study which focused on using DRL in the continuous action space for load frequency control \cite{Zhang2019}.
+
+The study, published in 2019 by Yan and Xu, used a DDPG trained neural network to control the frequency of a single simulated power area consisting of a non-reheat steam turbine, wind turbine, and stochastic load demand. Yan and Xu concluded that the DDPG trained neural network was able to provide control action that resulted in reduced frequency deviation when compared to an optimally tuned PI controller \cite{Yan2019}.
+
+
+
