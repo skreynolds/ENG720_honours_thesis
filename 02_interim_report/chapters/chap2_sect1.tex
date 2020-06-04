@@ -67,9 +67,9 @@ Typically, for each control area, many loads will be aggregated into a single lo
 When expressing the single area model mathematically, researchers consider three separate elements: the governor, the turbine, and the generator-load.
 
 \subsubsection{Governor Model}
-The governor is a device which is used to regulate the speed of a generator. It is often modelled as a first order system (REFERENCE), as shown in Figure \ref{fig:2107_governor_model}. The governor receives an input, $\Delta P_C(s)$, which represents a power increase/decrease command brought about by adjusting the governor speed changer (REFERENCE). Older governors operated by mechanically coupling the governor with the rotating shaft of the generator (REFERENCE); however, newer governors operate electronically (REFERENCE). Owing to the older mechanical governor designs, governor models often include a proportional feedback loop using turbine rotational frequency change, $\Delta F(s)$. The output, $\Delta Y_E(s)$, represents a control signal to change the turbine steam valve position (REFERENCE). The model parameter $K_{sg}$ is the static gain of the speed-governing mechanism, and the parameter $T_{sg}$ is the time constant of the speed-governing mechanism (REFERENCE).
+The governor is a device which is used to regulate the speed of a generator. It is often modelled as a first order system, as shown in Figure \ref{fig:2107_governor_model}. The governor receives an input, $\Delta P_C(s)$, which represents a power increase/decrease command brought about by adjusting the governor speed changer. Older governors operated by mechanically coupling the governor with the rotating shaft of the generator; however, newer governors operate electronically. Owing to the older mechanical governor designs, governor models often include a proportional feedback loop using turbine rotational frequency change, $\Delta F(s)$. The output, $\Delta Y_E(s)$, represents a control signal to change the turbine steam valve position. The model parameter $K_{sg}$ is the static gain of the speed-governing mechanism, and the parameter $T_{sg}$ is the time constant of the speed-governing mechanism.
 
-The complete frequency domain derivation of the governor model can be found in Appendix \ref{app:governor_model}.
+The frequency domain derivation of the governor model can be found in Appendix \ref{app:governor_model}.
 
 \begin{figure}[h]
 	\centering
@@ -79,11 +79,11 @@ The complete frequency domain derivation of the governor model can be found in A
 \end{figure}
 
 \subsubsection{Turbine Model}
-A steam turbine converts energy stored in the form of high pressure and high temperature steam into rotational energy (REFERENCE). The steam is created in a boiler heated by fossil fuel combustion (REFERENCE). Alternatively, a nuclear reactor could be used to produce the heat (REFERENCE). The steam is forced through turbine nozzle sections accelerating it to high velocities. Kinetic energy from the high velocity steam is converted into shaft torque as it collides with moving blades attached to the turbine rotor. Coupling the turbine rotor to a synchronous machine converts rotational energy to electrical energy (REFERENCE).
+A steam turbine converts energy stored in the form of high pressure and high temperature steam into rotational energy. The steam is created in a boiler heated by fossil fuel combustion. Alternatively, a nuclear reactor could be used to produce the heat. As the steam is forced through turbine nozzle sections it is accelerated to high velocities. Kinetic energy from the high velocity steam is converted into shaft torque as it collides with moving blades attached to the turbine rotor. Coupling the turbine rotor to a synchronous machine converts rotational energy to electrical energy.
 
-Steam turbines come in a variety of configurations. Multiple turbines, and steam reheating systems are common features. 
+Steam turbines can come in a variety of configurations with multiple turbines, and steam reheating systems being common features in modern machinery. The model presented in this section has omitted many of these details, providing a simpler representation. The model, shown in Figure \ref{fig:2108_turbine_model}, is a first-order system that takes the input $\Delta Y_E(s)$, representing the change in steam valve position. The model output is denoted as $\Delta P_G(s)$, which represents the change in power output of the turbine. An increase in the $\Delta Y_E(s)$ lets additional steam into the turbine, increasing $\Delta P_G(s)$. Conversely, a decrease in $\Delta Y_E()$, restricts the steam inflow, reducing $\Delta P_G(s)$.
 
-The second element is the turbine, shown in Figure \ref{fig:2108_turbine_model}. The frequency domain derivation of the governor model can be found in Appendix \ref{app:turbine_model}.
+The frequency domain derivation of the governor model can be found in Appendix \ref{app:turbine_model}.
 
 \begin{figure}[h]
 	\centering
@@ -93,7 +93,9 @@ The second element is the turbine, shown in Figure \ref{fig:2108_turbine_model}.
 \end{figure}
 
 \subsubsection{Generator Load Model}
-The third element is the generator-load, shown in Figure \ref{fig:2109_generator_load_model}. The frequency domain derivation of the governor model can be found in Appendix \ref{app:gen_load_model}.
+Consumers connected to the power system change their demand for power as appliances are switched on and off, placing demand on the generator. The incremental power demanded by consumers, $\Delta P_L(s)$, is subtracted from the incremental power delivered by the turbine to form the input for the generator-load model. The model, shown in Figure \ref{fig:2109_generator_load_model}, is first-order and change in frequency as the output, denoted by $\Delta F(s)$. As the incremental power demanded increases, the generator frequency decreases. Conversely, as the incremental power demanded decreases, the generator frequency increases.
+
+The frequency domain derivation of the governor model can be found in Appendix \ref{app:gen_load_model}.
 
 \begin{figure}[h]
 	\centering
