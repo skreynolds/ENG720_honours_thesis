@@ -1,0 +1,29 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot, statistics}
+
+\begin{document}
+\begin{tikzpicture}
+	\begin{axis}[
+		compat=newest,
+		no markers,
+		tick pos=left,
+		width=0.8\textwidth,
+		height=0.35\textwidth,
+		xlabel=time,
+		x label style={at={(axis description cs:0.5,-0.2)},font=\scriptsize},
+		xticklabel style={/pgf/number format/1000 sep=,rotate=60,anchor=east,font=\scriptsize},
+		ylabel=MW,
+		y label style={font=\scriptsize},
+		yticklabel style={/pgf/number format/1000 sep=,font=\scriptsize},
+		legend pos={north west},
+		legend style={font=\scriptsize},
+		date coordinates in=x,
+		xticklabel=\hour:\minute
+	]
+	\addplot[green!20!gray, ultra thick] table[mark=none, x=time, y=demand, col sep=comma] {system_demand_data.csv};
+	
+	\end{axis}
+\end{tikzpicture}
+\end{document}
