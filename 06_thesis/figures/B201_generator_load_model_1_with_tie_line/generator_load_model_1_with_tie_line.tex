@@ -1,0 +1,50 @@
+%----------- Create a fancy summing block
+\tikzset{add/.style n args={4}{
+		minimum width=6mm,
+		path picture={
+			\draw[black] 
+			(path picture bounding box.south east) -- (path picture bounding box.north west)
+			(path picture bounding box.south west) -- (path picture bounding box.north east);
+			\node at ($(path picture bounding box.south)+(0,0.13)$)     {\tiny #1};
+			\node at ($(path picture bounding box.west)+(0.13,0)$)      {\tiny #2};
+			\node at ($(path picture bounding box.north)+(0,-0.13)$)    {\tiny #3};
+			\node at ($(path picture bounding box.east)+(-0.13,0)$)     {\tiny #4};
+		}
+	}
+}
+
+%----------- Block style 1
+\tikzstyle{block1} = [draw, fill=green!20, rectangle, 
+minimum height=3em, minimum width=6em, node distance=2.5cm]
+
+%----------- Block style 2
+\tikzstyle{block2} = [draw, fill=green!20, rectangle, 
+minimum height=3em, minimum width=3em, node distance=2.5cm]
+
+%----------- Sum style
+\tikzstyle{sum} = [draw, fill=green!20, circle, node distance=2cm]
+
+%----------- Input style
+\tikzstyle{input} = [coordinate, node distance=4cm]
+
+%----------- Output style
+\tikzstyle{output} = [coordinate, node distance=4cm]
+
+\begin{tikzpicture}
+	
+	% Draw the nodes first
+	\node [input] (input) {};
+	\node [sum,add={$-$}{+}{$-$}{ },right of=input] (sum) {};
+	\node [block1, right of=sum, label=above:{Gen. Load}] (genload) {$\frac{K_{gl}}{1 + T_{gl}s}$};
+	\node [input, above of=sum, node distance=2cm] (tieline) {};
+	\node [input, below of=sum, node distance=2cm] (powerdemand) {};
+	\node [output, right of=genload] (output) {};
+	
+	% Connect the nodes
+	\draw [->] (input) -- node [label=above:{$\Delta P_G(s)$}] {} (sum);
+	\draw [->] (sum) -- (genload);
+	\draw [->] (powerdemand) -- node [label=right:{$\Delta P_{L, 1}(s)$}] {} (sum);
+	\draw [->] (tieline) -- node [label=right:{$\Delta P_{tie, 1}$}] {} (sum);
+	\draw [->] (genload) -- node [label=above:{$\Delta F(s)$}] {} (output);
+	
+\end{tikzpicture}

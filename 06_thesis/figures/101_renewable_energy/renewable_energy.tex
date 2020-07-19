@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+	\begin{axis}[
+		no markers,
+		tick pos=left,
+		width=0.8\textwidth,
+		height=0.35\textwidth,
+		xlabel=Year,
+		x label style={at={(axis description cs:0.5,-0.2)},font=\scriptsize},
+		xticklabel style={/pgf/number format/1000 sep=,rotate=60,anchor=east,font=\scriptsize},
+		ylabel=Terrawatt hours,
+		y label style={font=\scriptsize},
+		yticklabel style={/pgf/number format/1000 sep=,font=\scriptsize},
+		legend pos={north west},
+		legend style={font=\scriptsize}
+	]
+	\addplot[green!20!gray, ultra thick] table[mark=none, x=year, y=total, col sep=comma] {./figures/101_renewable_energy/renewable_energy.csv};
+	\addlegendentry{Total}
+	\addplot[green!20!gray, ultra thick, dashed] table[mark=none, x=year, y=renew, col sep=comma] {./figures/101_renewable_energy/renewable_energy.csv};
+	\addlegendentry{Renewable}
+	\end{axis}
+\end{tikzpicture}

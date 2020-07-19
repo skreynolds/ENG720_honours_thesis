@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+	\begin{axis}[
+		compat=newest,
+		no markers,
+		tick pos=left,
+		width=0.9\textwidth,
+		height=0.4\textwidth,
+		xlabel=time (sec),
+		x label style={at={(axis description cs:0.5,-0.2)},font=\scriptsize},
+		xticklabel style={/pgf/number format/1000 sep=,font=\scriptsize},
+		ylabel=frequency (Hz),
+		y label style={font=\scriptsize},
+		yticklabel style={/pgf/number format/1000 sep=,font=\scriptsize},
+		legend pos={north west},
+		legend style={font=\scriptsize},
+		xmin=0, xmax=80,
+		ymin=49.55 , ymax=50.10
+	]
+	\addplot[green!20!gray, smooth] table[mark=none, x=time, y=frequency, col sep=comma] {./figures/2104_frequency_disturbance/frequency_disturbance.csv};
+	
+	\addplot +[mark=none, dashed, black] coordinates {(2, 49.55) (2, 50.10)};
+	
+	\addplot +[mark=none, dashed, black] coordinates {(20, 49.55) (20, 50.10)};
+	
+	\addplot +[mark=none, dashed, black] coordinates {(40, 49.55) (40, 50.10)};
+	
+	\end{axis}
+\end{tikzpicture}

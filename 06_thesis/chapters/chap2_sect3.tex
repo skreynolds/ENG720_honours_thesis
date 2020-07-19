@@ -1,0 +1,138 @@
+\section{Deep Neural Networks}\label{sec:deep_neural_networks}
+Deep neural networks (DNNs) are responsible for some of the most recent state-of-the-art technological breakthroughs in fields such as audio to text speech recognition systems \cite{Hinton2012}, image classification systems \cite{Krizhevsky2012, Simonyan2014, Szegedy2015, He2016}, text-to-text machine translation, and robotics \cite{Mnih2015, Lillicrap2015, Schulman2015, Schulman2015highdimensional}.
+
+Deep neural networks are able to adapt to the different needs of diverse research fields due to their unique computational architecture.
+
+%------------------------ SS: Feedforward Network
+
+\subsection{Feedforward Networks}\label{sec:feedfoorward_networks}
+The most common architecture used in a DNN is the \textit{feedforward} neural network (FNN), often referred to as a \textit{multilayer perceptron} model. First developed in 1971, a fully connected FNN consists of an input layer, one or more hidden layers, and an output layer, as shown in Figure \ref{fig:2302_feedforward_network}.
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/2302_feedforward_network/feedforward_network}
+	\caption[Feedforward network example]{An example of a feedforward network consisting of an input layer, two hidden layers, and an output layer}
+	\label{fig:2302_feedforward_network}
+\end{figure}
+
+When an input signal is introduced to the input layer, it propagates through the network, in a forward direction, on a layer-by-layer basis. The emergent signal at the output layer, is called the network response \cite{Haykin99}. Hidden and output layers are made up of multiple nodes, called perceptrons. Each perceptron receives a vector of inputs from the previous layer. Weights are applied to each vector element. A summation of the weighted vector elements is passed through an activation function, that allows the node to signal when it recognises the vector input. This is discussed further in \textsection \ref{sec:perceptron_model}.
+
+The weighting values described above allow FNN architectures to connect many perceptrons to form a computational graph, or network. Modifying the network weights in a way that allows the FNN to achieve the desired behaviour is referred to as \textit{training the network}. A trained network is able to form highly non-linear models used for estimation or classifying of complex phenomena that is difficult to model using classical approaches, or is computationally intractable.
+
+
+%------------------------ SS: Perceptron Model
+
+\subsection{Perceptron Model}\label{sec:perceptron_model}
+Rosenblatt is credited with developing the perceptron model that is a fundamental building block for neural network architectures. Motivated by Hebbian theory of synaptic plasticity (\textit{i.e.} the adaptation of brain neurons during the learning process), Rosenblatt developed a model to emulate the ``perceptual processes of a biological brain'' \cite{Rosenblatt1957}. Rosenblatt's perceptron model consisted of a single node used for binary classification of patterns that are linearly separable \cite{Rosenblatt1958}. %The neuron takes a vector of inputs and applies a weight, multiplicatively, to each vector element. The multiplied elements are then summed along with a bias term.
+Letting input vector elements be $x_i$, weight terms be $w_i$, and the bias term be $b$, the summation operation can be expressed as:
+\begin{equation}
+	\sum_{i}x_i w_i + b. \label{eq:2301}
+\end{equation} 
+
+The summation is then passed through an activation function, $f$, to produce the neuron output. Using equation \ref{eq:2301} and letting the neuron output be $y$, the neuron model can be expressed as:
+\begin{equation}
+	y = f\bigg( \sum_{i}x_i w_i + b \bigg). \label{eq:2302}
+\end{equation}
+
+Figure \ref{fig:2301_perceptron_model} shows the computational model of a neuron, expressed in Equation \ref{eq:2302}.
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/2301_perceptron_model/perceptron_model}
+	\caption[Computational model of a perceptron]{Rosenblatt's perceptron model passes the summation of weighted inputs to an activation function}
+	\label{fig:2301_perceptron_model}
+\end{figure}
+
+
+%------------------------ SS: Activation Functions
+
+\subsection{Activation Functions}\label{sec:activation_functions}
+The activation function is a key component of Rosenblatt's perceptron --- it determines if the perceptron will activate or not. Rosenblatt's model used a Heaviside step function, which was effective under his perceptron learning algorithm for some classification tasks. In 1969, Minsky and Papert published a book called Perceptrons that argued Rosenblatt's perceptron had significant limitations, such as the inability to solve exclusive-or (XOR) classification problems \cite{Minsky1969}. This limitation was overcome by increasing the size of neural networks, which subsequently required the development of new algorithms to train the networks efficiently. Gradient descent using backpropagation \cite{Werbos1982} is the most common algorithm for training neural networks. These algorithms are discussed further in \textsection \ref{sec:networktraining}; however, one important requirement is that activation functions are differentiable, with non-zero gradients. The Heaviside function is non-differentiable at $x = 0$, and has a zero derivative elsewhere and is therefore not suitable. According to Haykin, a number of different activation functions can be adopted to replace the Heaviside function \cite{Haykin99}. Two of the most common are:
+\begin{enumerate}
+	\item Hyperbolic tangent: $f:\mathbb{R} \to (-1,1)$, shown in Figure \ref{fig:2303_tanh_activation_function}, where
+	\begin{equation}
+		f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
+	\end{equation}
+	\item Logistic sigmoid: $f:\mathbb{R} \to (0,1)$, shown in Figure \ref{fig:2304_sigmoid_activation_function}, where
+	\begin{equation}
+		f(x) = \frac{1}{1 + e^{-x}}
+	\end{equation}
+\end{enumerate}
+
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.45\textwidth}
+		\centering
+		\input{./figures/2303_tanh_activation_function/tanh_activation_function}
+		\caption[Hyperbolic tangent activation function]{Hyperbolic tangent activation function}
+		\label{fig:2303_tanh_activation_function}
+	\end{minipage}
+	\hspace{1cm}
+	\begin{minipage}[t]{0.45\textwidth}
+		\centering
+		\input{./figures/2304_sigmoid_activation_function/sigmoid_activation_function}
+		\caption[Sigmoid activation function]{Sigmoid activation function}
+		\label{fig:2304_sigmoid_activation_function}
+	\end{minipage}
+\end{figure}
+
+For shallow neural networks, the hyperbolic tangent and sigmoid activation functions are effective. As the network is deepened with additional hidden layers hyperbolic tangent and sigmoid activation functions  cause the network to learn sub-optimally. This phenomena was first discovered by Hochreiter in 1991 and is referred to as the vanishing gradient problem \cite{Hochreiter1991}. It describes a situation where the gradients for hyperbolic tangent and sigmoid activation functions become close to zero toward the function tails. As previously mentioned, training algorithms such as gradient descent require non-zero gradients. As inputs to sigmoidal or hyperbolic tangent functions get very large (or very small) the gradient tends to zero. This impedes the agent's ability to learn. Two commonly used activation functions that are used to overcome the vanishing gradient problem are:
+\begin{enumerate}
+	\item Rectified Linear Unit (ReLU): $f:\mathbb{R} \to [0,\infty)$, shown in Figure \ref{fig:2303_tanh_activation_function}, where
+	\begin{equation}
+		f(x) = \max(0,x) = \begin{cases}
+							x \ \ \text{if} \ \ x \geq 0 \\
+							0 \ \ \text{if} \ \ x < 0	
+						   \end{cases}
+	\end{equation}
+	\item Leaky ReLU (LReLU): $f:\mathbb{R} \to \mathbb{R}$, shown in Figure \ref{fig:2304_sigmoid_activation_function}, where for $\alpha < 1$
+	\begin{equation}
+		f(x) = \max(x, \alpha x) =   \begin{cases}
+									  x \ \ \text{if} \ \ x \geq 0 \\
+									 \alpha x \ \ \text{if} \ \ x < 0	
+			   						 \end{cases}
+	\end{equation}
+\end{enumerate}
+
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{0.45\textwidth}
+		\centering
+		\input{./figures/2305_relu_activation_function/relu_activation_function}
+		\caption[ReLU activation function]{ReLU activation function}
+		\label{fig:2305_relu_activation_function}
+	\end{minipage}
+	\hspace{1cm}
+	\begin{minipage}[t]{0.45\textwidth}
+		\centering
+		\input{./figures/2306_lrelu_activation_function/lrelu_activation_function}
+		\caption[LReLU activation function]{LReLU activation function}
+		\label{fig:2306_lrelu_activation_function}
+	\end{minipage}
+\end{figure}
+
+% Need to provide further comments regarding the leaky rely and why these are used.
+
+%------------------------ SS: Training the Network
+
+\subsection{Training the Network} \label{sec:networktraining}
+As outlined in \textsection \ref{sec:feedfoorward_networks}, modifying the weights that are multiplicatively applied to perceptron inputs changes the perceptron's behaviour. Moreover, changing the weights of perceptrons in a neural network changes the behaviour of the network. Changing the weights in a systematic way to shift network behaviour towards the desired result is known as training the network.
+
+The most common way of training the network is by using the Gradient Descent optimisation algorithm, which minimises a cost function. A neural network cost function quantifies the error between the network's prediction and an actual, or expected, result for a set of training data. Often the Mean Squared Error is used as a cost function, although cost function specification is dependent on the neural network application. Letting $\theta$ represent the set of network weights, a neural network cost function is typically denoted as, $L(\theta)$.
+
+The Gradient Descent algorithm calculates the gradient of the cost function with respect to network weights. This is denoted by $\nabla_{\theta}L(\theta)$. The gradient represents the direction of the steepest slope on the cost function manifold. For the $k+1$th iteration, the algorithm takes a small step, $\alpha \nabla_{\theta}L(\theta)$, in the opposite direction of the gradient, where $\alpha$ is referred to as the learning rate. The update equation for the network weights at $k+1$th step is given by:
+\begin{equation}
+	\theta_{k+1} = \theta_{k} - \alpha \nabla_{\theta} L(\theta)
+\end{equation} 
+
+The gradient calculation and update steps are repeated iteratively until the algorithm converges on a local or global minima.
+
+Efficient calculation of the neural network cost function gradients is achieved using the an important algorithm called backpropagation. Backpropagation uses computational graph structures and the chain rule to recursively calculate gradients, with respect to network weights, throughout the entire neural network. The backpropagation algorithm was the first algorithm to achieve this result efficiently, and remains the workhorse of deep neural network learning.
+
+% This section needs to be referenced properly and the following discussion elements need to be added as well
+
+% Talk about stochastic gradient descent
+
+% Talk about the adam algorithm
+
+% Werbos backpropagation

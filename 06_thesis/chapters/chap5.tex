@@ -1,0 +1,111 @@
+\chapter{Preliminary Investigation}
+A preliminary investigation was undertaken to assess the performance of the DDPG algorithm in training a neural network tasked with controlling the frequency and power interchange of a two area power system. The preliminary investigation was conducted by the approach outlined in \textsection \ref{sec:preliminary_investigation} and primarily focuses on changes to the environment reward function and OU exploratory noise parameters. A total of six experiments were conducted, labelled A through F, to evaluate the role of DDPG network architectures and hyperparameter settings. Simulation environment parameters were obtained from a two area power system commonly modelled in literature. Similarly, parameters for an optimally tuned PI controller, for the given simulation environment parameters, were used. The simulation parameters used are shown in Table \ref{tab:5000}.
+\begin{table}[h]
+	\centering
+	\caption{Environment and controller parameters used for preliminary investigation experiments.}
+	\begin{tabular}{llr}
+		\toprule
+		\textbf{Description} & \textbf{Parameter} & \textbf{Value} \\
+		\midrule
+		Speed Governor Gain & $K_{sg_1}$, $K_{sg_2}$ & 1 \\
+		Speed Governor Time Constant & $T_{sg_1}$, $T_{sg_2}$ & 0.08 \\
+		Turbine Gain & $K_{t_1}$, $K_{t_2}$ & 1 \\
+		Turbine Time Constant & $T_{t_1}$, $T_{t_2}$ & 0.3 \\
+		Generator Load Gain & $K_{gl_1}$, $K_{gl_2}$ & 120 \\
+		Generator Load Time Constant & $T_{gl_1}$, $T_{gl_2}$ & 20 \\
+		Tieline & $T_{12}$ & 0.1 \\
+		Proportional Gain & $R_1$, $R_2$ & 2.4 \\
+		Integral Gain & $K_{i_1}$, $K_{i_2}$, & -0.671 \\
+		 & $b_1$, $b_2$ & 0.425 \\
+		\bottomrule
+	\end{tabular}\label{tab:5000}
+\end{table}
+
+At the beginning of each experiment a new instance of a DDPG agent was initialised, and the DDPG agent replay buffers cleared. Each experiment used the same episode scenario, with the system and agent response simulated for a total of 30 sec, after which the episode was terminated. In order to simulate a power system perturbation, a 0.01pu step change in the power demand for area 1 was introduced at the 1 sec mark, as shown in Figure \ref{fig:5001_demand_profile}.
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/5001_demand_profile/demand_profile.tikz}
+	\caption[Preliminary investigation load demand step change]{At the 1 sec mark the system experiences a step load change in the power demand in Area 1, and the simulation continues for 30 sec thereafter.}
+	\label{fig:5001_demand_profile}
+\end{figure}
+
+From initialisation, the simulation was incrementally stepped forward by 0.01 sec for a total of 3000 steps. At each time step the DDPG agent was trained using experience stored in the replay buffer from current and previous system interactions, for a given experiment. Experiments were allowed to run for a total of 200 episodes, and were conducted sequentially. At the conclusion of each experiment the agent performance during and after training was analysed.
+
+Experiments used the same actor and critic neural network architectures. Actor network architectures consisted of an input layer (7 perceptrons), a single hidden layer (256 perceptrons), and an output layer (2 perceptrons). Hidden layers used ReLU activation functions, and the output layer used a $\tanh$ activation function. The network architectures of the critic consisted of an input layer (7 perceptrons), three hidden layers (256, 256, and 128 perceptrons), and an output layer (1 nodes). Hidden layers used LReLU activation functions, and the output layer used no activation function. Note that the network architectures were similar to those outlined in Table \ref{tab:4102} except that 7 input features were used. Inputs were sourced from differential equation outputs for the two area power system model. The additional inputs were used in an attempt to provide neural networks with more information, and reduce the number of episodes required for training. Hyperparameters were held constant for each experiment --- details are shown in Table \ref{tab:5000_hyperparameters}.
+
+\begin{table}[h]
+	\centering
+	\caption{DDPG hyperparameters used for preliminary investigation experiments.}
+	\begin{tabular}{lrlr}
+	\toprule
+	\textbf{Hyperparameter} & \textbf{Value} & \textbf{Hyperparameter} & \textbf{Value} \\
+	\midrule
+	Buffer Size 	 & $1 \times 10^6$  & Batch Size 	& 256 \\
+	Gamma ($\gamma$) & 0.99 	& Tau ($\tau$) 	& $1 \times 10^{-3}$ \\
+	Actor Learning Rate ($\alpha_{\texttt{actor}}$) & $1 \times 10^{-4}$ & Critic Learning Rate ($\alpha_{\texttt{critic}}$) & $3 \times 10^{-4} $ \\
+	Weight Decay & 0.00 & & \\
+	\bottomrule
+	\end{tabular}\label{tab:5000_hyperparameters}
+\end{table}
+
+The configuration of termination conditions, reward functions, and OU noise noise parameters for experiments A to F can be found in Tables \ref{tab:5001} to \ref{tab:5006}, respectively. The tables also present the cumulative reward over a single episode for a DDPG agent that has been trained for 200 episodes under the given settings. The reward for an optimal PI controller under the same reward function settings is provided for comparison. 
+
+Experiments A and B implemented a condition whereby the episode was terminated early if a frequency change in either area exceeded 0.75 Hz. Given this additional termination condition, the agent received a positive reward for each time step it remained in the allowable region. This positive reward was reduced by frequency deviations, tieline power deviations, and control signal magnitudes. Settings for the OU noise parameters were identical to experiments undertaken by Lillicrap \textit{et alias}.
+
+In order to improve on the agent performance in experiment A and B, experiment C, D, and E removed the early termination condition and allowed the agent to explore the full state-action space for the 30 sec duration. Under this scenario the agent received a negative reward based on the magnitude of frequency deviations, tieline power deviations, and control signals.
+
+The final experiment was motivated by an observation of overt noise in control signals during episodic training for experiments A to E. Experiment F maintained the termination condition and reward structure of experiments C, E, and F; however, the OU noise parameters were modified, with parameter magnitudes reduced by a factor of 10.
+
+A series of plots were created for each experiment A to F, which are shown in Figures \ref{fig:results_A} to \ref{fig:results_F}, respectively. For each figure, subplot (a) shows an evolution of the cumulative raw reward score for each episode, and subplot (b) shows the average of these cumulative rewards with a standard deviation measure either side. Monotonically increasing curves in subplot (a) and (b) are desirable, and indicate stable learning for a given reward function, and set of hyperparameters. Subplot (c) and (d) are produced by letting the trained DDPG agent attempt the frequency control task a 30 sec duration. Subplot (c) shows performance in power area 1, and subplot (d) shows performance in power area 2. The optimal PI controller performance is included in each subplot for comparison. Finally, subplot (e) and (f) show the control signal that the DDPG agent used to achieve the results shown in subplots (c) and (d). The optimal PI controller control signals are included for comparison.
+
+
+%--------------------- S: Prelim. Exp. A Setup
+
+\input{./chapters/chap5_exp_a_1}
+
+%--------------------- S: Prelim. Exp. B Setup
+
+\input{./chapters/chap5_exp_b_1}
+
+%--------------------- S: Prelim. Exp. C Setup
+
+\input{./chapters/chap5_exp_c_1}
+
+%--------------------- S: Prelim. Exp. D Setup
+
+\input{./chapters/chap5_exp_d_1}
+
+%--------------------- S: Prelim. Exp. E Setup
+
+\input{./chapters/chap5_exp_e_1}
+
+%--------------------- S: Prelim. Exp. F Setup
+
+\input{./chapters/chap5_exp_f_1}
+
+\clearpage
+
+%--------------------- S: Prelim. Exp. A Results
+
+\input{./chapters/chap5_exp_a_2}
+
+%--------------------- S: Prelim. Exp. B Results
+
+\input{./chapters/chap5_exp_b_2}
+
+%--------------------- S: Prelim. Exp. C Results
+
+\input{./chapters/chap5_exp_c_2}
+
+%--------------------- S: Prelim. Exp. D Results
+
+\input{./chapters/chap5_exp_d_2}
+
+%--------------------- S: Prelim. Exp. E Results
+
+\input{./chapters/chap5_exp_e_2}
+
+%--------------------- S: Prelim. Exp. F Results
+
+\input{./chapters/chap5_exp_f_2}

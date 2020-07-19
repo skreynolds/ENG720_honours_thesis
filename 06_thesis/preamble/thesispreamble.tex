@@ -1,0 +1,165 @@
+%!TEX root = thesis.tex
+
+\usepackage{geometry}
+% The CDU default dimensions are: 
+%  \geometry{a4paper,inner=4.0cm, outer=2cm, top=3cm, bottom=2cm}
+
+% These aren't especially pleasing to look at. Without changing the dimensions
+% of the textblock you can use:
+  \geometry{a4paper,inner=3cm, outer=3cm, top=2cm, bottom=3cm}
+  \pdfpagewidth=\paperwidth 
+  \pdfpageheight=\paperheight
+  % This acts as a failsafe to ensure things aren't stretched or moved when it's finally printed as a PDF.
+
+%\usepackage[parfill]{parskip} 
+% Activate to begin paragraphs with an empty (return) line, comment out the indent below if you chose the return line option.
+
+\setlength{\parindent}{1em}  % Sets the length of the paragraph indent. Current setup has a an indent. Disable this if you activate the return line above.
+
+% Double or one and a half spacing.
+\usepackage{setspace}
+  \onehalfspacing
+  
+\usepackage{graphicx}
+  \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+% Graphics. Remove me and you won't have any figures, and that would be very boring.
+
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+% Adds the ability to make coloured text and lines throughout the document. See documentation for xcolor.
+
+%-------------------- Tables, figures and captions
+\usepackage[font={small},labelfont={bf},margin=4ex]{caption}
+% Makes bold labeled and smaller font captions. Must be loaded before the longtable package to avoid conflicts! 
+
+\usepackage{longtable}
+% Long tables (more than one page). Different headers and footers for beginning and end pages, etc.
+
+\usepackage{afterpage}
+% Make a longtable start on the next clear page, but fills the previous one with text first (no random gaps in the text-from long tables anymore! Man, the day I discovered this...)
+
+\usepackage{booktabs}
+% Nice looking tables and lines in tables
+
+\usepackage{multirow}
+% Entries in tables over multiple rows
+
+\usepackage{cprotect}
+% protects verb in captions
+
+\usepackage{rotating}
+% Provides the ability to rotate a figure into landscape mode (does not create page in landscape)
+
+\usepackage{lscape}
+% Pages in landscape
+
+\usepackage{pdflscape}
+% Landscape pages also rotated in the pdf
+
+\usepackage{wrapfig}
+% Allows figures that don't take up the entire width of the page, wrapping the text around the figure
+
+%\usepackage[position=top,singlelinecheck=false,captionskip=4pt]{subfig}
+\usepackage{subfig} 
+% Multiple figures in an individual figure. Fig. 1 a, b, c, etc. each with, or without, it's own individual caption, and with a global caption for all sub figures.
+
+%-------------------- Special symbols and fonts
+\usepackage{amssymb}
+% Maths symbols
+
+\usepackage{amsmath}
+
+\usepackage{siunitx}
+% important package for scientific papers
+
+%-------------------- Algorithm listings
+\usepackage{algorithm}
+% creates an environment to list algorithms
+
+\usepackage{algpseudocode}
+% allows us to write neat pseudeocode
+
+%-------------------- Document sections, headers, footers, and bibliography
+\usepackage{fancyhdr}
+% for creating different headers and footers
+
+%-------------------- Graphics path specification
+\graphicspath{{./figures/}}
+
+%-------------------- Bibliography
+%\usepackage[backend=biber,style=ieee,doi=false]{biblatex}
+\usepackage[backend=biber,style=ieee]{biblatex}
+% This is the package that lets you create a bibliography. I recommend reading the biblatex documentation to understand all the options i've specified here. BibLaTeX was created to replace BibTeX. It has lots of extra fields and options. I'm also using the biber backend here rather than the default, it copes with unicode and so can deal with accented characters easily.
+
+% Currently this is set up to use RSC style references with article titles displayed. You can change this to another numeric style, there are other numeric styles available: Vancouver, american chemical society, american institute of physics, etc. As well, there are author-date styles available. Most journals or styles you can think of are available and you're not restricted to use any particular referencing style at CDU. Royal society of Chemistry is just what I use. I'd recommend you talk to your supervisor about what referencing style to use, usually one that is common in your chosen field.
+
+% Traditionally you would use BibTeX, a special build of TeX, for your bibliogrpahy.The newer biblatex package is a more powerful bibliograpy management tool for LaTeX. You can make multiple, chapter based bibliographies, footnote bibliographes, sort your references by date, author, order cited, essentially by any bit of citation data you happen to have. You can also have a seperate library with a differnet format for say books and articles. Or if you're a PhD student, the thesis references and your a list of YOUR publications. That siad. If you want to use the old way this is it below.
+
+%-------------------- Hyperlinks in your document.
+\usepackage[unicode=true,colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black,breaklinks=true]{hyperref}
+% The hyperref package allows you to have clickable links in your pdf. It also allows you to have the mailto link associated with your name. It can be  a bit finicky, so load it last.
+
+%-------------------- Command renewals, New commands etc.
+\renewcommand{\thefootnote}{\alph{footnote}}              
+%letters for footnotes instead of numbers to avoid confusion with references.
+
+%-------------------- Plots and graphs
+\usepackage{tikz}
+% make pretty pictures
+
+\usetikzlibrary{shapes, arrows}
+\usetikzlibrary{positioning, calc}
+% Import tikz libraries
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+% make pretty plots
+
+\usepgfplotslibrary{dateplot}
+% use the date plot library to create nice timeseries plots
+
+\usepgfplotslibrary{external} 
+\tikzexternalize[prefix=tikz/]
+% to create figures outside of the latex environment
+
+%-------------------- Function to lift power a bit
+\newcommand\mystrut{\rule{0pt}{10pt}}
+
+%-------------------- Code listings
+\usepackage{listings}
+% Allows the input of Python code to latex
+
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{9} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{9}  % for normal
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{magenta}{rgb}{0.8,0,0.8}
+
+\lstset{basicstyle=\ttfamily\scriptsize,
+		columns=fixed,
+		tabsize=4,
+		otherkeywords={self},
+		keywordstyle=\ttb\color{deepblue},
+		emph={__init__,
+			  int_power_system_sim, int_control_system_sim,
+			  Actor,
+			  Critic,
+			  reset_parameters,
+			  forward,
+			  DdpgController,
+			  step,
+			  act,
+			  reset,
+			  learn,
+			  soft_update},
+		emphstyle=\ttb\color{deepred},
+		stringstyle=\ttm\color{magenta},
+		commentstyle=\ttm\color{deepgreen},
+		frame=tb}
+
+% Algorithmic new command to wrap text
+\newcommand{\algmargin}{\the\ALG@thistlm}   
+\makeatother
+\algnewcommand{\parState}[1]{\State%
+    \parbox[t]{\dimexpr\linewidth-\algmargin}{\strut #1\strut}}

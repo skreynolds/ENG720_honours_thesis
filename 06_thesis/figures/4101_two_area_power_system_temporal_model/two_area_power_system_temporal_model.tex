@@ -1,0 +1,113 @@
+%----------- Create a fancy summing block
+\tikzset{add/.style n args={4}{
+		minimum width=6mm,
+		path picture={
+			\draw[black] 
+			(path picture bounding box.south east) -- (path picture bounding box.north west)
+			(path picture bounding box.south west) -- (path picture bounding box.north east);
+			\node at ($(path picture bounding box.south)+(0,0.13)$)     {\tiny #1};
+			\node at ($(path picture bounding box.west)+(0.13,0)$)      {\tiny #2};
+			\node at ($(path picture bounding box.north)+(0,-0.13)$)    {\tiny #3};
+			\node at ($(path picture bounding box.east)+(-0.13,0)$)     {\tiny #4};
+		}
+	}
+}
+
+%----------- Block style 1
+\tikzstyle{block1} = [draw, fill=white!80!green, rectangle, 
+minimum height=3em, minimum width=6em, node distance=2.5cm]
+
+%----------- Block style 2
+\tikzstyle{block2} = [draw, fill=white!80!green, rectangle, 
+minimum height=3em, minimum width=3em, node distance=2.5cm]
+
+%----------- Sum style
+\tikzstyle{sum} = [draw, fill=white!80!green, circle, node distance=2cm]
+
+%----------- Input style
+\tikzstyle{input} = [coordinate, node distance=4cm]
+
+%----------- Output style
+\tikzstyle{output} = [coordinate, node distance=4cm]
+
+%----------- Pin style
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+
+\begin{tikzpicture}	
+	% Tie line nodes
+	\node [sum, add={$-$}{}{+}{ }] (sum1) {};
+	\node [block1, right of=sum1, label=above:{Tie Line}] (tieline) {$\frac{2\pi T_{12}}{s}$};
+	\node [output, right of=tieline, node distance=3cm] (out) {};
+	\node [coordinate, above of=out, node distance=5cm] (c1) {};
+	\node [coordinate, below of=out, node distance=5cm] (c2) {};
+	\node [block2, left of=c2] (a12) {$-a_{12}$};
+	
+	% Position a reference coordinate for drawing
+	\node [coordinate, left of=sum1, node distance=2.5cm] (c3) {};
+	\node [coordinate, above of=c3, node distance=0.75cm] (c4) {};
+	\node [coordinate, below of=c3, node distance=0.75cm] (c5) {};
+	
+	% Create nodes for upper leg
+	\node [block1, above of=c3, node distance=3.5cm, label=above:{Gen. Load 1}] (genload1) {$\frac{K_{gl1}}{T_{gl1}s+1}$};
+	\node [coordinate, right of=genload1, node distance=1.5cm] (c6) {};
+	\node [sum, left of=genload1, add={$-$}{+}{$-$}{}, node distance=2.5cm] (sum2) {};
+	\node [coordinate, below of=sum2] (p11) {};
+	\node [coordinate, left of=p11, node distance=0.5cm, label=left:{$\Delta P_{L1}(s)$}] (p12) {};
+	\node [block1, left of=sum2, node distance=3.5cm, label=above:{Turbine 1}] (turbine1) {$\frac{K_{t1}}{T_{t1}s+1}$};
+	\node [block1, left of=turbine1, node distance=4.5cm, label=above:{Governor 1}] (governor1) {$\frac{K_{g1}}{T_{g1}s+1}$};
+	\node [coordinate, left of=governor1, node distance=3cm] (c8) {};
+	\node [coordinate, left of=c5, node distance=13.5cm] (c10) {};
+	\node [coordinate, left of=c1, node distance=21.5cm] (c12) {};
+	
+	
+	
+	% Create nodes for lower leg
+	\node [block1, below of=c3, node distance=3.5cm, label=above:{Gen. Load 2}] (genload2) {$\frac{K_{gl1}}{T_{gl1}s+1}$};
+	\node [coordinate, right of=genload2, node distance=1.5cm] (c7) {};
+	\node [sum, left of=genload2, add={$-$}{+}{$-$}{}, node distance=2.5cm] (sum3) {};
+	\node [coordinate, above of=sum3] (p21) {};
+	\node [coordinate, left of=p21, node distance=0.5cm, label=left:{$\Delta P_{L2}(s)$}] (p22) {};
+	\node [block1, left of=sum3, node distance=3.5cm, label=above:{Turbine 2}] (turbine2) {$\frac{K_{t2}}{T_{t2}s+1}$};
+	\node [block1, left of=turbine2, node distance=4.5cm, label=above:{Governor 2}] (governor2) {$\frac{K_{g2}}{T_{g2}s+1}$};
+	\node [coordinate, left of=governor2, node distance=3cm] (c9) {};
+	\node [coordinate, left of=c4, node distance=13.5cm] (c11) {};
+	\node [coordinate, left of=a12, node distance=19cm] (c13) {};
+	
+	
+	% Connect the tieline nodes
+	\draw [->] (sum1) -- (tieline);
+	\draw (tieline) -- node [label=below:{$x_5(t)$}] {} (out);
+	
+	% Connect nodes in upper block
+	\draw (out) -- (c1);
+	\draw [->] (c1) -| (sum2);
+	
+	\draw [->] (governor1) -- node [label=above:{$x_2(t)$}] {} (turbine1);
+	\draw [->] (turbine1) -- node [label=above:{$x_3(t)$}] {} (sum2);
+	\draw [->] (sum2) -- (genload1);
+	\draw [->] (genload1) -| node [label=above:{$x_4(t)$}] {} (sum1);
+	\draw (c6) |- (c4);
+	\draw [->] (c8) -- node [label=above:{$u_1(t)$}] {} (governor1);
+	\draw (p12) -- (p11);
+	\draw [->] (p11) -- (sum2);
+	\draw [->] (c4) -- (c11);
+	\draw [->] (c1) -- (c12);
+	
+	
+	% Connect nodes in lower block
+	\draw (out) -- (c2);
+	\draw [->] (c2) -- (a12);
+	\draw [->] (a12) -| (sum3);
+	\draw [->] (governor2) -- node [label=below:{$x_7(t)$}] {} (turbine2);
+	\draw [->] (turbine2) -- node [label=below:{$x_8(t)$}] {} (sum3);
+	\draw [->] (sum3) -- (genload2);
+	\draw [->] (genload2) -| node [label=below:{$x_9(t)$}] {} (sum1);
+	\draw (c7) |- (c5);
+	\draw [->] (c9) -- node [label=below:{$u_2(t)$}] {} (governor2);
+	\draw (p22) -- (p21);
+	\draw [->] (p21) -- (sum3);
+	\draw [->] (c5) -- (c10);
+	\draw [->] (a12) -- (c13);
+	
+\end{tikzpicture}

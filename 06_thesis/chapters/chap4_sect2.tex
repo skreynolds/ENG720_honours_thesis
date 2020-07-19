@@ -1,0 +1,8 @@
+\section{Preliminary Investigation}\label{sec:preliminary_investigation}
+As discussed in \textsection \ref{ssec:deep_deterministic_policy_gradient}, DDPG performance has been observed to suffer from instability and variance during training, impacting the agent's ability to learn. Some of the main causes of variability in agent performance are due to reward function, neural network architecture, choice of activation functions, hyperparameter selection, and exploratory noise processes. The preliminary investigation aims are twofold. Firstly, identify parameter settings and network architectures for which a DDPG agent can learn a frequency control policy comparable to an optimally tuned proportional-integral (PI) controller for a two area power system. Secondly, hyperparameter settings will be identified to ensure agent learning is stable and fast.
+
+To address the first aim, experiments will be undertaken in which a DDPG agent will be trained using different parameter and network architecture selections. Comparisons will then be made between PI and DDPG controllers using the cumulative reward function specified for the DDPG agent in the given experiment. A smaller difference between cumulative reward scores is indicative of similar controller performance.
+
+To address the second aim, experiments will be undertaken in which a single hyperparameter will be selected, holding all else constant. The DDPG agent will undergo training for a fixed number of episodes, for different values of the selected hyperparameter. This will provide a means for understanding optimal DDPG training performance for the two area power system problem for the given hyperparameter. The process will be repeated for the following hyperparameters: 
+
+
