@@ -1,0 +1,66 @@
+%----------------------- Weekly Progress Document ------------------------
+%
+% Created by: Shane Reynolds 2020-02-29
+%
+%-------------------------------------------------------------------------
+
+%-------------- Preamble
+\documentclass[12pt]{article}
+\input{preamble/weekly_progress_preamble} % this must be left as \input, \include wont work in the preamble
+
+%-------------- Information For The Title Page
+\title{	
+		Thesis Progress Form\\
+		CHARLES DARWIN UNIVERSITY\\
+		College of Engineering, IT, and Environment
+	  }
+\author{}
+\date{}
+
+%------------------------ Main Document --------------------------
+\begin{document}
+	
+	\maketitle
+	
+	\begin{namelist}{xxxxxxxxxxxx}
+		\item[{\bf Name:}]
+			Shane Reynolds
+		\item[{\bf Unit:}]
+			ENG720
+		\item[{\bf Title:}]
+			Automatic generation control of a two area power system using deep reinforcement learning
+		\item[{\bf Supervisors:}]
+			Charles Yeo \& Stefanija Klaric
+		\item[{\bf Time \& Date:}] 2.30pm @ 08/04/2020
+			
+	\end{namelist}
+	
+	\pagestyle{plain} % get rid of fancy headers
+	\textheight = 565pt % hack to include page numbers
+	
+	%-------------- Sections
+	\section{Progress since last meeting}
+	Nil - as discussed with CY have been unable to work on thesis for the last week due to work commitments
+	
+	\section{Discussion Points}
+	Nil - no progress and nothing to discuss
+	
+	\section{Plan until the next meeting}
+	\begin{itemize}
+		\item Update literature review to provide discussion on DRL technologies and development
+		\item Move Python modelling of two area power system into a OO arrangement. A single class with a set of methods for operating on the power system model object will suffice and encapsulate details of model into a more usable form. 
+		\item Continue with Python development of DRL architecture
+		\item Commence report writing on project progress so far
+		\item CONTACT TGEN AND PWC CONTACTS FOR DATA TO TRAIN MODEL
+	\end{itemize}
+	%-------------- Supervisor sign-off
+	\par
+	\vspace{\fill}%
+	\noindent\rule{0.4\linewidth}{0.5pt}%
+	\vspace{1em}%
+	\par
+	\noindent\textbf{Supervisor}\vspace{1em}%
+	\par
+	\noindent\today
+
+\end{document}

@@ -1,0 +1,79 @@
+%----------------------- Weekly Progress Document ------------------------
+%
+% Created by: Shane Reynolds 2020-02-29
+%
+%-------------------------------------------------------------------------
+
+%-------------- Preamble
+\documentclass[12pt]{article}
+\input{preamble/weekly_progress_preamble} % this must be left as \input, \include wont work in the preamble
+
+%-------------- Information For The Title Page
+\title{	
+		Thesis Progress Form\\
+		CHARLES DARWIN UNIVERSITY\\
+		College of Engineering, IT, and Environment
+	  }
+\author{}
+\date{}
+
+%------------------------ Main Document --------------------------
+\begin{document}
+	
+	\maketitle
+	
+	\begin{namelist}{xxxxxxxxxxxx}
+		\item[{\bf Name:}]
+			Shane Reynolds
+		\item[{\bf Unit:}]
+			ENG720
+		\item[{\bf Title:}]
+			Automatic generation control of a two area power system using deep reinforcement learning
+		\item[{\bf Supervisors:}]
+			Charles Yeo \& Stefanija Klaric
+		\item[{\bf Time \& Date:} \today \ @ 2.30pm]
+			
+	\end{namelist}
+	
+	\pagestyle{plain} % get rid of fancy headers
+	\textheight = 565pt % hack to include page numbers
+	
+	%-------------- Sections
+	\section{Progress since last meeting}
+	\begin{itemize}
+		\item Obtained a more detailed understanding of the modelling of single and two area power systems, including: governor model; turbine model; and generator-load modelling. Updated blog with modelling information to date, which can be found \href{https://skreynolds.github.io/blog/2020/03/09/modelling-plant-1}{\textbf{here}}, \href{https://skreynolds.github.io/blog/2020/03/10/modelling-plant-2}{\textbf{here}}, and \href{https://skreynolds.github.io/blog/2020/03/11/modelling-plant-3}{\textbf{here}}. Detailed modelling of single area power systems can be found \href{https://skreynolds.github.io/blog/2020/03/12/primary-control}{\textbf{here}} and \href{https://skreynolds.github.io/blog/2020/03/15/secondary-control}{\textbf{here}}. Detailed information of two area system can be found \href{https://skreynolds.github.io/blog/2020/03/22/two-area-power-system-modelling}{\textbf{here}}.
+		\item Collected and finalised preliminary results of P and PI MATLAB modelling for single area systems (\href{https://skreynolds.github.io/blog/2020/03/19/single-area-p-control-frequency-domain}{\textbf{here}} and \href{https://skreynolds.github.io/blog/2020/03/21/single-area-pi-control-frequency-domain}{\textbf{here}}). Still need to complete blog post for two area systems.
+		\item Completed drawing of block diagrams of models for single and two area power system - will use these diagrams in in thesis. The can be found \href{https://github.com/skreynolds/ENG720_honours_thesis/tree/master/05_figures}{\textbf{here}}
+		\item Revisited underlying theory for Reinforcement learning including Markov Decision Process (MDP) architectures - implemented Dynamic Programming (value iteration algorithms) for known models. Github repository of experiments can be found \href{https://github.com/skreynolds/RLND_dynamic_programming}{\textbf{here}}.
+		\item Revisited basic reinforcement learning implementations for building discrete Q-tables for state-action mappings for problems with discrete state and action spaces. Montecarlo methods investigated \href{https://github.com/skreynolds/RLND_monte_carlo_methods}{\textbf{here}}. Temporal difference methods investigated \href{https://github.com/skreynolds/RLND_temporal_difference_methods}{\textbf{here}}.
+		\item Implemented temporal difference (discrete RL) Q-Learning from scratch, and executed from terminal to better develop understanding of OpenAI environments - they are class instances with a consistent set of methods. Details of implementation can be found \href{https://github.com/skreynolds/RLND_openai_taxi_v2}{\textbf{here}}
+		\item Investigated ways to discretise the state spaces for continuous inputs. Methods are plain discretisation; and more complex tile coding methods. Details of implementations can be found \href{https://github.com/skreynolds/RLND_discretisation}{\textbf{here}}.
+		\item Investigated Python libraries for implementing Neural Networks. Have looked at Tensorflow and Keras previously. Spent in-depth time with a package called PyTorch, which is easy to use. Implemented plain vanilla neural networks, and convolutional neural networks to understand the particulars of how the package works. Details of experimentation can be found \href{https://github.com/skreynolds/RLND_pytorch_introduction}{\textbf{here}}.
+		\item Completed implementation of a dqn agent which can control the landing of a small space craft bound to a 2D plane. Learned some peculiarities of Pytorch and the computation graphs that it uses in order to optimise loss functions when training neural networks. Details of implementation can be found \href{https://github.com/skreynolds/RLND_dqn}{\textbf{here}}.
+	\end{itemize}
+	
+	\section{Discussion Points}
+	\begin{itemize}
+		\item SR provided CY with brief on research undertaken over the past 14 days on items listed above
+		\item SR concluded that problem that is trying to be solved with DRL agent is trivial, given that problems with more complicated state-action spaces have been addressed using the same technology
+		\item CY advised SR that he would need a copy of the draft interim report prior to meeting next Wednesday in order to provide feedback
+		\item CY advised SR that for the end of this semester try to get the completed P and PI models, along with a completed DRL agent for the power system environment for comparison --- the power system model can be complicated further at a later date.
+	\end{itemize}
+	
+	\section{Plan until the next meeting}
+	\begin{itemize}
+		\item Continue with interim report writing
+		\item Continue with experimentation with DRL agents --- with a view to implement the power system environment in the OpenAI framework ready for experimentation
+	\end{itemize}
+	
+	%-------------- Supervisor sign-off
+	\par
+	\vspace{\fill}%
+	\noindent\rule{0.4\linewidth}{0.5pt}%
+	\vspace{1em}%
+	\par
+	\noindent\textbf{Supervisor}\vspace{1em}%
+	\par
+	\noindent\today
+
+\end{document}

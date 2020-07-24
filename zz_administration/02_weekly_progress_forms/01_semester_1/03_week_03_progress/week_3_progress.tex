@@ -1,0 +1,74 @@
+%----------------------- Weekly Progress Document ------------------------
+%
+% Created by: Shane Reynolds 2020-02-29
+%
+%-------------------------------------------------------------------------
+
+%-------------- Preamble
+\documentclass[12pt]{article}
+\input{preamble/weekly_progress_preamble} % this must be left as \input, \include wont work in the preamble
+
+%-------------- Information For The Title Page
+\title{	
+		Thesis Progress Form\\
+		CHARLES DARWIN UNIVERSITY\\
+		College of Engineering, IT, and Environment
+	  }
+\author{}
+\date{}
+
+%------------------------ Main Document --------------------------
+\begin{document}
+	
+	\maketitle
+	
+	\begin{namelist}{xxxxxxxxxxxx}
+		\item[{\bf Name:}]
+			Shane Reynolds
+		\item[{\bf Unit:}]
+			ENG720
+		\item[{\bf Title:}]
+			Automatic generation control of a two area power system using deep reinforcement learning
+		\item[{\bf Supervisors:}]
+			Charles Yeo \& Stefanija Klaric
+		\item[{\bf Time \& Date:}] 11am @ 19/03/2020
+			
+	\end{namelist}
+	
+	\pagestyle{plain} % get rid of fancy headers
+	\textheight = 565pt % hack to include page numbers
+	
+	%-------------- Sections
+	\section{Progress since last meeting}
+	\begin{itemize}
+		\item Final iteration on Research proposal
+		\item Completed and submitted Research Proposal document
+		\item Readings on AGC and Load Frequency Control (LFC) for Literature Review
+		\item Working on Draft Literature Review
+	\end{itemize}
+	\section{Discussion Points}
+	\begin{itemize}
+		\item Any feedback on Research Proposal
+	\end{itemize}
+	\section{Plan until the next meeting}
+	\begin{itemize}
+		\item Complete and submit draft literature review
+		\item Develop data management plan
+		\item Contact Mark Howard from PWC to discuss obtaining data sets
+		\item Look for a contact at PWC to obtain timeseries data sets
+		\item Investigate ways to simulate load demand data
+		\item investigate programming languages to implement DRL agent and how these integrate with the selected simulation environment
+		\item Reach out to DIgSilent again to try and get demonstration software
+		\item Create basic classical control models using Matlab
+	\end{itemize}
+	%-------------- Supervisor sign-off
+	\par
+	\vspace{\fill}%
+	\noindent\rule{0.4\linewidth}{0.5pt}%
+	\vspace{1em}%
+	\par
+	\noindent\textbf{Supervisor}\vspace{1em}%
+	\par
+	\noindent\today
+
+\end{document}

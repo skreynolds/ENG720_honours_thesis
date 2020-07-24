@@ -1,0 +1,86 @@
+%----------------------- Weekly Progress Document ------------------------
+%
+% Created by: Shane Reynolds 2020-02-29
+%
+%-------------------------------------------------------------------------
+
+%-------------- Preamble
+\documentclass[12pt]{article}
+\input{preamble/weekly_progress_preamble} % this must be left as \input, \include wont work in the preamble
+
+%-------------- Information For The Title Page
+\title{	
+		Thesis Progress Form\\
+		CHARLES DARWIN UNIVERSITY\\
+		College of Engineering, IT, and Environment
+	  }
+\author{}
+\date{}
+
+%------------------------ Main Document --------------------------
+\begin{document}
+	
+	\maketitle
+	
+	\begin{namelist}{xxxxxxxxxxxx}
+		\item[{\bf Name:}]
+			Shane Reynolds
+		\item[{\bf Unit:}]
+			ENG720
+		\item[{\bf Title:}]
+			Automatic generation control of a two area power system using deep reinforcement learning
+		\item[{\bf Supervisors:}]
+			Charles Yeo \& Stefanija Klaric
+		\item[{\bf Time \& Date:}]
+			
+	\end{namelist}
+	
+	\pagestyle{plain} % get rid of fancy headers
+	\textheight = 565pt % hack to include page numbers
+	
+	%-------------- Sections
+	\section{Progress since last meeting}
+	\begin{itemize}
+		\item Researched simulation packages in Python. Looked at Simupy, JModelica, and scipy
+		\item Simupy and JModelica seem to have a lot of functionality, but maybe more complex that required
+		\item The scipy \verb|odeint| function seems to be able to accept a system of first order differential equations (linear or non-linear), and receive input signals defined by other functions. The most useful part is that initial conditions can be specified, and the simulation can be stepped forward in time by an arbitrary amount - this will be suitable to implement OpenAI gym for DRL development.
+		\item Recreated MATLAB model on single area power systems with both P and PI classical controllers with the scipy \verb|odeint| package. Verified results against MATLAB simulation
+		\item Recreated MATLAB model on two area power system with both P and PI classical controllers with the scipy \verb|odeint| package. Verified results against MATLAB simulation.
+		\item Created git repository for MATLAB models which can be found \href{https://github.com/skreynolds/ENG720_matlab_models}{\textbf{here}} (I actually did this work last week).
+		\item Created git repository for Python models which can be found \href{https://github.com/skreynolds/ENG720_python_models}{\textbf{here}}.
+	\end{itemize}
+	
+	\section{Discussion Points}
+	\begin{itemize}
+		\item Charles to provide any additional feedback about works on modelling, literature review, et cetera (only if any review has taken place).
+		\item Shane to provide update on Python modelling work - next stage will be documenting this activity on blog, and then starting a more formal composition of the work on two area power systems (both background and developed works)
+		\item \textit{Still} need to get in touch with Mark Howard from TGEN - this has been delayed because am still uncertain of what variables in addition to frequency will be required (this is a moderately urgent item)
+		\item Charles provided advice on the following items:
+		\begin{itemize}
+			\item CY provided advice to continue modelling using perfect linear plant models, but highlighted that to make research more meaningful additional aspects may need to be considered;
+			\item CY recommended SR to start thinking about how noise might be added to plant and sensor signals;
+			\item CY recommended SR to think about how plant non-linearity might be modelled
+			\item CY provided advice that the closer the simulation is to real world, the more readily aspects of research may be applied to the real world
+		\end{itemize}
+	\end{itemize}
+
+	\section{Plan until the next meeting}
+	\begin{itemize}
+		\item Update literature review to provide discussion on DRL technologies and development
+		\item Move Python modelling of two area power system into a OO arrangement. A single class with a set of methods for operating on the power system model object will suffice and encapsulate details of model into a more usable form. 
+		\item Continue with Python development of DRL architecture
+		\item Commence report writing on project progress so far
+		\item CONTACT TGEN AND PWC CONTACTS FOR DATA TO TRAIN MODEL
+	\end{itemize}
+	
+	%-------------- Supervisor sign-off
+	\par
+	\vspace{\fill}%
+	\noindent\rule{0.4\linewidth}{0.5pt}%
+	\vspace{1em}%
+	\par
+	\noindent\textbf{Supervisor}\vspace{1em}%
+	\par
+	\noindent\today
+
+\end{document}
