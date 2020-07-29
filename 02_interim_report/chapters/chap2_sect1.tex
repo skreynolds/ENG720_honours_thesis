@@ -107,7 +107,7 @@ The frequency domain derivation of the governor model can be found in Appendix \
 
 %------------------------ SS: Single Area
 
-\subsection{Frequency Control for a Single Area System}\label{oneareapowersystem}
+\subsection{Frequency Control for a Single Area System}\label{sec:one_area_power_system}
 It is common for a speed droop governor feedback control regime to perform primary frequency control, with an AGC feedback loop used to perform secondary frequency control when restoring a minor frequency excursion \cite{Wood2013, Grainger1994, Kothari2011, Kundur1994}. A particularly well laid out approach to developing linear models for the turbine, generator, load, and governor was presented by Kundur \cite{Kundur1994}. The full model is shown in Figure \ref{fig:2110_single_area_pi_control_model}. This model is described by a single regulating generator supplying a load. The governor block is a first-order linear model of the governor. The turbine block is a first-order linear model of the turbine. The final block is the generator-load, which is also a first-order linear model. The AGC feedback loop uses a proportional integral controller.
 
 \clearpage
