@@ -1,0 +1,67 @@
+%----------------------- Weekly Progress Document ------------------------
+%
+% Created by: Shane Reynolds 2020-02-29
+%
+%-------------------------------------------------------------------------
+
+%-------------- Preamble
+\documentclass[12pt]{article}
+\input{preamble/weekly_progress_preamble} % this must be left as \input, \include wont work in the preamble
+
+%-------------- Information For The Title Page
+\title{	
+		Thesis Progress Form\\
+		CHARLES DARWIN UNIVERSITY\\
+		College of Engineering, IT, and Environment
+	  }
+\author{}
+\date{}
+
+%------------------------ Main Document --------------------------
+\begin{document}
+	
+	\maketitle
+	
+	\begin{namelist}{xxxxxxxxxxxx}
+		\item[{\bf Name:}]
+			Shane Reynolds
+		\item[{\bf Unit:}]
+			ENG720
+		\item[{\bf Title:}]
+			Automatic generation control of a two area power system using deep reinforcement learning
+		\item[{\bf Supervisors:}]
+			Charles Yeo \& Stefanija Klaric
+		\item[{\bf Time \& Date:} 28/07/2020 \ @ 11am]
+			
+	\end{namelist}
+	
+	\pagestyle{plain} % get rid of fancy headers
+	\textheight = 565pt % hack to include page numbers
+	
+	%-------------- Sections
+	\section{Progress since last meeting}
+	\begin{itemize}
+		\item Minor changes to literatures review
+		\item Found a second year PhD student at research group at Nanyang Technological University in Singapore who is undertaking the same research. The link to the research group is \href{https://eexuyan.github.io/soda/index.html}{here}. The student recently published a paper in IEEE which mentions it is very difficult to train a neural network to control the frequency of a multiarea power system using DDPG from scratch. The student instead captured data, in simulation, of tuned PID frequency control of a two area power system. The data was then used to pre-train the neural network using a supervised learning approach. This provided the model with a starting point. DDPG was then used on the pre-trained model to optimise further - the results show that the DDPG optimised neural network controller outperforms PID.
+	\end{itemize}
+	\section{Discussion Points}
+	\begin{itemize}
+		\item Meeting did not occur this week
+	\end{itemize}
+	\section{Plan until the next meeting}
+	\begin{itemize}
+		\item Run experiment for 20000 episodes to see if model performance improves with additional training
+		\item Implement priority experience replay to see if there are additional gains in agent performance
+		\item Investigate how a supervised learning might be implemented to pre-train the model
+	\end{itemize}
+	%-------------- Supervisor sign-off
+	\par
+	\vspace{\fill}%
+	\noindent\rule{0.4\linewidth}{0.5pt}%
+	\vspace{1em}%
+	\par
+	\noindent\textbf{Supervisor}\vspace{1em}%
+	\par
+	\noindent\today
+
+\end{document}

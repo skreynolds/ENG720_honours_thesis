@@ -1,0 +1,68 @@
+%----------------------- Weekly Progress Document ------------------------
+%
+% Created by: Shane Reynolds 2020-02-29
+%
+%-------------------------------------------------------------------------
+
+%-------------- Preamble
+\documentclass[12pt]{article}
+\input{preamble/weekly_progress_preamble} % this must be left as \input, \include wont work in the preamble
+
+%-------------- Information For The Title Page
+\title{	
+		Thesis Progress Form\\
+		CHARLES DARWIN UNIVERSITY\\
+		College of Engineering, IT, and Environment
+	  }
+\author{}
+\date{}
+
+%------------------------ Main Document --------------------------
+\begin{document}
+	
+	\maketitle
+	
+	\begin{namelist}{xxxxxxxxxxxx}
+		\item[{\bf Name:}]
+			Shane Reynolds
+		\item[{\bf Unit:}]
+			ENG720
+		\item[{\bf Title:}]
+			Automatic generation control of a two area power system using deep reinforcement learning
+		\item[{\bf Supervisors:}]
+			Charles Yeo \& Stefanija Klaric
+		\item[{\bf Time \& Date:} \today \ @ 1pm]
+			
+	\end{namelist}
+	
+	\pagestyle{plain} % get rid of fancy headers
+	\textheight = 565pt % hack to include page numbers
+	
+	%-------------- Sections
+	\section{Progress since last meeting}
+	\begin{itemize}
+		\item Investigated priority experience replay, which provides a metric describing the usefulness of each experience tuple collected by the agent during training. This was a technique that was used by a research group in Singapore, which seemed to improve the performance of the agent.
+		\item Ran an experiment for 20000 episodes using the standard original DDPG implementation. The result did not show any material improvement over training the agent.
+		\item Implemented a prioritised experience replay memory system for the agent and ran an experiment for 10000 episodes. Experiment has not yet concluded at the time of the meeting. 
+	\end{itemize}
+	\section{Discussion Points}
+	\begin{itemize}
+		\item Outlined recent progress to CY, as described above.
+		\item Asked CY if there was any feedback regarding the thesis document. CY acknowledged that existing document does not need any improvement.
+	\end{itemize}
+	\section{Plan until the next meeting}
+	\begin{itemize}
+		\item Assess agent performance upon conclusion of the most recent experiment using priority experience replay and assess if the implementation of a supervised learning using training data from a tuned PID controller will need to be used.
+		\item Reach out to research group in NTU to obtain better ideas on the approach taken to achieving performance gains over standard PID control.
+	\end{itemize}
+	%-------------- Supervisor sign-off
+	\par
+	\vspace{\fill}%
+	\noindent\rule{0.4\linewidth}{0.5pt}%
+	\vspace{1em}%
+	\par
+	\noindent\textbf{Supervisor}\vspace{1em}%
+	\par
+	\noindent\today
+
+\end{document}
