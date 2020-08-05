@@ -46,7 +46,7 @@ Load following control adjusts regulating units in order to match supply with a 
 
 %------------------------ SS: Modelling a Single Area
 
-\subsection{Modelling a Single Area System}\label{sec:modlling_a_single_area}
+\subsection{Modelling a Single Area System}\label{sec:modelling_a_single_area}
 The power system model shown in Figure \ref{fig:201_power_system} depicts total generation coming from many generation assets. This is complex to model. Generation assets are often divided into sub-groups referred to as control areas \cite{Kothari2011}. A control area is defined as a subset of generators that are in close proximity to each other and constitute a coherent group that speed up and slow down together, maintaining their relative power angles \cite{Kothari2011}. Therefore, the total network is comprised of many interconnected control areas. An example of this can be seen in Figure \ref{fig:2105_multiple_area_system}. Notice that for each area there is only one load and one generator.
 \begin{figure}[ht]
 	\centering
@@ -66,7 +66,7 @@ Typically, for each control area, many loads will be aggregated into a single lo
 
 When expressing the single area model mathematically, researchers consider three separate elements: the governor, the turbine, and the generator-load.
 
-\subsubsection{Governor Model}
+\subsubsection{Governor Model} \label{sec:governor_model}
 The governor is a device which is used to regulate the speed of a generator. It is often modelled as a first order system, as shown in Figure \ref{fig:2107_governor_model}. The governor receives an input, $\Delta P_C(s)$, which represents a power increase/decrease command brought about by adjusting the governor speed changer. Older governors operated by mechanically coupling the governor with the rotating shaft of the generator; however, newer governors operate electronically. Owing to the older mechanical governor designs, governor models often include a proportional feedback loop using turbine rotational frequency change, $\Delta F(s)$. The output, $\Delta Y_E(s)$, represents a control signal to change the turbine steam valve position. The model parameter $K_{sg}$ is the static gain of the speed-governing mechanism, and the parameter $T_{sg}$ is the time constant of the speed-governing mechanism.
 
 The frequency domain derivation of the governor model can be found in Appendix \ref{app:governor_model}.
@@ -107,7 +107,7 @@ The frequency domain derivation of the governor model can be found in Appendix \
 
 %------------------------ SS: Single Area
 
-\subsection{Frequency Control for a Single Area System}\label{oneareapowersystem}
+\subsection{Frequency Control for a Single Area System}\label{sec:control_one_area_system}
 It is common for a speed droop governor feedback control regime to perform primary frequency control, with an AGC feedback loop used to perform secondary frequency control when restoring a minor frequency excursion \cite{Wood2013, Grainger1994, Kothari2011, Kundur1994}. A particularly well laid out approach to developing linear models for the turbine, generator, load, and governor was presented by Kundur \cite{Kundur1994}. The full model is shown in Figure \ref{fig:2110_single_area_pi_control_model}. This model is described by a single regulating generator supplying a load. The governor block is a first-order linear model of the governor. The turbine block is a first-order linear model of the turbine. The final block is the generator-load, which is also a first-order linear model. The AGC feedback loop uses a proportional integral controller.
 
 \clearpage
