@@ -31,7 +31,7 @@
 			Automatic generation control of a two area power system using deep reinforcement learning
 		\item[{\bf Supervisors:}]
 			Charles Yeo \& Stefanija Klaric
-		\item[{\bf Time \& Date:} \today \ @ 1pm]
+		\item[{\bf Time \& Date:} August 25, 2020 \ @ 1pm]
 			
 	\end{namelist}
 	
@@ -41,15 +41,31 @@
 	%-------------- Sections
 	\section{Progress since last meeting}
 	\begin{itemize}
-		\item
+		\item Conducted experiment using a stochastic signal as opposed to a step function of size 0.01 or -0.01 occurring at a random point during the 30 second duration of the simulation. Experiment was motivated by a paper which advocated stochastic variation 
+		\item Results of experiment showed that even without using explicit step transitions, the agent was able to learn a useful policy for dealing with step transitions.
 	\end{itemize}
 	\section{Discussion Points}
 	\begin{itemize}
-		\item
+		\item Update CY on current state of research:
+		\begin{itemize}
+			\item able to train a neural network that gets close to operating as well as a PID controller
+			\item Not able to achieve a result that was better than a PID controller
+			\item Undertaken different experiments that modify the learning process, neural network architecture, and the application of techniques which attempt to capture the expert performance of the PID to use as training examples for the neural network
+			\item Experiments were informed by the literature from the field of deep reinforcement learning.
+		\end{itemize}
+		\item CY to advise on how I might navigate my next steps? Is it appropriate to modify my chapter on the approach to only include the experiments that I have results for? Or should I attempt final experiments even though I have failed preliminary experiments?
+		\item Would it be appropriate to try and justify analytically why the neural network could not achieve a control policy better than a PID?
+		\item I have currently submitted 2 weekly progress reports late out of 5 - how many can I miss before I do not meet this hurdle? I calculated 80\% of 12 at needing to submit 9.6 (or 10), which means that I need to submit the rest of the weekly progress reports to ensure I pass. Can you confirm this for me?
+		\item The Unit Outline refers to the thesis part B marking as follows:
+		\begin{center}
+			``...composite mark of the thesis is 50\% or above...''
+		\end{center}
+		Is this just for the thesis or is the combined mark of research proposal, poster, interim report, oral presentation, and final thesis?
 	\end{itemize}
 	\section{Plan until the next meeting}
 	\begin{itemize}
-		\item
+		\item SR to undertake further research on whether anyone has done work on the existence of solutions for solving problems with neural networks, generally speaking.
+		\item SR to commence writing final chapters of thesis.
 	\end{itemize}
 	%-------------- Supervisor sign-off
 	\par
