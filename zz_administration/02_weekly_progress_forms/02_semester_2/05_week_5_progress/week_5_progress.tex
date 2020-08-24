@@ -1,0 +1,67 @@
+%----------------------- Weekly Progress Document ------------------------
+%
+% Created by: Shane Reynolds 2020-02-29
+%
+%-------------------------------------------------------------------------
+
+%-------------- Preamble
+\documentclass[12pt]{article}
+\input{preamble/weekly_progress_preamble} % this must be left as \input, \include wont work in the preamble
+
+%-------------- Information For The Title Page
+\title{	
+		Thesis Progress Form\\
+		CHARLES DARWIN UNIVERSITY\\
+		College of Engineering, IT, and Environment
+	  }
+\author{}
+\date{}
+
+%------------------------ Main Document --------------------------
+\begin{document}
+	
+	\maketitle
+	
+	\begin{namelist}{xxxxxxxxxxxx}
+		\item[{\bf Name:}]
+			Shane Reynolds
+		\item[{\bf Unit:}]
+			ENG720
+		\item[{\bf Title:}]
+			Automatic generation control of a two area power system using deep reinforcement learning
+		\item[{\bf Supervisors:}]
+			Charles Yeo \& Stefanija Klaric
+		\item[{\bf Time \& Date:} 19/8/2020 \ @ 1pm]
+			
+	\end{namelist}
+	
+	\pagestyle{plain} % get rid of fancy headers
+	\textheight = 565pt % hack to include page numbers
+	
+	%-------------- Sections
+	\section{Progress since last meeting}
+	\begin{itemize}
+		\item Completed experiment in which agent memory was filled with tuned PID controller experience 50\% of the time. The controller learned a useful policy much quicker; however, was unable to 
+		\item Developed stochastic demand profile to use in final experiments.
+	\end{itemize}
+	\section{Discussion Points}
+	\begin{itemize}
+		\item Outlined recent progress to CY, as described above.
+		\item Outlined new experiments to CY, as detailed below.
+	\end{itemize}
+	\section{Plan until the next meeting}
+	\begin{itemize}
+		\item Run final experiments that will use a stochastic load demand profile to demonstrate that load frequency control can be achieved with a neural network using DDPG; however, this will not beat the current industry PID standard approach to control.
+		\item Look at finding a way to present research with a narrative that shows training a neural network for load frequency control (and outperforming a PIC controller) is not possible. This would require some mathematical analysis.
+	\end{itemize}
+	%-------------- Supervisor sign-off
+	\par
+	\vspace{\fill}%
+	\noindent\rule{0.4\linewidth}{0.5pt}%
+	\vspace{1em}%
+	\par
+	\noindent\textbf{Supervisor}\vspace{1em}%
+	\par
+	\noindent\today
+
+\end{document}

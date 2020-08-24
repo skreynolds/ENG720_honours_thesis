@@ -1,0 +1,69 @@
+%----------------------- Weekly Progress Document ------------------------
+%
+% Created by: Shane Reynolds 2020-02-29
+%
+%-------------------------------------------------------------------------
+
+%-------------- Preamble
+\documentclass[12pt]{article}
+\input{preamble/weekly_progress_preamble} % this must be left as \input, \include wont work in the preamble
+
+%-------------- Information For The Title Page
+\title{	
+		Thesis Progress Form\\
+		CHARLES DARWIN UNIVERSITY\\
+		College of Engineering, IT, and Environment
+	  }
+\author{}
+\date{}
+
+%------------------------ Main Document --------------------------
+\begin{document}
+	
+	\maketitle
+	
+	\begin{namelist}{xxxxxxxxxxxx}
+		\item[{\bf Name:}]
+			Shane Reynolds
+		\item[{\bf Unit:}]
+			ENG720
+		\item[{\bf Title:}]
+			Automatic generation control of a two area power system using deep reinforcement learning
+		\item[{\bf Supervisors:}]
+			Charles Yeo \& Stefanija Klaric
+		\item[{\bf Time \& Date:} \today \ @ 1pm]
+			
+	\end{namelist}
+	
+	\pagestyle{plain} % get rid of fancy headers
+	\textheight = 565pt % hack to include page numbers
+	
+	%-------------- Sections
+	\section{Progress since last meeting}
+	\begin{itemize}
+		\item Completed experimental trial using experimental replay - agent performance did not beat PID control
+		\item Examined idea presented in Yan and Xu regarding using supervised learning in conjunction with a PID controller to pre-train the agent. This would be time consuming to implement, so experimented with an alternative approach. Took the best trained agent from previous exeriemnts (i.e. closest to PID level control that has been achieved) and loaded the weights into a new DDPG training session, allowing the the agent to train for a further 5000 episodes. This did not result in a successfully trained agent.
+		\item Analysed the currently specified reward function to double check that additive elements of the function were not acting against each other (i.e. the agent is punished for using the generators, but also punished for allowing frequency deviations). Re-ran original experiments using a modified reward function such that minimising the frequency deviations was given a higher priority than low generator use. The result was no meaningful improvement on frequency control outcomes; however, a worse control scheme was observed. Concluded that original reward function specification was okay.
+	\end{itemize}
+	\section{Discussion Points}
+	\begin{itemize}
+		\item Outlined recent progress to CY, as described above.
+		\item Outlined new experiments to CY, as detailed below.
+	\end{itemize}
+	\section{Plan until the next meeting}
+	\begin{itemize}
+		\item Another variation on the Yan and Xu paper would be to fill the agent replay buffer with 50\% of data from a PID controller at all times. That is allow the agent to use its own policy for 50\% of the time and use a PID policy for 50\% of the time. This would flood the agent experience replay memory with expert controller examples, and help the agent to learn a suitable policy. The idea is that the agent would take the most prominent aspects of the 
+		\item Revisit code base to ensure that DDPG and training algorithms have been implemented correctly. Look at using an off the shelf implementation sourced from Github for DDPG and check results against previous experiments.
+		\item Revisit implementation of two area power system environment and re-confirm that this has been implemented correctly.
+	\end{itemize}
+	%-------------- Supervisor sign-off
+	\par
+	\vspace{\fill}%
+	\noindent\rule{0.4\linewidth}{0.5pt}%
+	\vspace{1em}%
+	\par
+	\noindent\textbf{Supervisor}\vspace{1em}%
+	\par
+	\noindent\today
+
+\end{document}
