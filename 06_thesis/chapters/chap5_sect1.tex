@@ -1,0 +1,24 @@
+\section{Environment Model} \label{ssec:env_modelling}
+The two area power system model described in \textsection \ref{ssec:modelling_two_area_system}, and shown in Figure \ref{fig:208_two_area_pi_control_model}, was converted from the frequency domain to the temporal domain. This provides the reinforcement learning architectures, outlined in \textsection \ref{sec:reinforcement_learning}, with the ability to export control signals to the power system at each time step. This approach is common practice when developing environments for reinforcement learning \cite{Brockman2016}. Additionally, frequency domain simulation techniques, such as Laplacian transforms, have strict initial condition assumptions \cite{Ogat2010}, which limit the application of this technology in real world applications.
+
+Higher order ordinary differential equations and systems involving higher order ordinary differential equations provide a more compact system representation; however, to accommodate numerical analysis schemes, such as Runge-Kutta, the environment system was expressed as a system of first-order linear ordinary differential equations.
+
+\begin{figure}[h]
+	\centering
+	\resizebox{\textwidth}{!}{\input{./figures/4101_two_area_power_system_temporal_model/two_area_power_system_temporal_model}}
+	\caption[Two-area power system ODE derivation]{Variable assignment for a two area power system environment to model in the temporal domain}
+	\label{4101_two_area_power_system_temporal_model}
+\end{figure}
+
+Suppose variables are assigned to the power system according to Figure \ref{4101_two_area_power_system_temporal_model}. The first order system of linear ordinary differential equations for area 1 is:
+\begin{align}
+	\dot{x}_2(t) &= \frac{1}{T_{sg_1}}\big( K_{sg_1} u_1(t) - x_2(t) \big) \label{eq:4101} \\
+	\dot{x}_3(t) &= \frac{1}{T_{t_1}} \big( K_{t_1} x_2(t) - x_3(t) \big) \label{eq:4102} \\
+	\dot{x}_4(t) &= \frac{1}{T_{gl_1}} \bigg( K_{gl_1} \big( x_3(t) - x_5(t) - \Delta p_{L1}(t) \big) - x_4(t) \bigg) \label{eq:4103}  \\
+	\dot{x}_5(t) &= 2 \pi T_{12} \big( x_4(t) - x_9(t) \big) \label{eq:4104} \\
+	\dot{x}_7(t) &= \frac{1}{T_{sg_2}}\big( K_{sg_2} u_2(t) - x_7(t) \big) \label{eq:4105} \\
+	\dot{x}_8(t) &= \frac{1}{T_{t_2}} \big( K_{t_2} x_7(t) - x_8(t) \big) \label{eq:4106} \\
+	\dot{x}_9(t) &= \frac{1}{T_{gl_2}} \bigg( K_{gl_2} \big( x_8(t) - x_5(t) - \Delta p_{L2}(t) \big) - x_9(t) \bigg) \label{eq:4107}
+\end{align}
+
+A full derivation of the first order linear system described by Equations \ref{eq:4101} to \ref{eq:4107} is described in Appendix \ref{app:C1_power_system_ode}. The equations were implemented as a method \verb|int_power_system_sim| in a Python class \verb|TwoAreaPowerSystemEnv|. Implementation for \verb|int_power_system_sim| is detailed in Appendix \ref{app:implementation_of_power_system_model}.

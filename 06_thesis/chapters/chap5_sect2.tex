@@ -1,0 +1,30 @@
+\section{Classical PI Controller Model}
+The proportional integral (PI) controller model described in \textsection \ref{ssec:control_two_area_system}, and shown in Figure \ref{fig:208_two_area_pi_control_model}, was converted from the frequency domain to the temporal domain to ensure compatibility with the environment model.
+
+\begin{figure}[h]
+	\begin{minipage}[b]{0.5\textwidth}
+		\resizebox{7.0cm}{!}{\input{./figures/4102_two_area_pi_controller_temporal_1/two_area_pi_controller_temporal_1}}
+		\caption[Area 1 PI controller ODE derivation]{Variable assignment for the PI controller for area 1 in order to model in the temporal domain}
+		\label{fig:4102_two_area_pi_controller_temporal_1}
+	\end{minipage}
+	\hspace{0.1cm}
+	\begin{minipage}[b]{0.5\textwidth}
+		\resizebox{7.2cm}{!}{\input{./figures/4103_two_area_pi_controller_temporal_2/two_area_pi_controller_temporal_2}}
+		\caption[Area 2 PI controller ODE derivation]{Variable assignment for the PI controller for area 2 in order to model in the temporal domain}
+		\label{fig:4103_two_area_pi_controller_temporal_2}
+	\end{minipage}
+\end{figure}
+
+Suppose variables are assigned to the controller for area 1 and the controller for area 2 according to Figures \ref{fig:4102_two_area_pi_controller_temporal_1} and \ref{fig:4103_two_area_pi_controller_temporal_2}, respectively. The first order system of linear differential equations for the PI controller are:
+\begin{align}
+	\dot{x}_1(t) &= b_1 \Delta f_1(t) + x_5(t) \label{eq:4108} \\
+	\dot{x}_6(t) &= b_2 \Delta f_2(t) - x_5(t) \label{eq:4109}
+\end{align}
+
+Note that once the PI controller has stepped forward in time during simulation the actual control signals exported from the controller are $u_1(t)$ and $u_2(t)$. These are expressed as:
+\begin{align}
+	u_1(t) &= x_1(t) + x_5(t) - R_1 x_4(t) \\
+	u_2(t) &= x_6(t) - x_5(t) - R_2 x_9(t) 
+\end{align}
+
+A full derivation of the first order linear system described by equations \ref{eq:4108} and \ref{eq:4109} is described in Appendix \ref{sec:temporal_domain_for_pi_controller}. The system of equations is implemented as a method \verb|int_control_system_sim| in a Python class \verb|ClassicalPiController|. Implementation for \verb|int_control_system_sim| is detailed in Appendix \ref{sec:implementation_of_controller}.

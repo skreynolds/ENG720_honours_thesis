@@ -1,0 +1,4 @@
+\section{DDPG Training Algorithm}
+Actor and critic neural networks are trained using the DDPG algorithm shown in listing \ref{ssec:deep_deterministic_policy_gradient}. 
+
+The function \verb|ddpg_train| takes environment and agent class instances as inputs. The function runs training for a specified number of episodes. For each episode, \verb|ddpg_train| takes time steps of 0.01 sec until the episode triggers a termination condition. During each time step, \verb|ddpg_train| will obtain an action from the agent given the current state, obtain the power demand signal for the given time step, and step the environment forward using the agent's action and power demanded. The function the makes a call to the agent method \verb|step|, which stores the experience in the replay buffer and trains the neural network.
