@@ -9,14 +9,40 @@ A PI controller model will be developed to provide a performance benchmark compa
 Model parameter values for the two area power system model will be selected based on a review of the most common model parameters observed in the literature review. Tuned model parameters for the PI controller will selected to ensure near optimal control performance.
 
 \subsection{Neural Network and DDPG Algorithm}
-Neural network actor-critic models will be designed to have an input layer, 2 hidden layers, and an output layer. This design choice is motivated by the work done by XXXX and XXXX. The input layer will be designed to receive 7 model inputs, consisting of governor and turbine states for each power system area, frequencies for each power system area, and the power transfer on the tie-line. The output layer will issue 2 control actions to be received by the environment model.
+Neural network actor-critic models will be designed to have an input layer, 2 hidden layers, and an output layer. This design choice is motivated by the work done by Lillicrap \textit{et. alias} \cite{Lillicrap2015}. The input layer will be designed to receive 7 model inputs, consisting of governor and turbine states for each power system area, frequencies for each power system area, and the power transfer on the tie-line. The output layer will issue 2 control actions to be received by the environment model.
 
-The neural network model will be developed to allow for modification to the number of nodes and activation functions in hidden layers. This design choice has been made to facilitate investigation of neural network control performance with respect to model architecture changes.
+The neural network model will be developed to allow for modification to the number of nodes and activation functions in hidden layers. This design choice has been made to facilitate investigation of neural network control performance with respect to model architecture changes based on the work by Henderson \textit{et alias} \cite{Henderson2017}.
 
-The DDPG algorithm will be developed based on LISTING XXXX. Algorithm hyperparameters, including XXXX will be specified according to original experiments undertaken by XXXX. 
+The DDPG algorithm will be developed based on Algorithm \ref{alg:ddpg}, shown in section \ref{ssec:deep_deterministic_policy_gradient}. Algorithm hyperparameters, including $\gamma$, $\tau$, $\alpha_{\texttt{actor}}$, $\alpha_{\texttt{critic}}$ will be specified according to original experiments undertaken by Lillicrap \textit{et alias} \cite{Lillicrap2015}. Parameters such as batch size, replay buffer size, number of training episodes, and training per episode will be selected based on work done by XXXX, and slightly modified according to findings from minor preliminary experimentation with the power system environment model, neural network model, and training algorithm implementations. Justifications will be provided where parameters are modified.
+
+DDPG algorithm OU-noise superimposed on control signals, used to explore the state-action space, will be designed to allow easy modification of noise parameters XX, XX, and XX. This choice is motivated by the work done by XXXX has been made to facilitate investigations of DDPG algorithm learning performance 
 
 
 \subsection{Software Implementation and Testing}
+Software implementations used for experimentation will be developed using an object oriented approach where possible. This design choice has been made to provide a cleaner more modular implementation allowing for easier modification of model elements and greater experimental flexibility. The principal elements of the software developed for experimentation are detailed in XXXX. The hierarchy of operation is outlined in Figure XXXX.
+\begin{table}[h]
+	\centering
+	\caption{text}
+	\begin{tabular}{ll}
+		\toprule
+		\textbf{Software} & \textbf{Description} \\
+		\midrule
+		\texttt{Main} & \\
+		\texttt{Environment} & \\
+		\texttt{Agent} & \\
+		\texttt{Demand} & \\
+		\texttt{Model} & \\
+		\texttt{Training Algorithm} & \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+	\input{file}
+	\caption{text}
+\end{figure}
+
+
 Environment models, controllers, neural networks, and training algorithms will be implemented in the Python programming language. This design choice is motivated by a number of factors:
 \begin{itemize}
 	\item \texttt{Scipy} is a Python library used for scientific computing. The library contains well developed numerical computation schemes and algorithms for the simulation of systems of ordinary differential equations.
