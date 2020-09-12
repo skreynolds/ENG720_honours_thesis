@@ -9,38 +9,39 @@ A PI controller model will be developed to provide a performance benchmark compa
 Model parameter values for the two area power system model will be selected based on a review of the most common model parameters observed in the literature review. Tuned model parameters for the PI controller will selected to ensure near optimal control performance.
 
 \subsection{Neural Network and DDPG Algorithm}
-Neural network actor-critic models will be designed to have an input layer, 2 hidden layers, and an output layer. This design choice is motivated by the work done by Lillicrap \textit{et. alias} \cite{Lillicrap2015}. The input layer will be designed to receive 7 model inputs, consisting of governor and turbine states for each power system area, frequencies for each power system area, and the power transfer on the tie-line. The output layer will issue 2 control actions to be received by the environment model.
+Neural network actor-critic models will be designed to have an input layer, 2 hidden layers, and an output layer. This design choice was motivated by Lillicrap \textit{et alias} \cite{Lillicrap2015}. The input layer will be designed to receive 7 model inputs, consisting of governor and turbine states for each power system area, frequencies for each power system area, and the power transfer on the tie-line. The output layer will issue 2 control actions to be received by the environment model.
 
 The neural network model will be developed to allow for modification to the number of nodes and activation functions in hidden layers. This design choice has been made to facilitate investigation of neural network control performance with respect to model architecture changes based on the work by Henderson \textit{et alias} \cite{Henderson2017}.
 
-The DDPG algorithm will be developed based on Algorithm \ref{alg:ddpg}, shown in section \ref{ssec:deep_deterministic_policy_gradient}. Algorithm hyperparameters, including $\gamma$, $\tau$, $\alpha_{\texttt{actor}}$, $\alpha_{\texttt{critic}}$ will be specified according to original experiments undertaken by Lillicrap \textit{et alias} \cite{Lillicrap2015}. Parameters such as batch size, replay buffer size, number of training episodes, and training per episode will be selected based on work done by XXXX, and slightly modified according to findings from minor preliminary experimentation with the power system environment model, neural network model, and training algorithm implementations. Justifications will be provided where parameters are modified.
+The DDPG algorithm will be developed based on Algorithm \ref{alg:ddpg}, shown in section \ref{ssec:deep_deterministic_policy_gradient}. Algorithm hyperparameters, including $\gamma$, $\tau$, $\alpha_{\texttt{actor}}$, $\alpha_{\texttt{critic}}$ will be specified according to original experiments undertaken by Lillicrap \textit{et alias} \cite{Lillicrap2015}. Parameters such as batch size, replay buffer size, number of training episodes will be selected based on work done by Yan \cite{Yan2019}. Values will be slightly modified according to observations from minor preliminary experimentation with the power system environment model, neural network model, and training algorithm implementations. Justifications will be provided where parameters are modified.
 
-DDPG algorithm OU-noise superimposed on control signals, used to explore the state-action space, will be designed to allow easy modification of noise parameters XX, XX, and XX. This choice is motivated by the work done by XXXX has been made to facilitate investigations of DDPG algorithm learning performance 
+The DDPG algorithm will be developed with Ornstein-Uhlenbeck (OU) noise superimposed on control actions, in order to explore the state-action space as per Lillicrap \textit{et alias} \cite{Lillicrap2015}. The OU noise process will be designed to allow easy modification of noise parameters $\mu$, $\theta$, and $\sigma$. This choice is motivated by Henderson \textit{et alias} \cite{Henderson2017} and has been made to facilitate investigations of DDPG algorithm learning performance with respect to changes in exploration.
 
 
 \subsection{Software Implementation and Testing}
-Software implementations used for experimentation will be developed using an object oriented approach where possible. This design choice has been made to provide a cleaner more modular implementation allowing for easier modification of model elements and greater experimental flexibility. The principal elements of the software developed for experimentation are detailed in XXXX. The hierarchy of operation is outlined in Figure XXXX.
+Software implementations used for experiments will be developed using an object oriented approach. This design choice has been made to provide a cleaner and more modular implementation, allowing for easier modification of model elements and greater experimental flexibility. The principal elements of the software developed for experimentation are detailed in Table \ref{tab:software_elements}.
 \begin{table}[h]
 	\centering
-	\caption{text}
-	\begin{tabular}{ll}
+	\caption{Overview of software elements and their intended operation for simulation experiments}
+	\begin{tabular}{lp{10cm}}
 		\toprule
-		\textbf{Software} & \textbf{Description} \\
+		\textbf{Software Element} & \textbf{Description} \\
 		\midrule
-		\texttt{Main} & \\
-		\texttt{Environment} & \\
-		\texttt{Agent} & \\
-		\texttt{Demand} & \\
-		\texttt{Model} & \\
-		\texttt{Training Algorithm} & \\
+		\texttt{Main} & The main function, executed from the terminal, instantiates \texttt{Environment}, \texttt{Agent}, and \texttt{Demand} objects that are passed to a \texttt{Training Algorithm} function call.\\
+		 & \\
+		\texttt{Environment} & An object oriented implementation of the two area power system model in the temporal domain.\\
+		 & \\
+		\texttt{Agent} & An object oriented implementation of the DDPG controller. When instantiated, an instance of the object \texttt{Model} is created and stored as an \texttt{Agent} object variable. \\
+		 & \\
+		\texttt{Demand} & An object oriented implementation of a demand signal that is fed to the environment in order to perturb the system from steady state. The \texttt{Demand} implementation will provide for either Heaviside step function or stochasitic system perturbation.\\
+		 & \\
+		\texttt{Model} & An oject oriented implementation of the neural network model instantiated when an \texttt{Agent} object is created.\\
+		 & \\
+		\texttt{Training Algorithm} & A function that takes \texttt{Environment}, \texttt{Agent}, and \texttt{Demand} object arguments and initiates the DDPG training algorithm for a specified number of episodes.\\
 		\bottomrule
 	\end{tabular}
+	\label{tab:software_elements}
 \end{table}
-
-\begin{figure}[h]
-	\input{file}
-	\caption{text}
-\end{figure}
 
 Environment models, controllers, neural networks, and training algorithms will be implemented in the Python programming language. This design choice is motivated by the understanding that Python is one of the most widely used languages for machine learning applications and research prototyping for neural networks. Moreover, the Python programming language is open source allowing minimising of cost burdens compared to languages like Matlab. Finally, there are a number of well developed supporting libraries for scientific computing and neural network implementations. This research will make use of the following:
 \begin{itemize}
@@ -49,4 +50,12 @@ Environment models, controllers, neural networks, and training algorithms will b
 	\item \texttt{Gym} is a Python toolkit developed by OpenAI for developing reinforcement learning algorithms.
 \end{itemize}
 
-Developed models will be tested and verified against known results from the literature review to provide assurance of correct implementation.
+Developed models for the environment, PI controller will be tested and verified against known results from the literature review to provide assurance of correct implementation. Implementations of neural networks and DDPG algorithms will be tested against known test problems to provide reasonable assurance of correct implementation.
+
+An overview showing the hierarchy of software operations is outlined in Figure \ref{fig:software_implementation}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{./figures/A03_turbine_configuration}
+	\caption{Execution of the main function creates \texttt{Env}, \texttt{Agent}, and \texttt{Demand} objects and passes them to a \texttt{ddpg\_train} function call}
+	\label{fig:software_implementation}
+\end{figure}
