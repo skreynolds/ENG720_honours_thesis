@@ -1,17 +1,20 @@
 \section{Development, Implementation, and Testing}
 \subsection{Environment and PI Controller}
-Training a neural network to act as a load frequency controller using DDPG requires a simulated model of a two area power system. A mathematical representation of the two area power system in the temporal domain will be developed by taking inverse Laplace transforms of frequency domain models from simulation experiments discussed in the literature review. The experimental design choice for developing the model in the temporal domain is motivated by the need to stop and start the simulation periodically. This is to allow the neural network to take simulation states as inputs, and issue control action outputs back to the simulation. Upon receiving a control action the simulation will iterate forward by some discrete time interval, using previous stopping states as initial conditions. This could not be achieved in the frequency domain as initial conditions are assumed to be zero.
+Training a neural network to act as a load frequency controller using DDPG requires a simulated model of a two area power system. This will be referred to as the environment model. The environment model developed by this research will consist of two power areas connected via a tie-line, each with a governor, turbine, and generator. The model will take 2 control action inputs --- one for each power system area. The model will be designed to output 7 values including governor states, turbine states, and power system frequencies for each area, in addition to the power transfer of the tie-line.
 
-A PI controller model will be developed to provide a performance benchmark comparison for the neural network. Whilst the PI controller could be developed in the frequency domain, for convenience it will be developed in the temporal domain to interact with the temporal model of the two area power system. The PI controller model will be mathematically specified using the same methodology described for the two area power system.
+The mathematical representation of the environment model will be developed in the temporal domain. This design choice is motivated by the need to stop and start the simulation periodically, allowing the neural network to take simulation states as inputs, and issue control action outputs. Upon receiving a control action the simulation will iterate forward by some discrete time interval, using previous stopping states as initial conditions. This could not be achieved in the frequency domain as initial conditions are assumed to be zero. The temporal domain model will be developed by taking inverse Laplace transforms of frequency domain models from simulation experiments discussed in the literature review.
 
-Model parameter values for the two area power system model will be selected based on a review of the most common model parameters observed in the literature review. Tuned model parameters for the PI controller will selected to ensure near optimal control performance. Developed models will be tested and verified against known results from the literature review to provide assurance of correct implementation.
+A PI controller model will be developed to provide a performance benchmark comparison for the neural network. The model will take 3 inputs from the environment model, namely the frequency from each power system area, and the tie-line power transfer. Whilst the PI controller could be developed in the frequency domain, for convenience it will be developed in the temporal domain to interact with the temporal environment model of the two area power system. The PI controller model will be mathematically specified using the same methodology described for the two area power system environment model.
 
-\subsection{Neural Network, DDPG Controller, and Training Algorithm}
+Model parameter values for the two area power system model will be selected based on a review of the most common model parameters observed in the literature review. Tuned model parameters for the PI controller will selected to ensure near optimal control performance.
 
+\subsection{Neural Network and DDPG Algorithm}
+Neural network actor-critic models will be designed to have an input layer, 2 hidden layers, and an output layer. This design choice is motivated by the work done by XXXX and XXXX. The input layer will be designed to receive 7 model inputs, consisting of governor and turbine states for each power system area, frequencies for each power system area, and the power transfer on the tie-line. The output layer will issue 2 control actions to be received by the environment model.
 
-DEVELOPMENT OF NEURAL NETWORK
+The neural network model will be developed to allow for modification to the number of nodes and activation functions in hidden layers. This design choice has been made to facilitate investigation of neural network control performance with respect to model architecture changes.
 
-DEVELOPMENT OF DDPG CONTROLLER AND TRAINING ALGORITHM
+The DDPG algorithm will be developed based on LISTING XXXX. Algorithm hyperparameters, including XXXX will be specified according to original experiments undertaken by XXXX. 
+
 
 \subsection{Software Implementation and Testing}
 Environment models, controllers, neural networks, and training algorithms will be implemented in the Python programming language. This design choice is motivated by a number of factors:
@@ -21,6 +24,8 @@ Environment models, controllers, neural networks, and training algorithms will b
 	\item \texttt{Gym} is a Python toolkit developed by OpenAI for developing reinforcement learning algorithms
 	\item Python and the libraries mentioned above are open source, and as such do not require expensive licences for access.
 \end{itemize}
+
+Developed models will be tested and verified against known results from the literature review to provide assurance of correct implementation.
 
 HOW THE SOFTWARE WILL BE IMPLEMENTED USING AN OBJECT ORIENTED APPROACH
 
