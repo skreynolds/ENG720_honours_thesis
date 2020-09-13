@@ -1,11 +1,36 @@
 \section{Simulation Experiments}\label{sec:preliminary_investigation}
-As discussed in \textsection \ref{ssec:deep_deterministic_policy_gradient}, DDPG performance has been observed to suffer from instability and variance during training, impacting the agent's ability to learn. Some of the main causes of variability in agent performance are due to reward function, neural network architecture, choice of activation functions, hyperparameter selection, and exploratory noise processes. The preliminary investigation aims are twofold. Firstly, identify parameter settings and network architectures for which a DDPG agent can learn a frequency control policy comparable to an optimally tuned proportional-integral (PI) controller for a two area power system. Secondly, hyperparameter settings will be identified to ensure agent learning is stable and fast.
+\subsection{Overview}
+As discussed in \textsection \ref{ssec:deep_deterministic_policy_gradient}, DDPG performance has been observed to suffer from instability and variance during training. This can impact the agent's ability to learn useful control policies. Some of the main causes of variability in agent performance are due to neural network architecture, choice of activation function, exploratory noise processes, agent experience quality, and agent experience variability. The simulation experiment aims are twofold. Firstly, identify parameter settings and network architectures for which a DDPG agent can learn a frequency control policy comparable to an optimally tuned proportional-integral (PI) controller for a two area power system. Secondly, hyperparameter settings will be identified to ensure agent learning is stable and fast.
 
-To address the first aim, experiments will be undertaken in which a DDPG agent will be trained using different parameter and network architecture selections. Comparisons will then be made between PI and DDPG controllers using the cumulative reward function specified for the DDPG agent in the given experiment. A smaller difference between cumulative reward scores is indicative of similar controller performance.
+To achieve these aims, a series of experiments will be undertaken in which a DDPG agent will be trained using different parameter and network architecture selections. Each experiment will be run for an identical fixed number of training episodes, using fixed random seeds to ensure results can be replicated. PROVIDE A BRIEF DESCRIPTION OF THE COMMONALITIES THAT WILL BE SEEN ACROSS EACH OF THE EXPERIMENTS. Table XXXX provides an overview of experiments to be undertaken.
+\begin{table}[h]
+	\centering
+	\caption{An overview of the experiments that will undertaken to achieve the best neural network performance for load frequency control of a two area power system.}\label{key}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Name} & \textbf{Description} \\
+		\midrule
+		Control & An identical hidden layer neural network architecture (400, 300) used in Lillicrap \textit{et alias} will be used. This experiment will form a basis for agent learning performance comparisons against subsequent experiments.\\
+		 & \\
+		Neural Network Architecture & A neural network architecture that has smaller number of nodes in hidden layers (64, 64) will be used. \\
+		 & \\
+		Activation Functions & LReLU activation functions will be used for neural network hidden layers.\\
+		 & \\
+		OU Noise Process & Exploratory OU noise process parameters, $\mu$ and $\sigma$, will be modified. \\
+		 & \\
+		Prioritised Experience Replay & \\
+		 & \\
+		Expert Learner & \\
+		 & \\
+		Stochastic Demand & \\
+		\bottomrule
+	\end{tabular}
+\end{table}
 
-To address the second aim, experiments will be undertaken in which a single hyperparameter will be selected, holding all else constant. The DDPG agent will undergo training for a fixed number of episodes, for different values of the selected hyperparameter. This will provide a means for understanding optimal DDPG training performance for the two area power system problem for the given hyperparameter. The process will be repeated for the following hyperparameters: 
 
+
+
+\subsection{Measuring agent performance}
 MAKE SURE TO PROVIDE CLEAR METHODOLOGY ON HOW THE THE AGENTS TRAINING PROGRESS WILL BE MEASURED AND COMPARED
 
 MAKES SURE THAT IT IS CLEAR ON HOW THE CONTROLLER PERFORMANCE WILL BE MEASURED AND THE COMPARISONS THAT WILL BE MADE FOR EACH OF THE EXPERIMENTS.
-
