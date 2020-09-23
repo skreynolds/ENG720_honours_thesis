@@ -1,4 +1,24 @@
-\section{DDPG Training Algorithm}
+\section{DDPG Algorithm}
+The DDPG algorithm was implemented using a Python class \verb|DdpgController|, and a function called \verb|ddpg_train|.
+
+When an instance of the \verb|DdpgController| class is created a number of critical tasks are performed. These include initialisation of neural networks in memory for the actor and critic, and their associated target networks, declaration of DDPG hyperparameters discussed in \textsection \ref{ssec:deep_deterministic_policy_gradient}, initialisation of a replay buffer for storing agent experience, and the initialisation of an Ornstein–Uhlenbeck process to add exploratory noise to action signals. Additionally, the \verb|DdpgController| class defines methods used for model training. A description of key methods is provided in Table \ref{tab:4103}. The \verb|DdpgController| class implementation can be found in Appendix \ref{app:implementation_ddpg_controller}.
+
+\begin{table}[h]
+	\centering
+	\cprotect\caption{Description of key methods for the \verb|DdpgController| class}
+	\begin{tabular}{lp{12cm}}
+		\toprule
+		\textbf{Method} & \textbf{Description} \\
+		\midrule
+		\verb|step| & Stores the current experience tuple, $(s_t, a_t, r_t, S_{t+1})$, in the experience replay buffer, and calls the method \verb|learn|\\
+		 & \\
+		\verb|act| & Takes a state as input and uses this for a call to the neural network method \verb|forward| which returns an action\\
+		 & \\
+		\verb|learn| & Performs gradient descent, using backpropagation, on the actor and critic loss functions to adjust weights for each respective network using a set of random uniformly sampled experiences from the experience replay buffer\\
+		\bottomrule
+	\end{tabular}\label{tab:4103}
+\end{table}
+
 Actor and critic neural networks are trained using the DDPG algorithm shown in listing \ref{ssec:deep_deterministic_policy_gradient}. 
 
 The function \verb|ddpg_train| takes environment and agent class instances as inputs. The function runs training for a specified number of episodes. For each episode, \verb|ddpg_train| takes time steps of 0.01 sec until the episode triggers a termination condition. During each time step, \verb|ddpg_train| will obtain an action from the agent given the current state, obtain the power demand signal for the given time step, and step the environment forward using the agent's action and power demanded. The function the makes a call to the agent method \verb|step|, which stores the experience in the replay buffer and trains the neural network.

@@ -1,5 +1,24 @@
 \section{OU Noise Hyperparameter Experiments}
 
+\begin{table}[h]
+	\centering
+	\caption{An overview of actor and critic neural network architectures used in experiments undertaken by Lillicrap \textit{et alias}}
+	\begin{tabular}{@{\extracolsep{6pt}}llrlr@{}}
+		\toprule
+		 & \multicolumn{2}{c}{\textbf{Actor}} & \multicolumn{2}{c}{\textbf{Critic}} \\ 
+		\cline{2-3} \cline{4-5}
+		\multirow{2}{*}{\textbf{Layer}} & \textbf{Activation} & \textbf{Number of} & \textbf{Activation} & \textbf{Number of} \\
+		 &  \textbf{Function} & \textbf{Perceptrons} & \textbf{Function} & \textbf{Perceptrons} \\
+		\midrule
+		Input Layer & None & 3 & None & 3 \\
+		Hidden Layer 1 & ReLU & 400 & ReLU & 400 \\
+		Hidden Layer 2 & ReLU & 300 & ReLU & 300 \\
+		Output Layer & $\tanh$ & 2 & None & 2 \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:4101}
+\end{table}
+
 \begin{figure}[h]
 	\centering
 	\input{./figures/6501_average_reward_plot/average_reward_plot.tikz}
@@ -12,21 +31,12 @@
 	\input{./figures/6502_frequency_response_1/frequency_response_1.tikz}
 	\caption{text}
 	
-	\vspace*{2cm}
-	
 	\input{./figures/6503_control_signal_1/control_signal_1.tikz}
 	\caption{text}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-
+	
 	\input{./figures/6504_frequency_response_2/frequency_response_2.tikz}
 	\caption{text}
-	
-	\vspace*{2cm}
-	
+				
 	\input{./figures/6505_control_signal_2/control_signal_2.tikz}
 	\caption{text}
 \end{figure}
-

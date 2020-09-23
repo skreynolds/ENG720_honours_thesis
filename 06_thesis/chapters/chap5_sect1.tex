@@ -25,4 +25,25 @@ A full derivation of the first order linear system described by Equations \ref{e
 
 ADD THE PARAMETER SELECTION FROM LITERATURE REVIEW.
 
+\begin{table}[h]
+	\centering
+	\caption{Environment and controller parameters used for preliminary investigation experiments.}
+	\begin{tabular}{llr}
+		\toprule
+		\textbf{Description} & \textbf{Parameter} & \textbf{Value} \\
+		\midrule
+		Speed Governor Gain & $K_{sg_1}$, $K_{sg_2}$ & 1 \\
+		Speed Governor Time Constant & $T_{sg_1}$, $T_{sg_2}$ & 0.08 \\
+		Turbine Gain & $K_{t_1}$, $K_{t_2}$ & 1 \\
+		Turbine Time Constant & $T_{t_1}$, $T_{t_2}$ & 0.3 \\
+		Generator Load Gain & $K_{gl_1}$, $K_{gl_2}$ & 120 \\
+		Generator Load Time Constant & $T_{gl_1}$, $T_{gl_2}$ & 20 \\
+		Tieline & $T_{12}$ & 0.1 \\
+		Proportional Gain & $R_1$, $R_2$ & 2.4 \\
+		Integral Gain & $K_{i_1}$, $K_{i_2}$, & -0.671 \\
+		 & $b_1$, $b_2$ & 0.425 \\
+		\bottomrule
+	\end{tabular}\label{tab:5000}
+\end{table}
+
 ADD TESTS TO ENSURE THAT MODEL SPECIFICATION IS OKAY - USE NO CONTROL FROM FREQUENCY DOMAIN AND FROM TEMPORAL PYTHON MODEL.

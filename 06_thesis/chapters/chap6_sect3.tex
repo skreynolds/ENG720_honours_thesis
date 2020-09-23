@@ -1,5 +1,5 @@
 \section{Neural Network Architecture Experiments}
-Deep deterministic policy gradient (DDPG), described in \textsection \ref{ssec:deep_deterministic_policy_gradient}, is used to train neural networks to perform control actions given a state observation. DDPG uses actor and critic networks, both of which also have target networks. The implication is that a total of four neural networks are required for a single DDPG controller instance. To accommodate this requirement, two Python classes were created: one for the actor called \verb|Actor|, and another for the critic called \verb|Critic|. Implementations for the \verb|Actor| and \verb|Critic| classes can be found in Appendices \ref{app:implementation_actor_model} and \ref{app:implementation_critic_model}, respectively. Both actor and critic networks were built using an input layer, two hidden layers and an output layer --- an identical structure to experiments conducted by Lillicrap \textit{et al.} \cite{Lillicrap2015}. Neural network hidden layers used rectified linear units (ReLU) for activation functions. The final output layer of the actor network used a $\tanh$ activation function to bound the actions. Both actor and critic architectures contain 121800 weight parameters. The details of the actor and critic networks are shown in Table \ref{tab:4101}.
+Both actor and critic architectures contain 121800 weight parameters. The details of the actor and critic networks are shown in Table \ref{tab:4101}.
 
 \begin{table}[h]
 	\centering
@@ -20,50 +20,6 @@ Deep deterministic policy gradient (DDPG), described in \textsection \ref{ssec:d
 	\label{tab:4101}
 \end{table}
 
-Alternative neural network architectures are also developed for comparison. These alternative actor and critic architectures are common in DDPG control of robotic systems and contain less weight parameters than the Lillicrap \textit{et al.} networks. The actor network contains a total of 1280 weight parameters, and the critic network contains a total of 99200 weight parameters. An additional feature of the critic is that it makes use of Leaky ReLUs to avoid the dying ReLU problem discussed in \textsection \ref{sec:activation_functions}. Implementations for these alternative classes can be found in Appendices \ref{app:implementation_alt_actor_model} and \ref{app:implementation_alt_critic_model} for the actor and critic, respectively. Network details can be found in Table \ref{tab:4102}.
-
-\begin{table}[h]
-	\centering
-	\caption{An overview of actor and critic neural network architectures seen frequently in the literature for deep reinforcement learning for robotic system control}
-	\begin{tabular}{@{\extracolsep{6pt}}llrlr@{}}
-		\toprule
-		 & \multicolumn{2}{c}{\textbf{Actor}} & \multicolumn{2}{c}{\textbf{Critic}} \\ 
-		\cline{2-3} \cline{4-5}
-		\multirow{2}{*}{\textbf{Layer}} & \textbf{Activation} & \textbf{Number of} & \textbf{Activation} & \textbf{Number of} \\
-		 &  \textbf{Function} & \textbf{Perceptrons} & \textbf{Function} & \textbf{Perceptrons} \\
-		\midrule
-		Input Layer    & None  & 3   & None  & 3 \\
-		Hidden Layer 1 & ReLU  & 256 & LReLU & 256 \\
-		Hidden Layer 2 &       &     & LReLU & 256 \\
-		Hidden Layer 3 &       &     & LReLU & 128 \\
-		Output Layer & $\tanh$ & 2  & None   & 1 \\
-		\bottomrule
-	\end{tabular}
-	\label{tab:4102}
-\end{table}
-
-A preliminary investigation was undertaken to assess the performance of the DDPG algorithm in training a neural network tasked with controlling the frequency and power interchange of a two area power system. The preliminary investigation was conducted by the approach outlined in \textsection \ref{sec:preliminary_investigation} and primarily focuses on changes to the environment reward function and OU exploratory noise parameters. A total of six experiments were conducted, labelled A through F, to evaluate the role of DDPG network architectures and hyperparameter settings. Simulation environment parameters were obtained from a two area power system commonly modelled in literature. Similarly, parameters for an optimally tuned PI controller, for the given simulation environment parameters, were used. The simulation parameters used are shown in Table \ref{tab:5000}.
-\begin{table}[h]
-	\centering
-	\caption{Environment and controller parameters used for preliminary investigation experiments.}
-	\begin{tabular}{llr}
-		\toprule
-		\textbf{Description} & \textbf{Parameter} & \textbf{Value} \\
-		\midrule
-		Speed Governor Gain & $K_{sg_1}$, $K_{sg_2}$ & 1 \\
-		Speed Governor Time Constant & $T_{sg_1}$, $T_{sg_2}$ & 0.08 \\
-		Turbine Gain & $K_{t_1}$, $K_{t_2}$ & 1 \\
-		Turbine Time Constant & $T_{t_1}$, $T_{t_2}$ & 0.3 \\
-		Generator Load Gain & $K_{gl_1}$, $K_{gl_2}$ & 120 \\
-		Generator Load Time Constant & $T_{gl_1}$, $T_{gl_2}$ & 20 \\
-		Tieline & $T_{12}$ & 0.1 \\
-		Proportional Gain & $R_1$, $R_2$ & 2.4 \\
-		Integral Gain & $K_{i_1}$, $K_{i_2}$, & -0.671 \\
-		 & $b_1$, $b_2$ & 0.425 \\
-		\bottomrule
-	\end{tabular}\label{tab:5000}
-\end{table}
-
 \begin{figure}[h]
 	\centering
 	\input{./figures/6301_average_reward_plot/average_reward_plot.tikz}
@@ -76,20 +32,12 @@ A preliminary investigation was undertaken to assess the performance of the DDPG
 	\input{./figures/6302_frequency_response_1/frequency_response_1.tikz}
 	\caption{text}
 	
-	\vspace*{2cm}
-	
 	\input{./figures/6303_control_signal_1/control_signal_1.tikz}
 	\caption{text}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-
+	
 	\input{./figures/6304_frequency_response_2/frequency_response_2.tikz}
 	\caption{text}
-	
-	\vspace*{2cm}
-	
+			
 	\input{./figures/6305_control_signal_2/control_signal_2.tikz}
 	\caption{text}
 \end{figure}

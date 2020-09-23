@@ -1,5 +1,7 @@
 \chapter{Discussion and Future Directions}
 
+Monotonically increasing curves in subplot (a) and (b) are desirable, and indicate stable learning for a given reward function, and set of hyperparameters
+
 Reward functions are designed to achieve desirable control behaviour from the agent. The task of controlling frequency and power interchange for a two area power system should therefore have a reward structure that will incentivise the agent to minimise frequency deviations and minimise deviations in the tie-line power interchange from scheduled values. Moreover, the agent should be discouraged from letting the system see large frequency excursions that would activate system protection settings in a real world power system. Finally, it would be useful if the agent develops policies that meet the objectives outlined above, without requiring acute control signals.
 
 Whilst there are no restrictions on reward function specification, it is widely acknowledged that poor reward function selection can impede agent learning, or produce undesirable behaviour. Evidence of unstable and divergent learning can be observed in experiment A and B, as shown in subplot (a) and (b), in Figure \ref{fig:results_A} and \ref{fig:results_B}, respectively. This resulted in the DDPG agent developing poor control policies that saturated control actions, as shown in subplot (e) and (f). Agent frequency control performance saw unacceptably large deviations from scheduled values, as shown in subplot (c) and (d).

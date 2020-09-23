@@ -24,7 +24,7 @@ ytick style={color=black},
 scaled y ticks=true,
 scaled y ticks=base 10:3,
 width=14cm,
-height=10cm,
+height=5cm,
 xlabel=Time (sec),
 ylabel=Frequency (Hz)
 %y label style={at={(-0.2,0.5)}}

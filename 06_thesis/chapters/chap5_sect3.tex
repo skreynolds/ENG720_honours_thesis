@@ -1,20 +1,3 @@
-\section{DDPG Controller}
-The DDPG algorithm was implemented using a Python class \verb|DdpgController|, and a function called \verb|ddpg_train|.
+\section{Neural Network Controller Model}
 
-When an instance of the \verb|DdpgController| class is created a number of critical tasks are performed. These include initialisation of neural networks in memory for the actor and critic, and their associated target networks, declaration of DDPG hyperparameters discussed in \textsection \ref{ssec:deep_deterministic_policy_gradient}, initialisation of a replay buffer for storing agent experience, and the initialisation of an Ornstein–Uhlenbeck process to add exploratory noise to action signals. Additionally, the \verb|DdpgController| class defines methods used for model training. A description of key methods is provided in Table \ref{tab:4103}. The \verb|DdpgController| class implementation can be found in Appendix \ref{app:implementation_ddpg_controller}.
-
-\begin{table}[h]
-	\centering
-	\cprotect\caption{Description of key methods for the \verb|DdpgController| class}
-	\begin{tabular}{lp{12cm}}
-		\toprule
-		\textbf{Method} & \textbf{Description} \\
-		\midrule
-		\verb|step| & Stores the current experience tuple, $(s_t, a_t, r_t, S_{t+1})$, in the experience replay buffer, and calls the method \verb|learn|\\
-		 & \\
-		\verb|act| & Takes a state as input and uses this for a call to the neural network method \verb|forward| which returns an action\\
-		 & \\
-		\verb|learn| & Performs gradient descent, using backpropagation, on the actor and critic loss functions to adjust weights for each respective network using a set of random uniformly sampled experiences from the experience replay buffer\\
-		\bottomrule
-	\end{tabular}\label{tab:4103}
-\end{table}
+Deep deterministic policy gradient (DDPG), described in \textsection \ref{ssec:deep_deterministic_policy_gradient}, is used to train neural networks to perform control actions given a state observation. DDPG uses actor and critic networks, both of which also have target networks. The implication is that a total of four neural networks are required for a single DDPG controller instance. To accommodate this requirement, two Python classes were created: one for the actor called \verb|Actor|, and another for the critic called \verb|Critic|. Implementations for the \verb|Actor| and \verb|Critic| classes can be found in Appendices \ref{app:implementation_actor_model} and \ref{app:implementation_critic_model}, respectively. Both actor and critic networks were built using an input layer, two hidden layers and an output layer --- an identical structure to experiments conducted by Lillicrap \textit{et al.} \cite{Lillicrap2015}. Neural network hidden layers used rectified linear units (ReLU) for activation functions. The final output layer of the actor network used a $\tanh$ activation function to bound the actions.
