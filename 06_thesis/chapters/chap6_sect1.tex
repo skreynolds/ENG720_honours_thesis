@@ -2,7 +2,7 @@
 
 Experiments consisted of two main phases: training and testing.
 
-\subsection{Training}
+\subsection{Training}\label{ssec:training}
 At the beginning of each experiment a new instance of a DDPG agent was initialised, and the DDPG agent replay buffers cleared. Each experiment used the same episode scenario, with the system and agent response simulated for a total of 30 sec, after which the episode was terminated. In order to simulate a power system perturbation, a $\pm$0.01pu step change in the power demand for area 1 was introduced at a random time between the 0 and 30 sec mark. An example of a +0.01pu step change occurring at the 1 sec mark is shown in Figure \ref{fig:5001_demand_profile}. Note that this perturbation type was not used for the final experiment.
 
 \begin{figure}[h]
@@ -36,7 +36,7 @@ Each experiment, detailed in the remaining sections of this chapter, modified a 
 
 
 
-\subsection{Testing}
+\subsection{Testing}\label{ssec:testing}
 A series of plots were created for each experiment. These include the following:
 \begin{itemize}
 	\item \textbf{Frequency:} a timeseries plot showing an evolution of power system frequency under neural network control, for a given power system area, over the 30 sec simulation. Two plots will be created for each experiment --- one for each power system area. Note that system frequency under optimal PI control will also be included for comparison.

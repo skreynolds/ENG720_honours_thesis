@@ -1,6 +1,5 @@
 \section{Baseline Experiment}
-
-Actor network architectures consisted of an input layer (7 perceptrons), a single hidden layer (256 perceptrons), and an output layer (2 perceptrons). Hidden layers used ReLU activation functions, and the output layer used a $\tanh$ activation function. The network architectures of the critic consisted of an input layer (7 perceptrons), three hidden layers (256, 256, and 128 perceptrons), and an output layer (1 nodes). Hidden layers used LReLU activation functions, and the output layer used no activation function.
+Identical experimental conditions to those used by Lillicrap \textit{et alias} were selected for the baseline experiment. The neural network architecture for actor and critic networks are shown in Table \ref{tab:4101}. 
 
 \begin{table}[h]
 	\centering
@@ -12,7 +11,7 @@ Actor network architectures consisted of an input layer (7 perceptrons), a singl
 		\multirow{2}{*}{\textbf{Layer}} & \textbf{Activation} & \textbf{Number of} & \textbf{Activation} & \textbf{Number of} \\
 		 &  \textbf{Function} & \textbf{Perceptrons} & \textbf{Function} & \textbf{Perceptrons} \\
 		\midrule
-		Input Layer & None & 3 & None & 3 \\
+		Input Layer & None & 7 & None & 7 \\
 		Hidden Layer 1 & ReLU & 400 & ReLU & 400 \\
 		Hidden Layer 2 & ReLU & 300 & ReLU & 300 \\
 		Output Layer & $\tanh$ & 2 & None & 2 \\
@@ -21,15 +20,61 @@ Actor network architectures consisted of an input layer (7 perceptrons), a singl
 	\label{tab:4101}
 \end{table}
 
-\begin{figure}[h]
-	\centering
-	\input{./figures/6201_average_reward_plot/average_reward_plot.tikz}
-	\caption{text}
-\end{figure}
+The agent was trained for 10000 episodes, as detailed in section \ref{ssec:training}. The evolution of MACR100 over the 10000 episode duration is shown in Figure \ref{fig:6201_average_reward}. The highest MACR100 during training was XXXX, and the MACR100 at episode 10000 was XXXX. The trained agent performance was tested against a number of scenarios as outlined in section \ref{ssec:testing}. Training and test results are detailed in Table \ref{tab:6201_baseline_results}. Frequency and control signal plots for a +0.01pu load demand at the 15 sec mark were captured for both power system areas. Frequency plots are shown in Figures XXXX and XXXX, and control signal plots are shown in Figures XXXX and XXXX.
 
 \begin{figure}[h]
 	\centering
-	
+	\input{./figures/6201_average_reward_plot/average_reward_plot.tikz}
+	\caption{Average cumulative reward after each episode for the baseline experiment.}
+	\label{fig:6201_average_reward}
+\end{figure}
+
+\begin{table}
+	\centering
+	\caption{text}
+	\label{tab:6201_baseline_results}
+	\begin{tabular}{llllll}
+	\toprule
+	Simulation & Cumulative 	& Maximum 	& Settling 	& Delay  	& Rise \\
+	Time (s) & Reward		& Overshoot	& Time (s)	& Time (s)	& Time (s) \\
+	\midrule
+	5 		 &				&			&			&			& \\
+	  		 &				&			&			&			& \\
+	10 		 &				&			&			&			& \\
+	  		 &				&			&			&			& \\
+	15 		 &				&			&			&			& \\
+	  		 &				&			&			&			& \\
+	20 		 &				&			&			&			& \\
+	  		 &				&			&			&			& \\
+	25 		 &				&			&			&			& \\
+	\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}
+	\centering
+	\caption{text}
+	\label{tab:6201_baseline_results}
+	\begin{tabular}{llllll}
+	\toprule
+	Simulation & Cumulative 	& Maximum 	& Settling 	& Delay  	& Rise \\
+	Time (s) & Reward		& Overshoot	& Time (s)	& Time (s)	& Time (s) \\
+	\midrule
+	5 		 &				&			&			&			& \\
+	  		 &				&			&			&			& \\
+	10 		 &				&			&			&			& \\
+	  		 &				&			&			&			& \\
+	15 		 &				&			&			&			& \\
+	  		 &				&			&			&			& \\
+	20 		 &				&			&			&			& \\
+	  		 &				&			&			&			& \\
+	25 		 &				&			&			&			& \\
+	\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+	\centering
 	\input{./figures/6202_frequency_response_1/frequency_response_1.tikz}
 	\caption{text}
 	
