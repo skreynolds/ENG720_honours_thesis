@@ -2,35 +2,148 @@
 \subsection{Overview}
 As discussed in \textsection \ref{ssec:deep_deterministic_policy_gradient}, DDPG performance has been observed to suffer from instability and variance during training. This can impact the agent's ability to learn useful control policies. Some of the main causes of variability in agent performance are due to neural network architecture, choice of activation function, exploratory noise processes, agent experience quality, and agent experience variability. The simulation experiment aims are twofold. Firstly, identify parameter settings and network architectures for which a DDPG agent can learn a frequency control policy comparable to an optimally tuned proportional-integral (PI) controller for a two area power system. Secondly, hyperparameter settings will be identified to ensure agent learning is stable and fast.
 
-To achieve these aims, a series of experiments will be undertaken in which a neural network will be trained using DDPG to eliminate frequency change in a two area power system subjected to load demand changes. Each experiment will be run for an identical fixed number of training episodes, with each episode lasting for a 30 second duration. Each experiment will modify the neural network architecture or the DDPG algorithm to find the most effective control policy that demonstrates stable and fast learning. Fixed random seeds will be used to ensure each experiment sees identical training scenarios, and to ensure results can be replicated. Table \ref{tab:experiment_overview} provides an overview of proposed experiments. Agent performance will be evaluated according to the criteria outlined in section \ref{sec:agent_performance}.
+To achieve these aims, a series of experiments will be undertaken in which a neural network will be trained using DDPG to perform the task of load frequency control in a two area power system subjected to load demand changes. Experiments will modify a single variable in either the neural network architecture or the DDPG algorithm, holding all else constant. Each experiment will consist of a training phase and a testing phase. The training phase, outlined in section XXXX, will see neural network weights are modified using experience collected from the agent's interaction. The testing phase, outlined in section XXXX, will evaluate the trained agent performance. Agent performance metrics are presented in section XXXX, and detailed descriptions of each experiment are detailed in section XXXX.
+
+\subsection{Training}\label{ssec:training}
+At the beginning of each experiment a new instance of a DDPG agent will be initialised, and the DDPG agent replay buffers cleared. Each experiment shall use the same episode scenario, with the system and agent response simulated for a total of 30 sec, after which the episode will terminate. In order to simulate a power system perturbation, a $\pm$0.01pu step change in the power demand for area 1 will be introduced at a random time between the 0 and 30 sec mark. An example of a +0.01pu step change occurring at the 1 sec mark is shown in Figure \ref{fig:5001_demand_profile}. Note that this perturbation type was not used for the final experiment, where a stochastic perturbation signal was used instead.
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/5001_demand_profile/demand_profile.tikz}
+	\caption[Preliminary investigation load demand step change]{At the 1 sec mark the system experiences a step load change in the power demand in Area 1, and the simulation continues for 30 sec thereafter.}
+	\label{fig:5001_demand_profile}
+\end{figure}
+
+From initialisation, the simulation was incrementally stepped forward by 0.01 sec for a total of 3000 steps. At each time step the DDPG agent was trained using experience stored in the replay buffer from current and previous system interactions, for a given experiment. Experiments were allowed to run for a total of 10000 episodes.
+
+DDPG training algorithm hyperparameters were held constant for each experiment, as per the values used originally by Lillicrap \textit{et alias} \cite{Lillicrap2015}. Hyperparameter values used for the experiments described in this chapter are documented in Table \ref{tab:5000_hyperparameters}.
+
 \begin{table}[h]
 	\centering
-	\caption{An overview of the experiments that will undertaken to achieve the best neural network performance for load frequency control of a two area power system.}\label{tab:experiment_overview}
-	\begin{tabular}{lp{9cm}}
-		\toprule
-		\textbf{Name} & \textbf{Description} \\
-		\midrule
-		Baseline & An identical neural network architecture used in Lillicrap \textit{et alias}, with hidden layers of (400, 300) will be used to form a basis comparisons against subsequent experiments.\\
-		 & \\
-		Neural Network Architecture & A neural network architecture that has smaller number of nodes in hidden layers (64, 64) will be used to determine if a smaller network is more effective. \\
-		 & \\
-		Activation Functions & LReLU activation functions will be used for neural network hidden layers to determine if they are more effective.\\
-		 & \\
-		OU Noise Process & Exploratory OU noise process parameters, $\sigma$ and $\theta$, will be modified to determine the impact on agent learning. \\
-		 & \\
-		Prioritised Experience Replay & Priority metric added to experience replay buffer allowing useful experience  to be visited more often.\\
-		 & \\
-		Expert Learner & PID controller experience (the expert) will be introduced to the experience replay buffer with half of all experience from PID interaction with the environment.\\
-		 & \\
-		Stochastic Demand & A stochastic load demand profile will be used to perturb the system to provide the agent with more variability in training scenarios.\\
-		\bottomrule
-	\end{tabular}
+	\caption{DDPG hyperparameters used for preliminary investigation experiments.}
+	\begin{tabular}{lrlr}
+	\toprule
+	\textbf{Hyperparameter} & \textbf{Value} & \textbf{Hyperparameter} & \textbf{Value} \\
+	\midrule
+	Buffer Size 	 & $1 \times 10^6$  & Batch Size 	& 256 \\
+	Gamma ($\gamma$) & 0.99 	& Tau ($\tau$) 	& $1 \times 10^{-3}$ \\
+	Actor Learning Rate ($\alpha_{\texttt{actor}}$) & $1 \times 10^{-4}$ & Critic Learning Rate ($\alpha_{\texttt{critic}}$) & $3 \times 10^{-4} $ \\
+	Weight Decay & 0.00 & & \\
+	\bottomrule
+	\end{tabular}\label{tab:5000_hyperparameters}
 \end{table}
 
+Each experiment, detailed in the remaining sections of this chapter, modified a single variable of the agent construction, holding other variables constant. The cumulative reward was captured after each episode terminated, and MACR100 (outlined in XXXX) was calculated for each episode. Plots were created to show the evolution of MACR100 over the 10000 episode training duration.
 
+\subsection{Testing}\label{ssec:testing}
+At the conclusion of training, agent model parameters were reloaded into a new instance of the neural network to evaluate agent performance. Ten independent tests were carried out on each agent. A single test simulated the two area power system for a total of 30 sec, and perturbed power system area one using a step change of $\pm$0.01pu. Perturbations were introduced at different time intervals. The first 5 tests perturbed power area one by $+$0.01pu at the 5 sec, 10 sec, 15 sec, 20 sec, and 25 sec marks, respectively. The final 5 tests perturbed power area one by $-$0.01pu at the 5 sec, 10 sec, 15 sec, 20 sec, and 25 sec marks, respectively.
+
+Timeseries data of frequency and control actions were captured for each test. Maximum overshoot, settling time, delay time, and rise time metrics were calculated for the frequency of power system areas one and two for each test. The following plots were created for each experiment:
+\begin{itemize}
+	\item \textbf{Frequency:} a timeseries plot showing an evolution of power system frequency under neural network control, for a given power system area, over the 30 sec simulation. Two plots will be created for each experiment --- one for each power system area. Note that system frequency under optimal PI control will also be included for comparison.
+	\item \textbf{Control signal:} a timeseries plot showing an evolution of the control action issued by the neural network over the 30 sec simulation. Two plots will be created for each experiment --- one for each experiment. Note that control signals from an optimal PI controller will also be included for comparison.
+\end{itemize}
 
 
 \subsection{Measuring agent performance}\label{sec:agent_performance}
+\begin{itemize}
+	\item Maximum overshoot: The maximum overshoot is the maximum peak value of the response curve measured from the final steady state
+	\item Settling time: The settling time is the time required for the response curve to reach and stay within a range about the final value of size specified (5\% level)
+	\item Delay time: The delay time is the time required for the response to half the final value
+	\item Rise time: The time required to reach 100\% of the final value
+\end{itemize}
+
 MAKE SURE TO PROVIDE CLEAR METHODOLOGY ON HOW THE THE AGENTS TRAINING PROGRESS WILL BE MEASURED AND COMPARED
 
 MAKES SURE THAT IT IS CLEAR ON HOW THE CONTROLLER PERFORMANCE WILL BE MEASURED AND THE COMPARISONS THAT WILL BE MADE FOR EACH OF THE EXPERIMENTS.
+
+To reduce the noise on raw cumulative reward values, a 100 value moving average was calculated to smooth the signal. This metric is referred to as MACR100.
+
+
+\subsection{Experiment Details}
+\subsubsection{Baseline Experiment}
+An identical neural network architecture to that used in Lillicrap \textit{et alias} will be used for the baseline experiment. The network makes use of ReLU activation functions, and has two hidden layers. The first hidden layer has 400 perceptrons, and the second hidden layer has 300 perceptrons  The complete neural network architecture for actor and critic networks is detailed in Table \ref{tab:4101}.
+
+\begin{table}[h]
+	\centering
+	\caption{An overview of actor and critic neural network architectures used in experiments undertaken by Lillicrap \textit{et alias}}
+	\begin{tabular}{@{\extracolsep{6pt}}llrlr@{}}
+		\toprule
+		 & \multicolumn{2}{c}{\textbf{Actor}} & \multicolumn{2}{c}{\textbf{Critic}} \\ 
+		\cline{2-3} \cline{4-5}
+		\multirow{2}{*}{\textbf{Layer}} & \textbf{Activation} & \textbf{Number of} & \textbf{Activation} & \textbf{Number of} \\
+		 &  \textbf{Function} & \textbf{Perceptrons} & \textbf{Function} & \textbf{Perceptrons} \\
+		\midrule
+		Input Layer & None & 7 & None & 7 \\
+		Hidden Layer 1 & ReLU & 400 & ReLU & 400 \\
+		Hidden Layer 2 & ReLU & 300 & ReLU & 300 \\
+		Output Layer & $\tanh$ & 2 & None & 2 \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:4101}
+\end{table}
+
+\subsubsection{Neural Network Experiment}
+Islam \textit{et alias} has shown that policy network architecture can significantly impact results for DDPG. As such, this experiment examines a smaller network architecture that is commonly seen in the literature \cite{}. The network architecture has two hidden layers, both with 64 perceptrons. The network retains the use of ReLU activation functions. The complete neural network architecture for actor and critic networks is detailed in Table \ref{tab:4102}.
+
+\begin{table}[h]
+	\centering
+	\caption{An overview of actor and critic neural network architectures used in experiments undertaken by Lillicrap \textit{et alias}}
+	\begin{tabular}{@{\extracolsep{6pt}}llrlr@{}}
+		\toprule
+		 & \multicolumn{2}{c}{\textbf{Actor}} & \multicolumn{2}{c}{\textbf{Critic}} \\ 
+		\cline{2-3} \cline{4-5}
+		\multirow{2}{*}{\textbf{Layer}} & \textbf{Activation} & \textbf{Number of} & \textbf{Activation} & \textbf{Number of} \\
+		 &  \textbf{Function} & \textbf{Perceptrons} & \textbf{Function} & \textbf{Perceptrons} \\
+		\midrule
+		Input Layer & None & 7 & None & 7 \\
+		Hidden Layer 1 & ReLU & 64 & ReLU & 64 \\
+		Hidden Layer 2 & ReLU & 64 & ReLU & 64 \\
+		Output Layer & $\tanh$ & 2 & None & 2 \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:4102}
+\end{table}
+
+\subsubsection{Activation Function Experiment}
+LReLU activation functions will be used for neural network hidden layers to determine if they are more effective.
+
+THIS WAS SELECTED BASED ON DEEP REINFORCEMENT LEARNING THAT MATTERS
+
+\begin{table}[h]
+	\centering
+	\caption{An overview of actor and critic neural network architectures used in experiments undertaken by Lillicrap \textit{et alias}}
+	\begin{tabular}{@{\extracolsep{6pt}}llrlr@{}}
+		\toprule
+		 & \multicolumn{2}{c}{\textbf{Actor}} & \multicolumn{2}{c}{\textbf{Critic}} \\ 
+		\cline{2-3} \cline{4-5}
+		\multirow{2}{*}{\textbf{Layer}} & \textbf{Activation} & \textbf{Number of} & \textbf{Activation} & \textbf{Number of} \\
+		 &  \textbf{Function} & \textbf{Perceptrons} & \textbf{Function} & \textbf{Perceptrons} \\
+		\midrule
+		Input Layer & None & 7 & None & 7 \\
+		Hidden Layer 1 & LReLU & 400 & LReLU & 400 \\
+		Hidden Layer 2 & LReLU & 300 & LReLU & 300 \\
+		Output Layer & $\tanh$ & 2 & None & 2 \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:4101}
+\end{table}
+
+\subsubsection{OU Noise Hyperparameter Experiment}
+Exploratory OU noise process parameters, $\sigma$ and $\theta$, will be modified to determine the impact on agent learning.
+
+A SELECTION OF NOISE DECAY WHICH IS MUCH SLOWER THAN THE CURRENTLY EMPLOYED NOISE DECAY
+
+\subsubsection{Prioritised Experience Replay Experiment}
+Priority metric added to experience replay buffer allowing useful experience  to be visited more often.
+
+PRIORITY EXPERIENCE REPLAY IS USED WHICH ALLOWS THE AGENT TO PLACE A VALUE OF IMPORTANCE ON THE EXPERIENCE WHICH IS COLLECTED.
+
+\subsubsection{Expert Learner Experiment}
+PID controller experience (the expert) will be introduced to the experience replay buffer with half of all experience from PID interaction with the environment.
+
+EXPERT LEARNER FLOODS THE AGENT MEMORY WITH EXPERT SKILL FROM WHICH THE AGENT LEARNS.
+
+\subsubsection{Stochastic Demand Experiment}
+A stochastic load demand profile will be used to perturb the system to provide the agent with more variability in training scenarios.
+

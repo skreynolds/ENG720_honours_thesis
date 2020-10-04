@@ -1,89 +1,35 @@
-\section{Baseline Experiment}
-Identical experimental conditions to those used by Lillicrap \textit{et alias} were selected for the baseline experiment. The neural network architecture for actor and critic networks are shown in Table \ref{tab:4101}. 
+\section{Neural Network Architecture Experiments}
+The agent was trained for 10000 episodes, as detailed in section \ref{ssec:training}. The evolution of MACR100 over the 10000 episode duration is shown in Figure \ref{fig:6301_average_reward}. The highest MACR100 during training was XXXX, and the MACR100 at episode 10000 was XXXX.
 
-\begin{table}[h]
-	\centering
-	\caption{An overview of actor and critic neural network architectures used in experiments undertaken by Lillicrap \textit{et alias}}
-	\begin{tabular}{@{\extracolsep{6pt}}llrlr@{}}
-		\toprule
-		 & \multicolumn{2}{c}{\textbf{Actor}} & \multicolumn{2}{c}{\textbf{Critic}} \\ 
-		\cline{2-3} \cline{4-5}
-		\multirow{2}{*}{\textbf{Layer}} & \textbf{Activation} & \textbf{Number of} & \textbf{Activation} & \textbf{Number of} \\
-		 &  \textbf{Function} & \textbf{Perceptrons} & \textbf{Function} & \textbf{Perceptrons} \\
-		\midrule
-		Input Layer & None & 7 & None & 7 \\
-		Hidden Layer 1 & ReLU & 400 & ReLU & 400 \\
-		Hidden Layer 2 & ReLU & 300 & ReLU & 300 \\
-		Output Layer & $\tanh$ & 2 & None & 2 \\
-		\bottomrule
-	\end{tabular}
-	\label{tab:4101}
-\end{table}
+The trained agent performance was tested against a number of scenarios as outlined in section \ref{ssec:testing}. Training and test results are detailed in Table \ref{tab:6301_baseline_results}. Frequency and control signal plots for a +0.01pu load demand at the 15 sec mark were captured for both power system areas. Frequency plots are shown in Figures XXXX and XXXX, and control signal plots are shown in Figures XXXX and XXXX.
 
-The agent was trained for 10000 episodes, as detailed in section \ref{ssec:training}. The evolution of MACR100 over the 10000 episode duration is shown in Figure \ref{fig:6201_average_reward}. The highest MACR100 during training was XXXX, and the MACR100 at episode 10000 was XXXX. The trained agent performance was tested against a number of scenarios as outlined in section \ref{ssec:testing}. Training and test results are detailed in Table \ref{tab:6201_baseline_results}. Frequency and control signal plots for a +0.01pu load demand at the 15 sec mark were captured for both power system areas. Frequency plots are shown in Figures XXXX and XXXX, and control signal plots are shown in Figures XXXX and XXXX.
+\vspace{2cm}
 
+%------------------- Training Results
 \begin{figure}[h]
 	\centering
-	\input{./figures/6201_average_reward_plot/average_reward_plot.tikz}
-	\caption{Average cumulative reward after each episode for the baseline experiment.}
-	\label{fig:6201_average_reward}
+	\input{./figures/6301_average_reward_plot/average_reward_plot.tikz}
+	\caption{text}\label{fig:6301_average_reward}
 \end{figure}
 
-\begin{table}
-	\centering
-	\caption{text}
-	\label{tab:6201_baseline_results}
-	\begin{tabular}{llllll}
-	\toprule
-	Simulation & Cumulative 	& Maximum 	& Settling 	& Delay  	& Rise \\
-	Time (s) & Reward		& Overshoot	& Time (s)	& Time (s)	& Time (s) \\
-	\midrule
-	5 		 &				&			&			&			& \\
-	  		 &				&			&			&			& \\
-	10 		 &				&			&			&			& \\
-	  		 &				&			&			&			& \\
-	15 		 &				&			&			&			& \\
-	  		 &				&			&			&			& \\
-	20 		 &				&			&			&			& \\
-	  		 &				&			&			&			& \\
-	25 		 &				&			&			&			& \\
-	\bottomrule
-	\end{tabular}
-\end{table}
+%------------------- Performance Results for Positive Test
+\input{./chapters/chap6_sect2_results_a}
 
-\begin{table}
-	\centering
-	\caption{text}
-	\label{tab:6201_baseline_results}
-	\begin{tabular}{llllll}
-	\toprule
-	Simulation & Cumulative 	& Maximum 	& Settling 	& Delay  	& Rise \\
-	Time (s) & Reward		& Overshoot	& Time (s)	& Time (s)	& Time (s) \\
-	\midrule
-	5 		 &				&			&			&			& \\
-	  		 &				&			&			&			& \\
-	10 		 &				&			&			&			& \\
-	  		 &				&			&			&			& \\
-	15 		 &				&			&			&			& \\
-	  		 &				&			&			&			& \\
-	20 		 &				&			&			&			& \\
-	  		 &				&			&			&			& \\
-	25 		 &				&			&			&			& \\
-	\bottomrule
-	\end{tabular}
-\end{table}
+%------------------- Performance Results for Negative Test
+\input{./chapters/chap6_sect2_results_b}
 
 \begin{figure}[h]
 	\centering
-	\input{./figures/6202_frequency_response_1/frequency_response_1.tikz}
+	
+	\input{./figures/6302_frequency_response_1/frequency_response_1.tikz}
 	\caption{text}
 	
-	\input{./figures/6203_control_signal_1/control_signal_1.tikz}
+	\input{./figures/6303_control_signal_1/control_signal_1.tikz}
 	\caption{text}
 	
-	\input{./figures/6204_frequency_response_2/frequency_response_2.tikz}
+	\input{./figures/6304_frequency_response_2/frequency_response_2.tikz}
 	\caption{text}
-		
-	\input{./figures/6205_control_signal_2/control_signal_2.tikz}
+			
+	\input{./figures/6305_control_signal_2/control_signal_2.tikz}
 	\caption{text}
 \end{figure}
