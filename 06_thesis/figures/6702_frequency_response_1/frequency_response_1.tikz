@@ -12,7 +12,7 @@ x grid style={white!69.0196078431373!black},
 xmin=-1.50000000000009, xmax=31.500000000002,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-0.025, ymax=0.01,
+ymin=-0.040, ymax=0.030,
 ytick style={color=black},
 %yticklabel style={
 %        /pgf/number format/.cd,

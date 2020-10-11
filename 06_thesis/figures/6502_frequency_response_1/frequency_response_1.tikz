@@ -26,8 +26,9 @@ scaled y ticks=base 10:3,
 width=14cm,
 height=5cm,
 xlabel=Time (sec),
-ylabel=Frequency (Hz)
+ylabel=Frequency (Hz),
 %y label style={at={(-0.2,0.5)}}
+legend pos=south west
 ]
 
 \addplot [ultra thick, green!20!gray, dotted]

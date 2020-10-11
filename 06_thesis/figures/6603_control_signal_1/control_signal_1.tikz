@@ -12,7 +12,7 @@ x grid style={white!69.0196078431373!black},
 xmin=-1.50000000000009, xmax=31.500000000002,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-0.01, ymax=0.025,
+ymin=-0.025, ymax=0.030,
 ytick style={color=black},
 %yticklabel style={
 %        /pgf/number format/.cd,
@@ -26,8 +26,9 @@ scaled y ticks=base 10:3,
 width=14cm,
 height=5cm,
 xlabel=Time (sec),
-ylabel=Control Signal
+ylabel=Control Signal,
 %y label style={at={(-0.2,0.5)}}
+legend pos=south west
 ]
 
 \addplot [ultra thick, blue!20!gray, dotted]

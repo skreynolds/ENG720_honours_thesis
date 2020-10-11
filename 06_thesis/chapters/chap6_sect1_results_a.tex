@@ -1,13 +1,13 @@
 \begin{landscape}
 \begin{table}
 	\centering
-	\caption{text}
+	\caption{Agent performance measurements for the baseline experiment given a +0.01pu step disturbance to area 1 at the 5, 10, 15, 20, and 25 sec mark.}
 	\begin{tabular}{crcrrrrr}
 		\toprule
 		\multicolumn{1}{p{2.25cm}<{\centering}}{Simulation} 	& \multicolumn{1}{p{2.25cm}<{\centering}}{Cumulative} 	& \multicolumn{1}{p{2.25cm}<{\centering}}{Power} 	& \multicolumn{1}{p{2.25cm}<{\raggedleft}}{Max Freq} 	& \multicolumn{1}{p{2.25cm}<{\raggedleft}}{Avg Freq} 	& \multicolumn{1}{p{2.25cm}<{\raggedleft}}{Max Ctl}  	& \multicolumn{1}{p{2.25cm}<{\raggedleft}}{Avg Ctl} 	& \multicolumn{1}{p{2.25cm}<{\raggedleft}}{Settling} \\
 		\multicolumn{1}{p{2.25cm}<{\centering}}{Time (s)} 	& \multicolumn{1}{p{2.25cm}<{\centering}}{Reward}		& \multicolumn{1}{p{2.25cm}<{\centering}}{Area}		& \multicolumn{1}{p{2.25cm}<{\raggedleft}}{Deviation}	& \multicolumn{1}{p{2.25cm}<{\raggedleft}}{Deviation}	& \multicolumn{1}{p{2.25cm}<{\raggedleft}}{Effort}	& \multicolumn{1}{p{2.25cm}<{\raggedleft}}{Effort} 		& \multicolumn{1}{p{2.25cm}<{\raggedleft}}{Time}\\
 		\midrule
-		\csvreader[column count=25, late after line=\\]{./data/test.csv}
+		\csvreader[column count=25, late after line=\\]{./data/exp_01_pos.csv}
 		{
 		1=\one, 2=\two, 3=\three, 4=\four, 5=\five, 6=\six, 7=\seven, 8=\eight, 9=\nine, 10=\ten,
 		11=\eleven, 12=\twelve, 13=\thirteen, 14=\fourteen, 15=\fifteen, 16=\sixteen, 17=\seventeen, 18=\eighteen,

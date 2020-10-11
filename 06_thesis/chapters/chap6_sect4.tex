@@ -1,4 +1,4 @@
-\section{OU Noise Hyperparameter Experiments}
+\section{OU Noise Parameter Experiment}
 The agent was trained for 10000 episodes, as detailed in section \ref{ssec:training}. The evolution of MACR100 over the 10000 episode duration is shown in Figure \ref{fig:6201_average_reward}. The highest MACR100 during training was XXXX, and the MACR100 at episode 10000 was XXXX. The trained agent performance was tested against a number of scenarios as outlined in section \ref{ssec:testing}. Training and test results are detailed in Table \ref{tab:6201_baseline_results}. Frequency and control signal plots for a +0.01pu load demand at the 15 sec mark were captured for both power system areas. Frequency plots are shown in Figures XXXX and XXXX, and control signal plots are shown in Figures XXXX and XXXX.
 
 \vspace{2cm}
@@ -7,28 +7,35 @@ The agent was trained for 10000 episodes, as detailed in section \ref{ssec:train
 \begin{figure}[h]
 	\centering
 	\input{./figures/6501_average_reward_plot/average_reward_plot.tikz}
-	\caption{text}
+	\caption{MACR100 after each episode for the OU noise parameter experiment.}
 \end{figure}
 
-%------------------- Performance Results for Positive Test
-\input{./chapters/chap6_sect4_results_a}
-
-%------------------- Performance Results for Negative Test
-\input{./chapters/chap6_sect4_results_b}
+%------------------- Performance Results
+\input{./chapters/chap6_sect4_results_15}
 
 %------------------- Plots for a sample test
 \begin{figure}[h]
 	\centering
 	
 	\input{./figures/6502_frequency_response_1/frequency_response_1.tikz}
-	\caption{text}
+	\vspace{-0.5cm}
+	\caption{Area 1 frequency response for OU noise parameter experiment.}
+	
+	\vspace{0.5cm}
 	
 	\input{./figures/6503_control_signal_1/control_signal_1.tikz}
-	\caption{text}
+	\vspace{-0.5cm}
+	\caption{Area 1 control signal for OU noise parameter experiment.}
+	
+	\vspace{0.5cm}
 	
 	\input{./figures/6504_frequency_response_2/frequency_response_2.tikz}
-	\caption{text}
+	\vspace{-0.5cm}
+	\caption{Area 2 frequency response for OU noise parameter experiment.}
+	
+	\vspace{0.5cm}
 				
 	\input{./figures/6505_control_signal_2/control_signal_2.tikz}
-	\caption{text}
+	\vspace{-0.5cm}
+	\caption{Area 2 control signal for OU noise parameter experiment.}
 \end{figure}
