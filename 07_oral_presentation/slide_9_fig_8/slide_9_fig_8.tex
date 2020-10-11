@@ -1,0 +1,67 @@
+\documentclass{standalone}
+
+%-------------------- Tables, figures and captions
+\usepackage[font={small},labelfont={bf},margin=4ex]{caption}
+% Makes bold labeled and smaller font captions. Must be loaded before the longtable package to avoid conflicts! 
+
+\usepackage{booktabs}
+% Nice looking tables and lines in tables
+
+\usepackage{multirow}
+% Entries in tables over multiple rows
+
+\usepackage{cprotect}
+% protects verb in captions
+
+\usepackage{csvsimple}
+% Provides ability to create csv to load into table
+
+%-------------------- Special symbols and fonts
+\usepackage{amssymb}
+% Maths symbols
+
+\usepackage{amsmath}
+
+\usepackage{siunitx}
+% important package for scientific papers
+
+%-------------------- Plots and graphs
+\usepackage{tikz}
+% make pretty pictures
+
+\usetikzlibrary{shapes, arrows}
+\usetikzlibrary{positioning, calc}
+% Import tikz libraries
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+% make pretty plots
+
+\begin{document}
+
+\begin{minipage}{15cm}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{rcrrrrr}
+		\toprule
+		\multicolumn{1}{p{2cm}<{\raggedleft}}{Cumulative} 	& \multicolumn{1}{p{1cm}<{\centering}}{Power} 	& \multicolumn{1}{p{1.75cm}<{\raggedleft}}{Max Freq} 	& \multicolumn{1}{p{1.75cm}<{\raggedleft}}{Avg Freq} 		& \multicolumn{1}{p{1.75cm}<{\raggedleft}}{Max Ctl} & \multicolumn{1}{p{1.75cm}<{\raggedleft}}{Avg Ctl} 	& \multicolumn{1}{p{1.75cm}<{\raggedleft}}{Settling} \\
+		\multicolumn{1}{p{2cm}<{\raggedleft}}{Reward}			& \multicolumn{1}{p{1cm}<{\centering}}{Area}		& \multicolumn{1}{p{1.75cm}<{\raggedleft}}{Deviation}	& \multicolumn{1}{p{1.75cm}<{\raggedleft}}{Deviation}		& \multicolumn{1}{p{1.75cm}<{\raggedleft}}{Effort}	& \multicolumn{1}{p{1.75cm}<{\raggedleft}}{Effort} 		& \multicolumn{1}{p{1.75cm}<{\raggedleft}}{Time}\\
+		\midrule
+		\csvreader[column count=24, late after line=\\]{exp_01_res_15.csv}
+		{
+		1=\one, 2=\two, 3=\three, 4=\four, 5=\five, 6=\six, 7=\seven, 8=\eight, 9=\nine, 10=\ten,
+		11=\eleven, 12=\twelve, 13=\thirteen, 14=\fourteen, 15=\fifteen, 16=\sixteen, 17=\seventeen, 18=\eighteen,
+		19=\nineteen, 20=\twenty, 21=\twentyone, 22=\twentytwo, 23=\twentythree, 24=\twentyfour
+		}
+		{\multirow{4}{*}{\parbox{2cm}{\raggedleft \one \\ \two}} 	 & \multirow{2}{*}{\three} 	  & \four 	   & \five 	  	& \six 	   	   & \seven 	 	& \eight \\
+			     			    									 & 						  	  & \nine 	   & \ten 		& \eleven 	   & \twelve   		& \thirteen \\ 
+			     			    									 & \multirow{2}{*}{\fourteen} & \fifteen   & \sixteen 	& \seventeen   & \eighteen   	& \nineteen \\
+			     			    									 & 						  	  & \twenty    & \twentyone & \twentytwo   & \twentythree 	& \twentyfour}
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\end{minipage}
+
+\end{document}

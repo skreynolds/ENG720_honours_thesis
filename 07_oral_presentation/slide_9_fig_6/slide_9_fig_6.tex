@@ -1,0 +1,23 @@
+\documentclass{standalone}
+
+\usepackage{booktabs}
+
+\begin{document}
+
+\begin{minipage}{15cm}
+\begin{table}
+	\centering
+	\begin{tabular}{lrlr}
+	\toprule
+	\textbf{Hyperparameter} & \textbf{Value} & \textbf{Hyperparameter} & \textbf{Value} \\
+	\midrule
+	Buffer Size 	 & $1 \times 10^6$  & Batch Size 	& 256 \\
+	Gamma ($\gamma$) & 0.99 	& Tau ($\tau$) 	& $1 \times 10^{-3}$ \\
+	Actor Learning Rate ($\alpha_{\texttt{actor}}$) & $1 \times 10^{-4}$ & Critic Learning Rate ($\alpha_{\texttt{critic}}$) & $3 \times 10^{-4} $ \\
+	Weight Decay & 0.00 & & \\
+	\bottomrule
+	\end{tabular}
+\end{table}
+\end{minipage}
+
+\end{document}

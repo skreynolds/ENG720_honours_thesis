@@ -1,0 +1,30 @@
+\documentclass{standalone}
+
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\begin{document}
+
+\begin{minipage}{15cm}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{\extracolsep{6pt}}llrlr@{}}
+		\toprule
+		 & \multicolumn{2}{c}{\textbf{Actor}} & \multicolumn{2}{c}{\textbf{Critic}} \\ 
+		\cline{2-3} \cline{4-5}
+		\multirow{2}{*}{\textbf{Layer}} & \textbf{Activation} & \textbf{Number of} & \textbf{Activation} & \textbf{Number of} \\
+		 &  \textbf{Function} & \textbf{Perceptrons} & \textbf{Function} & \textbf{Perceptrons} \\
+		\midrule
+		Input Layer & None & 7 & None & 7 \\
+		Hidden Layer 1 & ReLU & 400 & ReLU & 400 \\
+		Hidden Layer 2 & ReLU & 300 & ReLU & 300 \\
+		Output Layer & $\tanh$ & 2 & None & 2 \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:4101}
+\end{table}
+
+\end{minipage}
+
+\end{document}
