@@ -1,7 +1,7 @@
 \section{Neural Network Architecture Experiments}
-The agent was trained for 10000 episodes, as detailed in section \ref{ssec:training}. The evolution of MACR100 over the 10000 episode duration is shown in Figure \ref{fig:6301_average_reward}. The highest MACR100 during training was XXXX, and the MACR100 at episode 10000 was XXXX.
+The agent was trained for 10000 episodes, as detailed in section \ref{ssec:training}. The evolution of MACR100 over the 10000 episode duration is shown in Figure \ref{fig:6301_average_reward}. The highest MACR100 during training was -66.44 at episode 9720, and the MACR100 at episode 10000 was -102.15.
 
-The trained agent performance was tested against a number of scenarios as outlined in section \ref{ssec:testing}. Training and test results are detailed in Table \ref{tab:6301_baseline_results}. Frequency and control signal plots for a +0.01pu load demand at the 15 sec mark were captured for both power system areas. Frequency plots are shown in Figures XXXX and XXXX, and control signal plots are shown in Figures XXXX and XXXX.
+The trained agent performance was tested against a number of scenarios as outlined in section \ref{ssec:testing}. Training and test results are detailed in Table \ref{tab:6301_baseline_results}. Frequency and control signal plots for a +0.01pu load demand at the 15 sec mark were captured for both power system areas. Frequency plots are shown in Figures \ref{fig:6302_freq_1} and \ref{fig:6304_freq_2}, and control signal plots are shown in Figures \ref{fig:6303_ctl_1} and \ref{fig:6305_ctl_2}.
 
 \vspace{2cm}
 
@@ -21,23 +21,23 @@ The trained agent performance was tested against a number of scenarios as outlin
 	
 	\input{./figures/6302_frequency_response_1/frequency_response_1.tikz}
 	\vspace{-0.5cm}
-	\caption{Area 1 frequency response for neural network architecture experiment.}
+	\caption{Area 1 frequency response for neural network architecture experiment.}\label{fig:6302_freq_1}
 	
 	\vspace{0.5cm}
 	
 	\input{./figures/6303_control_signal_1/control_signal_1.tikz}
 	\vspace{-0.5cm}
-	\caption{Area 1 control signal for neural network architecture experiment.}
+	\caption{Area 1 control signal for neural network architecture experiment.}\label{fig:6303_ctl_1}
 	
 	\vspace{0.5cm}
 	
 	\input{./figures/6304_frequency_response_2/frequency_response_2.tikz}
 	\vspace{-0.5cm}
-	\caption{Area 2 frequency response for neural network architecture experiment.}
+	\caption{Area 2 frequency response for neural network architecture experiment.}\label{fig:6304_freq_2}
 	
 	\vspace{0.5cm}
 			
 	\input{./figures/6305_control_signal_2/control_signal_2.tikz}
 	\vspace{-0.5cm}
-	\caption{Area 2 control signal for neural network architecture experiment.}
+	\caption{Area 2 control signal for neural network architecture experiment.}\label{fig:6305_ctl_2}
 \end{figure}

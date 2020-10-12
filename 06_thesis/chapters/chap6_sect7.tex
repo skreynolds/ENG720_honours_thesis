@@ -1,5 +1,7 @@
 \section{Stochastic Demand Load Profile Experiment}
-The agent was trained for 10000 episodes, as detailed in section \ref{ssec:training}. The evolution of MACR100 over the 10000 episode duration is shown in Figure \ref{fig:6201_average_reward}. The highest MACR100 during training was XXXX, and the MACR100 at episode 10000 was XXXX. The trained agent performance was tested against a number of scenarios as outlined in section \ref{ssec:testing}. Training and test results are detailed in Table \ref{tab:6201_baseline_results}. Frequency and control signal plots for a +0.01pu load demand at the 15 sec mark were captured for both power system areas. Frequency plots are shown in Figures XXXX and XXXX, and control signal plots are shown in Figures XXXX and XXXX.
+The agent was trained for 10000 episodes, as detailed in section \ref{ssec:training}. The evolution of MACR100 over the 10000 episode duration is shown in Figure \ref{fig:6801_average_reward}. The highest MACR100 during training was -89.15 at episode 10000.
+
+The trained agent performance was tested against a number of scenarios as outlined in section \ref{ssec:testing}. Training and test results are detailed in Table \ref{tab:6201_baseline_results}. Frequency and control signal plots for a +0.01pu load demand at the 15 sec mark were captured for both power system areas. Frequency plots are shown in Figures \ref{fig:6802_freq_1} and \ref{fig:6804_freq_2}, and control signal plots are shown in Figures \ref{fig:6803_ctl_1} and \ref{fig:6805_ctl_2}.
 
 \vspace{2cm}
 
@@ -7,7 +9,7 @@ The agent was trained for 10000 episodes, as detailed in section \ref{ssec:train
 \begin{figure}[h]
 	\centering
 	\input{./figures/6801_average_reward_plot/average_reward_plot.tikz}
-	\caption{MACR100 after each episode for the stochastic load profile experiment.}
+	\caption{MACR100 after each episode for the stochastic load profile experiment.}\label{fig:6801_average_reward}
 \end{figure}
 
 %------------------- Performance Results
@@ -19,23 +21,23 @@ The agent was trained for 10000 episodes, as detailed in section \ref{ssec:train
 	
 	\input{./figures/6802_frequency_response_1/frequency_response_1.tikz}
 	\vspace{-0.5cm}
-	\caption{Area 1 frequency response for stochastic demand load profile experiment.}
+	\caption{Area 1 frequency response for stochastic demand load profile experiment.}\label{fig:6802_freq_1}
 	
 	\vspace{0.5cm}
 	
 	\input{./figures/6803_control_signal_1/control_signal_1.tikz}
 	\vspace{-0.5cm}
-	\caption{Area 1 control signal for stochastic demand load profile experiment.}
+	\caption{Area 1 control signal for stochastic demand load profile experiment.}\label{fig:6803_ctl_1}
 	
 	\vspace{0.5cm}
 	
 	\input{./figures/6804_frequency_response_2/frequency_response_2.tikz}
 	\vspace{-0.5cm}
-	\caption{Area 2 frequency response for stochastic demand load profile experiment.}
+	\caption{Area 2 frequency response for stochastic demand load profile experiment.}\label{fig:6804_freq_2}
 	
 	\vspace{0.5cm}
 			
 	\input{./figures/6805_control_signal_2/control_signal_2.tikz}
 	\vspace{-0.5cm}
-	\caption{Area 2 control signal for stochastic demand load profile experiment.}
+	\caption{Area 2 control signal for stochastic demand load profile experiment.}\label{fig:6805_ctl_2}
 \end{figure}
