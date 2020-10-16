@@ -21,6 +21,7 @@ height=8cm,
 xlabel=Episode,
 ylabel=Average Reward,
 %y label style={at={(-0.2,0.5)}}
+legend pos=south east
 ]
 
 \path [draw=blue!20!gray, fill=blue!20!gray, opacity=0.3]
@@ -2008,7 +2009,7 @@ ylabel=Average Reward,
 --(axis cs:100,-1133.16865736149)
 --cycle;
 
-\addplot [thick, blue!20!gray]
+\addplot [ultra thick, blue!20!gray]
 table {%
 100 -630.356767074806
 110 -559.988320149614
@@ -3001,7 +3002,8 @@ table {%
 9980 -56.0144776230483
 9990 -56.6187025623402
 };
-\addplot [thick, red!20!gray]
+\addlegendentry{OU Noise Experiment};
+\addplot [ultra thick, red!40!gray]
 table {%
 100 -1582.67067718997
 110 -1683.01661596282
@@ -3994,6 +3996,7 @@ table {%
 9980 -53.0358714672779
 9990 -51.9429675482224
 };
+\addlegendentry{Baseline Experiment};
 \end{axis}
 
 \end{tikzpicture}

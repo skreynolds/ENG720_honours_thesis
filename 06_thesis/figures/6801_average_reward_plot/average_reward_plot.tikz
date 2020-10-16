@@ -2008,7 +2008,7 @@ ylabel=Average Reward,
 --(axis cs:100,-2567.05631877745)
 --cycle;
 
-\addplot [thick, blue!20!gray]
+\addplot [ultra thick, blue!20!gray]
 table {%
 100 -1083.14847316461
 110 -648.124915319881
@@ -3001,7 +3001,7 @@ table {%
 9980 -92.443432333956
 9990 -90.7888143672298
 };
-\addplot [thick, red!20!gray]
+\addplot [ultra thick, red!40!gray]
 table {%
 100 -1582.67067718997
 110 -1683.01661596282

@@ -27,35 +27,27 @@ Software implementations used for experiments will be developed using an object 
 		\toprule
 		\textbf{Software Element} & \textbf{Description} \\
 		\midrule
-		\texttt{Main} & The main function, executed from the terminal, instantiates \texttt{Environment}, \texttt{Agent}, and \texttt{Demand} objects that are passed to a \texttt{Training Algorithm} function call.\\
+		Main Function & The main function, executed from the terminal, instantiates environment, agent, and demand profile objects that are passed to a training algorithm function call.\\
 		 & \\
-		\texttt{Environment} & An object oriented implementation of the two area power system model in the temporal domain.\\
+		Environment & An object oriented implementation of the two area power system model in the temporal domain.\\
 		 & \\
-		\texttt{Agent} & An object oriented implementation of the DDPG controller. When instantiated, an instance of the object \texttt{Model} is created and stored as an \texttt{Agent} object variable. \\
+		Agent & An object oriented implementation of the DDPG controller. When instantiated, an instance of the object neural network is created and stored as an agent object variable. \\
 		 & \\
-		\texttt{Demand} & An object oriented implementation of a demand signal that is fed to the environment in order to perturb the system from steady state. The \texttt{Demand} implementation will provide for either Heaviside step function or stochasitic system perturbation.\\
+		Demand Profile & An object oriented implementation of a demand signal that is fed to the environment in order to perturb the system from steady state. The demand profile implementation will provide for either Heaviside step function or stochastic system perturbation.\\
 		 & \\
-		\texttt{Model} & An oject oriented implementation of the neural network model instantiated when an \texttt{Agent} object is created.\\
+		Neural Network & An object oriented implementation of the neural network model instantiated when an Agent object is created.\\
 		 & \\
-		\texttt{Training Algorithm} & A function that takes \texttt{Environment}, \texttt{Agent}, and \texttt{Demand} object arguments and initiates the DDPG training algorithm for a specified number of episodes.\\
+		Training Algorithm & A function that takes environment, agent, and demand profile object arguments and initiates the DDPG training algorithm for a specified number of episodes.\\
 		\bottomrule
 	\end{tabular}
 	\label{tab:software_elements}
 \end{table}
 
-Environment models, controllers, neural networks, and training algorithms will be implemented in the Python programming language. This design choice is motivated by the understanding that Python is one of the most widely used languages for machine learning applications and research prototyping for neural networks. Moreover, the Python programming language is open source allowing minimising of cost burdens compared to languages like Matlab. Finally, there are a number of well developed supporting libraries for scientific computing and neural network implementations. This research will make use of the following:
+Environment models, agents, demand profiles, neural networks, and training algorithms will be implemented in the Python programming language. This design choice is motivated by the understanding that Python is one of the most widely used languages for machine learning applications and research prototyping for neural networks. Moreover, the Python programming language is open source allowing for minimisation of cost burdens compared to languages like Matlab. Finally, there are a number of well developed supporting libraries for scientific computing and neural network development. This research will make use of the following Python libraries:
 \begin{itemize}
 	\item \texttt{Scipy} is a Python library used for scientific computing. The library contains well developed numerical computation schemes and algorithms for the simulation of systems of ordinary differential equations.
 	\item \texttt{PyTorch} is a Python based machine learning framework that is used extensively for neural network research prototyping. One of the main benefits of this library is that it provides access to graphical processing hardware which accelerates the neural network training process.
 	\item \texttt{Gym} is a Python toolkit developed by OpenAI for developing reinforcement learning algorithms.
 \end{itemize}
 
-Developed models for the environment, PI controller will be tested and verified against known results from the literature review to provide assurance of correct implementation. Implementations of neural networks and DDPG algorithms will be tested against known test problems to provide reasonable assurance of correct implementation.
-
-An overview showing the hierarchy of software operations is outlined in Figure \ref{fig:software_implementation}.
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.6]{./figures/A03_turbine_configuration}
-	\caption{Execution of the main function creates \texttt{Env}, \texttt{Agent}, and \texttt{Demand} objects and passes them to a \texttt{ddpg\_train} function call}
-	\label{fig:software_implementation}
-\end{figure}
+Developed models for the environment, and PI controller will be tested and verified against known results from the literature review to provide assurance of correct implementation. Implementations of neural networks and DDPG algorithms will be tested against known test problems to provide reasonable assurance of correct implementation.

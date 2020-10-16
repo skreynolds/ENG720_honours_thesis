@@ -21,6 +21,7 @@ height=8cm,
 xlabel=Episode,
 ylabel=Average Reward,
 %y label style={at={(-0.2,0.5)}}
+legend pos=south east
 ]
 
 \path [draw=blue!20!gray, fill=blue!20!gray, opacity=0.3]
@@ -2008,7 +2009,7 @@ ylabel=Average Reward,
 --(axis cs:100,-2619.66152671753)
 --cycle;
 
-\addplot [thick, blue!20!gray]
+\addplot [ultra thick, blue!20!gray]
 table {%
 100 -863.751755324467
 110 -379.70455313627
@@ -3001,7 +3002,9 @@ table {%
 9980 -90.0261223693306
 9990 -88.3212196851131
 };
-\addplot [thick, red!20!gray]
+\addlegendentry{Activation Function Experiment};
+
+\addplot [ultra thick, red!40!gray]
 table {%
 100 -1582.67067718997
 110 -1683.01661596282
@@ -3994,6 +3997,7 @@ table {%
 9980 -53.0358714672779
 9990 -51.9429675482224
 };
+\addlegendentry{Baseline Experiment};
 \end{axis}
 
 \end{tikzpicture}

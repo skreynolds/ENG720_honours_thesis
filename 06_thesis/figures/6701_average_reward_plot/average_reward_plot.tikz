@@ -12,7 +12,7 @@ x grid style={white!69.0196078431373!black},
 xmin=-200.00, xmax=10200.00,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-3050.00, ymax=50.00,
+ymin=-2050.00, ymax=50.00,
 ytick style={color=black},
 scaled y ticks=true,
 scaled y ticks=base 10:-3,
@@ -21,6 +21,7 @@ height=8cm,
 xlabel=Episode,
 ylabel=Average Reward,
 %y label style={at={(-0.2,0.5)}}
+legend pos=south east
 ]
 
 \path [draw=blue!20!gray, fill=blue!20!gray, opacity=0.3]
@@ -2008,7 +2009,7 @@ ylabel=Average Reward,
 --(axis cs:100,-3172.67165491355)
 --cycle;
 
-\addplot [thick, blue!20!gray]
+\addplot [ultra thick, blue!20!gray]
 table {%
 100 -2183.14355242383
 110 -2209.59001941305
@@ -3001,7 +3002,8 @@ table {%
 9980 -116.103659742476
 9990 -115.621589505269
 };
-\addplot [thick, red!20!gray]
+\addlegendentry{Expert Learner Experiment};
+\addplot [ultra thick, red!40!gray]
 table {%
 100 -1582.67067718997
 110 -1683.01661596282
@@ -3994,6 +3996,7 @@ table {%
 9980 -53.0358714672779
 9990 -51.9429675482224
 };
+\addlegendentry{Baseline Experiment};
 \end{axis}
 
 \end{tikzpicture}

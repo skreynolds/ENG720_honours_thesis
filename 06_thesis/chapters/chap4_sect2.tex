@@ -60,8 +60,7 @@ MAKES SURE THAT IT IS CLEAR ON HOW THE CONTROLLER PERFORMANCE WILL BE MEASURED A
 To reduce the noise on raw cumulative reward values, a 100 value moving average was calculated to smooth the signal. This metric is referred to as MACR100.
 
 
-\subsection{Experiment Details}
-\subsubsection{Baseline Experiment}
+\subsection{Baseline Experiment Details}
 An identical neural network architecture to that used in Lillicrap \textit{et alias} will be used for the baseline experiment. The network makes use of ReLU activation functions, and has two hidden layers. The first hidden layer has 400 perceptrons, and the second hidden layer has 300 perceptrons  The complete neural network architecture for actor and critic networks is detailed in Table \ref{tab:4101}.
 
 \begin{table}[h]
@@ -83,7 +82,7 @@ An identical neural network architecture to that used in Lillicrap \textit{et al
 	\label{tab:4101}
 \end{table}
 
-\subsubsection{Neural Network Experiment}
+\subsection{Neural Network Experiment Details}
 Islam \textit{et alias} has shown that policy network architecture can significantly impact results for DDPG. As such, this experiment examines a smaller network architecture that is commonly seen in the literature \cite{}. The network architecture has two hidden layers, both with 64 perceptrons. The network retains the use of ReLU activation functions. The complete neural network architecture for actor and critic networks is detailed in Table \ref{tab:4102}.
 
 \begin{table}[h]
@@ -105,7 +104,7 @@ Islam \textit{et alias} has shown that policy network architecture can significa
 	\label{tab:4102}
 \end{table}
 
-\subsubsection{Activation Function Experiment}
+\subsection{Activation Function Experiment Details}
 LReLU activation functions will be used for neural network hidden layers to determine if they are more effective.
 
 THIS WAS SELECTED BASED ON DEEP REINFORCEMENT LEARNING THAT MATTERS
@@ -129,21 +128,27 @@ THIS WAS SELECTED BASED ON DEEP REINFORCEMENT LEARNING THAT MATTERS
 	\label{tab:4101}
 \end{table}
 
-\subsubsection{OU Noise Hyperparameter Experiment}
+\subsection{OU Noise Hyperparameter Experiment Details}
 Exploratory OU noise process parameters, $\sigma$ and $\theta$, will be modified to determine the impact on agent learning.
 
 A SELECTION OF NOISE DECAY WHICH IS MUCH SLOWER THAN THE CURRENTLY EMPLOYED NOISE DECAY
 
-\subsubsection{Prioritised Experience Replay Experiment}
+\subsection{Prioritised Experience Replay Experiment Details}
 Priority metric added to experience replay buffer allowing useful experience  to be visited more often.
 
 PRIORITY EXPERIENCE REPLAY IS USED WHICH ALLOWS THE AGENT TO PLACE A VALUE OF IMPORTANCE ON THE EXPERIENCE WHICH IS COLLECTED.
 
-\subsubsection{Expert Learner Experiment}
+\subsection{Expert Learner Experiment Details}
 PID controller experience (the expert) will be introduced to the experience replay buffer with half of all experience from PID interaction with the environment.
 
 EXPERT LEARNER FLOODS THE AGENT MEMORY WITH EXPERT SKILL FROM WHICH THE AGENT LEARNS.
 
-\subsubsection{Stochastic Demand Experiment}
+\subsection{Stochastic Demand Experiment Details}
 A stochastic load demand profile will be used to perturb the system to provide the agent with more variability in training scenarios.
+
+\begin{figure}[h]
+	\centering
+	\input{./figures/4201_stochastic_demand_profile/stochastic_demand_profile.tikz}
+	\caption{text}
+\end{figure}
 

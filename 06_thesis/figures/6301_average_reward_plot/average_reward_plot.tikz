@@ -21,6 +21,7 @@ height=8cm,
 xlabel=Episode,
 ylabel=Average Reward,
 %y label style={at={(-0.2,0.5)}}
+legend pos=south east
 ]
 
 \path [draw=blue!20!gray, fill=blue!20!gray, opacity=0.3]
@@ -2008,7 +2009,7 @@ ylabel=Average Reward,
 --(axis cs:100,-1390.73113275167)
 --cycle;
 
-\addplot [thick, blue!20!gray]
+\addplot [ultra thick, blue!20!gray]
 table {%
 100 -661.211198352562
 110 -510.414824746467
@@ -3001,7 +3002,8 @@ table {%
 9980 -129.04431690102
 9990 -111.116039827382
 };
-\addplot [thick, red!20!gray]
+\addlegendentry{Neural Network Arch. Experiment};
+\addplot [ultra thick, red!40!gray]
 table {%
 100 -1582.67067718997
 110 -1683.01661596282
@@ -3994,6 +3996,7 @@ table {%
 9980 -53.0358714672779
 9990 -51.9429675482224
 };
+\addlegendentry{Baseline Experiment};
 \end{axis}
 
 \end{tikzpicture}
