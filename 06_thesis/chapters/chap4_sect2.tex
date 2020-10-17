@@ -63,13 +63,13 @@ A plot of the MACR100 shall be developed for each experiment showing the evoluti
 \subsubsection{Agent performance evaluation metrics}
 Raw cumulative reward shall be reported for each independent trial during agent performance evaluation, which will be used as the main metric of comparison between neural networks and optimally tuned PI controllers.
 
-The following additional metrics shall also be reported for each power area using timeseries data of frequency and control actions captured during each independent trail:
+The following additional metrics shall also be reported for each power area using frequency and control action time series data captured during each independent trail. The metrics shall be calculated for each power area, and are as follows:
 \begin{itemize}
-	\item \textbf{Maximum frequency deviation}:
-	\item \textbf{Average frequency deviation}:
-	\item \textbf{Maximum control effort}:
-	\item \textbf{Average control effort}:
-	\item \textbf{Settling time}:
+	\item \textbf{Maximum frequency deviation}: the maximum absolute frequency deviation during the 30 sec simulation period.
+	\item \textbf{Average frequency deviation}: the average absolute frequency deviation during the 30 sec simulation period.
+	\item \textbf{Maximum control effort}: the maximum absolute control effort during the 30 sec simulation period.
+	\item \textbf{Average control effort}: the average control effort during the 30 sec simulation period.
+	\item \textbf{Settling time}: the number of seconds the frequency signal took to fall within 0.001 of the final value.
 \end{itemize}
 
 The following plots shall be created for each independent trial during agent performance evaluation:
@@ -80,7 +80,7 @@ The following plots shall be created for each independent trial during agent per
 \end{itemize}
 
 \subsection{Baseline Experiment Details}\label{sec:baseline}
-An identical neural network architecture to that used in Lillicrap \textit{et alias} will be used for the baseline experiment. The network makes use of ReLU activation functions, and has two hidden layers. The first hidden layer has 400 perceptrons, and the second hidden layer has 300 perceptrons  The complete neural network architecture for actor and critic networks is detailed in Table \ref{tab:4101}.
+An identical neural network architecture to that used in Lillicrap \textit{et alias} will be used for the baseline experiment \cite{Lillicrap2015}. The network shall makes use of ReLU activation functions, and be comprised of two hidden layers. The first hidden layer shall have 400 perceptrons, and the second hidden layer 300 perceptrons. The proposed neural network architecture for actor and critic networks to be used in this experiment is detailed in Table \ref{tab:4101}.
 
 \begin{table}[h]
 	\centering
@@ -102,11 +102,11 @@ An identical neural network architecture to that used in Lillicrap \textit{et al
 \end{table}
 
 \subsection{Neural Network Experiment Details}
-Islam \textit{et alias} has shown that policy network architecture can significantly impact results for DDPG. As such, this experiment examines a smaller network architecture that is commonly seen in the literature \cite{}. The network architecture has two hidden layers, both with 64 perceptrons. The network retains the use of ReLU activation functions. The complete neural network architecture for actor and critic networks is detailed in Table \ref{tab:4102}.
+Islam \textit{et alias} has shown that policy network architecture selection can significantly impact results for DDPG. Specifically, the policy network architecture can impact the maximum reward that the agent can achieve \cite{Islam2017}. As such, this experiment shall examine a smaller network architecture commonly seen in the literature \cite{Henderson2017, Islam2017}. The network architecture shall consist of two hidden layers, both with 64 perceptrons. The network will retains the use of ReLU activation functions. A proposed neural network architecture for actor and critic networks to be used in this experiment is detailed in Table \ref{tab:4102}.
 
 \begin{table}[h]
 	\centering
-	\caption{An overview of actor and critic neural network architectures used in experiments undertaken by Lillicrap \textit{et alias}}
+	\caption{An overview of actor and critic neural network architectures used in the neural network architecture experiment.}
 	\begin{tabular}{@{\extracolsep{6pt}}llrlr@{}}
 		\toprule
 		 & \multicolumn{2}{c}{\textbf{Actor}} & \multicolumn{2}{c}{\textbf{Critic}} \\ 
@@ -124,13 +124,11 @@ Islam \textit{et alias} has shown that policy network architecture can significa
 \end{table}
 
 \subsection{Activation Function Experiment Details}
-LReLU activation functions will be used for neural network hidden layers to determine if they are more effective.
-
-THIS WAS SELECTED BASED ON DEEP REINFORCEMENT LEARNING THAT MATTERS
+Certain activation functions, such as ReLU, have been shown to cause worsened learning performance due to the dying relu problem \cite{Xu2015}, outlined in \textsection \ref{sec:activation_functions}. As such, this experiment examines the use of LReLU activation functions. An identical neural network architecture to that used in the baseline experiment shall be used; however, LReLU activation functions will be implemented on neural network hidden layers. The proposed architecture is motivated by research undertaken by Henderson \textit{et alias} \cite{Henderson2017}, and is detailed in Table \ref{tab:activation_function_experiment_architecture}.
 
 \begin{table}[h]
 	\centering
-	\caption{An overview of actor and critic neural network architectures used in experiments undertaken by Lillicrap \textit{et alias}}
+	\caption{An overview of actor and critic neural network architectures used for the activation function experiment.}\label{tab:activation_function_experiment_architecture}
 	\begin{tabular}{@{\extracolsep{6pt}}llrlr@{}}
 		\toprule
 		 & \multicolumn{2}{c}{\textbf{Actor}} & \multicolumn{2}{c}{\textbf{Critic}} \\ 
