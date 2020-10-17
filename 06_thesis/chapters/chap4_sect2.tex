@@ -86,10 +86,7 @@ The following additional metrics shall also be reported for each power area usin
 			u_{average} = \frac{1}{3000}\sum_{n=1}^{3000} u_n
 		\end{equation}
 		
-	\item \textbf{Settling time}: the number of seconds the frequency signal took to fall within 0.001 of the final value. The metric is calculated as follows:\\
-		\begin{equation}
-			t_{\texttt{settling}} = 
-		\end{equation}
+	\item \textbf{Settling time}: the number of seconds the frequency signal took to fall within 0.001 of the final value. Note that the final signal value is not necessarily zero.
 \end{itemize}
 
 The following plots shall be created for each independent trial during agent performance evaluation:
@@ -181,11 +178,15 @@ A paper by Yan, published in late June 2020, demonstrated it was possible to dev
 The expert learner experiment shall use a PI controller, optimised for the load frequency control task, to provide half of all experience in the memory buffer. This is motivated by the pre-training used by Yan, that saw neural network model weights pre-trained using the experience of a optimally tuned PI controller.
 
 \subsection{Stochastic Demand Experiment Details}\label{sec:stochastic}
-A stochastic load demand profile will be used to perturb the system to provide the agent with more variability in training scenarios.
+Statistical methods used to predict continuous variables, such as ordinary least squares for regression, see improved performance when the datasets used for analysis contain sufficient variance across explanatory variable domains. This experiment is motivated by the idea that better agent performance may be achieved from load demand perturbations with greater variance.
+
+All other proposed experiments have made use of $\pm$0.01 step change disturbances at a random time between the 0 and 30 sec mark. This experiment shall use a stochastic load demand profile. The stochastic load demand profile will be initialised at 0.00pu at the start of an episode. At each time step, the load demand profile shall increment by random amount selected from the interval [-0.001, 0.001]. Values taken by the stochastic load demand profile shall be capped at $\pm$0.01.
+
+An example of the proposed stochastic load demand profile used for a single 30 sec episode is demonstrated in Figure \ref{fig:stochastic_signal}.
 
 \begin{figure}[h]
 	\centering
 	\input{./figures/4201_stochastic_demand_profile/stochastic_demand_profile.tikz}
-	\caption{text}
+	\caption{An example of a stochastic load demand profile introduced in Area 1 for the stochastic load demand experiment.}\label{fig:stochastic_signal}
 \end{figure}
 
