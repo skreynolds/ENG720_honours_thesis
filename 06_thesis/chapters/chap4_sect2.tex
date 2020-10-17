@@ -1,22 +1,28 @@
 \section{Simulation Experiments}\label{sec:simulation_experiments}
 \subsection{Overview}
-As discussed in \textsection \ref{ssec:deep_deterministic_policy_gradient}, DDPG performance has been observed to suffer from instability and variance during training. This can impact the agent's ability to learn useful control policies. Some of the main causes of variability in agent performance are due to neural network architecture, choice of activation function, exploratory noise processes, agent experience quality, and agent experience variability. The simulation experiment aims are twofold. Firstly, identify parameter settings and network architectures for which a DDPG agent can learn a frequency control policy comparable to an optimally tuned proportional-integral (PI) controller for a two area power system. Secondly, hyperparameter settings will be identified to ensure agent learning is stable and fast.
+As discussed in \textsection \ref{ssec:deep_deterministic_policy_gradient}, DDPG performance has been observed to suffer from instability and variance during training. This can impact the agent's ability to learn useful control policies. Some of the main causes of variability in agent performance are due to neural network architecture, choice of activation function, exploratory noise processes, agent experience quality, and agent experience variability.
 
-To achieve these aims, a series of experiments will be undertaken in which a neural network will be trained using DDPG to perform the task of load frequency control in a two area power system subjected to load demand changes. Experiments will modify a single variable in either the neural network architecture or the DDPG algorithm, holding all else constant. Each experiment will consist of a training phase and a testing phase. The training phase, outlined in section XXXX, will see neural network weights are modified using experience collected from the agent's interaction. The testing phase, outlined in section XXXX, will evaluate the trained agent performance. Agent performance metrics are presented in section XXXX, and detailed descriptions of each experiment are detailed in section XXXX.
+In response to this, the simulation experiment aims are therefore as follows:
+\begin{itemize}
+	\item Identify parameter settings, network architectures, and network training conditions for which a DDPG agent can learn a frequency control policy comparable to an optimally tuned proportional-integral (PI) controller for a two area power system.
+	\item Determine training variables and conditions to ensure agent learning is stable and fast.
+\end{itemize}
+
+To achieve these aims, a series of experiments shall be undertaken in which a neural network is trained using DDPG to perform the task of load frequency control in a two area power system subjected to load demand changes. Experiments will modify a single variable in either the neural network architecture or the DDPG algorithm, holding all else constant. Each experiment will consist of a training phase and a performance evaluation phase. The training phase, outlined in \textsection \ref{ssec:training}, will see neural network weights modified using experience collected from the agent's interaction with the environment. The performance evaluation phase, outlined in \textsection \ref{ssec:testing}, will compare the trained agent performance against an optimally tune PI controller for the same task. Agent performance metrics are presented in \textsection \ref{sec:agent_performance}, and detailed descriptions of each experiment are provided in \textsection \ref{sec:baseline} to \ref{sec:stochastic}.
 
 \subsection{Training}\label{ssec:training}
-At the beginning of each experiment a new instance of a DDPG agent will be initialised, and the DDPG agent replay buffers cleared. Each experiment shall use the same episode scenario, with the system and agent response simulated for a total of 30 sec, after which the episode will terminate. In order to simulate a power system perturbation, a $\pm$0.01pu step change in the power demand for area 1 will be introduced at a random time between the 0 and 30 sec mark. An example of a +0.01pu step change occurring at the 1 sec mark is shown in Figure \ref{fig:5001_demand_profile}. Note that this perturbation type was not used for the final experiment, where a stochastic perturbation signal was used instead.
+At the beginning of each experiment a new instance of a DDPG agent shall be initialised, and the DDPG agent replay buffers cleared. Each experiment shall use the same episode scenario, with the system and agent response simulated for a total of 30 sec, after which the episode will terminate. In order to simulate a power system perturbation, a $\pm$0.01pu step change in the power demand for Area 1 will be introduced at a random time between the 0 and 30 sec mark. An example of a +0.01pu step change occurring at the 15 sec mark is shown in Figure \ref{fig:5001_demand_profile}. Note that this perturbation type was not used for the final experiment, where a stochastic perturbation signal was used instead.
 
 \begin{figure}[h]
 	\centering
 	\input{./figures/5001_demand_profile/demand_profile.tikz}
-	\caption[Preliminary investigation load demand step change]{At the 1 sec mark the system experiences a step load change in the power demand in Area 1, and the simulation continues for 30 sec thereafter.}
+	\caption[Preliminary investigation load demand step change]{At the 15 sec mark the system experiences a step load change in the power demand in Area 1, and the simulation continues for 30 sec thereafter.}
 	\label{fig:5001_demand_profile}
 \end{figure}
 
-From initialisation, the simulation was incrementally stepped forward by 0.01 sec for a total of 3000 steps. At each time step the DDPG agent was trained using experience stored in the replay buffer from current and previous system interactions, for a given experiment. Experiments were allowed to run for a total of 10000 episodes.
+From initialisation, the simulation shall be incrementally stepped forward by 0.01 sec for a total of 3000 steps. At each time step the DDPG agent shall be trained using experience stored in the replay buffer from current and previous system interactions, for a given experiment. Agent training shall be run for a total of 10000 episodes for each experiment.
 
-DDPG training algorithm hyperparameters were held constant for each experiment, as per the values used originally by Lillicrap \textit{et alias} \cite{Lillicrap2015}. Hyperparameter values used for the experiments described in this chapter are documented in Table \ref{tab:5000_hyperparameters}.
+DDPG training algorithm hyperparameters shall be held constant for each experiment, using the same values from the experiments conducted by Lillicrap \textit{et alias} \cite{Lillicrap2015}. Hyperparameter values used for the experiments described in this chapter are documented in Table \ref{tab:5000_hyperparameters}.
 
 \begin{table}[h]
 	\centering
@@ -33,34 +39,47 @@ DDPG training algorithm hyperparameters were held constant for each experiment, 
 	\end{tabular}\label{tab:5000_hyperparameters}
 \end{table}
 
-Each experiment, detailed in the remaining sections of this chapter, modified a single variable of the agent construction, holding other variables constant. The cumulative reward was captured after each episode terminated, and MACR100 (outlined in XXXX) was calculated for each episode. Plots were created to show the evolution of MACR100 over the 10000 episode training duration.
+\newpage
 
-\subsection{Testing}\label{ssec:testing}
-At the conclusion of training, agent model parameters were reloaded into a new instance of the neural network to evaluate agent performance. Ten independent tests were carried out on each agent. A single test simulated the two area power system for a total of 30 sec, and perturbed power system area one using a step change of $\pm$0.01pu. Perturbations were introduced at different time intervals. The first 5 tests perturbed power area one by $+$0.01pu at the 5 sec, 10 sec, 15 sec, 20 sec, and 25 sec marks, respectively. The final 5 tests perturbed power area one by $-$0.01pu at the 5 sec, 10 sec, 15 sec, 20 sec, and 25 sec marks, respectively.
+Each experiment, detailed in the remaining sections of this chapter, shall modify a single variable with respect to the agent or training algorithm construction, while holding other variables constant. Training performance shall be captured after each episode. The performance metrics that will be used to measure training performance are detailed in \textsection \ref{sec:agent_performance}. Plots shall be created visually demonstrate agent learning performance throughout the 10000 episode training duration. Details of the plots are outlined in \textsection \ref{sec:agent_performance}.
 
-Timeseries data of frequency and control actions were captured for each test. Maximum overshoot, settling time, delay time, and rise time metrics were calculated for the frequency of power system areas one and two for each test. The following plots were created for each experiment:
+\subsection{Agent performance evaluation}\label{ssec:testing}
+At the conclusion of training, trained neural network model weights shall be reloaded into a new instance of the neural network architecture to evaluate agent performance. Ten independent tests shall be carried out on each agent. A single test shall simulate the two area power system for a total of 30 sec, during which time Area 1 shall be perturbed using a step change of $\pm$0.01pu. Perturbations shall be introduced at different times. The first 5 tests will see +0.01pu perturbations at the 5 sec, 10 sec, 15 sec, 20 sec, and 25 sec marks, respectively. The final 5 tests will see $-$0.01pu perturbations introduced at the 5 sec, 10 sec, 15 sec, 20 sec, and 25 sec marks, respectively.
+
+Timeseries data of frequency and control actions shall be captured for each test. The data will be used to calculate a series of metrics to measure the trained agent performance. The timeseries data shall also be used to develop a series of plots to visually represent agent performance. Details of metrics and plots for agent performance evaluation are provided in \ref{sec:agent_performance}.
+
+
+\subsection{Performance metrics}\label{sec:agent_performance}
+\subsubsection{Training performance metrics}
+A reward signal shall be calculated for the agent at each timestep. Summing the reward at each timestep during an episode provides a cumulative reward. Whilst  this metric could be used to report agent training performance, due to high variability of raw cumulative reward signals, this metric is not often used \cite{Henderson2017}. Instead, agent training performance shall be assessed using a moving average based on cumulative rewards for 100 episodes.
+
+This metric will be referred to as MACR100 for the remainder of this thesis, and is described mathematically as:
+\begin{equation}
+	MACR100 = \frac{1}{100} \sum_{n = 0}^{99} (\texttt{cumulative reward})_{99-n} 
+\end{equation}
+
+A plot of the MACR100 shall be developed for each experiment showing the evolution of this metric over the 10000 episodes during agent training.
+
+\subsubsection{Agent performance evaluation metrics}
+Raw cumulative reward shall be reported for each independent trial during agent performance evaluation, which will be used as the main metric of comparison between neural networks and optimally tuned PI controllers.
+
+The following additional metrics shall also be reported for each power area using timeseries data of frequency and control actions captured during each independent trail:
+\begin{itemize}
+	\item \textbf{Maximum frequency deviation}:
+	\item \textbf{Average frequency deviation}:
+	\item \textbf{Maximum control effort}:
+	\item \textbf{Average control effort}:
+	\item \textbf{Settling time}:
+\end{itemize}
+
+The following plots shall be created for each independent trial during agent performance evaluation:
+
 \begin{itemize}
 	\item \textbf{Frequency:} a timeseries plot showing an evolution of power system frequency under neural network control, for a given power system area, over the 30 sec simulation. Two plots will be created for each experiment --- one for each power system area. Note that system frequency under optimal PI control will also be included for comparison.
 	\item \textbf{Control signal:} a timeseries plot showing an evolution of the control action issued by the neural network over the 30 sec simulation. Two plots will be created for each experiment --- one for each experiment. Note that control signals from an optimal PI controller will also be included for comparison.
 \end{itemize}
 
-
-\subsection{Measuring agent performance}\label{sec:agent_performance}
-\begin{itemize}
-	\item Maximum overshoot: The maximum overshoot is the maximum peak value of the response curve measured from the final steady state
-	\item Settling time: The settling time is the time required for the response curve to reach and stay within a range about the final value of size specified (5\% level)
-	\item Delay time: The delay time is the time required for the response to half the final value
-	\item Rise time: The time required to reach 100\% of the final value
-\end{itemize}
-
-MAKE SURE TO PROVIDE CLEAR METHODOLOGY ON HOW THE THE AGENTS TRAINING PROGRESS WILL BE MEASURED AND COMPARED
-
-MAKES SURE THAT IT IS CLEAR ON HOW THE CONTROLLER PERFORMANCE WILL BE MEASURED AND THE COMPARISONS THAT WILL BE MADE FOR EACH OF THE EXPERIMENTS.
-
-To reduce the noise on raw cumulative reward values, a 100 value moving average was calculated to smooth the signal. This metric is referred to as MACR100.
-
-
-\subsection{Baseline Experiment Details}
+\subsection{Baseline Experiment Details}\label{sec:baseline}
 An identical neural network architecture to that used in Lillicrap \textit{et alias} will be used for the baseline experiment. The network makes use of ReLU activation functions, and has two hidden layers. The first hidden layer has 400 perceptrons, and the second hidden layer has 300 perceptrons  The complete neural network architecture for actor and critic networks is detailed in Table \ref{tab:4101}.
 
 \begin{table}[h]
@@ -143,7 +162,7 @@ PID controller experience (the expert) will be introduced to the experience repl
 
 EXPERT LEARNER FLOODS THE AGENT MEMORY WITH EXPERT SKILL FROM WHICH THE AGENT LEARNS.
 
-\subsection{Stochastic Demand Experiment Details}
+\subsection{Stochastic Demand Experiment Details}\label{sec:stochastic}
 A stochastic load demand profile will be used to perturb the system to provide the agent with more variability in training scenarios.
 
 \begin{figure}[h]

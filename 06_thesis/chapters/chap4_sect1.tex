@@ -1,10 +1,10 @@
 \section{Development, Implementation, and Testing}
 \subsection{Environment and PI Controller}
-Training a neural network to act as a load frequency controller using DDPG requires a simulated model of a two area power system. This will be referred to as the environment model. The environment model developed by this research will consist of two power areas connected via a tie-line, each with a governor, turbine, and generator. The model will take 2 control action inputs --- one for each power system area. The model will be designed to output 7 values including governor states, turbine states, and power system frequencies for each area, in addition to the power transfer of the tie-line.
+Training a neural network to act as a load frequency controller using DDPG requires a simulated model of a two area power system. This will be referred to as the environment model. The environment model shall consist of two power areas connected via a tie-line, each with a governor, turbine, and generator. The model shall take 2 control action inputs --- one for each power system area. The model shall be designed to output 7 values including governor states, turbine states, and power system frequencies for each area, in addition to the power transfer of the tie-line.
 
-The mathematical representation of the environment model will be developed in the temporal domain. This design choice is motivated by the need to stop and start the simulation periodically, allowing the neural network to take simulation states as inputs, and issue control action outputs. Upon receiving a control action the simulation will iterate forward by some discrete time interval, using previous stopping states as initial conditions. This could not be achieved in the frequency domain as initial conditions are assumed to be zero. The temporal domain model will be developed by taking inverse Laplace transforms of frequency domain models from simulation experiments discussed in the literature review.
+The mathematical representation of the environment model shall be developed in the temporal domain. This design choice is motivated by the need to stop and start the simulation periodically, allowing the neural network to take simulation states as inputs, and issue control action outputs. Specifically, when the environment receives a control action the simulation shall iterate forward by a discrete time interval, using previous stopping states as initial conditions. This could not be achieved in the frequency domain as initial conditions are assumed to be zero. The temporal domain model shall be developed by taking inverse Laplace transforms using frequency domain models from simulation experiments discussed in the literature review as a basis for the design.
 
-A PI controller model will be developed to provide a performance benchmark comparison for the neural network. The model will take 3 inputs from the environment model, namely the frequency from each power system area, and the tie-line power transfer. Whilst the PI controller could be developed in the frequency domain, for convenience it will be developed in the temporal domain to interact with the temporal environment model of the two area power system. The PI controller model will be mathematically specified using the same methodology described for the two area power system environment model.
+A PI controller model shall be developed to provide a performance benchmark comparison for the neural network. The model will take 3 inputs from the environment model, namely the frequency from each power system area, and the tie-line power transfer. Whilst the PI controller could be developed in the frequency domain, for convenience it will be developed in the temporal domain to interact with the temporal environment model of the two area power system. The PI controller model will be mathematically specified using the same methodology described for the two area power system environment model.
 
 Model parameter values for the two area power system model will be selected based on a review of the most common model parameters observed in the literature review. Tuned model parameters for the PI controller will selected to ensure near optimal control performance.
 
@@ -19,7 +19,9 @@ The DDPG algorithm will be developed with Ornstein-Uhlenbeck (OU) noise superimp
 
 
 \subsection{Software Implementation and Testing}
-Software implementations used for experiments will be developed using an object oriented approach. This design choice has been made to provide a cleaner and more modular implementation, allowing for easier modification of model elements and greater experimental flexibility. The principal elements of the software developed for experimentation are detailed in Table \ref{tab:software_elements}.
+Software implementations used for experiments will be developed using an object oriented approach. This design choice has been made to provide a cleaner and more modular implementation, allowing for easier modification of model elements and greater experimental flexibility.
+
+The principal elements of the software developed for experimentation are detailed in Table \ref{tab:software_elements}.
 \begin{table}[h]
 	\centering
 	\caption{Overview of software elements and their intended operation for simulation experiments}
@@ -29,9 +31,9 @@ Software implementations used for experiments will be developed using an object 
 		\midrule
 		Main Function & The main function, executed from the terminal, instantiates environment, agent, and demand profile objects that are passed to a training algorithm function call.\\
 		 & \\
-		Environment & An object oriented implementation of the two area power system model in the temporal domain.\\
+		Environment & An object oriented implementation of the two area power system model in the temporal domain. The environment class will contain a method that iterates the environment forward by a single time step using a numerical integrator.\\
 		 & \\
-		Agent & An object oriented implementation of the DDPG controller. When instantiated, an instance of the object neural network is created and stored as an agent object variable. \\
+		Agent & An object oriented implementation of the DDPG algorithm. When instantiated, the object will also make calls to the neural network class for actor and critic networks, which will be stored as callable functions from the agent object. \\
 		 & \\
 		Demand Profile & An object oriented implementation of a demand signal that is fed to the environment in order to perturb the system from steady state. The demand profile implementation will provide for either Heaviside step function or stochastic system perturbation.\\
 		 & \\
