@@ -1445,6 +1445,38 @@ The paper concluded that both GA and GA-SA perform better than fixed gain contro
   keywords    = {cs.LG},
 }
 
+@Article{Xu2015a,
+  author      = {Bing Xu and Naiyan Wang and Tianqi Chen and Mu Li},
+  date        = {2015-05-05},
+  title       = {Empirical Evaluation of Rectified Activations in Convolutional Network},
+  eprint      = {1505.00853v2},
+  eprintclass = {cs.LG},
+  eprinttype  = {arXiv},
+  abstract    = {In this paper we investigate the performance of different types of rectified activation functions in convolutional neural network: standard rectified linear unit (ReLU), leaky rectified linear unit (Leaky ReLU), parametric rectified linear unit (PReLU) and a new randomized leaky rectified linear units (RReLU). We evaluate these activation function on standard image classification task. Our experiments suggest that incorporating a non-zero slope for negative part in rectified activation units could consistently improve the results. Thus our findings are negative on the common belief that sparsity is the key of good performance in ReLU. Moreover, on small scale dataset, using deterministic negative slope or learning it are both prone to overfitting. They are not as effective as using their randomized counterpart. By using RReLU, we achieved 75.68\% accuracy on CIFAR-100 test set without multiple test or ensemble.},
+  file        = {:http\://arxiv.org/pdf/1505.00853v2:PDF},
+  keywords    = {cs.LG, cs.CV, stat.ML},
+}
+
+@Article{Schaul2015,
+  author      = {Tom Schaul and John Quan and Ioannis Antonoglou and David Silver},
+  date        = {2015-11-18},
+  title       = {Prioritized Experience Replay},
+  eprint      = {1511.05952v4},
+  eprintclass = {cs.LG},
+  eprinttype  = {arXiv},
+  abstract    = {Experience replay lets online reinforcement learning agents remember and reuse experiences from the past. In prior work, experience transitions were uniformly sampled from a replay memory. However, this approach simply replays transitions at the same frequency that they were originally experienced, regardless of their significance. In this paper we develop a framework for prioritizing experience, so as to replay important transitions more frequently, and therefore learn more efficiently. We use prioritized experience replay in Deep Q-Networks (DQN), a reinforcement learning algorithm that achieved human-level performance across many Atari games. DQN with prioritized experience replay achieves a new state-of-the-art, outperforming DQN with uniform replay on 41 out of 49 games.},
+  file        = {:http\://arxiv.org/pdf/1511.05952v4:PDF},
+  keywords    = {cs.LG},
+}
+
+@Article{Yan2020,
+  author       = {Z. Yan},
+  date         = {04-06-2020},
+  journaltitle = {IEEE Transactions on Power Systems},
+  title        = {A Multi-Agent Deep Reinforcement Learning Method for Cooperative Load Frequency Control of a Multi-Area Power System},
+  abstract     = {This paper proposes a data-driven cooperative method for load frequency control (LFC) of the multi-area power system based on multi-agent deep reinforcement learning (MA-DRL) in continuous action domain. The proposed method can nonlinearly and adaptively derive the optimal coordinated control strategies for multiple LFC controllers through centralized learning and decentralized implementation. The centralized learning is achieved by MA-DRL based on a global action-value function to quantify overall LFC performance of the power system. To solve the MA-DRL problem, multi-agent deep deterministic policy gradient (DDPG) is derived to adjust control agents' parameters considering the nonlinear generator behaviors. For implementation, each individual controller only needs local information in its control area to deliver optimal control signals. Numerical simulations on a three-area power system and the fully-modeled New-England 39-bus system demonstrate that the proposed method can effectively minimize control errors against stochastic frequency variations caused by load and renewable power fluctuations.},
+}
+
 @Comment{jabref-meta: databaseType:biblatex;}
 
 @Comment{jabref-meta: fileDirectoryLatex-shane-SkyNet:/home/shane/Documents/ENG720_honours_thesis;}

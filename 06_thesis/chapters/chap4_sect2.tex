@@ -29,12 +29,13 @@ DDPG training algorithm hyperparameters shall be held constant for each experime
 	\caption{DDPG hyperparameters used for preliminary investigation experiments.}
 	\begin{tabular}{lrlr}
 	\toprule
-	\textbf{Hyperparameter} & \textbf{Value} & \textbf{Hyperparameter} & \textbf{Value} \\
+	\textbf{Hyperparameter} 							& \textbf{Value} 		& \textbf{Hyperparameter} 								& \textbf{Value} 		\\
 	\midrule
-	Buffer Size 	 & $1 \times 10^6$  & Batch Size 	& 256 \\
-	Gamma ($\gamma$) & 0.99 	& Tau ($\tau$) 	& $1 \times 10^{-3}$ \\
-	Actor Learning Rate ($\alpha_{\texttt{actor}}$) & $1 \times 10^{-4}$ & Critic Learning Rate ($\alpha_{\texttt{critic}}$) & $3 \times 10^{-4} $ \\
-	Weight Decay & 0.00 & & \\
+	Buffer Size 	 									& $1 \times 10^6$  		& Tau ($\tau$) 						  					& $1 \times 10^{-3}$ 	\\
+	Gamma ($\gamma$) 									& 0.99 					& Critic Learning Rate ($\alpha_{\texttt{critic}}$) 	& $3 \times 10^{-4} $   \\
+	Actor Learning Rate ($\alpha_{\texttt{actor}}$) 	& $1 \times 10^{-4}$ 	& OU Noise $\mu$ 										& 0.00					\\
+	Weight Decay 										& 0.00 					& OU Noise $\theta$										& 0.15					\\
+	Batch Size 											& 256 					& OU Noise $\sigma$										& 0.20					\\
 	\bottomrule
 	\end{tabular}\label{tab:5000_hyperparameters}
 \end{table}
@@ -51,11 +52,11 @@ Timeseries data of frequency and control actions shall be captured for each test
 
 \subsection{Performance metrics}\label{sec:agent_performance}
 \subsubsection{Training performance metrics}
-A reward signal shall be calculated for the agent at each timestep. Summing the reward at each timestep during an episode provides a cumulative reward. Whilst  this metric could be used to report agent training performance, due to high variability of raw cumulative reward signals, this metric is not often used \cite{Henderson2017}. Instead, agent training performance shall be assessed using a moving average based on cumulative rewards for 100 episodes.
+A reward signal, $r_t$, shall be calculated for the agent at each timestep. Summing the reward from each of the 3000 timesteps during an episode provides a cumulative reward, $G_{3000}$. Whilst this metric could be used to report agent training performance, high variability of raw cumulative reward signals mean this metric is not often used \cite{Henderson2017}. Instead, agent training performance shall be assessed using a moving average based on cumulative rewards for 100 episodes.
 
 This metric will be referred to as MACR100 for the remainder of this thesis, and is described mathematically as:
 \begin{equation}
-	MACR100 = \frac{1}{100} \sum_{n = 0}^{99} (\texttt{cumulative reward})_{99-n} 
+	(MACR100)_{\texttt{episode}} = \frac{1}{100} \sum_{n = 0}^{99} (G_{3000})_{\texttt{episode} - n}
 \end{equation}
 
 A plot of the MACR100 shall be developed for each experiment showing the evolution of this metric over the 10000 episodes during agent training.
@@ -65,11 +66,30 @@ Raw cumulative reward shall be reported for each independent trial during agent 
 
 The following additional metrics shall also be reported for each power area using frequency and control action time series data captured during each independent trail. The metrics shall be calculated for each power area, and are as follows:
 \begin{itemize}
-	\item \textbf{Maximum frequency deviation}: the maximum absolute frequency deviation during the 30 sec simulation period.
-	\item \textbf{Average frequency deviation}: the average absolute frequency deviation during the 30 sec simulation period.
-	\item \textbf{Maximum control effort}: the maximum absolute control effort during the 30 sec simulation period.
-	\item \textbf{Average control effort}: the average control effort during the 30 sec simulation period.
-	\item \textbf{Settling time}: the number of seconds the frequency signal took to fall within 0.001 of the final value.
+	\item \textbf{Maximum frequency deviation}: the maximum absolute frequency deviation during the 30 sec simulation period. Mathematically this is expressed as:\\
+		\begin{equation}
+			f_{max} = \max \big\{ f_1, f_2, \dotsc, f_{3000} \big\}
+		\end{equation}
+	
+	\item \textbf{Average frequency deviation}: the average absolute frequency deviation during the 30 sec simulation period. The metric is calculated as follows:\\
+		\begin{equation}
+			f_{average} = \frac{1}{3000}\sum_{n=1}^{3000} f_n
+		\end{equation}
+		
+	\item \textbf{Maximum control effort}: the maximum absolute control effort during the 30 sec simulation period. The metric is calculated as follows:\\
+		\begin{equation}
+			u_{max} = \max \big\{ u_1, u_2, \dotsc, u_{3000} \big\}
+		\end{equation}
+		
+	\item \textbf{Average control effort}: the average control effort during the 30 sec simulation period. The metric is calculated as follows:\\
+		\begin{equation}
+			u_{average} = \frac{1}{3000}\sum_{n=1}^{3000} u_n
+		\end{equation}
+		
+	\item \textbf{Settling time}: the number of seconds the frequency signal took to fall within 0.001 of the final value. The metric is calculated as follows:\\
+		\begin{equation}
+			t_{\texttt{settling}} = 
+		\end{equation}
 \end{itemize}
 
 The following plots shall be created for each independent trial during agent performance evaluation:
@@ -146,19 +166,19 @@ Certain activation functions, such as ReLU, have been shown to cause worsened le
 \end{table}
 
 \subsection{OU Noise Hyperparameter Experiment Details}
-Exploratory OU noise process parameters, $\sigma$ and $\theta$, will be modified to determine the impact on agent learning.
+Lillicrap \textit{et alias} used OU noise to ensure continuous action space exploration during training \cite{Lillicrap2015}. Typically, the noise process is decayed after each episode by some arbitrary amount, so that as agent training progresses there is less state-action space exploration and more policy exploitation. The benefits of state-action space exploration versus policy exploitation were prebiously discussed in \textsection \ref{sec:value_function_method}. The principal motivation for this experiment is to increase the amount of state-action space exploration to achieve better policy outcomes.
 
-A SELECTION OF NOISE DECAY WHICH IS MUCH SLOWER THAN THE CURRENTLY EMPLOYED NOISE DECAY
+For the OU noise experiment, neural network architectures and hyperparameters shall be identical to the baseline experiment. Moreover, the OU noise process parameters shall be identical to the parameters detailed in Table \ref{tab:5000_hyperparameters}. In all other experiments presented in this thesis, decay is applied to the OU noise process by multiplying OU noise parameters by a decay factor of 0.99 after each episode. This experiment shall use a 0.999 decay multiplier, resulting in the exploratory noise superimposed on control actions for longer.
 
 \subsection{Prioritised Experience Replay Experiment Details}
-Priority metric added to experience replay buffer allowing useful experience  to be visited more often.
+Prioritised experience replay, originally developed by Schaul \textit{et alias} in 2015, is a modification to deep reinforcement learning architectures that allows an agent to place importance on experiences stored in the experience replay buffer \cite{Schaul2015}. Typically, experience is sampled uniformly during training; however, under a prioritised experience replay framework, experience with a higher importance is sampled more often. The idealised criterion on which importance is assigned to an experience is the amount the agent can learn from a transition from one state to another. While this is not directly accessible, Schaul \textit{et alias} proposed that a reasonable estimate is provided by the temporal difference error, which is an artefact of Q-learning presented in Algorithm \ref{alg:02_q_learning}.
 
-PRIORITY EXPERIENCE REPLAY IS USED WHICH ALLOWS THE AGENT TO PLACE A VALUE OF IMPORTANCE ON THE EXPERIENCE WHICH IS COLLECTED.
+Since DDPG makes use of termporal difference methods, the prioritised experience replay experiment shall implement a prioritised experience replay framework. The motivation is that it will take less time for the agent to converge on a useful policy, meaning that subsequent stages of training should yield better policies.
 
 \subsection{Expert Learner Experiment Details}
-PID controller experience (the expert) will be introduced to the experience replay buffer with half of all experience from PID interaction with the environment.
+A paper by Yan, published in late June 2020, demonstrated it was possible to develop a neural network for load frequency control of a two area power system. The neural network was trained using DDPG; however, the application of the DDPG algorithm was only to provide minor modification to pre-trained model weights. Model pre-trained consisted of supervised learning using a dataset obtained from an optimally tuned PI controller for the load frequency task \cite{Yan2020}. Yan noted further that without the use of pre-training the model using PI controller data randomly initialised DNNs may take a long time to converge on an optimal policy, or not converge at all.
 
-EXPERT LEARNER FLOODS THE AGENT MEMORY WITH EXPERT SKILL FROM WHICH THE AGENT LEARNS.
+The expert learner experiment shall use a PI controller, optimised for the load frequency control task, to provide half of all experience in the memory buffer. This is motivated by the pre-training used by Yan, that saw neural network model weights pre-trained using the experience of a optimally tuned PI controller.
 
 \subsection{Stochastic Demand Experiment Details}\label{sec:stochastic}
 A stochastic load demand profile will be used to perturb the system to provide the agent with more variability in training scenarios.
