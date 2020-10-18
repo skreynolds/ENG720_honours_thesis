@@ -1,24 +1,21 @@
 \begin{tikzpicture}
 	\begin{axis}[
-	    enlargelimits=0.15,
-	    legend style={at={(0.5,-0.15)},
-	      anchor=north,legend columns=-1},
 	    ylabel={MACR100},
-	    symbolic x coords={Expert Learner,, Baseline,, Priority Experience Replay,, OU Noise,, Activation Function,, Neural Network,, Stochastic Load Demand},
-	    xtick = {Baseline, Neural Network, Activation Function, OU Noise, Priority Experience Replay, Expert Learner, Stochastic Load Demand},
+	    symbolic x coords={Expert Learner,, Baseline,, Priority Exp. Replay,, OU Noise,, Activation Function,, Neural Network,, Stoch. Load Demand},
+	    xtick = {Baseline, Neural Network, Activation Function, OU Noise, Priority Exp. Replay, Expert Learner, Stoch. Load Demand},
 	    xticklabel style={rotate=90},
 	    nodes near coords,
 	    nodes near coords align={vertical},
 	    every node near coord/.append style={rotate=90, anchor=east},
-	    ymin=-125
+	    ymin=-155, ymax=0
 	    ]
 	\addplot [ybar, fill=blue] coordinates {(Baseline, -29.86)};
 	\addplot [ybar, fill=green] coordinates {(Neural Network, -66.44)};
 	\addplot [ybar, fill=purple] coordinates {(Activation Function, -47.57)};
 	\addplot [ybar, fill=pink] coordinates {(OU Noise, -47.52)};
-	\addplot [ybar, fill=cyan] coordinates {(Priority Experience Replay, -35.42)};
+	\addplot [ybar, fill=cyan] coordinates {(Priority Exp. Replay, -35.42)};
 	\addplot [ybar, fill=orange] coordinates {(Expert Learner, -28.73)};
-	\addplot [ybar, fill=red] coordinates {(Stochastic Load Demand, -89.15)};
+	\addplot [ybar, fill=red] coordinates {(Stoch. Load Demand, -89.15)};
 	%\legend{Baseline, Neural Network, Activation Function, OU Noise, Priority Experience Replay, Expert Learner, Stochastic Load Demand};
 	\end{axis}
 \end{tikzpicture}

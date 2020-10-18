@@ -46,6 +46,66 @@ Create a bar chart which shows the best MACR100 at the 10000 episode and a plot 
  
 \section{Trained Agent Performance}
 
+\subsection{Cumulative Reward}
+
+\begin{figure}[h]
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\resizebox{7cm}{!}{\input{./figures/7201_cum_reward_comparison/cum_reward_comparison.tikz}}
+		\caption{text}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}{0.45\textwidth}
+		\resizebox{7cm}{!}{\input{./figures/7202_cum_reward_comparison/cum_reward_comparison.tikz}}
+		\caption{text}
+	\end{minipage}
+\end{figure}
+
+\subsection{Frequency Deviations}
+
+\begin{figure}[h]
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\resizebox{7cm}{!}{\input{./figures/7203_frequency_comparison/frequency_comparison.tikz}}
+		\caption{Max freq area 1 pos transition}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}{0.45\textwidth}
+		\resizebox{7cm}{!}{\input{./figures/7204_frequency_comparison/frequency_comparison.tikz}}
+		\caption{Average freq area 1 pos transition}
+	\end{minipage}
+\end{figure}
+
+\subsection{Control Effort}
+
+\begin{figure}[h]
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\resizebox{7cm}{!}{\input{./figures/7205_ctl_effort_comparison/ctl_effort_comparison.tikz}}
+		\caption{Max control area 1 pos transition}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}{0.45\textwidth}
+		\resizebox{7cm}{!}{\input{./figures/7206_ctl_effort_comparison/ctl_effort_comparison.tikz}}
+		\caption{Average control area 1 pos transition}
+	\end{minipage}
+\end{figure}
+
+\subsection{Settling Time}
+
+\begin{figure}[h]
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\resizebox{7cm}{!}{\input{./figures/7207_frequency_comparison/macr100_comparison.tikz}}
+		\caption{text}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}{0.45\textwidth}
+		\resizebox{7cm}{!}{\input{./figures/7208_macr100_comparison/macr100_comparison.tikz}}
+		\caption{text}
+	\end{minipage}
+\end{figure}
+
 Monotonically increasing curves in subplot (a) and (b) are desirable, and indicate stable learning for a given reward function, and set of hyperparameters
 
 Reward functions are designed to achieve desirable control behaviour from the agent. The task of controlling frequency and power interchange for a two area power system should therefore have a reward structure that will incentivise the agent to minimise frequency deviations and minimise deviations in the tie-line power interchange from scheduled values. Moreover, the agent should be discouraged from letting the system see large frequency excursions that would activate system protection settings in a real world power system. Finally, it would be useful if the agent develops policies that meet the objectives outlined above, without requiring acute control signals.
