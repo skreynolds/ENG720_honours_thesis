@@ -1,8 +1,50 @@
 \chapter{Analysis and Discussion}
 
-\section{Training: General observations}
+This chapter provides analysis for both agent training and trained agent performance phases of the simulation experiments. For agent training, this will include the comparison of final and highest MACR100 scores for the different simulation experiments. Explanations are offered where an agent performance is poor. Similarly, a comparison of trained agent performance from the different experiments is provided, as well as a comparison to an optimally trained PI controller. Explanations are offered for instances where trained agent performance does not exceed the tuned PI controller.
 
-\section{Trained Agent Performance: General Observations}
+\section{Training}
+Monotonically increasing cumulative reward values indicate a continuous average increase in deep reinforcement learning agent performance. This is a desirable feature for cumulative reward plots. Plots of the MACR100 evolution for each experiment are detailed in Figures \ref{}, \ref{}, \ref{}, \ref{}, \ref{}, \ref{}, and \ref{}. Generally, it can be observed that MACR100 is positively correlated with episode for all experiments. It is noted that the MACR100 signals are not monotonic, and feature small to large fluctuations in the signal with increase in episode. This is especially true 
+
+
+Rapid learning phase one figure
+Most experiments demonstrated a period of rapid learning during the first 1000 episodes,
+
+
+Convergence phase second figure
+Past episode 5000 most agents demonstrated a policy convergence 
+
+\clearpage
+
+\begin{figure}[h]
+	\centering
+	
+	\input{./figures/7101_learning_comparison/learning_comparison_plot.tikz}
+	\caption{text}
+	
+	\vspace{0.5cm}
+	
+	\input{./figures/7102_learning_comparison/learning_comparison_plot.tikz}
+	\caption{text}
+\end{figure}
+
+\clearpage
+
+Create a bar chart which shows the best MACR100 at the 10000 episode and a plot which shows the highest MACR100 achieved during training. Compare to the PI controller average and provide indication that non of the trained agents would beat 
+
+\begin{figure}[h]
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\resizebox{7cm}{!}{\input{./figures/7103_macr100_comparison/macr100_comparison.tikz}}
+		\caption{text}
+	\end{minipage}
+	\hspace{0.5cm}
+	\begin{minipage}{0.45\textwidth}
+		\resizebox{7cm}{!}{\input{./figures/7104_macr100_comparison/macr100_comparison.tikz}}
+		\caption{text}
+	\end{minipage}
+\end{figure}
+ 
+\section{Trained Agent Performance}
 
 Monotonically increasing curves in subplot (a) and (b) are desirable, and indicate stable learning for a given reward function, and set of hyperparameters
 

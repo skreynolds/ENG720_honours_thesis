@@ -1,12 +1,14 @@
-\chapter{Development, Implementation, and Testing}
-Model development is focused on obtaining a mathematical expression for modelling the two area power system and the PI controller, in addition to specifying the neural network architectures for experiments. Implementation primarily focuses on the DDPG training algorithm along with Python class implementations for the environment, PI controllers, and neural networks.
+\chapter{Development and Verification}
+Development is focused on obtaining mathematical expressions for modelling, and the subsequent implementation of these models. This is firstly discussed for the two area power system environment, and then the PI controller. Additionally, this chapter outlines implementations for neural network architectures, and DDPG algorithms. After the development of each model and the subsequent implementation, a verification process confirms that the implementation is without error.
 
-PROVIDE AND OVERVIEW OF THE SOFTWARE THAT HAS BEEN DEVELOPED - COMMUNICATE THIS IDEA BY CREATING A TREE LIKE STRUCTURE
+The software stack is created as per the outline in Table \ref{tab:software_elements} in \textsection \ref{sec:software}. The Main Function is called \texttt{main}, which instantiates Environment, Agent, and Demand Profile class objects called \texttt{TwoAreaPowerSystemEnv}, \texttt{DdpgController}, and \texttt{Demand}, respectively. The agent instantiates two Neural Network class objects called \texttt{Actor} and \texttt{Critic}.
+
+The full software stack and the order of execution is detailed in \ref{5001_software_stack}.
 
 \begin{figure}[h]
 	\centering
-	\input{./figures/5001_software_stack/software_stack}
-	\caption{text}
+	\resizebox{10cm}{!}{\input{./figures/5001_software_stack/software_stack}}
+	\caption{Software stack developed for simulation experiments.}\label{5001_software_stack}
 \end{figure}
 
 %---------------- S: Environment

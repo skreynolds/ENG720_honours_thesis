@@ -1,7 +1,5 @@
 \section{Environment Model} \label{ssec:env_modelling}
-The two area power system model described in \textsection \ref{ssec:modelling_two_area_system}, and shown in Figure \ref{fig:208_two_area_pi_control_model}, was converted from the frequency domain to the temporal domain. This provides the reinforcement learning architectures, outlined in \textsection \ref{sec:reinforcement_learning}, with the ability to export control signals to the power system at each time step. This approach is common practice when developing environments for reinforcement learning \cite{Brockman2016}. Additionally, frequency domain simulation techniques, such as Laplacian transforms, have strict initial condition assumptions \cite{Ogat2010}, which limit the application of this technology in real world applications.
-
-Higher order ordinary differential equations and systems involving higher order ordinary differential equations provide a more compact system representation; however, to accommodate numerical analysis schemes, such as Runge-Kutta, the environment system was expressed as a system of first-order linear ordinary differential equations.
+The two area power system was converted from the frequency domain to the temporal domain, as outlined in the approach from \textsection \ref{ssec:environment_and_pi}.
 
 \begin{figure}[h]
 	\centering
@@ -10,7 +8,7 @@ Higher order ordinary differential equations and systems involving higher order 
 	\label{4101_two_area_power_system_temporal_model}
 \end{figure}
 
-Suppose variables are assigned to the power system according to Figure \ref{4101_two_area_power_system_temporal_model}. The first order system of linear ordinary differential equations for area 1 is:
+Suppose variables are assigned to the power system according to Figure \ref{4101_two_area_power_system_temporal_model}. The first order system of linear ordinary differential equations for the environment model is:
 \begin{align}
 	\dot{x}_2(t) &= \frac{1}{T_{sg_1}}\big( K_{sg_1} u_1(t) - x_2(t) \big) \label{eq:4101} \\
 	\dot{x}_3(t) &= \frac{1}{T_{t_1}} \big( K_{t_1} x_2(t) - x_3(t) \big) \label{eq:4102} \\
@@ -23,11 +21,11 @@ Suppose variables are assigned to the power system according to Figure \ref{4101
 
 A full derivation of the first order linear system described by Equations \ref{eq:4101} to \ref{eq:4107} is described in Appendix \ref{app:C1_power_system_ode}. The equations were implemented as a method \verb|int_power_system_sim| in a Python class \verb|TwoAreaPowerSystemEnv|. Implementation for \verb|int_power_system_sim| is detailed in Appendix \ref{app:implementation_of_power_system_model}.
 
-ADD THE PARAMETER SELECTION FROM LITERATURE REVIEW.
+Model parameters were selected based on the most common environment parameters found in the literature review, as discussed in \textsection \ref{ssec:environment_and_pi}. The parameter value selection is shown in Table \ref{tab:5101_env_parameter_selection}.
 
 \begin{table}[h]
 	\centering
-	\caption{Environment and controller parameters used for preliminary investigation experiments.}
+	\caption{Environment and controller parameters used for preliminary investigation experiments.}\label{tab:5101_env_parameter_selection}
 	\begin{tabular}{llr}
 		\toprule
 		\textbf{Description} & \textbf{Parameter} & \textbf{Value} \\
@@ -46,12 +44,14 @@ ADD THE PARAMETER SELECTION FROM LITERATURE REVIEW.
 	\end{tabular}\label{tab:5000}
 \end{table}
 
-ADD TESTS TO ENSURE THAT MODEL SPECIFICATION IS OKAY - USE NO CONTROL FROM FREQUENCY DOMAIN AND FROM TEMPORAL PYTHON MODEL.
+A reward assigned to the agent at each timestep, for the purposes of the DDPG algorithm, was derived based on reward structures used by Yan \cite{Yan2020}. The final reward structure consisted of absolute deviations of the frequency for both power system areas, the absolute deviation of the tie-line power flow, and the absolute control effort provided by each controller.
 
-\begin{equation*}
+The reward expression is shown in equation \ref{eq:5101}.
+
+\begin{equation}
 	\begin{split}
 		\texttt{reward} = 	&- (|\texttt{Frequency 1}| + |\texttt{Frequency 2}|) \\
 			  				&- (|\texttt{Tieline}|) \\
-			  				&- (|\texttt{Control 1}| + |\texttt{Control 2}|)
+			  				&- (|\texttt{Control 1}| + |\texttt{Control 2}|)\label{eq:5101}
 	\end{split}
-\end{equation*}
+\end{equation}

@@ -21,6 +21,7 @@ height=8cm,
 xlabel=Episode,
 ylabel=Average Reward,
 %y label style={at={(-0.2,0.5)}}
+legend pos=south east
 ]
 
 \path [draw=blue!20!gray, fill=blue!20!gray, opacity=0.3]
@@ -3001,6 +3002,8 @@ table {%
 9980 -92.443432333956
 9990 -90.7888143672298
 };
+\addlegendentry{Stochastic Load Demand Experiment};
+
 \addplot [ultra thick, red!40!gray]
 table {%
 100 -1582.67067718997
@@ -3994,6 +3997,7 @@ table {%
 9980 -53.0358714672779
 9990 -51.9429675482224
 };
+\addlegendentry{Baseline Experiment};
 \end{axis}
 
 \end{tikzpicture}
