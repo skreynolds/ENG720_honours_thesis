@@ -21,7 +21,7 @@ scaled y ticks=base 10:-3,
 width=14cm,
 height=8cm,
 xlabel=Episode,
-ylabel=Average Reward,
+ylabel=MACR100,
 %y label style={at={(-0.2,0.5)}}
 %legend pos=south east
 legend columns=2,

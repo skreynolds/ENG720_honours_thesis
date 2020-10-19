@@ -3,15 +3,11 @@
 This chapter provides analysis for both agent training and trained agent performance phases of the simulation experiments. For agent training, this will include the comparison of final and highest MACR100 scores for the different simulation experiments. Explanations are offered where an agent performance is poor. Similarly, a comparison of trained agent performance from the different experiments is provided, as well as a comparison to an optimally trained PI controller. Explanations are offered for instances where trained agent performance does not exceed the tuned PI controller.
 
 \section{Training}
-Monotonically increasing cumulative reward values indicate a continuous average increase in deep reinforcement learning agent performance. This is a desirable feature for cumulative reward plots. Plots of the MACR100 evolution for each experiment are detailed in Figures \ref{}, \ref{}, \ref{}, \ref{}, \ref{}, \ref{}, and \ref{}. Generally, it can be observed that MACR100 is positively correlated with episode for all experiments. It is noted that the MACR100 signals are not monotonic, and feature small to large fluctuations in the signal with increase in episode. This is especially true 
+Monotonically increasing cumulative reward values indicate a continuous average increase in deep reinforcement learning agent performance. This is a desirable feature for cumulative reward plots. Plots of the MACR100 evolution for each experiment are detailed in Figures \ref{fig:6201_average_reward}, \ref{fig:6301_average_reward}, \ref{fig:6401_average_reward}, \ref{fig:6501_average_reward}, \ref{fig:6601_average_reward}, \ref{fig:6701_average_reward}, and \ref{fig:6801_average_reward}.
 
+Generally, it can be observed that MACR100 is positively correlated with the episode number for all experiments. It is noted that the MACR100 signals were not monotonic for any experiment. Moreover, the MACR100 plots feature small to large fluctuations in the signal with increase in episode. This is especially true for the neural network experiment, expert learner experiment, and stochastic load demand experiment.
 
-Rapid learning phase one figure
-Most experiments demonstrated a period of rapid learning during the first 1000 episodes,
-
-
-Convergence phase second figure
-Past episode 5000 most agents demonstrated a policy convergence 
+During the early stages of training all experiments demonstrated a period during which rapid learning took place. This is indicated by a steep rise in the MACR100 score, which typically took place in the first 1000 episodes of training, as shown in Figure \ref{fig:7101_MACR100_first}. In all experiments the agents demonstrated policy convergence, as indicated in reduced fluctuations of the MACR100 score. Convergence typically took place after the episode 7000, as shown in Figure \ref{fig:7102_MACR100_second}.
 
 \clearpage
 
@@ -19,90 +15,98 @@ Past episode 5000 most agents demonstrated a policy convergence
 	\centering
 	
 	\input{./figures/7101_learning_comparison/learning_comparison_plot.tikz}
-	\caption{text}
+	\caption{Comparison of the MACR100 evolution for all experiments during the first 5000 episodes of training.}\label{fig:7101_MACR100_first}
 	
 	\vspace{0.5cm}
 	
 	\input{./figures/7102_learning_comparison/learning_comparison_plot.tikz}
-	\caption{text}
+	\caption{Comparison of the MACR100 evolution for all experiments during the final 5000 episodes of training.}\label{fig:7102_MACR100_second}
 \end{figure}
 
 \clearpage
 
-Create a bar chart which shows the best MACR100 at the 10000 episode and a plot which shows the highest MACR100 achieved during training. Compare to the PI controller average and provide indication that non of the trained agents would beat 
+The baseline experiment demonstrated the best MACR100 score at the 10000 episode, and one of the highest MACR100 scorces overall. The exception was the expert learner experiment which yielded a marginally higher score than the baseline during training. Figure \ref{fig:7103_macr100_comparison} provides a comparison of the MACR100 for different experiments at episode 10000. Figure \ref{fig:7104_macr100_comparison} provides a comparison of the highest MACR100 achieved during training for each experiment. The principal observation that can be made from these results is that the original DDPG hyperparameters and neural network architecture used by Lillicrap \textit{et alias} are the best suited to the load frequency control task.
 
 \begin{figure}[h]
-	\begin{minipage}{0.45\textwidth}
+	\begin{minipage}{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7103_macr100_comparison/macr100_comparison.tikz}}
-		\caption{text}
+		\caption{MACR100 at episode 10000.}\label{fig:7103_macr100_comparison}
 	\end{minipage}
-	\hspace{0.5cm}
-	\begin{minipage}{0.45\textwidth}
+	\hspace{0.25cm}
+	\begin{minipage}{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7104_macr100_comparison/macr100_comparison.tikz}}
-		\caption{text}
+		\caption{Best MACR100 achieved during training.}\label{fig:7104_macr100_comparison}
 	\end{minipage}
 \end{figure}
  
 \section{Trained Agent Performance}
 
+\clearpage
+
 \subsection{Cumulative Reward}
 
 \begin{figure}[h]
-	\begin{minipage}{0.45\textwidth}
+	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7201_cum_reward_comparison/cum_reward_comparison.tikz}}
-		\caption{text}
+		\caption{Trained agent cumulative reward for a +0.01pu step change disturbance at the 15 sec mark.}
 	\end{minipage}
-	\hspace{0.5cm}
-	\begin{minipage}{0.45\textwidth}
+	\hspace{0.25cm}
+	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7202_cum_reward_comparison/cum_reward_comparison.tikz}}
-		\caption{text}
+		\caption{Trained agent cumulative reward for a -0.01pu step change disturbance at the 15 sec mark.}
 	\end{minipage}
 \end{figure}
+
+\clearpage
 
 \subsection{Frequency Deviations}
 
 \begin{figure}[h]
-	\begin{minipage}{0.45\textwidth}
+	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7203_frequency_comparison/frequency_comparison.tikz}}
-		\caption{Max freq area 1 pos transition}
+		\caption{Maximum frequency deviation for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}
 	\end{minipage}
-	\hspace{0.5cm}
-	\begin{minipage}{0.45\textwidth}
+	\hspace{0.25cm}
+	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7204_frequency_comparison/frequency_comparison.tikz}}
-		\caption{Average freq area 1 pos transition}
+		\caption{Average frequency deviation for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}
 	\end{minipage}
 \end{figure}
+
+\clearpage
 
 \subsection{Control Effort}
 
 \begin{figure}[h]
-	\begin{minipage}{0.45\textwidth}
+	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7205_ctl_effort_comparison/ctl_effort_comparison.tikz}}
-		\caption{Max control area 1 pos transition}
+		\caption{Maximum control effort for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}
 	\end{minipage}
-	\hspace{0.5cm}
-	\begin{minipage}{0.45\textwidth}
+	\hspace{0.25cm}
+	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7206_ctl_effort_comparison/ctl_effort_comparison.tikz}}
-		\caption{Average control area 1 pos transition}
+		\caption{Average control effort for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}
 	\end{minipage}
 \end{figure}
+
+\clearpage
 
 \subsection{Settling Time}
 
 \begin{figure}[h]
-	\begin{minipage}{0.45\textwidth}
+	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7207_frequency_comparison/macr100_comparison.tikz}}
-		\caption{text}
+		\caption{Trained agent settling time in Area 1 for the +0.01pu step change disturbance at the 15 sec mark.}
 	\end{minipage}
-	\hspace{0.5cm}
-	\begin{minipage}{0.45\textwidth}
+	\hspace{0.25cm}
+	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7208_macr100_comparison/macr100_comparison.tikz}}
-		\caption{text}
+		\caption{Trained agent settling time in Area 2 for the +0.01pu step change disturbance at the 15 sec mark.}
 	\end{minipage}
 \end{figure}
 

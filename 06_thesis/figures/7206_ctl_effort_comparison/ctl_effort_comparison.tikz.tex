@@ -1,13 +1,15 @@
 \begin{tikzpicture}
 	\begin{axis}[
-	    ylabel={MACR100},
+	    ylabel={control effort (pu)},
 	    symbolic x coords={OU Noise,, Baseline,, Priority Exp. Replay,, Neural Network,, Stoch. Load Demand,, Activation Function,, Expert Learner},
 	    xtick = {Baseline, Neural Network, Activation Function, OU Noise, Priority Exp. Replay, Expert Learner, Stoch. Load Demand},
 	    xticklabel style={rotate=90},
+	    ytick={0,0.01},
 	    nodes near coords,
 	    nodes near coords align={vertical},
-	    every node near coord/.append style={rotate=90, anchor=west},
-	    ymin=0, ymax=0.0090
+	    every node near coord/.append style={rotate=90, anchor=west, xshift=1cm},
+	    ymin=0, ymax=0.015,
+	    legend style={at={(0.5,1.25)},anchor=north}
 	    ]
 	\addplot [ybar, fill=blue] coordinates {(Baseline, 0.0033)};
 	\addplot [ybar, fill=green] coordinates {(Neural Network, 0.0046)};
@@ -17,5 +19,8 @@
 	\addplot [ybar, fill=orange] coordinates {(Expert Learner, 0.0059)};
 	\addplot [ybar, fill=red] coordinates {(Stoch. Load Demand, 0.0048)};
 	%\legend{Baseline, Neural Network, Activation Function, OU Noise, Priority Experience Replay, Expert Learner, Stochastic Load Demand};
+	\addplot[thick, black,dashed,sharp plot,nodes near coords={},update limits=false,shorten >=-10mm,shorten <=-10mm] 
+			    coordinates {(OU Noise,0.0048) (Expert Learner,0.0048)};
+	\addlegendentry{PI Controller};
 	\end{axis}
 \end{tikzpicture}
