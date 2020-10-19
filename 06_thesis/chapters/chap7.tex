@@ -42,37 +42,38 @@ The baseline experiment demonstrated the best MACR100 score at the 10000 episode
  
 \section{Trained Agent Performance}
 
-\clearpage
-
 \subsection{Cumulative Reward}
+The optimally tuned PI controller received a better cumulative reward when compared to all experiments for both the +0.01pu and -0.01pu step change disturbances at the 5, 10, 15, 20, and 25 second marks. Figures \ref{fig:7201_cum_reward_pos} and \ref{fig:7202_cum_reward_neg} show the trained agent performance for for +0.01pu and -0.01pu step change disturbances at the 15 sec mark, respectively. The PI benchmark is included as a reference. For the +0.01pu step change disturbance the Baseline experiment performed the best with a cumulative reward marginally worse than the PI controller. The next best agent was the OU Noise experiment. For the -0.01pu step change disturbance the Priority Experience Replay experiment performed the best, closely followed by the Baseline. The worst performing agents were from the Activation Function and the Neural Network experiments.
 
+It is clear that the trained agent cumulative reward performance displays inconsistency across positive and negative step change disturbances. This is evident in both the mismatching of cumulative rewards for +0.01pu and -0.01pu step disturbance scenarios, and also the performance ordering mismatch. This is in contrast to the PI controller, which maintains a consistent cumulative reward for the 15 sec mark in both positive and negative step change disturbance scenarios.
 \begin{figure}[h]
 	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7201_cum_reward_comparison/cum_reward_comparison.tikz}}
-		\caption{Trained agent cumulative reward for a +0.01pu step change disturbance at the 15 sec mark.}
+		\caption{Trained agent cumulative reward for a +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7201_cum_reward_pos}
 	\end{minipage}
 	\hspace{0.25cm}
 	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7202_cum_reward_comparison/cum_reward_comparison.tikz}}
-		\caption{Trained agent cumulative reward for a -0.01pu step change disturbance at the 15 sec mark.}
+		\caption{Trained agent cumulative reward for a -0.01pu step change disturbance at the 15 sec mark.}\label{fig:7202_cum_reward_neg}
 	\end{minipage}
 \end{figure}
 
-\clearpage
-
 \subsection{Frequency Deviations}
+The optimally tuned PI controller maintained lower average frequency deviations in Areas 1 and 2, when compared to all experiments for both +0.01pu and -0.01pu step change disturbances at the 5, 10, 15, 20, and 25 sec marks. Baseline experiment and OU Noise experiments were able to show smaller maximum frequency deviations when compared to the PI controller in some instances. Figure \ref{fig:7203_max_freq} shows a comparison of the maximum frequency deviation of  the trained agents for a +0.01pu step change disturbance, and Figure \ref{fig:7204_avg_freq} shows a comparison of the average frequency deviation for the same scenario. Both figures include the PI benchmark for comparison.
+
+talk about the performance of the figures in the results
 
 \begin{figure}[h]
 	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7203_frequency_comparison/frequency_comparison.tikz}}
-		\caption{Maximum frequency deviation for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}
+		\caption{Maximum frequency deviation for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7203_max_freq}
 	\end{minipage}
 	\hspace{0.25cm}
 	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7204_frequency_comparison/frequency_comparison.tikz}}
-		\caption{Average frequency deviation for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}
+		\caption{Average frequency deviation for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7204_avg_freq}
 	\end{minipage}
 \end{figure}
 
@@ -109,17 +110,3 @@ The baseline experiment demonstrated the best MACR100 score at the 10000 episode
 		\caption{Trained agent settling time in Area 2 for the +0.01pu step change disturbance at the 15 sec mark.}
 	\end{minipage}
 \end{figure}
-
-Monotonically increasing curves in subplot (a) and (b) are desirable, and indicate stable learning for a given reward function, and set of hyperparameters
-
-Reward functions are designed to achieve desirable control behaviour from the agent. The task of controlling frequency and power interchange for a two area power system should therefore have a reward structure that will incentivise the agent to minimise frequency deviations and minimise deviations in the tie-line power interchange from scheduled values. Moreover, the agent should be discouraged from letting the system see large frequency excursions that would activate system protection settings in a real world power system. Finally, it would be useful if the agent develops policies that meet the objectives outlined above, without requiring acute control signals.
-
-Whilst there are no restrictions on reward function specification, it is widely acknowledged that poor reward function selection can impede agent learning, or produce undesirable behaviour. Evidence of unstable and divergent learning can be observed in experiment A and B, as shown in subplot (a) and (b), in Figure \ref{fig:results_A} and \ref{fig:results_B}, respectively. This resulted in the DDPG agent developing poor control policies that saturated control actions, as shown in subplot (e) and (f). Agent frequency control performance saw unacceptably large deviations from scheduled values, as shown in subplot (c) and (d).
-
-Experiments C, D, and E removed early termination conditions and associated penalties, resulting in an improvement to agent learning stability, as shown in subplot (a) and (b), in Figure \ref{fig:results_C}, \ref{fig:results_D}, and \ref{fig:results_E}, respectively. Control policies developed under these conditions no longer saturated control actions, as shown in subplot (e) and (f). This led to an improvement in agent control performance, comparable to the optimally tuned PI controller, shown in subplot (c) and (d).
-
-After reviewing agent performance during training it was observed that control signals in experiments A to E were noisy. OU noise is added to control signals in order to help the DDPG agent explore the policy and state-action value spaces to reduce the probability of convergence on sub-optimal policies; however, excessive noise settings have been shown to impede agent learning during the later stages of training \cite{}. Reducing the OU noise parameters by a factor of 10 in experiment F saw agent frequency control performance closely resemble the frequency control performance of the optimally tuned PI controller, shown in subplot (c) and (d), for Figure \ref{fig:results_F}. This result shows the feasibility for using DDPG trained neural networks in controlling the frequency of a two area power system.
-
-This result needs to be tested further by making additional reward function modifications, and minor changes to noise processes. Further, investigation of these two aspects should be undertaken using a more rigorous and scientific approach. Research into experimental approaches for reward function, and hyperparameter testing would ensure that research is conducted in a systematic providing better insight to the problem. Research should also be undertaken to determine a better approach to reporting agent learning, and measuring control performance of the trained agent.
-
-Once settings for which DDPG learns and performs optimally are understood, experiments involving stochastic load demand and non-linear plant models should commence. Contact has been made with Territory Generation and Power and Water Corporation, with the understanding that stochastic load demand profile can be provided; however, the issues such as conditions under which the data can be used and the data sensitivity have yet to be discussed.
