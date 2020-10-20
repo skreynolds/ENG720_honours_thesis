@@ -41,6 +41,9 @@ The baseline experiment demonstrated the best MACR100 score at the 10000 episode
 \end{figure}
  
 \section{Trained Agent Performance}
+The optimally tuned PI controller was able to perform the load frequency control task better than trained agents over each experiment. This was evident across all performance metrics. Despite this short-falling, trained agents were still able to arrest frequency deviations, providing an improvement over a system with no controller. The Baseline experiment demonstrated the best results for most performance metrics; however, the Baseline control policy caused system frequency oscillations, ultimately making it unusable. Control policies observed in the OU Noise and Stochastic Load Demand experiment also performed well, exhibiting more stable control characteristics when compared to the Baseline control policy; however, persistent frequency deviation offsets rendered them unusable. 
+
+The remainder of this chapter discusses the trained agent performance with respect to each of the performance metrics.
 
 \subsection{Cumulative Reward}
 The optimally tuned PI controller received a better cumulative reward when compared to all experiments for both the +0.01pu and -0.01pu step change disturbances at the 5, 10, 15, 20, and 25 second marks. Figures \ref{fig:7201_cum_reward_pos} and \ref{fig:7202_cum_reward_neg} show the trained agent performance for for +0.01pu and -0.01pu step change disturbances at the 15 sec mark, respectively. The PI benchmark is included as a reference. For the +0.01pu step change disturbance the Baseline experiment performed the best with a cumulative reward marginally worse than the PI controller. The next best agent was the OU Noise experiment. For the -0.01pu step change disturbance the Priority Experience Replay experiment performed the best, closely followed by the Baseline. The worst performing agents were from the Activation Function and the Neural Network experiments.
@@ -60,9 +63,9 @@ It is clear that the trained agent cumulative reward performance displays incons
 \end{figure}
 
 \subsection{Frequency Deviations}
-The optimally tuned PI controller maintained lower average frequency deviations in Areas 1 and 2, when compared to all experiments for both +0.01pu and -0.01pu step change disturbances at the 5, 10, 15, 20, and 25 sec marks. Baseline experiment and OU Noise experiments were able to show smaller maximum frequency deviations when compared to the PI controller in some instances. Figure \ref{fig:7203_max_freq} shows a comparison of the maximum frequency deviation of  the trained agents for a +0.01pu step change disturbance, and Figure \ref{fig:7204_avg_freq} shows a comparison of the average frequency deviation for the same scenario. Both figures include the PI benchmark for comparison.
+The optimally tuned PI controller maintained lower average frequency deviations in Areas 1 and 2 when compared to all experiments for both +0.01pu and -0.01pu step change disturbances at the 5, 10, 15, 20, and 25 sec marks. Baseline and OU Noise experiments were able to show smaller maximum frequency deviations when compared to the PI controller in some instances. Figure \ref{fig:7203_max_freq} shows a comparison of the maximum frequency deviation of  the trained agents for a +0.01pu step change disturbance at the 15 sec mark, and Figure \ref{fig:7204_avg_freq} shows a comparison of the average frequency deviation for the same scenario. Both figures include the PI benchmark for comparison. The worst performing experiment for both average and maximum frequency deviation was the Activation Function.
 
-talk about the performance of the figures in the results
+Despite the Baseline experiment having the best recorded performance, visual inspection of the frequency signal for Areas 1 and 2 show undesirable frequency oscillations occurring after the step change disturbance, resulting in an unusable policy for load frequency control. Oscillations such as these would cause unnecessary wear on generation units, and contribute to instability in the power system. Frequency control plots for the Baseline experiment are shown in Figures \ref{fig:6202_freq_1} and \ref{fig:6204_freq_2} in \textsection \ref{sec:baseline}.
 
 \begin{figure}[h]
 	\begin{minipage}[t]{0.50\textwidth}
@@ -77,7 +80,17 @@ talk about the performance of the figures in the results
 	\end{minipage}
 \end{figure}
 
-\clearpage
+More stable frequency signals were observed in both the OU Noise and Stochastic Load Demand experiments. 
+One way to avoid neural network over fitting for deep reinforcement learning over fitting is to ensure that the 
+
+
+
+talk about the best performers - are these visual inspections consistent with the metrics.
+
+there is a stand out performer in the stochastic load demand profile experiment.
+
+Frequency plots for Area 1 given a +0.01pu step change disturbance at the 15 sec mark for all experiments are shown in Figures \ref{fig:6202_freq_1}, \ref{fig:6302_freq_1}, \ref{fig:6402_freq_1}, \ref{fig:6502_freq_1}, \ref{fig:6602_freq_1}, \ref{fig:6702_freq_1}, and \ref{fig:6802_freq_1}. Frequency plots for Area 2 given a +0.01pu step change disturbance at the 15 sec mark for all experiments are shown in Figures \ref{fig:6204_freq_2}, \ref{fig:6304_freq_2}, \ref{fig:6404_freq_2}, \ref{fig:6504_freq_2}, \ref{fig:6604_freq_2}, \ref{fig:6704_freq_2}, and \ref{fig:6804_freq_2}.
+
 
 \subsection{Control Effort}
 
