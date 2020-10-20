@@ -124,7 +124,7 @@ It is common for a speed droop governor feedback control regime to perform prima
 %------------------------ SS: Modelling a Two Area System
 
 \subsection{Modelling a Two Area System} \label{ssec:modelling_two_area_system}
-The single area system presented in Section \ref{oneareapowersystem} is useful to help understand the role of governors and AGC in controlling power system frequency. In reality, power systems are comprised of many control areas connected by transmission lines, referred to as tie lines. Often, there is some net power transfer over the tie lines, dictated by contractual agreement. Single area models do not describe this additional complexity. The simplest model that includes tie lines is the two area power system, shown in Figure \ref{fig:2111_two_area_system}.
+The single area system presented in Section \ref{sec:modelling_a_single_area} is useful to help understand the role of governors and AGC in controlling power system frequency. In reality, power systems are comprised of many control areas connected by transmission lines, referred to as tie lines. Often, there is some net power transfer over the tie lines, dictated by contractual agreement. Single area models do not describe this additional complexity. The simplest model that includes tie lines is the two area power system, shown in Figure \ref{fig:2111_two_area_system}.
 
 \begin{figure}[h]
 	\centering
@@ -164,7 +164,7 @@ The control objective for a two area power system is to maintain the inter-area 
 
 Violation of power transfer contracts due to control issues does not allow for a stable market in which energy can be reliably traded. Fortunately, multi control area power systems are well understood, and classical control approaches have been successfully implemented to meet the new control objectives. In order to apply classical PI controllers to two-area power system control, a metric called Area Control Error (ACE) is used in the AGC feedback loop for each control area. ACE is a linear combination of the frequency deviations and tie-line power flows.
 
-The two-area power system can be modelled using governor, turbine, tie-line and generator-load models developed in \textsection \ref{sec:modlling_a_single_area} and \textsection \ref{ssec:control_two_area_system}. This is shown shown in Figure \ref{fig:208_two_area_pi_control_model}, in addition to the classical PI controller with ACE input.
+The two-area power system can be modelled using governor, turbine, tie-line and generator-load models developed in \textsection \ref{sec:modelling_a_single_area} and \textsection \ref{ssec:control_two_area_system}. This is shown shown in Figure \ref{fig:208_two_area_pi_control_model}, in addition to the classical PI controller with ACE input.
 
 \clearpage
 
