@@ -65,7 +65,7 @@ It is clear that the trained agent cumulative reward performance displays incons
 \subsection{Frequency Deviations}
 The optimally tuned PI controller maintained lower average frequency deviations in Areas 1 and 2 when compared to all experiments for both +0.01pu and -0.01pu step change disturbances at the 5, 10, 15, 20, and 25 sec marks. Baseline and OU Noise experiments were able to show smaller maximum frequency deviations when compared to the PI controller in some instances. Figure \ref{fig:7203_max_freq} shows a comparison of the maximum frequency deviation of  the trained agents for a +0.01pu step change disturbance at the 15 sec mark, and Figure \ref{fig:7204_avg_freq} shows a comparison of the average frequency deviation for the same scenario. Both figures include the PI benchmark for comparison. The worst performing experiment for both average and maximum frequency deviation was the Activation Function.
 
-Despite the Baseline experiment having the best recorded performance, visual inspection of the frequency signal for Areas 1 and 2 show undesirable frequency oscillations occurring after the step change disturbance, resulting in an unusable policy for load frequency control. Oscillations such as these would cause unnecessary wear on generation units, and contribute to instability in the power system. Frequency control plots for the Baseline experiment are shown in Figures \ref{fig:6202_freq_1} and \ref{fig:6204_freq_2} in \textsection \ref{sec:baseline}.
+Despite the Baseline experiment having the best recorded performance, visual inspection of the frequency signal for Areas 1 and 2 show undesirable oscillations occurring after the step change disturbance, resulting in an unusable policy for load frequency control. Oscillations such as these would cause unnecessary wear on generation units, and contribute to instability in the power system. Prior to the step change disturbance the controller was able to demonstrate similar levels of frequency stability seen in the PI controller. Frequency control plots for the Baseline experiment are shown in Figures \ref{fig:6202_freq_1} and \ref{fig:6204_freq_2}.
 
 \begin{figure}[h]
 	\begin{minipage}[t]{0.50\textwidth}
@@ -80,17 +80,9 @@ Despite the Baseline experiment having the best recorded performance, visual ins
 	\end{minipage}
 \end{figure}
 
-More stable frequency signals were observed in both the OU Noise and Stochastic Load Demand experiments. 
-One way to avoid neural network over fitting for deep reinforcement learning over fitting is to ensure that the 
+\newpage
 
-
-
-talk about the best performers - are these visual inspections consistent with the metrics.
-
-there is a stand out performer in the stochastic load demand profile experiment.
-
-Frequency plots for Area 1 given a +0.01pu step change disturbance at the 15 sec mark for all experiments are shown in Figures \ref{fig:6202_freq_1}, \ref{fig:6302_freq_1}, \ref{fig:6402_freq_1}, \ref{fig:6502_freq_1}, \ref{fig:6602_freq_1}, \ref{fig:6702_freq_1}, and \ref{fig:6802_freq_1}. Frequency plots for Area 2 given a +0.01pu step change disturbance at the 15 sec mark for all experiments are shown in Figures \ref{fig:6204_freq_2}, \ref{fig:6304_freq_2}, \ref{fig:6404_freq_2}, \ref{fig:6504_freq_2}, \ref{fig:6604_freq_2}, \ref{fig:6704_freq_2}, and \ref{fig:6804_freq_2}.
-
+Increased frequency signal stability was observed for both OU Noise and Stochastic Load Demand experiments. As with the Baseline controller, OU Noise and Stochastic Load Demand experiments demonstrated stability prior to the step change disturbance. Moreover, the agents did not develop control policies that resulted in frequency oscillations, but were instead observed dampen signal ringing. Despite the observed convergence of frequency signals, an offset persisted ultimately making the controllers incapable of restoring frequency deviations to zero. Frequency control plots for the OU Noise experiment are shown in Figures \ref{fig:6502_freq_1} and \ref{fig:6504_freq_2}. Frequency control plots for the Stochastic Load Demand experiment are shown in Figures \ref{fig:6802_freq_1} and \ref{fig:6804_freq_2}.
 
 \subsection{Control Effort}
 
