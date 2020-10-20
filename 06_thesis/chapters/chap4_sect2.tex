@@ -116,7 +116,7 @@ An identical neural network architecture to that used in Lillicrap \textit{et al
 	\label{tab:4101}
 \end{table}
 
-\subsection{Neural Network Experiment Details}
+\subsection{Neural Network Experiment Details}\label{sec:neural_network_approach}
 Islam \textit{et alias} has shown that policy network architecture selection can significantly impact results for DDPG. Specifically, the policy network architecture can impact the maximum reward that the agent can achieve \cite{Islam2017}. As such, this experiment shall examine a smaller network architecture commonly seen in the literature \cite{Henderson2017, Islam2017}. The network architecture shall consist of two hidden layers, both with 64 perceptrons. The network will retains the use of ReLU activation functions. A proposed neural network architecture for actor and critic networks to be used in this experiment is detailed in Table \ref{tab:4102}.
 
 \begin{table}[h]
@@ -138,7 +138,7 @@ Islam \textit{et alias} has shown that policy network architecture selection can
 	\label{tab:4102}
 \end{table}
 
-\subsection{Activation Function Experiment Details}
+\subsection{Activation Function Experiment Details}\label{sec:activation_function_approach}
 Certain activation functions, such as ReLU, have been shown to cause worsened learning performance due to the dying relu problem \cite{Xu2015}, outlined in \textsection \ref{sec:activation_functions}. As such, this experiment examines the use of LReLU activation functions. An identical neural network architecture to that used in the baseline experiment shall be used; however, LReLU activation functions will be implemented on neural network hidden layers. The proposed architecture is motivated by research undertaken by Henderson \textit{et alias} \cite{Henderson2017}, and is detailed in Table \ref{tab:activation_function_experiment_architecture}.
 
 \begin{table}[h]
@@ -160,17 +160,17 @@ Certain activation functions, such as ReLU, have been shown to cause worsened le
 	\label{tab:4101}
 \end{table}
 
-\subsection{OU Noise Hyperparameter Experiment Details}
+\subsection{OU Noise Hyperparameter Experiment Details}\label{sec:ou_noise_approach}
 Lillicrap \textit{et alias} used OU noise to ensure continuous action space exploration during training \cite{Lillicrap2015}. Typically, the noise process is decayed after each episode by some arbitrary amount, so that as agent training progresses there is less state-action space exploration and more policy exploitation. The benefits of state-action space exploration versus policy exploitation were prebiously discussed in \textsection \ref{sec:value_function_method}. The principal motivation for this experiment is to increase the amount of state-action space exploration to achieve better policy outcomes.
 
 For the OU noise experiment, neural network architectures and hyperparameters shall be identical to the baseline experiment. Moreover, the OU noise process parameters shall be identical to the parameters detailed in Table \ref{tab:5000_hyperparameters}. In all other experiments presented in this thesis, decay is applied to the OU noise process by multiplying OU noise parameters by a decay factor of 0.99 after each episode. This experiment shall use a 0.999 decay multiplier, resulting in the exploratory noise superimposed on control actions for longer.
 
-\subsection{Prioritised Experience Replay Experiment Details}
+\subsection{Prioritised Experience Replay Experiment Details}\label{sec:per_approach}
 Prioritised experience replay, originally developed by Schaul \textit{et alias} in 2015, is a modification to deep reinforcement learning architectures that allows an agent to place importance on experiences stored in the experience replay buffer \cite{Schaul2015}. Typically, experience is sampled uniformly during training; however, under a prioritised experience replay framework, experience with a higher importance is sampled more often. The idealised criterion on which importance is assigned to an experience is the amount the agent can learn from a transition from one state to another. While this is not directly accessible, Schaul \textit{et alias} proposed that a reasonable estimate is provided by the temporal difference error, which is an artefact of Q-learning presented in Algorithm \ref{alg:02_q_learning}.
 
 Since DDPG makes use of termporal difference methods, the prioritised experience replay experiment shall implement a prioritised experience replay framework. The motivation is that it will take less time for the agent to converge on a useful policy, meaning that subsequent stages of training should yield better policies.
 
-\subsection{Expert Learner Experiment Details}
+\subsection{Expert Learner Experiment Details}\label{sec:expert_learner_approach}
 A paper by Yan, published in late June 2020, demonstrated it was possible to develop a neural network for load frequency control of a two area power system. The neural network was trained using DDPG; however, the application of the DDPG algorithm was only to provide minor modification to pre-trained model weights. Model pre-trained consisted of supervised learning using a dataset obtained from an optimally tuned PI controller for the load frequency task \cite{Yan2020}. Yan noted further that without the use of pre-training the model using PI controller data randomly initialised DNNs may take a long time to converge on an optimal policy, or not converge at all.
 
 The expert learner experiment shall use a PI controller, optimised for the load frequency control task, to provide half of all experience in the memory buffer. This is motivated by the pre-training used by Yan, that saw neural network model weights pre-trained using the experience of a optimally tuned PI controller.

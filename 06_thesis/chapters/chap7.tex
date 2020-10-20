@@ -106,9 +106,7 @@ The similarity in the PI and Stochastic Load Demand control signals are even mor
 
 
 \subsection{Settling Time}
-The PI controller generally outperformed all experiments except the Expert Learner, Stochastic Load Demand, and Neural Network for both +0.01pu and -0.01 step change disturbances at the 5, 10, 15, 20, and 25 sec marks. Notably, the Baseline, OU Noise, Activation Function, and Priority Experience Replay experiments were not able to develop control policies that dampened frequency signals sufficiently to qualify for the settling time definition outlined in \textsection \ref{sec:agent_performance}. This meant that a settling time could not be obtained for these agents. As a result, the PI controller outperformed these experiments for this metric. Figures \ref{fig:7207_settling_time_area_1} and \ref{fig:7208_settling_time_area_2} show the settling times for Areas 1 and 2 given a +0.01pu step change disturbance 
-
-
+The PI controller outperformed the Baseline, OU Noise, Activation Function, and Priority Experience Replay experiments for settling times under all scenarios for Areas 1 and 2.
 
 \begin{figure}[h]
 	\begin{minipage}[t]{0.50\textwidth}
@@ -123,5 +121,8 @@ The PI controller generally outperformed all experiments except the Expert Learn
 	\end{minipage}
 \end{figure}
 
+For selected scenarios the Expert Learner, and Neural Network experiments were able to obtain better settling times that the PI Controller. The Stochastic Load Demand experiment outperformed the PI controller under all cases.
 
+The Baseline, OU Noise, Activation Function, and Priority Experience Replay experiments were not able to develop control policies that dampened frequency signals sufficiently to qualify for the settling time definition outlined in \textsection \ref{sec:agent_performance}. This meant that a settling time could not be obtained for these agents. The Stochastic Load Demand agent, and to a lesser degree Expert Learner and Neural Network agents, were often able to demonstrate settling times that were half that of the PI controller.
 
+Figures \ref{fig:7207_settling_time_area_1} and \ref{fig:7208_settling_time_area_2} show the settling times for Areas 1 and 2 given a +0.01pu step change disturbance 
