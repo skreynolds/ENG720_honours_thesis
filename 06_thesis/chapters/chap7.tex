@@ -41,7 +41,7 @@ The baseline experiment demonstrated the best MACR100 score at the 10000 episode
 \end{figure}
  
 \section{Trained Agent Performance}
-The optimally tuned PI controller was able to perform the load frequency control task better than trained agents over each experiment. This was evident across all performance metrics. Despite this short-falling, trained agents were still able to arrest frequency deviations, providing an improvement over a system with no controller. The Baseline experiment demonstrated the best results for most performance metrics; however, the Baseline control policy caused system frequency oscillations, ultimately making it unusable. Control policies observed in the OU Noise and Stochastic Load Demand experiment also performed well, exhibiting more stable control characteristics when compared to the Baseline control policy; however, persistent frequency deviation offsets rendered them unusable. 
+The optimally tuned PI controller was able to perform the load frequency control task better than trained agents across all experiments. This was evident for most performance metrics. Despite agent performance being worse than the PI controller, trained agents were still able to arrest frequency deviations, providing an improvement over a system with no controller. The Baseline experiment demonstrated the best results for most performance metrics; however, the Baseline control policy caused system frequency oscillations, ultimately making it unusable. Control policies observed in the OU Noise and Stochastic Load Demand experiment also performed well. These agents exhibited more stable control characteristics when compared to the Baseline control policy; however, persistent frequency deviation offsets rendered them unusable. 
 
 The remainder of this chapter discusses the trained agent performance with respect to each of the performance metrics.
 
@@ -63,7 +63,7 @@ It is clear that the trained agent cumulative reward performance displays incons
 \end{figure}
 
 \subsection{Frequency Deviations}
-The optimally tuned PI controller maintained lower average frequency deviations in Areas 1 and 2 when compared to all experiments for both +0.01pu and -0.01pu step change disturbances at the 5, 10, 15, 20, and 25 sec marks. Baseline and OU Noise experiments were able to show smaller maximum frequency deviations when compared to the PI controller in some instances. Figure \ref{fig:7203_max_freq} shows a comparison of the maximum frequency deviation of  the trained agents for a +0.01pu step change disturbance at the 15 sec mark, and Figure \ref{fig:7204_avg_freq} shows a comparison of the average frequency deviation for the same scenario. Both figures include the PI benchmark for comparison. The worst performing experiment for both average and maximum frequency deviation was the Activation Function.
+The optimally tuned PI controller demonstrated better performance, maintaining lower average absolute frequency deviations in Areas 1 and 2 when compared to all experiments for both +0.01pu and -0.01pu step change disturbances at the 5, 10, 15, 20, and 25 sec marks. Baseline and OU Noise experiments were able to show smaller maximum frequency deviations when compared to the PI controller in some instances. Figure \ref{fig:7203_max_freq} shows a comparison of the maximum frequency deviation of  the trained agents for a +0.01pu step change disturbance at the 15 sec mark, and Figure \ref{fig:7204_avg_freq} shows a comparison of the average frequency deviation for the same scenario. Both figures include the PI benchmark for comparison. The worst performing experiment for both average and maximum frequency deviation was the Activation Function.
 
 Despite the Baseline experiment having the best recorded performance, visual inspection of the frequency signal for Areas 1 and 2 show undesirable oscillations occurring after the step change disturbance, resulting in an unusable policy for load frequency control. Oscillations such as these would cause unnecessary wear on generation units, and contribute to instability in the power system. Prior to the step change disturbance the controller was able to demonstrate similar levels of frequency stability seen in the PI controller. Frequency control plots for the Baseline experiment are shown in Figures \ref{fig:6202_freq_1} and \ref{fig:6204_freq_2}.
 
@@ -80,38 +80,48 @@ Despite the Baseline experiment having the best recorded performance, visual ins
 	\end{minipage}
 \end{figure}
 
-\newpage
-
-Increased frequency signal stability was observed for both OU Noise and Stochastic Load Demand experiments. As with the Baseline controller, OU Noise and Stochastic Load Demand experiments demonstrated stability prior to the step change disturbance. Moreover, the agents did not develop control policies that resulted in frequency oscillations, but were instead observed dampen signal ringing. Despite the observed convergence of frequency signals, an offset persisted ultimately making the controllers incapable of restoring frequency deviations to zero. Frequency control plots for the OU Noise experiment are shown in Figures \ref{fig:6502_freq_1} and \ref{fig:6504_freq_2}. Frequency control plots for the Stochastic Load Demand experiment are shown in Figures \ref{fig:6802_freq_1} and \ref{fig:6804_freq_2}.
+Increased frequency signal stability was observed for both OU Noise and Stochastic Load Demand experiments. Similarly to the Baseline controller, the OU Noise experiment maintained stability prior to the step change disturbance, although the Stochastic Load Demand experiment did not. Both agents were observed to dampen signal ringing; however, despite apparent frequency signal convergence, a zero level offset persisted. This implies OU Noise and Stochastic Load Demand agents, in their current state, are incapable of restoring frequency deviations after a disturbance. This makes them unsuitable for use as load frequency controllers. Frequency control plots for the OU Noise experiment are shown in Figures \ref{fig:6502_freq_1} and \ref{fig:6504_freq_2}. Frequency control plots for the Stochastic Load Demand experiment are shown in Figures \ref{fig:6802_freq_1} and \ref{fig:6804_freq_2}. It is worth highlighting that, but for the offsets, frequency signals are very similar to the tuned PI controller as indicated by the dotted lines.
 
 \subsection{Control Effort}
+The optimally tuned PI controller demonstrated a maximum absolute control effort that was equal to or less than that for all experiments for Areas 1 and 2. Despite this result, on average the PI controller used more control effort throughout the simulation. In particular, the OU Noise, Baseline, and Priority Experience Replay agents out performed the PI controller for this metric.
 
 \begin{figure}[h]
 	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7205_ctl_effort_comparison/ctl_effort_comparison.tikz}}
-		\caption{Maximum control effort for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}
+		\caption{Maximum control effort for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7205_max_ctl_effort}
 	\end{minipage}
 	\hspace{0.25cm}
 	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7206_ctl_effort_comparison/ctl_effort_comparison.tikz}}
-		\caption{Average control effort for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}
+		\caption{Average control effort for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7205_avg_ctl_effort}
 	\end{minipage}
 \end{figure}
 
-\clearpage
+Figures \ref{fig:7205_max_ctl_effort} and \ref{fig:7205_avg_ctl_effort} show the maximum and average control effort for Area 1 given a +0.01pu step change disturbance at the 15 sec mark, respectively.
+
+A visual inspection of the control signal for the OU Noise experiment highlights that the control signal is very similar to that of the optimally tuned PI controller. The principal difference between PI and OU Noise control signals are the Area 1 signal being too low, and the Area 2 signal being too high. Furthermore, there is a small deviation in the control signal prior to the disturbance which results in unnecessary frequency deviations. The control signals in Areas 1 and 2 for the OU Noise experiment given a +0.01pu step change disturbance at the 15 sec mark are shown in Figures \ref{fig:6503_ctl_1} and \ref{fig:6505_ctl_2}, respectively.
+
+The similarity in the PI and Stochastic Load Demand control signals are even more pronounced. Notably, after the step change disturbance, the control signal tracks the PI control signal very closely. The principal different is prior to the step change disturbance where the Stochastic Load Demand control signal demonstrates some oscillatory behaviour resulting in unnecessary frequency disturbance. The control signals in Areas 1 and 2 for the Stochastic Load Demand experiment given a +0.01pu step change disturbance at the 15 sec mark are shown in Figures \ref{fig:6803_ctl_1} and \ref{fig:6805_ctl_2}, respectively.
+
 
 \subsection{Settling Time}
+The PI controller generally outperformed all experiments except the Expert Learner, Stochastic Load Demand, and Neural Network for both +0.01pu and -0.01 step change disturbances at the 5, 10, 15, 20, and 25 sec marks. Notably, the Baseline, OU Noise, Activation Function, and Priority Experience Replay experiments were not able to develop control policies that dampened frequency signals sufficiently to qualify for the settling time definition outlined in \textsection \ref{sec:agent_performance}. This meant that a settling time could not be obtained for these agents. As a result, the PI controller outperformed these experiments for this metric. Figures \ref{fig:7207_settling_time_area_1} and \ref{fig:7208_settling_time_area_2} show the settling times for Areas 1 and 2 given a +0.01pu step change disturbance 
+
+
 
 \begin{figure}[h]
 	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7207_frequency_comparison/macr100_comparison.tikz}}
-		\caption{Trained agent settling time in Area 1 for the +0.01pu step change disturbance at the 15 sec mark.}
+		\caption{Trained agent settling time in Area 1 for the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7207_settling_time_area_1}
 	\end{minipage}
 	\hspace{0.25cm}
 	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7208_macr100_comparison/macr100_comparison.tikz}}
-		\caption{Trained agent settling time in Area 2 for the +0.01pu step change disturbance at the 15 sec mark.}
+		\caption{Trained agent settling time in Area 2 for the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7208_settling_time_area_2}
 	\end{minipage}
 \end{figure}
+
+
+

@@ -15,6 +15,13 @@ Current control methods use classical feedback loop techniques. These methods ca
 \section{Research Aim}
 The principle aim of this research is to compare the performance of known, optimised feedback loop controller architectures against a DRL based control system when tasked with performing load following ancillary services with regulating generators under automatic generation control (AGC) for a two-area power system. This research will be undertaken in order to understand the feasibility of using DRL agents for two-area power system management.
 
+\section{Scope}
+The proposed research is concerned with the task of load frequency control using deep reinforcement learning and classical control agents. For the purposes of this research, load frequency control is defined as maintaining system frequency within an allowable region of 49.80 to 50.20$\si{\hertz}$ which are considered to be normal power system operating conditions.
+
+The key performance aspects that will assessed are the controller's ability to maintain system frequency to the desired nominal 50$\si{\hertz}$ value.
+
+The research will focus on two area power systems. Each power area will consist of one regulating generator, and one stochastically fluctuating demand profile. The generator model shall be composed of a governor, turbine, and generator load. The research will primarily consider system frequency as the main controller input; however, other system variables may be used as input features under agent training and inference regimes. Comparison of DRL agent performance will be made against theoretical models of classical control architectures. Performance against practical control architectures implemented by PWC (or other utilities) will not be considered. Research will be conducted in a simulated environment. Agent performance on real hardware will not be explored.
+
 \section{Structure of Interim Report}
 The remainder of this report is structured as follows:
 
@@ -22,8 +29,12 @@ Chapter 2 introduces the necessary background to understand work presented later
 
 Chapter 3 undertakes a literature review exploring different technologies used to address the load frequency control problem. Topics discussed include feedback loops, fuzzy logic, genetic algorithms, and artificial neural networks. The chapter concludes with a review of DRL applications to load frequency control and the motivation for using these controllers.
 
-Chapter 4 outlines the research approach, providing a discussion on model development and implementation, a framework for preliminary investigations, and concludes by establishing the main experimental approach for assessing DRL controller feasibility for load frequency control.
+Chapter 4 outlines the research approach, providing a discussion on model development and implementation, and a framework for an experimental approach for assessing Deep Reinforcement Learning feasibility for training a neural network for the task of load frequency control.
 
-Chapter 5 presents results from a partially completed preliminary investigation.
+Chapter 5 presents results from the development phase of the research. This includes mathematical model development for simulation environment and controller models. Additionally, the chapter details software implementation for developed models, neural networks, and deep reinforcement learning algorithms.
 
-Chapter 6 provides a discussion on findings from Chapter 5 and evaluates feasibility of the proposed DRL controller. Chapter concludes with recommendations for the continued direction of this work.
+Chapter 6 presents the experimental results including neural network training, and 
+
+Chapter 7 provides a discussion on findings from Chapter 5 and evaluates feasibility of the proposed DRL controller. Chapter concludes with recommendations for the continued direction of this work.
+
+Chapter 8 concludes the research by restating the problem definition, outlining the experimental approach, and summarising the research findings. The chapter highlights useful insights and nominates future directions for the application of deep reinforcement learning to the problem of load frequency control.
