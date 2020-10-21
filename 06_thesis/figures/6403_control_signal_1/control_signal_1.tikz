@@ -26,7 +26,7 @@ scaled y ticks=base 10:3,
 width=14cm,
 height=5cm,
 xlabel=Time (sec),
-ylabel=Control Signal
+ylabel=Control Signal (pu)
 %y label style={at={(-0.2,0.5)}}
 ]
 

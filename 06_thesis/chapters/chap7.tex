@@ -15,12 +15,12 @@ During the early stages of training all experiments demonstrated a period during
 	\centering
 	
 	\input{./figures/7101_learning_comparison/learning_comparison_plot.tikz}
-	\caption{Comparison of the MACR100 evolution for all experiments during the first 5000 episodes of training.}\label{fig:7101_MACR100_first}
+	\caption[MACR100 comparison for first 5000 episodes]{Comparison of the MACR100 evolution for all experiments during the first 5000 episodes of training.}\label{fig:7101_MACR100_first}
 	
 	\vspace{0.5cm}
 	
 	\input{./figures/7102_learning_comparison/learning_comparison_plot.tikz}
-	\caption{Comparison of the MACR100 evolution for all experiments during the final 5000 episodes of training.}\label{fig:7102_MACR100_second}
+	\caption[MACR100 comparison for last 5000 episodes]{Comparison of the MACR100 evolution for all experiments during the final 5000 episodes of training.}\label{fig:7102_MACR100_second}
 \end{figure}
 
 \clearpage
@@ -53,12 +53,12 @@ It is clear that the trained agent cumulative reward performance displays incons
 	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7201_cum_reward_comparison/cum_reward_comparison.tikz}}
-		\caption{Trained agent cumulative reward for a +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7201_cum_reward_pos}
+		\caption[Cumulative reward comparison for +0.01pu step change]{Trained agent cumulative reward for a +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7201_cum_reward_pos}
 	\end{minipage}
 	\hspace{0.25cm}
 	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7202_cum_reward_comparison/cum_reward_comparison.tikz}}
-		\caption{Trained agent cumulative reward for a -0.01pu step change disturbance at the 15 sec mark.}\label{fig:7202_cum_reward_neg}
+		\caption[Cumulative reward comparison for +0.01pu step change]{Trained agent cumulative reward for a -0.01pu step change disturbance at the 15 sec mark.}\label{fig:7202_cum_reward_neg}
 	\end{minipage}
 \end{figure}
 
@@ -71,12 +71,12 @@ Despite the Baseline experiment having the best recorded performance, visual ins
 	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7203_frequency_comparison/frequency_comparison.tikz}}
-		\caption{Maximum frequency deviation for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7203_max_freq}
+		\caption[Maximum absolute frequency deviation comparison]{Maximum frequency deviation for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7203_max_freq}
 	\end{minipage}
 	\hspace{0.25cm}
 	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7204_frequency_comparison/frequency_comparison.tikz}}
-		\caption{Average frequency deviation for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7204_avg_freq}
+		\caption[Average absolute frequency deviation comparison]{Average frequency deviation for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7204_avg_freq}
 	\end{minipage}
 \end{figure}
 
@@ -89,12 +89,12 @@ The optimally tuned PI controller demonstrated a maximum absolute control effort
 	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7205_ctl_effort_comparison/ctl_effort_comparison.tikz}}
-		\caption{Maximum control effort for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7205_max_ctl_effort}
+		\caption[Maximum absolute control effort comparison]{Maximum control effort for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7205_max_ctl_effort}
 	\end{minipage}
 	\hspace{0.25cm}
 	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7206_ctl_effort_comparison/ctl_effort_comparison.tikz}}
-		\caption{Average control effort for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7205_avg_ctl_effort}
+		\caption[Average absolute control effort comparison]{Average control effort for the trained agent in Area 1 during the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7205_avg_ctl_effort}
 	\end{minipage}
 \end{figure}
 
@@ -112,12 +112,12 @@ The PI controller outperformed the Baseline, OU Noise, Activation Function, and 
 	\begin{minipage}[t]{0.50\textwidth}
 		\centering
 		\resizebox{7cm}{!}{\input{./figures/7207_frequency_comparison/macr100_comparison.tikz}}
-		\caption{Trained agent settling time in Area 1 for the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7207_settling_time_area_1}
+		\caption[Area 1 settling time comparison]{Trained agent settling time in Area 1 for the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7207_settling_time_area_1}
 	\end{minipage}
 	\hspace{0.25cm}
 	\begin{minipage}[t]{0.50\textwidth}
 		\resizebox{7cm}{!}{\input{./figures/7208_macr100_comparison/macr100_comparison.tikz}}
-		\caption{Trained agent settling time in Area 2 for the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7208_settling_time_area_2}
+		\caption[Area 2 settling time comparison]{Trained agent settling time in Area 2 for the +0.01pu step change disturbance at the 15 sec mark.}\label{fig:7208_settling_time_area_2}
 	\end{minipage}
 \end{figure}
 
