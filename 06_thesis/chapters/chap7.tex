@@ -125,4 +125,12 @@ For selected scenarios the Expert Learner, and Neural Network experiments were a
 
 The Baseline, OU Noise, Activation Function, and Priority Experience Replay experiments were not able to develop control policies that dampened frequency signals sufficiently to qualify for the settling time definition outlined in \textsection \ref{sec:agent_performance}. This meant that a settling time could not be obtained for these agents. The Stochastic Load Demand agent, and to a lesser degree Expert Learner and Neural Network agents, were often able to demonstrate settling times that were half that of the PI controller.
 
-Figures \ref{fig:7207_settling_time_area_1} and \ref{fig:7208_settling_time_area_2} show the settling times for Areas 1 and 2 given a +0.01pu step change disturbance 
+Figures \ref{fig:7207_settling_time_area_1} and \ref{fig:7208_settling_time_area_2} show the settling times for Areas 1 and 2 given a +0.01pu step change disturbance.
+
+\section{Explanations for DDPG Under-performance}
+The DDPG trained neural network was unable to outperform the PI controller for the load frequency control problem. Although it is beyond the scope of this thesis to critically analyse the reasons why this occurred, some possible explanations for the observation are as follows:
+\begin{itemize}
+	\item \textbf{Poor reward structure:} the reward function selection may result in a complicated and highly variable cost manifold when applied to the load frequency control problem. The selected reward function structure should theoretically allow for an optimisation algorithm to find a globally optimised control strategy that allows the neural network to move the episodic cumulative reward towards zero. For a given reward function, however simple, it is difficult to anticipate if there will be many deep local minimums that prevent the globally optimal control solution being found.
+	\item \textbf{Small neural network architecture:} the neural network architecture may not be big enough to provide for fine control adjustment required to reduce the observed frequency offsets to zero. A larger network may be able to provide finer adjustments allowing the neural network controller to reduce offsets; however, the trade off is longer training times.
+	\item \textbf{Incorrect software implementation:} the software stack for DDPG, neural networks, and environment simulation is complicated and dependent on many existing libraries. Despite verification works to provide reasonable assurance developed software was working as intended, a programming error could result in the DDPG algorithm being unable to converge on an optimal control solution. 
+\end{itemize}

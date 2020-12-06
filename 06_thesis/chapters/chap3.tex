@@ -1,5 +1,5 @@
 \chapter{Literature Review}
-To appreciate historical developments in the field of load frequency control, this chapter first considers industry standard solutions, and the motivations for their continued use. Following this, alternative control approaches are considered including fuzzy logic control, genetic algorithms, and artificial neural networks. The chapter concludes with an analysis deep reinforcement learning applied to the load frequency control problem.
+To appreciate historical developments in the field of load frequency control, this chapter first considers industry standard solutions, and the motivations for their continued use. Following this, alternative control approaches are considered including fuzzy logic control, genetic algorithms, artificial neural networks, and deep reinforcement learning. The chapter concludes with summary of the benefits and drawbacks for each load frequency control strategy presented in the literature review.
 
 \section{Classical Controllers}\label{agc}
 The first attempts at power system frequency control was using a flywheel governor attached to the synchronous machines \cite{Prabhat2005}. Originally, as discussed in \textsection \ref{sec:governor_model}, turbine governors were mechanically coupled to generator shafts providing a built-in proportional feedback control loop. As the frequency deviated from the generator's set point, the governor would open or close a steam valve to increase or decrease the rotational speed accordingly. This type of control is often referred to as the primary control loop \cite{Bevrani2011}, as discussed in \textsection \ref{sec:control_one_area_system}. Early synchronous machine operators found that primary loop governor control would require constant tuning to ensure that the power system was operating at the scheduled frequency \cite{Cohn1983}. Analysis undertaken using first-order linear models for the governor, turbine, and generation load control confirmed that governor primary loop control was able to arrest frequency deviations; however, was unable to return the system to scheduled operating frequencies \cite{Saadat2011}. Subsequently, a secondary feedback control loop was introduced which used the integral of frequency deviations, as discussed in \textsection \ref{ssec:control_two_area_system}. The PI control scheme constitutes the classical approach to solving the load frequency control problem \cite{Prabhat2005}.
@@ -32,3 +32,105 @@ A literature survey on deep reinforcement learning for power system applications
 
 The study, published in 2019 by Yan and Xu, used a DDPG trained neural network to control the frequency of a single simulated power area consisting of a non-reheat steam turbine, wind turbine, and stochastic load demand. Yan and Xu concluded that the DDPG trained neural network was able to provide control action that resulted in reduced frequency deviation when compared to an optimally tuned PI controller \cite{Yan2019}. A further study, published by Yan in 2020, demonstrated that it was possible to use a DDPG trained neural network to perform load frequency control for a two area power system, provided the neural network model weights were pre-trained. Pre-training was based on a supervised learning approach using data from an optimally tuned classical controller. Yan noted that without pre-training it would be very difficult, even impossible, for a DDPG agent to converge on an optimal control solution for the load frequency control task \cite{Yan2020}.
 
+\begin{landscape}
+
+\section{Summary}
+
+%\begin{table}[h]
+	\begin{longtable}{p{4cm}p{9cm}p{9cm}}
+	\toprule
+	\textbf{Controller} & \textbf{Benefits} & \textbf{Drawbacks} \\
+	\midrule
+	\endhead
+	Classical &
+	\begin{minipage}[t]{\linewidth}
+	\begin{itemize}
+		\itemsep0em
+		\item Well understood, and proven load frequency control method
+		\item Easy to tune controller for effective sub-optimal control
+		\item Able to cope with frequency deviations in systems that can be dynamically approximated with linear models
+		\item Widely used to perform load frequency control in modern power systems
+	\end{itemize}
+	\end{minipage} & 
+	\begin{minipage}[t]{\linewidth}
+	\begin{itemize}
+		\itemsep0em
+		\item More non-linear plant in a power system can result in decreased control performance
+		\item Can be difficult to optimally tune the controller due to power system complexity
+		\item As plant ages, fixed gain controllers require re-tuning
+	\end{itemize}
+	\end{minipage}\\
+	% % %
+	 & & \\
+	Fuzzy Logic &
+	\begin{minipage}[t]{\linewidth}
+	\begin{itemize}
+		\itemsep0em
+		\item Easier to implement than PI controllers
+		\item Performance in transient state can outperform PI controllers
+		\item More capable at dealing with load frequency control for non-linear plant models
+	\end{itemize}
+	\end{minipage} &
+	\begin{minipage}[t]{\linewidth}
+	\begin{itemize}
+		\itemsep0em
+		\item Performance in the steady state is equal to or worse than an optimally tuned PI controller
+		\item Controllers are developed from power system control domain experts, so an existing manual control system with a highly trained human operator is required for controller development
+		\item Fixed gain means controller redevelopment is required periodically as plant characteristics change with age
+	\end{itemize}
+	\end{minipage}\\
+	% % %
+	Genetic Algorithm PI &
+	\begin{minipage}[t]{\linewidth}
+	\begin{itemize}
+		\itemsep0em
+		\item Controller is capable of converging on optimally tuned PI controller parameters given enough generational iterations
+		\item GA can be set to run continuously (i.e. online) meaning control gains change over time to adapt to aging plant characteristics
+		\item Improved transient performance when compared to classical PI controller
+	\end{itemize}
+	\end{minipage} &
+	\begin{minipage}[t]{\linewidth}
+	\begin{itemize}
+		\itemsep0em
+		\item Controllers are typically PI with optimally tuned parameters (achieved with GA), and thus decreased performance is observed for increasingly non-linear plant models
+	\end{itemize}
+	\end{minipage}\\
+	% % %
+	 & & \\
+	Neural Network &
+	\begin{minipage}[t]{\linewidth}
+	\begin{itemize}
+		\itemsep0em
+		\item Better transient control performance can be achieved than optimally trained PI controllers
+		\item Able to effectively control non-linear plant models
+	\end{itemize}
+	\end{minipage} &
+	\begin{minipage}[t]{\linewidth}
+	\begin{itemize}
+		\itemsep0em
+		\item Effective network training is subject to determining suitable training hyperparameters which can require extensive experimentation
+		\item Structured data to train the neural network can only be acquired by observing an existing PI controller (or other controller) performing the task of load frequency control on the power system
+	\end{itemize}
+	\end{minipage}\\
+	% % %
+	Deep Reinforcement Learning &
+	\begin{minipage}[t]{\linewidth}
+	\begin{itemize}
+		\itemsep0em
+		\item Able to provide better control performance than PI controller
+		\item Can effectively control non-linear plant models
+		\item Does not require existing control system to capture data
+	\end{itemize}
+	\end{minipage} &
+	\begin{minipage}[t]{\linewidth}
+	\begin{itemize}
+		\itemsep0em
+		\item Complicate to develop architecture to train neural network
+		\item Given stochastic nature of training there is a high probability that agent will converge on sub-optimal control policy
+	\end{itemize}
+	\end{minipage}\\
+	\bottomrule
+	\end{longtable}
+%\end{table}
+
+\end{landscape}

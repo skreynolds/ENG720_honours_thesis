@@ -28,3 +28,19 @@ Note that once the PI controller has stepped forward in time during simulation t
 \end{align}
 
 A full derivation of the first order linear system described by equations \ref{eq:4108} and \ref{eq:4109} is described in Appendix \ref{sec:temporal_domain_for_pi_controller}. The system of equations is implemented as a method \verb|int_control_system_sim| in a Python class \verb|ClassicalPiController|. Implementation for \verb|int_control_system_sim| is detailed in Appendix \ref{sec:implementation_of_controller}.
+
+Model parameters were selected from research undertaken by Nanda and Kaul which optimised the controller using an integral squared error technique \cite{Nanda1977}. These PI controller values are widely used as a basis for comparison against experimental control techniques in the load frequency control literature. The parameter value selection for the PI controller is shown in Table \ref{tab:5201}.
+
+\begin{table}[h]
+	\centering
+	\caption[PI controller parameters]{PI controller parameters used for simulation experiments.}\label{tab:5201_pi_parameter_selection}
+	\begin{tabular}{llr}
+		\toprule
+		\textbf{Description} & \textbf{Parameter} & \textbf{Value} \\
+		\midrule
+		Proportional Gain & $R_1$, $R_2$ & 2.4 \\
+		Integral Gain & $K_{i_1}$, $K_{i_2}$, & -0.671 \\
+		 & $b_1$, $b_2$ & 0.425 \\
+		\bottomrule
+	\end{tabular}\label{tab:5201}
+\end{table} 
